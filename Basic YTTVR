@@ -1,1 +1,1865 @@
-{"metadata":{"kernelspec":{"language":"python","display_name":"Python 3","name":"python3"},"language_info":{"name":"python","version":"3.10.14","mimetype":"text/x-python","codemirror_mode":{"name":"ipython","version":3},"pygments_lexer":"ipython3","nbconvert_exporter":"python","file_extension":".py"},"kaggle":{"accelerator":"none","dataSources":[{"sourceId":7233960,"sourceType":"datasetVersion","datasetId":4188923}],"dockerImageVersionId":30804,"isInternetEnabled":true,"language":"python","sourceType":"notebook","isGpuEnabled":false}},"nbformat_minor":4,"nbformat":4,"cells":[{"cell_type":"code","source":"# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\nimport pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\nimport os\nfor dirname, _, filenames in os.walk('/kaggle/input'):\n    for filename in filenames:\n        print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session","metadata":{"_uuid":"8f2839f25d086af736a60e9eeb907d3b93b6e0e5","_cell_guid":"b1076dfc-b9ad-4769-8c92-a6c4dae69d19","trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:51.868382Z","iopub.execute_input":"2024-12-08T00:25:51.868757Z","iopub.status.idle":"2024-12-08T00:25:51.878567Z","shell.execute_reply.started":"2024-12-08T00:25:51.868724Z","shell.execute_reply":"2024-12-08T00:25:51.877384Z"}},"outputs":[{"name":"stdout","text":"/kaggle/input/youtube-trending-videos-dataset/youtube.csv\n","output_type":"stream"}],"execution_count":123},{"cell_type":"code","source":"data = pd.read_csv(r\"/kaggle/input/youtube-trending-videos-dataset/youtube.csv\")","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:51.882726Z","iopub.execute_input":"2024-12-08T00:25:51.883062Z","iopub.status.idle":"2024-12-08T00:25:53.240997Z","shell.execute_reply.started":"2024-12-08T00:25:51.883032Z","shell.execute_reply":"2024-12-08T00:25:53.239831Z"}},"outputs":[],"execution_count":124},{"cell_type":"markdown","source":"# EDA","metadata":{}},{"cell_type":"code","source":"data.shape","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.243741Z","iopub.execute_input":"2024-12-08T00:25:53.244224Z","iopub.status.idle":"2024-12-08T00:25:53.251325Z","shell.execute_reply.started":"2024-12-08T00:25:53.244175Z","shell.execute_reply":"2024-12-08T00:25:53.250241Z"}},"outputs":[{"execution_count":125,"output_type":"execute_result","data":{"text/plain":"(161470, 18)"},"metadata":{}}],"execution_count":125},{"cell_type":"code","source":"data.info()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.252617Z","iopub.execute_input":"2024-12-08T00:25:53.253101Z","iopub.status.idle":"2024-12-08T00:25:53.340531Z","shell.execute_reply.started":"2024-12-08T00:25:53.253049Z","shell.execute_reply":"2024-12-08T00:25:53.339454Z"}},"outputs":[{"name":"stdout","text":"<class 'pandas.core.frame.DataFrame'>\nRangeIndex: 161470 entries, 0 to 161469\nData columns (total 18 columns):\n #   Column                  Non-Null Count   Dtype \n---  ------                  --------------   ----- \n 0   index                   161470 non-null  int64 \n 1   video_id                161470 non-null  object\n 2   trending_date           161470 non-null  object\n 3   title                   161470 non-null  object\n 4   channel_title           161470 non-null  object\n 5   category_id             161470 non-null  int64 \n 6   publish_date            161470 non-null  object\n 7   time_frame              161470 non-null  object\n 8   published_day_of_week   161470 non-null  object\n 9   publish_country         161470 non-null  object\n 10  tags                    161470 non-null  object\n 11  views                   161470 non-null  int64 \n 12  likes                   161470 non-null  int64 \n 13  dislikes                161470 non-null  int64 \n 14  comment_count           161470 non-null  int64 \n 15  comments_disabled       161470 non-null  bool  \n 16  ratings_disabled        161470 non-null  bool  \n 17  video_error_or_removed  161470 non-null  bool  \ndtypes: bool(3), int64(6), object(9)\nmemory usage: 18.9+ MB\n","output_type":"stream"}],"execution_count":126},{"cell_type":"code","source":"xdata = data.copy()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.342781Z","iopub.execute_input":"2024-12-08T00:25:53.343119Z","iopub.status.idle":"2024-12-08T00:25:53.359078Z","shell.execute_reply.started":"2024-12-08T00:25:53.343088Z","shell.execute_reply":"2024-12-08T00:25:53.357877Z"}},"outputs":[],"execution_count":127},{"cell_type":"code","source":"data.sample(2)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.360313Z","iopub.execute_input":"2024-12-08T00:25:53.360611Z","iopub.status.idle":"2024-12-08T00:25:53.380847Z","shell.execute_reply.started":"2024-12-08T00:25:53.360583Z","shell.execute_reply":"2024-12-08T00:25:53.379713Z"}},"outputs":[{"execution_count":128,"output_type":"execute_result","data":{"text/plain":"         index     video_id trending_date  \\\n46100    46100  r5g85U5lJso      17.09.12   \n100173  100173  Tmk9oC7GY28      18.25.02   \n\n                                                    title channel_title  \\\n46100                                    Yo Gotti - Juice   yogottiVEVO   \n100173  Quand Pauleta a refusÃ© le maillot dâ€™un joue...     Volmog 16   \n\n        category_id publish_date      time_frame published_day_of_week  \\\n46100            10   30/11/2017  11:00 to 11:59              Thursday   \n100173           17   24/02/2018  14:00 to 14:59              Saturday   \n\n       publish_country                                               tags  \\\n46100               GB  yo gotti|\"juice\"|\"i still am\"|\"i still am full...   \n100173          FRANCE                                             [none]   \n\n          views  likes  dislikes  comment_count  comments_disabled  \\\n46100   1565887  35180      1399           1343              False   \n100173     2797      5         1              0              False   \n\n        ratings_disabled  video_error_or_removed  \n46100              False                   False  \n100173             False                   False  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>index</th>\n      <th>video_id</th>\n      <th>trending_date</th>\n      <th>title</th>\n      <th>channel_title</th>\n      <th>category_id</th>\n      <th>publish_date</th>\n      <th>time_frame</th>\n      <th>published_day_of_week</th>\n      <th>publish_country</th>\n      <th>tags</th>\n      <th>views</th>\n      <th>likes</th>\n      <th>dislikes</th>\n      <th>comment_count</th>\n      <th>comments_disabled</th>\n      <th>ratings_disabled</th>\n      <th>video_error_or_removed</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>46100</th>\n      <td>46100</td>\n      <td>r5g85U5lJso</td>\n      <td>17.09.12</td>\n      <td>Yo Gotti - Juice</td>\n      <td>yogottiVEVO</td>\n      <td>10</td>\n      <td>30/11/2017</td>\n      <td>11:00 to 11:59</td>\n      <td>Thursday</td>\n      <td>GB</td>\n      <td>yo gotti|\"juice\"|\"i still am\"|\"i still am full...</td>\n      <td>1565887</td>\n      <td>35180</td>\n      <td>1399</td>\n      <td>1343</td>\n      <td>False</td>\n      <td>False</td>\n      <td>False</td>\n    </tr>\n    <tr>\n      <th>100173</th>\n      <td>100173</td>\n      <td>Tmk9oC7GY28</td>\n      <td>18.25.02</td>\n      <td>Quand Pauleta a refusÃ© le maillot dâ€™un joue...</td>\n      <td>Volmog 16</td>\n      <td>17</td>\n      <td>24/02/2018</td>\n      <td>14:00 to 14:59</td>\n      <td>Saturday</td>\n      <td>FRANCE</td>\n      <td>[none]</td>\n      <td>2797</td>\n      <td>5</td>\n      <td>1</td>\n      <td>0</td>\n      <td>False</td>\n      <td>False</td>\n      <td>False</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":128},{"cell_type":"code","source":"xdata = xdata[['video_id','title','views','likes','dislikes','comment_count','category_id']]","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.382257Z","iopub.execute_input":"2024-12-08T00:25:53.382735Z","iopub.status.idle":"2024-12-08T00:25:53.400401Z","shell.execute_reply.started":"2024-12-08T00:25:53.382689Z","shell.execute_reply":"2024-12-08T00:25:53.399077Z"}},"outputs":[],"execution_count":129},{"cell_type":"code","source":"xdata.shape","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.401894Z","iopub.execute_input":"2024-12-08T00:25:53.402242Z","iopub.status.idle":"2024-12-08T00:25:53.409062Z","shell.execute_reply.started":"2024-12-08T00:25:53.402208Z","shell.execute_reply":"2024-12-08T00:25:53.407969Z"}},"outputs":[{"execution_count":130,"output_type":"execute_result","data":{"text/plain":"(161470, 7)"},"metadata":{}}],"execution_count":130},{"cell_type":"code","source":"xdata.info()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.410341Z","iopub.execute_input":"2024-12-08T00:25:53.410767Z","iopub.status.idle":"2024-12-08T00:25:53.448158Z","shell.execute_reply.started":"2024-12-08T00:25:53.410732Z","shell.execute_reply":"2024-12-08T00:25:53.446988Z"}},"outputs":[{"name":"stdout","text":"<class 'pandas.core.frame.DataFrame'>\nRangeIndex: 161470 entries, 0 to 161469\nData columns (total 7 columns):\n #   Column         Non-Null Count   Dtype \n---  ------         --------------   ----- \n 0   video_id       161470 non-null  object\n 1   title          161470 non-null  object\n 2   views          161470 non-null  int64 \n 3   likes          161470 non-null  int64 \n 4   dislikes       161470 non-null  int64 \n 5   comment_count  161470 non-null  int64 \n 6   category_id    161470 non-null  int64 \ndtypes: int64(5), object(2)\nmemory usage: 8.6+ MB\n","output_type":"stream"}],"execution_count":131},{"cell_type":"code","source":"temp_df = xdata['category_id'].value_counts().reset_index().sort_values('category_id')\ntemp_df = temp_df.sort_values('count').assign(new_category_id = [i+1 for i in range(temp_df.shape[0])])","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.449563Z","iopub.execute_input":"2024-12-08T00:25:53.449905Z","iopub.status.idle":"2024-12-08T00:25:53.459324Z","shell.execute_reply.started":"2024-12-08T00:25:53.449873Z","shell.execute_reply":"2024-12-08T00:25:53.458333Z"}},"outputs":[],"execution_count":132},{"cell_type":"code","source":"xdata.category_id = xdata.category_id.map(dict(temp_df[['category_id','new_category_id']].to_numpy()))","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.463288Z","iopub.execute_input":"2024-12-08T00:25:53.463708Z","iopub.status.idle":"2024-12-08T00:25:53.475913Z","shell.execute_reply.started":"2024-12-08T00:25:53.463671Z","shell.execute_reply":"2024-12-08T00:25:53.474874Z"}},"outputs":[],"execution_count":133},{"cell_type":"code","source":"xdata.sample(2)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.477292Z","iopub.execute_input":"2024-12-08T00:25:53.477665Z","iopub.status.idle":"2024-12-08T00:25:53.496054Z","shell.execute_reply.started":"2024-12-08T00:25:53.477633Z","shell.execute_reply":"2024-12-08T00:25:53.495020Z"}},"outputs":[{"execution_count":134,"output_type":"execute_result","data":{"text/plain":"           video_id                          title    views  likes  dislikes  \\\n119148  hMhiOvHdWW8      Les Lunettes - Daronnes !    35874   3407        56   \n60649   zMV51hydg8E  BEST FRIEND DOES MY ASOS SHOP  1017812  56826       600   \n\n        comment_count  category_id  \n119148             52           15  \n60649            1175           15  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>video_id</th>\n      <th>title</th>\n      <th>views</th>\n      <th>likes</th>\n      <th>dislikes</th>\n      <th>comment_count</th>\n      <th>category_id</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>119148</th>\n      <td>hMhiOvHdWW8</td>\n      <td>Les Lunettes - Daronnes !</td>\n      <td>35874</td>\n      <td>3407</td>\n      <td>56</td>\n      <td>52</td>\n      <td>15</td>\n    </tr>\n    <tr>\n      <th>60649</th>\n      <td>zMV51hydg8E</td>\n      <td>BEST FRIEND DOES MY ASOS SHOP</td>\n      <td>1017812</td>\n      <td>56826</td>\n      <td>600</td>\n      <td>1175</td>\n      <td>15</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":134},{"cell_type":"code","source":"xdata[xdata['title'] == 'Kristen Bell Opens SAG Awards 2018'].category_id.value_counts()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.497378Z","iopub.execute_input":"2024-12-08T00:25:53.497728Z","iopub.status.idle":"2024-12-08T00:25:53.524480Z","shell.execute_reply.started":"2024-12-08T00:25:53.497698Z","shell.execute_reply":"2024-12-08T00:25:53.523085Z"}},"outputs":[{"execution_count":135,"output_type":"execute_result","data":{"text/plain":"category_id\n16    4\nName: count, dtype: int64"},"metadata":{}}],"execution_count":135},{"cell_type":"code","source":"xd = xdata.groupby('title').agg({\n    'views':'max',\n    'likes':'max',\n    'dislikes':'max',\n    'comment_count':'max',\n    'category_id':'mean',\n    'video_id':'count'\n})","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.526073Z","iopub.execute_input":"2024-12-08T00:25:53.526514Z","iopub.status.idle":"2024-12-08T00:25:53.724909Z","shell.execute_reply.started":"2024-12-08T00:25:53.526467Z","shell.execute_reply":"2024-12-08T00:25:53.723648Z"}},"outputs":[],"execution_count":136},{"cell_type":"code","source":"xd = xd.assign(formula_value = (\n    (((xd.likes+1) * (xd.comment_count+1))\n     / \n     ((xd.views+1) * (xd.dislikes+1))  * xd.category_id)\n))","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.726207Z","iopub.execute_input":"2024-12-08T00:25:53.726615Z","iopub.status.idle":"2024-12-08T00:25:53.736715Z","shell.execute_reply.started":"2024-12-08T00:25:53.726569Z","shell.execute_reply":"2024-12-08T00:25:53.735496Z"}},"outputs":[],"execution_count":137},{"cell_type":"code","source":"xd.describe()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.738160Z","iopub.execute_input":"2024-12-08T00:25:53.738591Z","iopub.status.idle":"2024-12-08T00:25:53.783244Z","shell.execute_reply.started":"2024-12-08T00:25:53.738548Z","shell.execute_reply":"2024-12-08T00:25:53.782098Z"}},"outputs":[{"execution_count":138,"output_type":"execute_result","data":{"text/plain":"              views         likes      dislikes  comment_count   category_id  \\\ncount  5.690500e+04  5.690500e+04  5.690500e+04   5.690500e+04  56905.000000   \nmean   7.001585e+05  1.765650e+04  9.281776e+02   2.128135e+03     14.618355   \nstd    4.936086e+06  8.831881e+04  1.284170e+04   1.362057e+04      3.262413   \nmin    2.840000e+02  0.000000e+00  0.000000e+00   0.000000e+00      1.000000   \n25%    2.949800e+04  4.840000e+02  2.500000e+01   8.500000e+01     13.000000   \n50%    1.266320e+05  2.504000e+03  1.120000e+02   3.830000e+02     15.000000   \n75%    4.165240e+05  1.014400e+04  3.990000e+02   1.352000e+03     18.000000   \nmax    4.245389e+08  5.613827e+06  1.944971e+06   1.626501e+06     18.000000   \n\n           video_id  formula_value  \ncount  56905.000000   5.690500e+04  \nmean       2.837536   4.652326e+00  \nstd        4.865878   1.792818e+01  \nmin        1.000000   2.566638e-07  \n25%        1.000000   2.265887e-01  \n50%        1.000000   9.177392e-01  \n75%        2.000000   3.466491e+00  \nmax       73.000000   1.668075e+03  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>views</th>\n      <th>likes</th>\n      <th>dislikes</th>\n      <th>comment_count</th>\n      <th>category_id</th>\n      <th>video_id</th>\n      <th>formula_value</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>count</th>\n      <td>5.690500e+04</td>\n      <td>5.690500e+04</td>\n      <td>5.690500e+04</td>\n      <td>5.690500e+04</td>\n      <td>56905.000000</td>\n      <td>56905.000000</td>\n      <td>5.690500e+04</td>\n    </tr>\n    <tr>\n      <th>mean</th>\n      <td>7.001585e+05</td>\n      <td>1.765650e+04</td>\n      <td>9.281776e+02</td>\n      <td>2.128135e+03</td>\n      <td>14.618355</td>\n      <td>2.837536</td>\n      <td>4.652326e+00</td>\n    </tr>\n    <tr>\n      <th>std</th>\n      <td>4.936086e+06</td>\n      <td>8.831881e+04</td>\n      <td>1.284170e+04</td>\n      <td>1.362057e+04</td>\n      <td>3.262413</td>\n      <td>4.865878</td>\n      <td>1.792818e+01</td>\n    </tr>\n    <tr>\n      <th>min</th>\n      <td>2.840000e+02</td>\n      <td>0.000000e+00</td>\n      <td>0.000000e+00</td>\n      <td>0.000000e+00</td>\n      <td>1.000000</td>\n      <td>1.000000</td>\n      <td>2.566638e-07</td>\n    </tr>\n    <tr>\n      <th>25%</th>\n      <td>2.949800e+04</td>\n      <td>4.840000e+02</td>\n      <td>2.500000e+01</td>\n      <td>8.500000e+01</td>\n      <td>13.000000</td>\n      <td>1.000000</td>\n      <td>2.265887e-01</td>\n    </tr>\n    <tr>\n      <th>50%</th>\n      <td>1.266320e+05</td>\n      <td>2.504000e+03</td>\n      <td>1.120000e+02</td>\n      <td>3.830000e+02</td>\n      <td>15.000000</td>\n      <td>1.000000</td>\n      <td>9.177392e-01</td>\n    </tr>\n    <tr>\n      <th>75%</th>\n      <td>4.165240e+05</td>\n      <td>1.014400e+04</td>\n      <td>3.990000e+02</td>\n      <td>1.352000e+03</td>\n      <td>18.000000</td>\n      <td>2.000000</td>\n      <td>3.466491e+00</td>\n    </tr>\n    <tr>\n      <th>max</th>\n      <td>4.245389e+08</td>\n      <td>5.613827e+06</td>\n      <td>1.944971e+06</td>\n      <td>1.626501e+06</td>\n      <td>18.000000</td>\n      <td>73.000000</td>\n      <td>1.668075e+03</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":138},{"cell_type":"code","source":"xd.reset_index(drop=True).corr()['formula_value']","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.784671Z","iopub.execute_input":"2024-12-08T00:25:53.785613Z","iopub.status.idle":"2024-12-08T00:25:53.805005Z","shell.execute_reply.started":"2024-12-08T00:25:53.785569Z","shell.execute_reply":"2024-12-08T00:25:53.803904Z"}},"outputs":[{"execution_count":139,"output_type":"execute_result","data":{"text/plain":"views           -0.019543\nlikes            0.021281\ndislikes        -0.012389\ncomment_count    0.056607\ncategory_id      0.018296\nvideo_id        -0.038211\nformula_value    1.000000\nName: formula_value, dtype: float64"},"metadata":{}}],"execution_count":139},{"cell_type":"code","source":"plt.plot(xd.reset_index(drop=True))","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:53.806298Z","iopub.execute_input":"2024-12-08T00:25:53.806643Z","iopub.status.idle":"2024-12-08T00:25:54.106885Z","shell.execute_reply.started":"2024-12-08T00:25:53.806605Z","shell.execute_reply":"2024-12-08T00:25:54.105891Z"}},"outputs":[{"execution_count":140,"output_type":"execute_result","data":{"text/plain":"[<matplotlib.lines.Line2D at 0x7c6814c9fb50>,\n <matplotlib.lines.Line2D at 0x7c6814c9fbb0>,\n <matplotlib.lines.Line2D at 0x7c6814c9fbe0>,\n <matplotlib.lines.Line2D at 0x7c6814c9fcd0>,\n <matplotlib.lines.Line2D at 0x7c6814c9fdc0>,\n <matplotlib.lines.Line2D at 0x7c6814c9feb0>,\n <matplotlib.lines.Line2D at 0x7c6814c9ffa0>]"},"metadata":{}},{"output_type":"display_data","data":{"text/plain":"<Figure size 640x480 with 1 Axes>","image/png":"iVBORw0KGgoAAAANSUhEUgAAAhYAAAGsCAYAAACB/u5dAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuNSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/xnp5ZAAAACXBIWXMAAA9hAAAPYQGoP6dpAABCOklEQVR4nO3deXxU5aH/8e8kIQFkcwVR3K5VqwgiKlKrtZVWvdRqr721Xlv52d7e2mKr1WsrtYpabRCt1w2p1Sp1RaUCKshSliDIGgj7viWsYcsekszM8/sjyTCTzCSzPDNnls/79eKlmTlzzjNnzvI9z3me57iMMUYAAAAWZDldAAAAkD4IFgAAwBqCBQAAsIZgAQAArCFYAAAAawgWAADAGoIFAACwhmABAACsIVgAAABrCBYAAMAax4LFvHnzdNNNN6l3795yuVyaNGlSxPOYPn26rrzySnXt2lUnn3yybr31Vu3YscN6WQEAQHgcCxbV1dXq37+/xowZE9Xnt2/frptvvlnf+ta3VFRUpOnTp+vgwYP6j//4D8slBQAA4XIlw0PIXC6XJk6cqFtuucX3Wl1dnR5++GG9//77KisrU9++ffX000/r2muvlSRNmDBBt99+u+rq6pSV1ZiPPv30U918882qq6tThw4dHPgmAABktqRtY3HPPfdo4cKFGj9+vFatWqX//M//1A033KDNmzdLkgYOHKisrCy9+eab8ng8Ki8v19tvv60hQ4YQKgAAcEhS1lgUFxfrnHPOUXFxsXr37u2bbsiQIbriiiv05z//WZJUUFCgH/7whzp06JA8Ho8GDx6sqVOnqkePHg58CwAAkJQ1FqtXr5bH49F5552nLl26+P4VFBRo69atkqR9+/bp5z//uYYNG6alS5eqoKBAubm5+sEPfqAkyEoAAGSkHKcLEExVVZWys7NVWFio7OzsgPe6dOkiSRozZoy6d++u0aNH+95755131KdPHy1evFhXXnllQssMAACSNFgMGDBAHo9HpaWluvrqq4NOU1NT42u02aw5hHi93riXEQAAtObYrZCqqioVFRWpqKhIUmP30aKiIhUXF+u8887THXfcoTvvvFMff/yxtm/friVLlig/P19TpkyRJA0dOlRLly7VE088oc2bN2v58uW66667dOaZZ2rAgAFOfS0AADKaY403586dq29+85utXh82bJjG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slLdu3cP+X7CnxXi9Xq1Z88ede3aVS6Xy9p8Kyoq1KdPH5WUlPAMkgix7mLD+ose6y56rLvose6iY4xRZWWlevfurays0C0pEl5jkZWVpdNPPz1u8+/WrRsbSpRYd7Fh/UWPdRc91l30WHeRa6umohmNNwEAgDUECwAAYE3aBIu8vDyNHDlSeXl5Thcl5bDuYsP6ix7rLnqsu+ix7uIr4Y03AQBA+kqbGgsAAOA8ggUAALCGYAEAAKwhWAAAAGvSJliMGTNGZ511ljp27KhBgwZpyZIlThcprubNm6ebbrpJvXv3lsvl0qRJkwLeN8bo0Ucf1amnnqpOnTppyJAh2rx5c8A0hw8f1h133KFu3bqpR48e+tnPfqaqqqqAaVatWqWrr75aHTt2VJ8+fTR69OhWZfnoo490wQUXqGPHjrr44os1depU69/Xpvz8fF1++eXq2rWrTjnlFN1yyy3auHFjwDRHjx7V8OHDdeKJJ6pLly669dZbtX///oBpiouLNXToUHXu3FmnnHKKHnzwQbnd7oBp5s6dq0svvVR5eXk699xzNW7cuFblSaVtd+zYserXr59vYKHBgwfr888/973PegvfqFGj5HK5dN999/leY/2F9thjj8nlcgX8u+CCC3zvs+6SiEkD48ePN7m5ueaNN94wa9euNT//+c9Njx49zP79+50uWtxMnTrVPPzww+bjjz82kszEiRMD3h81apTp3r27mTRpklm5cqX53ve+Z84++2xTW1vrm+aGG24w/fv3N4sWLTJffPGFOffcc83tt9/ue7+8vNz07NnT3HHHHWbNmjXm/fffN506dTKvvvqqb5oFCxaY7OxsM3r0aLNu3Trzxz/+0XTo0MGsXr067usgWtdff7158803zZo1a0xRUZH593//d3PGGWeYqqoq3zR333236dOnj5k1a5ZZtmyZufLKK83XvvY13/tut9v07dvXDBkyxKxYscJMnTrVnHTSSWbEiBG+abZt22Y6d+5s7r//frNu3Trz0ksvmezsbDNt2jTfNKm27X7yySdmypQpZtOmTWbjxo3mD3/4g+nQoYNZs2aNMYb1Fq4lS5aYs846y/Tr18/ce++9vtdZf6GNHDnSXHTRRWbv3r2+fwcOHPC9z7pLHmkRLK644gozfPhw398ej8f07t3b5OfnO1iqxGkZLLxer+nVq5d55plnfK+VlZWZvLw88/777xtjjFm3bp2RZJYuXeqb5vPPPzcul8vs3r3bGGPMK6+8Yo4//nhTV1fnm+b3v/+9Of/8831///CHPzRDhw4NKM+gQYPML37xC6vfMZ5KS0uNJFNQUGCMaVxXHTp0MB999JFvmvXr1xtJZuHChcaYxmCXlZVl9u3b55tm7Nixplu3br719bvf/c5cdNFFAcu67bbbzPXXX+/7Ox223eOPP968/vrrrLcwVVZWmq985Stm5syZ5hvf+IYvWLD+2jZy5EjTv3//oO+x7pJLyt8Kqa+vV2FhoYYMGeJ7LSsrS0OGDNHChQsdLJlztm/frn379gWsk+7du2vQoEG+dbJw4UL16NFDl112mW+aIUOGKCsrS4sXL/ZNc8011yg3N9c3zfXXX6+NGzfqyJEjvmn8l9M8TSqt+/LycknSCSecIEkqLCxUQ0NDwPe64IILdMYZZwSsv4svvlg9e/b0TXP99deroqJCa9eu9U3T1rpJ9W3X4/Fo/Pjxqq6u1uDBg1lvYRo+fLiGDh3a6juy/tq3efNm9e7dW+ecc47uuOMOFRcXS2LdJZuUDxYHDx6Ux+MJ2FgkqWfPntq3b59DpXJW8/dua53s27dPp5xySsD7OTk5OuGEEwKmCTYP/2WEmiZV1r3X69V9992nq666Sn379pXU+J1yc3PVo0ePgGlbrr9o101FRYVqa2tTdttdvXq1unTpory8PN19992aOHGiLrzwQtZbGMaPH6/ly5crPz+/1Xusv7YNGjRI48aN07Rp0zR27Fht375dV199tSorK1l3SSbhTzcFksnw4cO1Zs0azZ8/3+mipIzzzz9fRUVFKi8v14QJEzRs2DAVFBQ4XaykV1JSonvvvVczZ85Ux44dnS5Oyrnxxht9/9+vXz8NGjRIZ555pj788EN16tTJwZKhpZSvsTjppJOUnZ3dqvXv/v371atXL4dK5azm793WOunVq5dKS0sD3ne73Tp8+HDANMHm4b+MUNOkwrq/55579Nlnn2nOnDk6/fTTfa/36tVL9fX1KisrC5i+5fqLdt1069ZNnTp1StltNzc3V+eee64GDhyo/Px89e/fXy+88ALrrR2FhYUqLS3VpZdeqpycHOXk5KigoEAvvviicnJy1LNnT9ZfBHr06KHzzjtPW7ZsYdtLMikfLHJzczVw4EDNmjXL95rX69WsWbM0ePBgB0vmnLPPPlu9evUKWCcVFRVavHixb50MHjxYZWVlKiws9E0ze/Zseb1eDRo0yDfNvHnz1NDQ4Jtm5syZOv/883X88cf7pvFfTvM0ybzujTG65557NHHiRM2ePVtnn312wPsDBw5Uhw4dAr7Xxo0bVVxcHLD+Vq9eHRDOZs6cqW7duunCCy/0TdPWukmXbdfr9aquro711o7rrrtOq1evVlFRke/fZZddpjvuuMP3/6y/8FVVVWnr1q069dRT2faSjdOtR20YP368ycvLM+PGjTPr1q0z//M//2N69OgR0Po33VRWVpoVK1aYFStWGEnmueeeMytWrDA7d+40xjR2N+3Ro4eZPHmyWbVqlbn55puDdjcdMGCAWbx4sZk/f775yle+EtDdtKyszPTs2dP85Cc/MWvWrDHjx483nTt3btXdNCcnxzz77LNm/fr1ZuTIkUnf3fSXv/yl6d69u5k7d25A17WamhrfNHfffbc544wzzOzZs82yZcvM4MGDzeDBg33vN3dd+853vmOKiorMtGnTzMknnxy069qDDz5o1q9fb8aMGRO061oqbbsPPfSQKSgoMNu3bzerVq0yDz30kHG5XGbGjBnGGNZbpPx7hRjD+mvLAw88YObOnWu2b99uFixYYIYMGWJOOukkU1paaoxh3SWTtAgWxhjz0ksvmTPOOMPk5uaaK664wixatMjpIsXVnDlzjKRW/4YNG2aMaexy+sgjj5iePXuavLw8c91115mNGzcGzOPQoUPm9ttvN126dDHdunUzd911l6msrAyYZuXKlebrX/+6ycvLM6eddpoZNWpUq7J8+OGH5rzzzjO5ubnmoosuMlOmTInb97Yh2HqTZN58803fNLW1teZXv/qVOf74403nzp3N97//fbN3796A+ezYscPceOONplOnTuakk04yDzzwgGloaAiYZs6cOeaSSy4xubm55pxzzglYRrNU2nZ/+tOfmjPPPNPk5uaak08+2Vx33XW+UGEM6y1SLYMF6y+02267zZx66qkmNzfXnHbaaea2224zW7Zs8b3PuksePDYdAABYk/JtLAAAQPIgWAAAAGsIFgAAwBqCBQAAsIZgAQAArCFYAAAAawgWAADAGoIFAACwhmABAACsIVgAAABrCBYAAMAaggUAALDm/wOJ09/lVezBBAAAAABJRU5ErkJggg=="},"metadata":{}}],"execution_count":140},{"cell_type":"code","source":"xd.reset_index(inplace=True)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:54.108325Z","iopub.execute_input":"2024-12-08T00:25:54.108691Z","iopub.status.idle":"2024-12-08T00:25:54.116689Z","shell.execute_reply.started":"2024-12-08T00:25:54.108659Z","shell.execute_reply":"2024-12-08T00:25:54.115530Z"}},"outputs":[],"execution_count":141},{"cell_type":"code","source":"xd = xd.drop_duplicates(subset=['formula_value'])","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:54.140854Z","iopub.execute_input":"2024-12-08T00:25:54.141188Z","iopub.status.idle":"2024-12-08T00:25:54.158364Z","shell.execute_reply.started":"2024-12-08T00:25:54.141147Z","shell.execute_reply":"2024-12-08T00:25:54.157180Z"}},"outputs":[],"execution_count":143},{"cell_type":"code","source":"xd.sample(1)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:32:45.713208Z","iopub.execute_input":"2024-12-08T00:32:45.713623Z","iopub.status.idle":"2024-12-08T00:32:45.728222Z","shell.execute_reply.started":"2024-12-08T00:32:45.713590Z","shell.execute_reply":"2024-12-08T00:32:45.727129Z"}},"outputs":[{"execution_count":166,"output_type":"execute_result","data":{"text/plain":"                                    title   views  likes  dislikes  \\\n48318  We Made A Ketchup And Mustard Cake  391690  22871       124   \n\n       comment_count  category_id  video_id  formula_value  difference  \n48318           1360         16.0         2      10.172522    9.299931  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>title</th>\n      <th>views</th>\n      <th>likes</th>\n      <th>dislikes</th>\n      <th>comment_count</th>\n      <th>category_id</th>\n      <th>video_id</th>\n      <th>formula_value</th>\n      <th>difference</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>48318</th>\n      <td>We Made A Ketchup And Mustard Cake</td>\n      <td>391690</td>\n      <td>22871</td>\n      <td>124</td>\n      <td>1360</td>\n      <td>16.0</td>\n      <td>2</td>\n      <td>10.172522</td>\n      <td>9.299931</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":166},{"cell_type":"code","source":"# xd.sample(1)\nxd.iloc[48318,-2]","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:33:03.584080Z","iopub.execute_input":"2024-12-08T00:33:03.584467Z","iopub.status.idle":"2024-12-08T00:33:03.591883Z","shell.execute_reply.started":"2024-12-08T00:33:03.584435Z","shell.execute_reply":"2024-12-08T00:33:03.590632Z"}},"outputs":[{"execution_count":167,"output_type":"execute_result","data":{"text/plain":"0.26951083087448285"},"metadata":{}}],"execution_count":167},{"cell_type":"code","source":"target_value = 0.26951083087448285\n\n\nxd['difference'] = np.abs(xd['formula_value'] - target_value)\nxd.sort_values('difference').head(6)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:33:18.753008Z","iopub.execute_input":"2024-12-08T00:33:18.753740Z","iopub.status.idle":"2024-12-08T00:33:18.782211Z","shell.execute_reply.started":"2024-12-08T00:33:18.753700Z","shell.execute_reply":"2024-12-08T00:33:18.781111Z"}},"outputs":[{"execution_count":168,"output_type":"execute_result","data":{"text/plain":"                                                   title     views   likes  \\\n48325                   We Mastered That Shiny Dirt Ball   4227252  100981   \n31374  Modou Mbaye ChassÃ© et MenacÃ© de Mort par Sa ...     39713     287   \n33953  Oru Adaar Love | Official Teaser ft Priya Prak...  11224655  235111   \n6177   Barbara enlÃ¨ve le haut pour un cours de yoga ...     55196     523   \n1676    21 Savage, Offset, Metro Boomin - Ric Flair Drip  69907195  835963   \n18493          How Noah Galvin Makes Evan Hansen His Own      1402      20   \n\n       dislikes  comment_count  category_id  video_id  formula_value  \\\n48325     13015           9177         16.0        10       0.269511   \n31374        30             71         16.0         1       0.269488   \n33953     17671          13373         17.0         3       0.269480   \n6177         25             40         18.0         2       0.269463   \n1676      30861          40903         17.0        31       0.269436   \n18493         0              0         18.0         1       0.269423   \n\n       difference  \n48325    0.000000  \n31374    0.000023  \n33953    0.000031  \n6177     0.000048  \n1676     0.000074  \n18493    0.000088  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>title</th>\n      <th>views</th>\n      <th>likes</th>\n      <th>dislikes</th>\n      <th>comment_count</th>\n      <th>category_id</th>\n      <th>video_id</th>\n      <th>formula_value</th>\n      <th>difference</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>48325</th>\n      <td>We Mastered That Shiny Dirt Ball</td>\n      <td>4227252</td>\n      <td>100981</td>\n      <td>13015</td>\n      <td>9177</td>\n      <td>16.0</td>\n      <td>10</td>\n      <td>0.269511</td>\n      <td>0.000000</td>\n    </tr>\n    <tr>\n      <th>31374</th>\n      <td>Modou Mbaye ChassÃ© et MenacÃ© de Mort par Sa ...</td>\n      <td>39713</td>\n      <td>287</td>\n      <td>30</td>\n      <td>71</td>\n      <td>16.0</td>\n      <td>1</td>\n      <td>0.269488</td>\n      <td>0.000023</td>\n    </tr>\n    <tr>\n      <th>33953</th>\n      <td>Oru Adaar Love | Official Teaser ft Priya Prak...</td>\n      <td>11224655</td>\n      <td>235111</td>\n      <td>17671</td>\n      <td>13373</td>\n      <td>17.0</td>\n      <td>3</td>\n      <td>0.269480</td>\n      <td>0.000031</td>\n    </tr>\n    <tr>\n      <th>6177</th>\n      <td>Barbara enlÃ¨ve le haut pour un cours de yoga ...</td>\n      <td>55196</td>\n      <td>523</td>\n      <td>25</td>\n      <td>40</td>\n      <td>18.0</td>\n      <td>2</td>\n      <td>0.269463</td>\n      <td>0.000048</td>\n    </tr>\n    <tr>\n      <th>1676</th>\n      <td>21 Savage, Offset, Metro Boomin - Ric Flair Drip</td>\n      <td>69907195</td>\n      <td>835963</td>\n      <td>30861</td>\n      <td>40903</td>\n      <td>17.0</td>\n      <td>31</td>\n      <td>0.269436</td>\n      <td>0.000074</td>\n    </tr>\n    <tr>\n      <th>18493</th>\n      <td>How Noah Galvin Makes Evan Hansen His Own</td>\n      <td>1402</td>\n      <td>20</td>\n      <td>0</td>\n      <td>0</td>\n      <td>18.0</td>\n      <td>1</td>\n      <td>0.269423</td>\n      <td>0.000088</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":168},{"cell_type":"code","source":"","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2024-12-08T00:25:54.168046Z","iopub.execute_input":"2024-12-08T00:25:54.168452Z","iopub.status.idle":"2024-12-08T00:25:54.200990Z","shell.execute_reply.started":"2024-12-08T00:25:54.168410Z","shell.execute_reply":"2024-12-08T00:25:54.199882Z"}},"outputs":[{"execution_count":145,"output_type":"execute_result","data":{"text/plain":"                                                   title   views  likes  \\\n25147  LES MARSEILLAIS AUSTRALIA : NIKOLA LOZINA BALA...    6985    164   \n42154  TOKOMI WAPI 04 06 2018 BA REFOULER BA CONGOLAI...   62911    773   \n14764  FAQ LIVE - Urbain et Nostro vous appellent en ...   66572   2439   \n12289                                 Dikoon episode 150   78203   1000   \n21844  Joe Rogan Experience #1051 - Duncan Trussell &...  577889   9452   \n5180   Avengers: Infinity War cast plays 'Friends For...   58116   1585   \n\n       dislikes  comment_count  category_id  video_id  formula_value  \\\n25147         2              5         16.0         1       0.755797   \n42154        66            293         14.0         1       0.755802   \n14764       102            117         18.0         1       0.755804   \n12289        81            268         18.0         1       0.755816   \n21844      1026           2965         16.0         2       0.755867   \n5180         12             89          4.0         1       0.755717   \n\n         difference  \n25147  3.089035e-07  \n42154  4.992074e-06  \n14764  6.651703e-06  \n12289  1.893356e-05  \n21844  6.961565e-05  \n5180   8.008412e-05  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>title</th>\n      <th>views</th>\n      <th>likes</th>\n      <th>dislikes</th>\n      <th>comment_count</th>\n      <th>category_id</th>\n      <th>video_id</th>\n      <th>formula_value</th>\n      <th>difference</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>25147</th>\n      <td>LES MARSEILLAIS AUSTRALIA : NIKOLA LOZINA BALA...</td>\n      <td>6985</td>\n      <td>164</td>\n      <td>2</td>\n      <td>5</td>\n      <td>16.0</td>\n      <td>1</td>\n      <td>0.755797</td>\n      <td>3.089035e-07</td>\n    </tr>\n    <tr>\n      <th>42154</th>\n      <td>TOKOMI WAPI 04 06 2018 BA REFOULER BA CONGOLAI...</td>\n      <td>62911</td>\n      <td>773</td>\n      <td>66</td>\n      <td>293</td>\n      <td>14.0</td>\n      <td>1</td>\n      <td>0.755802</td>\n      <td>4.992074e-06</td>\n    </tr>\n    <tr>\n      <th>14764</th>\n      <td>FAQ LIVE - Urbain et Nostro vous appellent en ...</td>\n      <td>66572</td>\n      <td>2439</td>\n      <td>102</td>\n      <td>117</td>\n      <td>18.0</td>\n      <td>1</td>\n      <td>0.755804</td>\n      <td>6.651703e-06</td>\n    </tr>\n    <tr>\n      <th>12289</th>\n      <td>Dikoon episode 150</td>\n      <td>78203</td>\n      <td>1000</td>\n      <td>81</td>\n      <td>268</td>\n      <td>18.0</td>\n      <td>1</td>\n      <td>0.755816</td>\n      <td>1.893356e-05</td>\n    </tr>\n    <tr>\n      <th>21844</th>\n      <td>Joe Rogan Experience #1051 - Duncan Trussell &amp;...</td>\n      <td>577889</td>\n      <td>9452</td>\n      <td>1026</td>\n      <td>2965</td>\n      <td>16.0</td>\n      <td>2</td>\n      <td>0.755867</td>\n      <td>6.961565e-05</td>\n    </tr>\n    <tr>\n      <th>5180</th>\n      <td>Avengers: Infinity War cast plays 'Friends For...</td>\n      <td>58116</td>\n      <td>1585</td>\n      <td>12</td>\n      <td>89</td>\n      <td>4.0</td>\n      <td>1</td>\n      <td>0.755717</td>\n      <td>8.008412e-05</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":145},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null}]}
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "6a2dc88b",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:37.709783Z",
+     "iopub.status.busy": "2024-12-08T00:37:37.709358Z",
+     "iopub.status.idle": "2024-12-08T00:37:40.572246Z",
+     "shell.execute_reply": "2024-12-08T00:37:40.570997Z"
+    },
+    "papermill": {
+     "duration": 2.878622,
+     "end_time": "2024-12-08T00:37:40.575029",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:37.696407",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/youtube-trending-videos-dataset/youtube.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "20f13e54",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:40.596568Z",
+     "iopub.status.busy": "2024-12-08T00:37:40.596063Z",
+     "iopub.status.idle": "2024-12-08T00:37:42.945542Z",
+     "shell.execute_reply": "2024-12-08T00:37:42.944390Z"
+    },
+    "papermill": {
+     "duration": 2.362688,
+     "end_time": "2024-12-08T00:37:42.948097",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:40.585409",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "data = pd.read_csv(r\"/kaggle/input/youtube-trending-videos-dataset/youtube.csv\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "38c9c6c2",
+   "metadata": {
+    "papermill": {
+     "duration": 0.007966,
+     "end_time": "2024-12-08T00:37:42.965295",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:42.957329",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# EDA"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "e1e47238",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:42.985086Z",
+     "iopub.status.busy": "2024-12-08T00:37:42.983900Z",
+     "iopub.status.idle": "2024-12-08T00:37:42.992441Z",
+     "shell.execute_reply": "2024-12-08T00:37:42.991326Z"
+    },
+    "papermill": {
+     "duration": 0.020743,
+     "end_time": "2024-12-08T00:37:42.994935",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:42.974192",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(161470, 18)"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "fdb1a5a3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.013711Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.013314Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.123817Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.121934Z"
+    },
+    "papermill": {
+     "duration": 0.123125,
+     "end_time": "2024-12-08T00:37:43.126525",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.003400",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 161470 entries, 0 to 161469\n",
+      "Data columns (total 18 columns):\n",
+      " #   Column                  Non-Null Count   Dtype \n",
+      "---  ------                  --------------   ----- \n",
+      " 0   index                   161470 non-null  int64 \n",
+      " 1   video_id                161470 non-null  object\n",
+      " 2   trending_date           161470 non-null  object\n",
+      " 3   title                   161470 non-null  object\n",
+      " 4   channel_title           161470 non-null  object\n",
+      " 5   category_id             161470 non-null  int64 \n",
+      " 6   publish_date            161470 non-null  object\n",
+      " 7   time_frame              161470 non-null  object\n",
+      " 8   published_day_of_week   161470 non-null  object\n",
+      " 9   publish_country         161470 non-null  object\n",
+      " 10  tags                    161470 non-null  object\n",
+      " 11  views                   161470 non-null  int64 \n",
+      " 12  likes                   161470 non-null  int64 \n",
+      " 13  dislikes                161470 non-null  int64 \n",
+      " 14  comment_count           161470 non-null  int64 \n",
+      " 15  comments_disabled       161470 non-null  bool  \n",
+      " 16  ratings_disabled        161470 non-null  bool  \n",
+      " 17  video_error_or_removed  161470 non-null  bool  \n",
+      "dtypes: bool(3), int64(6), object(9)\n",
+      "memory usage: 18.9+ MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "data.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "4e0e15fd",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.151014Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.150162Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.174958Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.173738Z"
+    },
+    "papermill": {
+     "duration": 0.039845,
+     "end_time": "2024-12-08T00:37:43.177890",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.138045",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xdata = data.copy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "2bc5d898",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.201198Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.200794Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.228517Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.227452Z"
+    },
+    "papermill": {
+     "duration": 0.040419,
+     "end_time": "2024-12-08T00:37:43.230866",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.190447",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>index</th>\n",
+       "      <th>video_id</th>\n",
+       "      <th>trending_date</th>\n",
+       "      <th>title</th>\n",
+       "      <th>channel_title</th>\n",
+       "      <th>category_id</th>\n",
+       "      <th>publish_date</th>\n",
+       "      <th>time_frame</th>\n",
+       "      <th>published_day_of_week</th>\n",
+       "      <th>publish_country</th>\n",
+       "      <th>tags</th>\n",
+       "      <th>views</th>\n",
+       "      <th>likes</th>\n",
+       "      <th>dislikes</th>\n",
+       "      <th>comment_count</th>\n",
+       "      <th>comments_disabled</th>\n",
+       "      <th>ratings_disabled</th>\n",
+       "      <th>video_error_or_removed</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>68924</th>\n",
+       "      <td>68924</td>\n",
+       "      <td>8LAoB0R4S5I</td>\n",
+       "      <td>18.05.04</td>\n",
+       "      <td>Dr. Phil Embarrasses Lady Who Thinks She's The...</td>\n",
+       "      <td>JustDestiny</td>\n",
+       "      <td>24</td>\n",
+       "      <td>08/03/2018</td>\n",
+       "      <td>23:00 to 23:59</td>\n",
+       "      <td>Thursday</td>\n",
+       "      <td>GB</td>\n",
+       "      <td>JustDestiny|\"dr\"|\"phil\"|\"dr phil\"|\"danielle\"|\"...</td>\n",
+       "      <td>5434025</td>\n",
+       "      <td>34064</td>\n",
+       "      <td>13219</td>\n",
+       "      <td>0</td>\n",
+       "      <td>True</td>\n",
+       "      <td>False</td>\n",
+       "      <td>False</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>131154</th>\n",
+       "      <td>131154</td>\n",
+       "      <td>aBL027wEtg8</td>\n",
+       "      <td>18.05.01</td>\n",
+       "      <td>Mariah Carey - Live At Dick Clark's New Year's...</td>\n",
+       "      <td>mariahxlambily</td>\n",
+       "      <td>10</td>\n",
+       "      <td>01/01/2018</td>\n",
+       "      <td>5:00 to 5:59</td>\n",
+       "      <td>Monday</td>\n",
+       "      <td>CANADA</td>\n",
+       "      <td>Mariah|\"Carey\"|\"Mariah Carey\"|\"Vocals\"|\"Vocal ...</td>\n",
+       "      <td>1108364</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>5063</td>\n",
+       "      <td>False</td>\n",
+       "      <td>True</td>\n",
+       "      <td>False</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "         index     video_id trending_date  \\\n",
+       "68924    68924  8LAoB0R4S5I      18.05.04   \n",
+       "131154  131154  aBL027wEtg8      18.05.01   \n",
+       "\n",
+       "                                                    title   channel_title  \\\n",
+       "68924   Dr. Phil Embarrasses Lady Who Thinks She's The...     JustDestiny   \n",
+       "131154  Mariah Carey - Live At Dick Clark's New Year's...  mariahxlambily   \n",
+       "\n",
+       "        category_id publish_date      time_frame published_day_of_week  \\\n",
+       "68924            24   08/03/2018  23:00 to 23:59              Thursday   \n",
+       "131154           10   01/01/2018    5:00 to 5:59                Monday   \n",
+       "\n",
+       "       publish_country                                               tags  \\\n",
+       "68924               GB  JustDestiny|\"dr\"|\"phil\"|\"dr phil\"|\"danielle\"|\"...   \n",
+       "131154          CANADA  Mariah|\"Carey\"|\"Mariah Carey\"|\"Vocals\"|\"Vocal ...   \n",
+       "\n",
+       "          views  likes  dislikes  comment_count  comments_disabled  \\\n",
+       "68924   5434025  34064     13219              0               True   \n",
+       "131154  1108364      0         0           5063              False   \n",
+       "\n",
+       "        ratings_disabled  video_error_or_removed  \n",
+       "68924              False                   False  \n",
+       "131154              True                   False  "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.sample(2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "1cfba39f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.249729Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.249374Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.267358Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.266326Z"
+    },
+    "papermill": {
+     "duration": 0.030273,
+     "end_time": "2024-12-08T00:37:43.269824",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.239551",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xdata = xdata[['video_id','title','views','likes','dislikes','comment_count','category_id']]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "f665c36b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.289368Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.288639Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.295470Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.294065Z"
+    },
+    "papermill": {
+     "duration": 0.019615,
+     "end_time": "2024-12-08T00:37:43.298376",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.278761",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(161470, 7)"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xdata.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "87df722c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.327231Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.326081Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.371789Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.369951Z"
+    },
+    "papermill": {
+     "duration": 0.061413,
+     "end_time": "2024-12-08T00:37:43.374619",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.313206",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 161470 entries, 0 to 161469\n",
+      "Data columns (total 7 columns):\n",
+      " #   Column         Non-Null Count   Dtype \n",
+      "---  ------         --------------   ----- \n",
+      " 0   video_id       161470 non-null  object\n",
+      " 1   title          161470 non-null  object\n",
+      " 2   views          161470 non-null  int64 \n",
+      " 3   likes          161470 non-null  int64 \n",
+      " 4   dislikes       161470 non-null  int64 \n",
+      " 5   comment_count  161470 non-null  int64 \n",
+      " 6   category_id    161470 non-null  int64 \n",
+      "dtypes: int64(5), object(2)\n",
+      "memory usage: 8.6+ MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "xdata.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "af0b6d94",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.403711Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.402313Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.419489Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.417573Z"
+    },
+    "papermill": {
+     "duration": 0.038383,
+     "end_time": "2024-12-08T00:37:43.424111",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.385728",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "temp_df = xdata['category_id'].value_counts().reset_index().sort_values('category_id')\n",
+    "temp_df = temp_df.sort_values('count').assign(new_category_id = [i+1 for i in range(temp_df.shape[0])])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "7a1a048c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.450824Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.450433Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.459961Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.458499Z"
+    },
+    "papermill": {
+     "duration": 0.024623,
+     "end_time": "2024-12-08T00:37:43.462791",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.438168",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xdata.category_id = xdata.category_id.map(dict(temp_df[['category_id','new_category_id']].to_numpy()))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "98c7be25",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.482370Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.482008Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.498090Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.496845Z"
+    },
+    "papermill": {
+     "duration": 0.028126,
+     "end_time": "2024-12-08T00:37:43.500231",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.472105",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>video_id</th>\n",
+       "      <th>title</th>\n",
+       "      <th>views</th>\n",
+       "      <th>likes</th>\n",
+       "      <th>dislikes</th>\n",
+       "      <th>comment_count</th>\n",
+       "      <th>category_id</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>124282</th>\n",
+       "      <td>Q_r-zRrDo28</td>\n",
+       "      <td>OYABUN - Castle on the Hill</td>\n",
+       "      <td>393015</td>\n",
+       "      <td>4955</td>\n",
+       "      <td>2932</td>\n",
+       "      <td>968</td>\n",
+       "      <td>17</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>158203</th>\n",
+       "      <td>cgexTg6KRsQ</td>\n",
+       "      <td>Koh Chang Island - PRISTINE SEAFOOD FISHING VI...</td>\n",
+       "      <td>322051</td>\n",
+       "      <td>10492</td>\n",
+       "      <td>303</td>\n",
+       "      <td>766</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           video_id                                              title  \\\n",
+       "124282  Q_r-zRrDo28                        OYABUN - Castle on the Hill   \n",
+       "158203  cgexTg6KRsQ  Koh Chang Island - PRISTINE SEAFOOD FISHING VI...   \n",
+       "\n",
+       "         views  likes  dislikes  comment_count  category_id  \n",
+       "124282  393015   4955      2932            968           17  \n",
+       "158203  322051  10492       303            766            5  "
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xdata.sample(2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "2ea14300",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.520123Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.519501Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.543225Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.542059Z"
+    },
+    "papermill": {
+     "duration": 0.036244,
+     "end_time": "2024-12-08T00:37:43.545511",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.509267",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "category_id\n",
+       "16    4\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xdata[xdata['title'] == 'Kristen Bell Opens SAG Awards 2018'].category_id.value_counts()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "1765bc3f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.571427Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.570658Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.787953Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.786822Z"
+    },
+    "papermill": {
+     "duration": 0.23514,
+     "end_time": "2024-12-08T00:37:43.790603",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.555463",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xd = xdata.groupby('title').agg({\n",
+    "    'views':'max',\n",
+    "    'likes':'max',\n",
+    "    'dislikes':'max',\n",
+    "    'comment_count':'max',\n",
+    "    'category_id':'mean',\n",
+    "    'video_id':'count'\n",
+    "})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "aff7fe13",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.810903Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.810518Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.820521Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.819404Z"
+    },
+    "papermill": {
+     "duration": 0.023041,
+     "end_time": "2024-12-08T00:37:43.823079",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.800038",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xd = xd.assign(formula_value = (\n",
+    "    (((xd.likes+1) * (xd.comment_count+1))\n",
+    "     / \n",
+    "     ((xd.views+1) * (xd.dislikes+1))  * xd.category_id)\n",
+    "))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "18bf6f19",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.843232Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.842832Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.892580Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.891353Z"
+    },
+    "papermill": {
+     "duration": 0.062596,
+     "end_time": "2024-12-08T00:37:43.894944",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.832348",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>views</th>\n",
+       "      <th>likes</th>\n",
+       "      <th>dislikes</th>\n",
+       "      <th>comment_count</th>\n",
+       "      <th>category_id</th>\n",
+       "      <th>video_id</th>\n",
+       "      <th>formula_value</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>5.690500e+04</td>\n",
+       "      <td>5.690500e+04</td>\n",
+       "      <td>5.690500e+04</td>\n",
+       "      <td>5.690500e+04</td>\n",
+       "      <td>56905.000000</td>\n",
+       "      <td>56905.000000</td>\n",
+       "      <td>5.690500e+04</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>7.001585e+05</td>\n",
+       "      <td>1.765650e+04</td>\n",
+       "      <td>9.281776e+02</td>\n",
+       "      <td>2.128135e+03</td>\n",
+       "      <td>14.618355</td>\n",
+       "      <td>2.837536</td>\n",
+       "      <td>4.652326e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>4.936086e+06</td>\n",
+       "      <td>8.831881e+04</td>\n",
+       "      <td>1.284170e+04</td>\n",
+       "      <td>1.362057e+04</td>\n",
+       "      <td>3.262413</td>\n",
+       "      <td>4.865878</td>\n",
+       "      <td>1.792818e+01</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>2.840000e+02</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>2.566638e-07</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>2.949800e+04</td>\n",
+       "      <td>4.840000e+02</td>\n",
+       "      <td>2.500000e+01</td>\n",
+       "      <td>8.500000e+01</td>\n",
+       "      <td>13.000000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>2.265887e-01</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>1.266320e+05</td>\n",
+       "      <td>2.504000e+03</td>\n",
+       "      <td>1.120000e+02</td>\n",
+       "      <td>3.830000e+02</td>\n",
+       "      <td>15.000000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>9.177392e-01</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>4.165240e+05</td>\n",
+       "      <td>1.014400e+04</td>\n",
+       "      <td>3.990000e+02</td>\n",
+       "      <td>1.352000e+03</td>\n",
+       "      <td>18.000000</td>\n",
+       "      <td>2.000000</td>\n",
+       "      <td>3.466491e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>4.245389e+08</td>\n",
+       "      <td>5.613827e+06</td>\n",
+       "      <td>1.944971e+06</td>\n",
+       "      <td>1.626501e+06</td>\n",
+       "      <td>18.000000</td>\n",
+       "      <td>73.000000</td>\n",
+       "      <td>1.668075e+03</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "              views         likes      dislikes  comment_count   category_id  \\\n",
+       "count  5.690500e+04  5.690500e+04  5.690500e+04   5.690500e+04  56905.000000   \n",
+       "mean   7.001585e+05  1.765650e+04  9.281776e+02   2.128135e+03     14.618355   \n",
+       "std    4.936086e+06  8.831881e+04  1.284170e+04   1.362057e+04      3.262413   \n",
+       "min    2.840000e+02  0.000000e+00  0.000000e+00   0.000000e+00      1.000000   \n",
+       "25%    2.949800e+04  4.840000e+02  2.500000e+01   8.500000e+01     13.000000   \n",
+       "50%    1.266320e+05  2.504000e+03  1.120000e+02   3.830000e+02     15.000000   \n",
+       "75%    4.165240e+05  1.014400e+04  3.990000e+02   1.352000e+03     18.000000   \n",
+       "max    4.245389e+08  5.613827e+06  1.944971e+06   1.626501e+06     18.000000   \n",
+       "\n",
+       "           video_id  formula_value  \n",
+       "count  56905.000000   5.690500e+04  \n",
+       "mean       2.837536   4.652326e+00  \n",
+       "std        4.865878   1.792818e+01  \n",
+       "min        1.000000   2.566638e-07  \n",
+       "25%        1.000000   2.265887e-01  \n",
+       "50%        1.000000   9.177392e-01  \n",
+       "75%        2.000000   3.466491e+00  \n",
+       "max       73.000000   1.668075e+03  "
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xd.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "c3f1e887",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.916112Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.915648Z",
+     "iopub.status.idle": "2024-12-08T00:37:43.937922Z",
+     "shell.execute_reply": "2024-12-08T00:37:43.936554Z"
+    },
+    "papermill": {
+     "duration": 0.03617,
+     "end_time": "2024-12-08T00:37:43.940697",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.904527",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "views           -0.019543\n",
+       "likes            0.021281\n",
+       "dislikes        -0.012389\n",
+       "comment_count    0.056607\n",
+       "category_id      0.018296\n",
+       "video_id        -0.038211\n",
+       "formula_value    1.000000\n",
+       "Name: formula_value, dtype: float64"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xd.reset_index(drop=True).corr()['formula_value']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "39172b09",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:43.961521Z",
+     "iopub.status.busy": "2024-12-08T00:37:43.961130Z",
+     "iopub.status.idle": "2024-12-08T00:37:44.322097Z",
+     "shell.execute_reply": "2024-12-08T00:37:44.320826Z"
+    },
+    "papermill": {
+     "duration": 0.374219,
+     "end_time": "2024-12-08T00:37:44.324650",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:43.950431",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[<matplotlib.lines.Line2D at 0x7e6cd1a5fe20>,\n",
+       " <matplotlib.lines.Line2D at 0x7e6cd1a5fdc0>,\n",
+       " <matplotlib.lines.Line2D at 0x7e6cd1a5fd90>,\n",
+       " <matplotlib.lines.Line2D at 0x7e6cd1a5fca0>,\n",
+       " <matplotlib.lines.Line2D at 0x7e6cd1a5fbb0>,\n",
+       " <matplotlib.lines.Line2D at 0x7e6cd1a5c910>,\n",
+       " <matplotlib.lines.Line2D at 0x7e6cd1a5faf0>]"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAhYAAAGsCAYAAACB/u5dAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuNSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/xnp5ZAAAACXBIWXMAAA9hAAAPYQGoP6dpAABCOklEQVR4nO3deXxU5aH/8e8kIQFkcwVR3K5VqwgiKlKrtZVWvdRqr721Xlv52d7e2mKr1WsrtYpabRCt1w2p1Sp1RaUCKshSliDIGgj7viWsYcsekszM8/sjyTCTzCSzPDNnls/79eKlmTlzzjNnzvI9z3me57iMMUYAAAAWZDldAAAAkD4IFgAAwBqCBQAAsIZgAQAArCFYAAAAawgWAADAGoIFAACwhmABAACsIVgAAABrCBYAAMAax4LFvHnzdNNNN6l3795yuVyaNGlSxPOYPn26rrzySnXt2lUnn3yybr31Vu3YscN6WQEAQHgcCxbV1dXq37+/xowZE9Xnt2/frptvvlnf+ta3VFRUpOnTp+vgwYP6j//4D8slBQAA4XIlw0PIXC6XJk6cqFtuucX3Wl1dnR5++GG9//77KisrU9++ffX000/r2muvlSRNmDBBt99+u+rq6pSV1ZiPPv30U918882qq6tThw4dHPgmAABktqRtY3HPPfdo4cKFGj9+vFatWqX//M//1A033KDNmzdLkgYOHKisrCy9+eab8ng8Ki8v19tvv60hQ4YQKgAAcEhS1lgUFxfrnHPOUXFxsXr37u2bbsiQIbriiiv05z//WZJUUFCgH/7whzp06JA8Ho8GDx6sqVOnqkePHg58CwAAkJQ1FqtXr5bH49F5552nLl26+P4VFBRo69atkqR9+/bp5z//uYYNG6alS5eqoKBAubm5+sEPfqAkyEoAAGSkHKcLEExVVZWys7NVWFio7OzsgPe6dOkiSRozZoy6d++u0aNH+95755131KdPHy1evFhXXnllQssMAACSNFgMGDBAHo9HpaWluvrqq4NOU1NT42u02aw5hHi93riXEQAAtObYrZCqqioVFRWpqKhIUmP30aKiIhUXF+u8887THXfcoTvvvFMff/yxtm/friVLlig/P19TpkyRJA0dOlRLly7VE088oc2bN2v58uW66667dOaZZ2rAgAFOfS0AADKaY403586dq29+85utXh82bJjG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slLdu3cP+X7CnxXi9Xq1Z88ede3aVS6Xy9p8Kyoq1KdPH5WUlPAMkgix7mLD+ose6y56rLvose6iY4xRZWWlevfurays0C0pEl5jkZWVpdNPPz1u8+/WrRsbSpRYd7Fh/UWPdRc91l30WHeRa6umohmNNwEAgDUECwAAYE3aBIu8vDyNHDlSeXl5Thcl5bDuYsP6ix7rLnqsu+ix7uIr4Y03AQBA+kqbGgsAAOA8ggUAALCGYAEAAKwhWAAAAGvSJliMGTNGZ511ljp27KhBgwZpyZIlThcprubNm6ebbrpJvXv3lsvl0qRJkwLeN8bo0Ucf1amnnqpOnTppyJAh2rx5c8A0hw8f1h133KFu3bqpR48e+tnPfqaqqqqAaVatWqWrr75aHTt2VJ8+fTR69OhWZfnoo490wQUXqGPHjrr44os1depU69/Xpvz8fF1++eXq2rWrTjnlFN1yyy3auHFjwDRHjx7V8OHDdeKJJ6pLly669dZbtX///oBpiouLNXToUHXu3FmnnHKKHnzwQbnd7oBp5s6dq0svvVR5eXk699xzNW7cuFblSaVtd+zYserXr59vYKHBgwfr888/973PegvfqFGj5HK5dN999/leY/2F9thjj8nlcgX8u+CCC3zvs+6SiEkD48ePN7m5ueaNN94wa9euNT//+c9Njx49zP79+50uWtxMnTrVPPzww+bjjz82kszEiRMD3h81apTp3r27mTRpklm5cqX53ve+Z84++2xTW1vrm+aGG24w/fv3N4sWLTJffPGFOffcc83tt9/ue7+8vNz07NnT3HHHHWbNmjXm/fffN506dTKvvvqqb5oFCxaY7OxsM3r0aLNu3Trzxz/+0XTo0MGsXr067usgWtdff7158803zZo1a0xRUZH593//d3PGGWeYqqoq3zR333236dOnj5k1a5ZZtmyZufLKK83XvvY13/tut9v07dvXDBkyxKxYscJMnTrVnHTSSWbEiBG+abZt22Y6d+5s7r//frNu3Trz0ksvmezsbDNt2jTfNKm27X7yySdmypQpZtOmTWbjxo3mD3/4g+nQoYNZs2aNMYb1Fq4lS5aYs846y/Tr18/ce++9vtdZf6GNHDnSXHTRRWbv3r2+fwcOHPC9z7pLHmkRLK644gozfPhw398ej8f07t3b5OfnO1iqxGkZLLxer+nVq5d55plnfK+VlZWZvLw88/777xtjjFm3bp2RZJYuXeqb5vPPPzcul8vs3r3bGGPMK6+8Yo4//nhTV1fnm+b3v/+9Of/8831///CHPzRDhw4NKM+gQYPML37xC6vfMZ5KS0uNJFNQUGCMaVxXHTp0MB999JFvmvXr1xtJZuHChcaYxmCXlZVl9u3b55tm7Nixplu3br719bvf/c5cdNFFAcu67bbbzPXXX+/7Ox223eOPP968/vrrrLcwVVZWmq985Stm5syZ5hvf+IYvWLD+2jZy5EjTv3//oO+x7pJLyt8Kqa+vV2FhoYYMGeJ7LSsrS0OGDNHChQsdLJlztm/frn379gWsk+7du2vQoEG+dbJw4UL16NFDl112mW+aIUOGKCsrS4sXL/ZNc8011yg3N9c3zfXXX6+NGzfqyJEjvmn8l9M8TSqt+/LycknSCSecIEkqLCxUQ0NDwPe64IILdMYZZwSsv4svvlg9e/b0TXP99deroqJCa9eu9U3T1rpJ9W3X4/Fo/Pjxqq6u1uDBg1lvYRo+fLiGDh3a6juy/tq3efNm9e7dW+ecc47uuOMOFRcXS2LdJZuUDxYHDx6Ux+MJ2FgkqWfPntq3b59DpXJW8/dua53s27dPp5xySsD7OTk5OuGEEwKmCTYP/2WEmiZV1r3X69V9992nq666Sn379pXU+J1yc3PVo0ePgGlbrr9o101FRYVqa2tTdttdvXq1unTpory8PN19992aOHGiLrzwQtZbGMaPH6/ly5crPz+/1Xusv7YNGjRI48aN07Rp0zR27Fht375dV199tSorK1l3SSbhTzcFksnw4cO1Zs0azZ8/3+mipIzzzz9fRUVFKi8v14QJEzRs2DAVFBQ4XaykV1JSonvvvVczZ85Ux44dnS5Oyrnxxht9/9+vXz8NGjRIZ555pj788EN16tTJwZKhpZSvsTjppJOUnZ3dqvXv/v371atXL4dK5azm793WOunVq5dKS0sD3ne73Tp8+HDANMHm4b+MUNOkwrq/55579Nlnn2nOnDk6/fTTfa/36tVL9fX1KisrC5i+5fqLdt1069ZNnTp1StltNzc3V+eee64GDhyo/Px89e/fXy+88ALrrR2FhYUqLS3VpZdeqpycHOXk5KigoEAvvviicnJy1LNnT9ZfBHr06KHzzjtPW7ZsYdtLMikfLHJzczVw4EDNmjXL95rX69WsWbM0ePBgB0vmnLPPPlu9evUKWCcVFRVavHixb50MHjxYZWVlKiws9E0ze/Zseb1eDRo0yDfNvHnz1NDQ4Jtm5syZOv/883X88cf7pvFfTvM0ybzujTG65557NHHiRM2ePVtnn312wPsDBw5Uhw4dAr7Xxo0bVVxcHLD+Vq9eHRDOZs6cqW7duunCCy/0TdPWukmXbdfr9aquro711o7rrrtOq1evVlFRke/fZZddpjvuuMP3/6y/8FVVVWnr1q069dRT2faSjdOtR20YP368ycvLM+PGjTPr1q0z//M//2N69OgR0Po33VRWVpoVK1aYFStWGEnmueeeMytWrDA7d+40xjR2N+3Ro4eZPHmyWbVqlbn55puDdjcdMGCAWbx4sZk/f775yle+EtDdtKyszPTs2dP85Cc/MWvWrDHjx483nTt3btXdNCcnxzz77LNm/fr1ZuTIkUnf3fSXv/yl6d69u5k7d25A17WamhrfNHfffbc544wzzOzZs82yZcvM4MGDzeDBg33vN3dd+853vmOKiorMtGnTzMknnxy069qDDz5o1q9fb8aMGRO061oqbbsPPfSQKSgoMNu3bzerVq0yDz30kHG5XGbGjBnGGNZbpPx7hRjD+mvLAw88YObOnWu2b99uFixYYIYMGWJOOukkU1paaoxh3SWTtAgWxhjz0ksvmTPOOMPk5uaaK664wixatMjpIsXVnDlzjKRW/4YNG2aMaexy+sgjj5iePXuavLw8c91115mNGzcGzOPQoUPm9ttvN126dDHdunUzd911l6msrAyYZuXKlebrX/+6ycvLM6eddpoZNWpUq7J8+OGH5rzzzjO5ubnmoosuMlOmTInb97Yh2HqTZN58803fNLW1teZXv/qVOf74403nzp3N97//fbN3796A+ezYscPceOONplOnTuakk04yDzzwgGloaAiYZs6cOeaSSy4xubm55pxzzglYRrNU2nZ/+tOfmjPPPNPk5uaak08+2Vx33XW+UGEM6y1SLYMF6y+02267zZx66qkmNzfXnHbaaea2224zW7Zs8b3PuksePDYdAABYk/JtLAAAQPIgWAAAAGsIFgAAwBqCBQAAsIZgAQAArCFYAAAAawgWAADAGoIFAACwhmABAACsIVgAAABrCBYAAMAaggUAALDm/wOJ09/lVezBBAAAAABJRU5ErkJggg==",
+      "text/plain": [
+       "<Figure size 640x480 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.plot(xd.reset_index(drop=True))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "cdbd756d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:44.347284Z",
+     "iopub.status.busy": "2024-12-08T00:37:44.346865Z",
+     "iopub.status.idle": "2024-12-08T00:37:44.355522Z",
+     "shell.execute_reply": "2024-12-08T00:37:44.354377Z"
+    },
+    "papermill": {
+     "duration": 0.022536,
+     "end_time": "2024-12-08T00:37:44.358011",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.335475",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xd.reset_index(inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "1a618211",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:44.380280Z",
+     "iopub.status.busy": "2024-12-08T00:37:44.379879Z",
+     "iopub.status.idle": "2024-12-08T00:37:44.393663Z",
+     "shell.execute_reply": "2024-12-08T00:37:44.392654Z"
+    },
+    "papermill": {
+     "duration": 0.027513,
+     "end_time": "2024-12-08T00:37:44.396134",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.368621",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xd = xd.drop_duplicates(subset=['formula_value'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "d418b564",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:44.417960Z",
+     "iopub.status.busy": "2024-12-08T00:37:44.417580Z",
+     "iopub.status.idle": "2024-12-08T00:37:44.432313Z",
+     "shell.execute_reply": "2024-12-08T00:37:44.431098Z"
+    },
+    "papermill": {
+     "duration": 0.027921,
+     "end_time": "2024-12-08T00:37:44.434455",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.406534",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>title</th>\n",
+       "      <th>views</th>\n",
+       "      <th>likes</th>\n",
+       "      <th>dislikes</th>\n",
+       "      <th>comment_count</th>\n",
+       "      <th>category_id</th>\n",
+       "      <th>video_id</th>\n",
+       "      <th>formula_value</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>36269</th>\n",
+       "      <td>Q: The Second American Revolution is Upon Us</td>\n",
+       "      <td>67643</td>\n",
+       "      <td>6335</td>\n",
+       "      <td>183</td>\n",
+       "      <td>2178</td>\n",
+       "      <td>14.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>15.529352</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                              title  views  likes  dislikes  \\\n",
+       "36269  Q: The Second American Revolution is Upon Us  67643   6335       183   \n",
+       "\n",
+       "       comment_count  category_id  video_id  formula_value  \n",
+       "36269           2178         14.0         1      15.529352  "
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xd.sample(1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "522d8663",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:44.456576Z",
+     "iopub.status.busy": "2024-12-08T00:37:44.456232Z",
+     "iopub.status.idle": "2024-12-08T00:37:44.463236Z",
+     "shell.execute_reply": "2024-12-08T00:37:44.462075Z"
+    },
+    "papermill": {
+     "duration": 0.02039,
+     "end_time": "2024-12-08T00:37:44.465461",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.445071",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "10"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# xd.sample(1)\n",
+    "xd.iloc[48318,-2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "a5648027",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:37:44.488419Z",
+     "iopub.status.busy": "2024-12-08T00:37:44.488064Z",
+     "iopub.status.idle": "2024-12-08T00:37:44.518921Z",
+     "shell.execute_reply": "2024-12-08T00:37:44.517680Z"
+    },
+    "papermill": {
+     "duration": 0.045805,
+     "end_time": "2024-12-08T00:37:44.521399",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.475594",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>title</th>\n",
+       "      <th>views</th>\n",
+       "      <th>likes</th>\n",
+       "      <th>dislikes</th>\n",
+       "      <th>comment_count</th>\n",
+       "      <th>category_id</th>\n",
+       "      <th>video_id</th>\n",
+       "      <th>formula_value</th>\n",
+       "      <th>difference</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>48325</th>\n",
+       "      <td>We Mastered That Shiny Dirt Ball</td>\n",
+       "      <td>4227252</td>\n",
+       "      <td>100981</td>\n",
+       "      <td>13015</td>\n",
+       "      <td>9177</td>\n",
+       "      <td>16.0</td>\n",
+       "      <td>10</td>\n",
+       "      <td>0.269511</td>\n",
+       "      <td>0.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31374</th>\n",
+       "      <td>Modou Mbaye ChassÃ© et MenacÃ© de Mort par Sa ...</td>\n",
+       "      <td>39713</td>\n",
+       "      <td>287</td>\n",
+       "      <td>30</td>\n",
+       "      <td>71</td>\n",
+       "      <td>16.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.269488</td>\n",
+       "      <td>0.000023</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>33953</th>\n",
+       "      <td>Oru Adaar Love | Official Teaser ft Priya Prak...</td>\n",
+       "      <td>11224655</td>\n",
+       "      <td>235111</td>\n",
+       "      <td>17671</td>\n",
+       "      <td>13373</td>\n",
+       "      <td>17.0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0.269480</td>\n",
+       "      <td>0.000031</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6177</th>\n",
+       "      <td>Barbara enlÃ¨ve le haut pour un cours de yoga ...</td>\n",
+       "      <td>55196</td>\n",
+       "      <td>523</td>\n",
+       "      <td>25</td>\n",
+       "      <td>40</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0.269463</td>\n",
+       "      <td>0.000048</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1676</th>\n",
+       "      <td>21 Savage, Offset, Metro Boomin - Ric Flair Drip</td>\n",
+       "      <td>69907195</td>\n",
+       "      <td>835963</td>\n",
+       "      <td>30861</td>\n",
+       "      <td>40903</td>\n",
+       "      <td>17.0</td>\n",
+       "      <td>31</td>\n",
+       "      <td>0.269436</td>\n",
+       "      <td>0.000074</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>18493</th>\n",
+       "      <td>How Noah Galvin Makes Evan Hansen His Own</td>\n",
+       "      <td>1402</td>\n",
+       "      <td>20</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.269423</td>\n",
+       "      <td>0.000088</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                                   title     views   likes  \\\n",
+       "48325                   We Mastered That Shiny Dirt Ball   4227252  100981   \n",
+       "31374  Modou Mbaye ChassÃ© et MenacÃ© de Mort par Sa ...     39713     287   \n",
+       "33953  Oru Adaar Love | Official Teaser ft Priya Prak...  11224655  235111   \n",
+       "6177   Barbara enlÃ¨ve le haut pour un cours de yoga ...     55196     523   \n",
+       "1676    21 Savage, Offset, Metro Boomin - Ric Flair Drip  69907195  835963   \n",
+       "18493          How Noah Galvin Makes Evan Hansen His Own      1402      20   \n",
+       "\n",
+       "       dislikes  comment_count  category_id  video_id  formula_value  \\\n",
+       "48325     13015           9177         16.0        10       0.269511   \n",
+       "31374        30             71         16.0         1       0.269488   \n",
+       "33953     17671          13373         17.0         3       0.269480   \n",
+       "6177         25             40         18.0         2       0.269463   \n",
+       "1676      30861          40903         17.0        31       0.269436   \n",
+       "18493         0              0         18.0         1       0.269423   \n",
+       "\n",
+       "       difference  \n",
+       "48325    0.000000  \n",
+       "31374    0.000023  \n",
+       "33953    0.000031  \n",
+       "6177     0.000048  \n",
+       "1676     0.000074  \n",
+       "18493    0.000088  "
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "target_value = 0.26951083087448285\n",
+    "\n",
+    "\n",
+    "xd['difference'] = np.abs(xd['formula_value'] - target_value)\n",
+    "xd.sort_values('difference').head(6)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c3850327",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T00:25:54.168452Z",
+     "iopub.status.busy": "2024-12-08T00:25:54.168046Z",
+     "iopub.status.idle": "2024-12-08T00:25:54.200990Z",
+     "shell.execute_reply": "2024-12-08T00:25:54.199882Z",
+     "shell.execute_reply.started": "2024-12-08T00:25:54.168410Z"
+    },
+    "papermill": {
+     "duration": 0.010279,
+     "end_time": "2024-12-08T00:37:44.542302",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.532023",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9cd3e54a",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010167,
+     "end_time": "2024-12-08T00:37:44.563225",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.553058",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3edc58c2",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010282,
+     "end_time": "2024-12-08T00:37:44.584603",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.574321",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "87fe17a9",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010838,
+     "end_time": "2024-12-08T00:37:44.606353",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.595515",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7cd99175",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010639,
+     "end_time": "2024-12-08T00:37:44.627506",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.616867",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6430e371",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010498,
+     "end_time": "2024-12-08T00:37:44.649081",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.638583",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5c285d49",
+   "metadata": {
+    "papermill": {
+     "duration": 0.0106,
+     "end_time": "2024-12-08T00:37:44.670061",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.659461",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "66b3265c",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010116,
+     "end_time": "2024-12-08T00:37:44.690581",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.680465",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "10b8aeac",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010244,
+     "end_time": "2024-12-08T00:37:44.711195",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.700951",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d5e6422f",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009909,
+     "end_time": "2024-12-08T00:37:44.731404",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.721495",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "31445c83",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010268,
+     "end_time": "2024-12-08T00:37:44.752969",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.742701",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a78c3457",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009979,
+     "end_time": "2024-12-08T00:37:44.773321",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.763342",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cdbff2ab",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009895,
+     "end_time": "2024-12-08T00:37:44.793584",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.783689",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cc57a6bb",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010133,
+     "end_time": "2024-12-08T00:37:44.813874",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.803741",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a9891846",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010004,
+     "end_time": "2024-12-08T00:37:44.834123",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.824119",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "befca906",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010121,
+     "end_time": "2024-12-08T00:37:44.854489",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.844368",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9e0fa995",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010067,
+     "end_time": "2024-12-08T00:37:44.874835",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.864768",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "33265516",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010022,
+     "end_time": "2024-12-08T00:37:44.895209",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.885187",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "028068da",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010008,
+     "end_time": "2024-12-08T00:37:44.915598",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.905590",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a073c509",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009993,
+     "end_time": "2024-12-08T00:37:44.935728",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.925735",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f2377d67",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009783,
+     "end_time": "2024-12-08T00:37:44.955797",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.946014",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b406ea53",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010002,
+     "end_time": "2024-12-08T00:37:44.975891",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.965889",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0af22f61",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010291,
+     "end_time": "2024-12-08T00:37:44.996493",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:44.986202",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "61e2f7dd",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010171,
+     "end_time": "2024-12-08T00:37:45.017174",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:45.007003",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "25a85ed2",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010235,
+     "end_time": "2024-12-08T00:37:45.037602",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:45.027367",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cac202de",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010244,
+     "end_time": "2024-12-08T00:37:45.058216",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:45.047972",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aacfbe7c",
+   "metadata": {
+    "papermill": {
+     "duration": 0.01016,
+     "end_time": "2024-12-08T00:37:45.079218",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:45.069058",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ab6d5a5b",
+   "metadata": {
+    "papermill": {
+     "duration": 0.013648,
+     "end_time": "2024-12-08T00:37:45.103156",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:45.089508",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cd155404",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011575,
+     "end_time": "2024-12-08T00:37:45.128527",
+     "exception": false,
+     "start_time": "2024-12-08T00:37:45.116952",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "datasetId": 4188923,
+     "sourceId": 7233960,
+     "sourceType": "datasetVersion"
+    }
+   ],
+   "dockerImageVersionId": 30804,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.14"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 11.046938,
+   "end_time": "2024-12-08T00:37:45.865820",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2024-12-08T00:37:34.818882",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
