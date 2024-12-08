@@ -1,0 +1,342 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "1fb21c67",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:51:56.680333Z",
+     "iopub.status.busy": "2024-12-08T22:51:56.679791Z",
+     "iopub.status.idle": "2024-12-08T22:51:59.036613Z",
+     "shell.execute_reply": "2024-12-08T22:51:59.035221Z"
+    },
+    "papermill": {
+     "duration": 2.364338,
+     "end_time": "2024-12-08T22:51:59.038920",
+     "exception": false,
+     "start_time": "2024-12-08T22:51:56.674582",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/youtube-trending-videos-dataset/youtube.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "import pickle\n",
+    "\n",
+    "from sklearn.feature_extraction.text import CountVectorizer\n",
+    "from sklearn.metrics.pairwise import cosine_similarity\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "66af8160",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:51:59.046925Z",
+     "iopub.status.busy": "2024-12-08T22:51:59.045892Z",
+     "iopub.status.idle": "2024-12-08T22:52:01.284633Z",
+     "shell.execute_reply": "2024-12-08T22:52:01.283453Z"
+    },
+    "papermill": {
+     "duration": 2.24503,
+     "end_time": "2024-12-08T22:52:01.286955",
+     "exception": false,
+     "start_time": "2024-12-08T22:51:59.041925",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "titles = pd.read_csv(r\"/kaggle/input/youtube-trending-videos-dataset/youtube.csv\")['title'].drop_duplicates().iloc[:10000].apply(lambda x: x.lower())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "c4a7c785",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:52:01.295826Z",
+     "iopub.status.busy": "2024-12-08T22:52:01.295419Z",
+     "iopub.status.idle": "2024-12-08T22:52:10.708672Z",
+     "shell.execute_reply": "2024-12-08T22:52:10.707506Z"
+    },
+    "papermill": {
+     "duration": 9.421331,
+     "end_time": "2024-12-08T22:52:10.711186",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:01.289855",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "cv = CountVectorizer(stop_words='english', max_features=5000)\n",
+    "vector = cv.fit_transform(titles).toarray()\n",
+    "similarity = cosine_similarity(vector)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "da41c3c3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:52:10.718637Z",
+     "iopub.status.busy": "2024-12-08T22:52:10.718288Z",
+     "iopub.status.idle": "2024-12-08T22:52:10.726384Z",
+     "shell.execute_reply": "2024-12-08T22:52:10.725184Z"
+    },
+    "papermill": {
+     "duration": 0.014514,
+     "end_time": "2024-12-08T22:52:10.728491",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:10.713977",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(10000, 10000)"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "similarity.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "1da0206a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:52:10.736511Z",
+     "iopub.status.busy": "2024-12-08T22:52:10.735389Z",
+     "iopub.status.idle": "2024-12-08T22:52:10.746548Z",
+     "shell.execute_reply": "2024-12-08T22:52:10.745503Z"
+    },
+    "papermill": {
+     "duration": 0.01711,
+     "end_time": "2024-12-08T22:52:10.748557",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:10.731447",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "30968    chris evans and scott evans test how well they...\n",
+       "73128    ms. lauryn hill remixes drake's nice for what ...\n",
+       "19008    black history: awesome facts, part two! | thom...\n",
+       "Name: title, dtype: object"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "titles.sample(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "7cb197e5",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:52:10.756188Z",
+     "iopub.status.busy": "2024-12-08T22:52:10.755783Z",
+     "iopub.status.idle": "2024-12-08T22:52:10.761326Z",
+     "shell.execute_reply": "2024-12-08T22:52:10.760176Z"
+    },
+    "papermill": {
+     "duration": 0.011733,
+     "end_time": "2024-12-08T22:52:10.763361",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:10.751628",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "def recommend(video_title):\n",
+    "    index = titles[titles == video_title].index[0]\n",
+    "    distances = sorted(list(enumerate(similarity[index])), reverse=True, key= lambda x: x[1])[1:6]\n",
+    "    for i in distances:\n",
+    "        print(titles.iloc[i[0]])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "de2732d3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:52:10.770802Z",
+     "iopub.status.busy": "2024-12-08T22:52:10.770441Z",
+     "iopub.status.idle": "2024-12-08T22:52:10.781938Z",
+     "shell.execute_reply": "2024-12-08T22:52:10.780659Z"
+    },
+    "papermill": {
+     "duration": 0.018519,
+     "end_time": "2024-12-08T22:52:10.784910",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:10.766391",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "the bipartisan pastime of harassing women\n",
+      "billy bush believes the women accusing trump of sexual assault\n",
+      "president trump new year's eve ball\n",
+      "what do you think of trump's 1st year? tomi lahren asks random californians\n",
+      "president trump, first lady melania trump and barron trump arrive in palm beach, fl. jan 12, 2018\n"
+     ]
+    }
+   ],
+   "source": [
+    "recommend('honest trailers - the room')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aa0b3bc7",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-12-08T22:46:21.401094Z",
+     "iopub.status.busy": "2024-12-08T22:46:21.400511Z",
+     "iopub.status.idle": "2024-12-08T22:46:21.408233Z",
+     "shell.execute_reply": "2024-12-08T22:46:21.406742Z",
+     "shell.execute_reply.started": "2024-12-08T22:46:21.400999Z"
+    },
+    "papermill": {
+     "duration": 0.002715,
+     "end_time": "2024-12-08T22:52:10.790587",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:10.787872",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "07b43ba2",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00374,
+     "end_time": "2024-12-08T22:52:10.797196",
+     "exception": false,
+     "start_time": "2024-12-08T22:52:10.793456",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "datasetId": 4188923,
+     "sourceId": 7233960,
+     "sourceType": "datasetVersion"
+    }
+   ],
+   "dockerImageVersionId": 30804,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.14"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 17.497397,
+   "end_time": "2024-12-08T22:52:11.422776",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2024-12-08T22:51:53.925379",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
