@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "0f6e8813",
+   "id": "966c2b9c",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:28.883265Z",
-     "iopub.status.busy": "2024-12-10T00:04:28.882826Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.400248Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.398752Z"
+     "iopub.execute_input": "2024-12-10T00:13:52.919035Z",
+     "iopub.status.busy": "2024-12-10T00:13:52.918654Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.557824Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.556683Z"
     },
     "papermill": {
-     "duration": 3.534423,
-     "end_time": "2024-12-10T00:04:32.403711",
+     "duration": 2.653935,
+     "end_time": "2024-12-10T00:13:55.560220",
      "exception": false,
-     "start_time": "2024-12-10T00:04:28.869288",
+     "start_time": "2024-12-10T00:13:52.906285",
      "status": "completed"
     },
     "tags": []
@@ -59,19 +59,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "c839d2e4",
+   "id": "9ded1c1e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.435685Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.434834Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.601957Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.600594Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.582968Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.582421Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.696229Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.695206Z"
     },
     "papermill": {
-     "duration": 0.182873,
-     "end_time": "2024-12-10T00:04:32.604590",
+     "duration": 0.126867,
+     "end_time": "2024-12-10T00:13:55.698405",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.421717",
+     "start_time": "2024-12-10T00:13:55.571538",
      "status": "completed"
     },
     "tags": []
@@ -83,13 +83,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ee8ffd4d",
+   "id": "65de73f8",
    "metadata": {
     "papermill": {
-     "duration": 0.010951,
-     "end_time": "2024-12-10T00:04:32.626170",
+     "duration": 0.009359,
+     "end_time": "2024-12-10T00:13:55.717571",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.615219",
+     "start_time": "2024-12-10T00:13:55.708212",
      "status": "completed"
     },
     "tags": []
@@ -101,13 +101,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "3995406e",
+   "id": "5cfff25c",
    "metadata": {
     "papermill": {
-     "duration": 0.010041,
-     "end_time": "2024-12-10T00:04:32.647654",
+     "duration": 0.009306,
+     "end_time": "2024-12-10T00:13:55.736528",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.637613",
+     "start_time": "2024-12-10T00:13:55.727222",
      "status": "completed"
     },
     "tags": []
@@ -119,19 +119,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "2b7b4467",
+   "id": "ed8c90d9",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.672471Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.672000Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.680833Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.679634Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.757313Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.756936Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.764659Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.763637Z"
     },
     "papermill": {
-     "duration": 0.025549,
-     "end_time": "2024-12-10T00:04:32.683775",
+     "duration": 0.020421,
+     "end_time": "2024-12-10T00:13:55.766544",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.658226",
+     "start_time": "2024-12-10T00:13:55.746123",
      "status": "completed"
     },
     "tags": []
@@ -155,19 +155,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "dbc5c2a0",
+   "id": "73cfb787",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.716221Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.715230Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.767216Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.765973Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.787598Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.787190Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.819366Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.818208Z"
     },
     "papermill": {
-     "duration": 0.067419,
-     "end_time": "2024-12-10T00:04:32.770409",
+     "duration": 0.045019,
+     "end_time": "2024-12-10T00:13:55.821542",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.702990",
+     "start_time": "2024-12-10T00:13:55.776523",
      "status": "completed"
     },
     "tags": []
@@ -206,19 +206,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "78b5b1e2",
+   "id": "b8a76739",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.800530Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.799221Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.824478Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.823270Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.842743Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.842357Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.862865Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.861890Z"
     },
     "papermill": {
-     "duration": 0.040112,
-     "end_time": "2024-12-10T00:04:32.826824",
+     "duration": 0.033311,
+     "end_time": "2024-12-10T00:13:55.864773",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.786712",
+     "start_time": "2024-12-10T00:13:55.831462",
      "status": "completed"
     },
     "tags": []
@@ -261,84 +261,79 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>4194</th>\n",
-       "      <td>s4195</td>\n",
+       "      <th>8152</th>\n",
+       "      <td>s8153</td>\n",
        "      <td>Movie</td>\n",
-       "      <td>The Doll</td>\n",
-       "      <td>Rocky Soraya</td>\n",
-       "      <td>Shandy Aulia, Denny Sumargo, Sara Wijayanto, V...</td>\n",
-       "      <td>Indonesia</td>\n",
-       "      <td>January 15, 2019</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>TV-MA</td>\n",
-       "      <td>106 min</td>\n",
-       "      <td>Horror Movies, International Movies</td>\n",
-       "      <td>Eerie things begin to happen after a man gives...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>7554</th>\n",
-       "      <td>s7555</td>\n",
-       "      <td>Movie</td>\n",
-       "      <td>Naga The Eternal Yogi</td>\n",
-       "      <td>Krishna Agazzi, Filippo Gastaldi</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>Italy, India</td>\n",
-       "      <td>February 5, 2017</td>\n",
-       "      <td>2016</td>\n",
-       "      <td>TV-PG</td>\n",
-       "      <td>73 min</td>\n",
-       "      <td>Documentaries, International Movies</td>\n",
-       "      <td>This documentary examines the naked yoga gurus...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>1552</th>\n",
-       "      <td>s1553</td>\n",
-       "      <td>TV Show</td>\n",
-       "      <td>Tiny Pretty Things</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>Lauren Holly, Kylie Jefferson, Casimere Jollet...</td>\n",
+       "      <td>Tarzan 2</td>\n",
+       "      <td>Brian Smith</td>\n",
+       "      <td>Harrison Chad, George Carlin, Brad Garrett, Ro...</td>\n",
        "      <td>United States</td>\n",
-       "      <td>December 14, 2020</td>\n",
-       "      <td>2020</td>\n",
+       "      <td>June 23, 2017</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>G</td>\n",
+       "      <td>72 min</td>\n",
+       "      <td>Children &amp; Family Movies</td>\n",
+       "      <td>How did the King of the Jungle ascend to the t...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4978</th>\n",
+       "      <td>s4979</td>\n",
+       "      <td>TV Show</td>\n",
+       "      <td>Edha</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Juana Viale, Andrés Velencoso, Delfina Chaves,...</td>\n",
+       "      <td>Argentina</td>\n",
+       "      <td>March 16, 2018</td>\n",
+       "      <td>2018</td>\n",
        "      <td>TV-MA</td>\n",
        "      <td>1 Season</td>\n",
-       "      <td>TV Dramas, TV Mysteries, TV Thrillers</td>\n",
-       "      <td>When an attack brings down the star student at...</td>\n",
+       "      <td>International TV Shows, Spanish-Language TV Sh...</td>\n",
+       "      <td>Revenge, passion and dark secrets push a succe...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7701</th>\n",
+       "      <td>s7702</td>\n",
+       "      <td>Movie</td>\n",
+       "      <td>Panic Room</td>\n",
+       "      <td>David Fincher</td>\n",
+       "      <td>Jodie Foster, Forest Whitaker, Dwight Yoakam, ...</td>\n",
+       "      <td>United States</td>\n",
+       "      <td>August 1, 2019</td>\n",
+       "      <td>2002</td>\n",
+       "      <td>R</td>\n",
+       "      <td>112 min</td>\n",
+       "      <td>Thrillers</td>\n",
+       "      <td>A woman and her daughter are caught in a game ...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "     show_id     type                  title  \\\n",
-       "4194   s4195    Movie               The Doll   \n",
-       "7554   s7555    Movie  Naga The Eternal Yogi   \n",
-       "1552   s1553  TV Show     Tiny Pretty Things   \n",
-       "\n",
-       "                              director  \\\n",
-       "4194                      Rocky Soraya   \n",
-       "7554  Krishna Agazzi, Filippo Gastaldi   \n",
-       "1552                               NaN   \n",
+       "     show_id     type       title       director  \\\n",
+       "8152   s8153    Movie    Tarzan 2    Brian Smith   \n",
+       "4978   s4979  TV Show        Edha            NaN   \n",
+       "7701   s7702    Movie  Panic Room  David Fincher   \n",
        "\n",
        "                                                   cast        country  \\\n",
-       "4194  Shandy Aulia, Denny Sumargo, Sara Wijayanto, V...      Indonesia   \n",
-       "7554                                                NaN   Italy, India   \n",
-       "1552  Lauren Holly, Kylie Jefferson, Casimere Jollet...  United States   \n",
+       "8152  Harrison Chad, George Carlin, Brad Garrett, Ro...  United States   \n",
+       "4978  Juana Viale, Andrés Velencoso, Delfina Chaves,...      Argentina   \n",
+       "7701  Jodie Foster, Forest Whitaker, Dwight Yoakam, ...  United States   \n",
        "\n",
-       "             date_added  release_year rating  duration  \\\n",
-       "4194   January 15, 2019          2016  TV-MA   106 min   \n",
-       "7554   February 5, 2017          2016  TV-PG    73 min   \n",
-       "1552  December 14, 2020          2020  TV-MA  1 Season   \n",
+       "          date_added  release_year rating  duration  \\\n",
+       "8152   June 23, 2017          2005      G    72 min   \n",
+       "4978  March 16, 2018          2018  TV-MA  1 Season   \n",
+       "7701  August 1, 2019          2002      R   112 min   \n",
        "\n",
-       "                                  listed_in  \\\n",
-       "4194    Horror Movies, International Movies   \n",
-       "7554    Documentaries, International Movies   \n",
-       "1552  TV Dramas, TV Mysteries, TV Thrillers   \n",
+       "                                              listed_in  \\\n",
+       "8152                           Children & Family Movies   \n",
+       "4978  International TV Shows, Spanish-Language TV Sh...   \n",
+       "7701                                          Thrillers   \n",
        "\n",
        "                                            description  \n",
-       "4194  Eerie things begin to happen after a man gives...  \n",
-       "7554  This documentary examines the naked yoga gurus...  \n",
-       "1552  When an attack brings down the star student at...  "
+       "8152  How did the King of the Jungle ascend to the t...  \n",
+       "4978  Revenge, passion and dark secrets push a succe...  \n",
+       "7701  A woman and her daughter are caught in a game ...  "
       ]
      },
      "execution_count": 5,
@@ -353,19 +348,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "55b204fb",
+   "id": "d90b8b0d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.851182Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.850657Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.871083Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.869875Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.886678Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.886281Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.899522Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.898636Z"
     },
     "papermill": {
-     "duration": 0.035415,
-     "end_time": "2024-12-10T00:04:32.873577",
+     "duration": 0.026402,
+     "end_time": "2024-12-10T00:13:55.901377",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.838162",
+     "start_time": "2024-12-10T00:13:55.874975",
      "status": "completed"
     },
     "tags": []
@@ -401,19 +396,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "e9c105c0",
+   "id": "aba4d725",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.898262Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.897707Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.929627Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.928470Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.923044Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.922679Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.945465Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.944531Z"
     },
     "papermill": {
-     "duration": 0.046994,
-     "end_time": "2024-12-10T00:04:32.932187",
+     "duration": 0.035795,
+     "end_time": "2024-12-10T00:13:55.947329",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.885193",
+     "start_time": "2024-12-10T00:13:55.911534",
      "status": "completed"
     },
     "tags": []
@@ -437,19 +432,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "65aba2aa",
+   "id": "ce97eb9d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:32.957148Z",
-     "iopub.status.busy": "2024-12-10T00:04:32.955934Z",
-     "iopub.status.idle": "2024-12-10T00:04:32.980073Z",
-     "shell.execute_reply": "2024-12-10T00:04:32.978929Z"
+     "iopub.execute_input": "2024-12-10T00:13:55.969268Z",
+     "iopub.status.busy": "2024-12-10T00:13:55.968886Z",
+     "iopub.status.idle": "2024-12-10T00:13:55.989606Z",
+     "shell.execute_reply": "2024-12-10T00:13:55.988624Z"
     },
     "papermill": {
-     "duration": 0.039551,
-     "end_time": "2024-12-10T00:04:32.982967",
+     "duration": 0.034266,
+     "end_time": "2024-12-10T00:13:55.991729",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.943416",
+     "start_time": "2024-12-10T00:13:55.957463",
      "status": "completed"
     },
     "tags": []
@@ -485,19 +480,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "0b13b351",
+   "id": "fb2db63c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.011823Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.011316Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.021037Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.019807Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.014122Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.013430Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.020737Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.019912Z"
     },
     "papermill": {
-     "duration": 0.024684,
-     "end_time": "2024-12-10T00:04:33.023526",
+     "duration": 0.020706,
+     "end_time": "2024-12-10T00:13:56.022744",
      "exception": false,
-     "start_time": "2024-12-10T00:04:32.998842",
+     "start_time": "2024-12-10T00:13:56.002038",
      "status": "completed"
     },
     "tags": []
@@ -510,19 +505,19 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "c1b78ac7",
+   "id": "07932309",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.049663Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.049268Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.064926Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.063571Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.045171Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.044463Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.057853Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.056820Z"
     },
     "papermill": {
-     "duration": 0.030558,
-     "end_time": "2024-12-10T00:04:33.067295",
+     "duration": 0.026807,
+     "end_time": "2024-12-10T00:13:56.059855",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.036737",
+     "start_time": "2024-12-10T00:13:56.033048",
      "status": "completed"
     },
     "tags": []
@@ -565,59 +560,59 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>606</th>\n",
-       "      <td>s607</td>\n",
+       "      <th>8581</th>\n",
+       "      <td>s8582</td>\n",
        "      <td>Movie</td>\n",
-       "      <td>The Queen</td>\n",
-       "      <td>Stephen Frears</td>\n",
-       "      <td>Helen Mirren, Michael Sheen, James Cromwell, H...</td>\n",
-       "      <td>United Kingdom, United States, France, Italy</td>\n",
-       "      <td>July 1, 2021</td>\n",
-       "      <td>2006</td>\n",
-       "      <td>PG-13</td>\n",
-       "      <td>103 min</td>\n",
-       "      <td>Dramas, International Movies</td>\n",
-       "      <td>After Princess Diana's death, Queen Elizabeth ...</td>\n",
+       "      <td>Thor: Tales of Asgard</td>\n",
+       "      <td>Sam Liu</td>\n",
+       "      <td>Matthew Wolf, Rick Gomez, Tara Strong, Alistai...</td>\n",
+       "      <td>United States, Canada</td>\n",
+       "      <td>April 15, 2020</td>\n",
+       "      <td>2011</td>\n",
+       "      <td>TV-Y7</td>\n",
+       "      <td>77 min</td>\n",
+       "      <td>Children &amp; Family Movies</td>\n",
+       "      <td>Thor, the Marvel comic book character, comes t...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>8282</th>\n",
-       "      <td>s8283</td>\n",
-       "      <td>TV Show</td>\n",
-       "      <td>The Drunk and on Drugs Happy Funtime Hour</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>John Paul Tremblay, Robb Wells, Maury Chaykin,...</td>\n",
-       "      <td>Canada</td>\n",
-       "      <td>August 24, 2018</td>\n",
-       "      <td>2011</td>\n",
+       "      <th>6392</th>\n",
+       "      <td>s6393</td>\n",
+       "      <td>Movie</td>\n",
+       "      <td>Burning</td>\n",
+       "      <td>Lee Chang-dong</td>\n",
+       "      <td>Yoo Ah-in, Steven Yeun, Jun Jong-seo, Kim Soo-...</td>\n",
+       "      <td>South Korea, Japan</td>\n",
+       "      <td>April 29, 2019</td>\n",
+       "      <td>2018</td>\n",
        "      <td>TV-MA</td>\n",
-       "      <td>1 Season</td>\n",
-       "      <td>International TV Shows, TV Comedies</td>\n",
-       "      <td>A variety-show production trips up big time wh...</td>\n",
+       "      <td>148 min</td>\n",
+       "      <td>Dramas, Independent Movies, International Movies</td>\n",
+       "      <td>An aspiring writer goes to the airport to pick...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "     show_id     type                                      title  \\\n",
-       "606     s607    Movie                                  The Queen   \n",
-       "8282   s8283  TV Show  The Drunk and on Drugs Happy Funtime Hour   \n",
+       "     show_id   type                  title        director  \\\n",
+       "8581   s8582  Movie  Thor: Tales of Asgard         Sam Liu   \n",
+       "6392   s6393  Movie                Burning  Lee Chang-dong   \n",
        "\n",
-       "            director                                               cast  \\\n",
-       "606   Stephen Frears  Helen Mirren, Michael Sheen, James Cromwell, H...   \n",
-       "8282             NaN  John Paul Tremblay, Robb Wells, Maury Chaykin,...   \n",
+       "                                                   cast  \\\n",
+       "8581  Matthew Wolf, Rick Gomez, Tara Strong, Alistai...   \n",
+       "6392  Yoo Ah-in, Steven Yeun, Jun Jong-seo, Kim Soo-...   \n",
        "\n",
-       "                                           country       date_added  \\\n",
-       "606   United Kingdom, United States, France, Italy     July 1, 2021   \n",
-       "8282                                        Canada  August 24, 2018   \n",
+       "                    country      date_added  release_year rating duration  \\\n",
+       "8581  United States, Canada  April 15, 2020          2011  TV-Y7   77 min   \n",
+       "6392     South Korea, Japan  April 29, 2019          2018  TV-MA  148 min   \n",
        "\n",
-       "      release_year rating  duration                            listed_in  \\\n",
-       "606           2006  PG-13   103 min         Dramas, International Movies   \n",
-       "8282          2011  TV-MA  1 Season  International TV Shows, TV Comedies   \n",
+       "                                             listed_in  \\\n",
+       "8581                          Children & Family Movies   \n",
+       "6392  Dramas, Independent Movies, International Movies   \n",
        "\n",
        "                                            description  \n",
-       "606   After Princess Diana's death, Queen Elizabeth ...  \n",
-       "8282  A variety-show production trips up big time wh...  "
+       "8581  Thor, the Marvel comic book character, comes t...  \n",
+       "6392  An aspiring writer goes to the airport to pick...  "
       ]
      },
      "execution_count": 10,
@@ -632,19 +627,19 @@
   {
    "cell_type": "code",
    "execution_count": 11,
-   "id": "863f8fb0",
+   "id": "cd314cbf",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.094313Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.093894Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.101524Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.100469Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.082781Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.082073Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.088664Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.087698Z"
     },
     "papermill": {
-     "duration": 0.024588,
-     "end_time": "2024-12-10T00:04:33.104034",
+     "duration": 0.020255,
+     "end_time": "2024-12-10T00:13:56.090644",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.079446",
+     "start_time": "2024-12-10T00:13:56.070389",
      "status": "completed"
     },
     "tags": []
@@ -668,19 +663,19 @@
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "b4d1e407",
+   "id": "d05bc01e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.128540Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.128177Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.135306Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.134139Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.113974Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.112975Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.119752Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.118487Z"
     },
     "papermill": {
-     "duration": 0.022208,
-     "end_time": "2024-12-10T00:04:33.137713",
+     "duration": 0.020512,
+     "end_time": "2024-12-10T00:13:56.121804",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.115505",
+     "start_time": "2024-12-10T00:13:56.101292",
      "status": "completed"
     },
     "tags": []
@@ -704,19 +699,19 @@
   {
    "cell_type": "code",
    "execution_count": 13,
-   "id": "3f1730f0",
+   "id": "df00f2a1",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.162564Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.162178Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.173996Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.172874Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.145031Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.144634Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.155540Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.154668Z"
     },
     "papermill": {
-     "duration": 0.027053,
-     "end_time": "2024-12-10T00:04:33.176554",
+     "duration": 0.024995,
+     "end_time": "2024-12-10T00:13:56.157722",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.149501",
+     "start_time": "2024-12-10T00:13:56.132727",
      "status": "completed"
     },
     "tags": []
@@ -729,19 +724,19 @@
   {
    "cell_type": "code",
    "execution_count": 14,
-   "id": "5f571fb4",
+   "id": "bd1de2ed",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.201333Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.200912Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.209223Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.208139Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.181017Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.180359Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.188160Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.187133Z"
     },
     "papermill": {
-     "duration": 0.023294,
-     "end_time": "2024-12-10T00:04:33.211482",
+     "duration": 0.021561,
+     "end_time": "2024-12-10T00:13:56.190211",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.188188",
+     "start_time": "2024-12-10T00:13:56.168650",
      "status": "completed"
     },
     "tags": []
@@ -768,19 +763,19 @@
   {
    "cell_type": "code",
    "execution_count": 15,
-   "id": "34f6d77a",
+   "id": "16d096fe",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.238699Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.238304Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.246640Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.245585Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.214137Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.213471Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.220457Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.219545Z"
     },
     "papermill": {
-     "duration": 0.023332,
-     "end_time": "2024-12-10T00:04:33.248820",
+     "duration": 0.021304,
+     "end_time": "2024-12-10T00:13:56.222347",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.225488",
+     "start_time": "2024-12-10T00:13:56.201043",
      "status": "completed"
     },
     "tags": []
@@ -804,19 +799,19 @@
   {
    "cell_type": "code",
    "execution_count": 16,
-   "id": "d4f4a791",
+   "id": "fa7529c3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.273859Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.273459Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.284513Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.283147Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.245876Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.245105Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.253851Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.252807Z"
     },
     "papermill": {
-     "duration": 0.026227,
-     "end_time": "2024-12-10T00:04:33.287045",
+     "duration": 0.022756,
+     "end_time": "2024-12-10T00:13:56.256006",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.260818",
+     "start_time": "2024-12-10T00:13:56.233250",
      "status": "completed"
     },
     "tags": []
@@ -829,19 +824,19 @@
   {
    "cell_type": "code",
    "execution_count": 17,
-   "id": "0b06767d",
+   "id": "6d6d124c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.312916Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.312491Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.327428Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.326193Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.280395Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.279720Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.292368Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.291356Z"
     },
     "papermill": {
-     "duration": 0.030615,
-     "end_time": "2024-12-10T00:04:33.329835",
+     "duration": 0.026841,
+     "end_time": "2024-12-10T00:13:56.294309",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.299220",
+     "start_time": "2024-12-10T00:13:56.267468",
      "status": "completed"
     },
     "tags": []
@@ -876,13 +871,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "3254bcd4",
+   "id": "a2015cce",
    "metadata": {
     "papermill": {
-     "duration": 0.012126,
-     "end_time": "2024-12-10T00:04:33.354922",
+     "duration": 0.010668,
+     "end_time": "2024-12-10T00:13:56.315972",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.342796",
+     "start_time": "2024-12-10T00:13:56.305304",
      "status": "completed"
     },
     "tags": []
@@ -894,19 +889,19 @@
   {
    "cell_type": "code",
    "execution_count": 18,
-   "id": "4b8585ec",
+   "id": "27629c2f",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.380256Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.379850Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.406275Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.404793Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.339393Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.339028Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.361335Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.360342Z"
     },
     "papermill": {
-     "duration": 0.041954,
-     "end_time": "2024-12-10T00:04:33.408568",
+     "duration": 0.036448,
+     "end_time": "2024-12-10T00:13:56.363422",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.366614",
+     "start_time": "2024-12-10T00:13:56.326974",
      "status": "completed"
     },
     "tags": []
@@ -942,19 +937,19 @@
   {
    "cell_type": "code",
    "execution_count": 19,
-   "id": "7b129fd8",
+   "id": "0e96f7ea",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.435309Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.434776Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.450595Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.449636Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.387361Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.386452Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.400155Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.399164Z"
     },
     "papermill": {
-     "duration": 0.031549,
-     "end_time": "2024-12-10T00:04:33.452759",
+     "duration": 0.027815,
+     "end_time": "2024-12-10T00:13:56.402145",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.421210",
+     "start_time": "2024-12-10T00:13:56.374330",
      "status": "completed"
     },
     "tags": []
@@ -997,39 +992,36 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>4917</th>\n",
-       "      <td>s4918</td>\n",
-       "      <td>Movie</td>\n",
-       "      <td>Fishtronaut: The Movie</td>\n",
-       "      <td>Célia Catunda, Kiko Mistrorigo, Rodrigo Eba</td>\n",
-       "      <td>Fábio Lucindo, Celso Alves, Fernanda Bullara</td>\n",
-       "      <td>Brazil</td>\n",
-       "      <td>April 25, 2018</td>\n",
-       "      <td>2018</td>\n",
-       "      <td>TV-Y</td>\n",
-       "      <td>78 min</td>\n",
-       "      <td>Children &amp; Family Movies</td>\n",
-       "      <td>Fishtronaut, Marina and Zeek travel to the big...</td>\n",
+       "      <th>2551</th>\n",
+       "      <td>s2552</td>\n",
+       "      <td>TV Show</td>\n",
+       "      <td>Dead to Me</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Christina Applegate, Linda Cardellini, James M...</td>\n",
+       "      <td>United States</td>\n",
+       "      <td>May 8, 2020</td>\n",
+       "      <td>2020</td>\n",
+       "      <td>TV-MA</td>\n",
+       "      <td>2 Seasons</td>\n",
+       "      <td>TV Comedies, TV Dramas</td>\n",
+       "      <td>A hotheaded widow searching for the hit-and-ru...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "     show_id   type                   title  \\\n",
-       "4917   s4918  Movie  Fishtronaut: The Movie   \n",
+       "     show_id     type       title director  \\\n",
+       "2551   s2552  TV Show  Dead to Me      NaN   \n",
        "\n",
-       "                                         director  \\\n",
-       "4917  Célia Catunda, Kiko Mistrorigo, Rodrigo Eba   \n",
+       "                                                   cast        country  \\\n",
+       "2551  Christina Applegate, Linda Cardellini, James M...  United States   \n",
        "\n",
-       "                                              cast country      date_added  \\\n",
-       "4917  Fábio Lucindo, Celso Alves, Fernanda Bullara  Brazil  April 25, 2018   \n",
-       "\n",
-       "      release_year rating duration                 listed_in  \\\n",
-       "4917          2018   TV-Y   78 min  Children & Family Movies   \n",
+       "       date_added  release_year rating   duration               listed_in  \\\n",
+       "2551  May 8, 2020          2020  TV-MA  2 Seasons  TV Comedies, TV Dramas   \n",
        "\n",
        "                                            description  \n",
-       "4917  Fishtronaut, Marina and Zeek travel to the big...  "
+       "2551  A hotheaded widow searching for the hit-and-ru...  "
       ]
      },
      "execution_count": 19,
@@ -1044,19 +1036,19 @@
   {
    "cell_type": "code",
    "execution_count": 20,
-   "id": "665ac834",
+   "id": "3527458b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.478720Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.478291Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.739750Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.737998Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.426775Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.426183Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.633797Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.632711Z"
     },
     "papermill": {
-     "duration": 0.277615,
-     "end_time": "2024-12-10T00:04:33.742523",
+     "duration": 0.222291,
+     "end_time": "2024-12-10T00:13:56.635737",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.464908",
+     "start_time": "2024-12-10T00:13:56.413446",
      "status": "completed"
     },
     "tags": []
@@ -1090,19 +1082,19 @@
   {
    "cell_type": "code",
    "execution_count": 21,
-   "id": "75328ea3",
+   "id": "4a09feba",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:33.772353Z",
-     "iopub.status.busy": "2024-12-10T00:04:33.771889Z",
-     "iopub.status.idle": "2024-12-10T00:04:33.952154Z",
-     "shell.execute_reply": "2024-12-10T00:04:33.950658Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.660786Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.659974Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.805183Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.804131Z"
     },
     "papermill": {
-     "duration": 0.200039,
-     "end_time": "2024-12-10T00:04:33.956661",
+     "duration": 0.160956,
+     "end_time": "2024-12-10T00:13:56.808265",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.756622",
+     "start_time": "2024-12-10T00:13:56.647309",
      "status": "completed"
     },
     "tags": []
@@ -1130,19 +1122,19 @@
   {
    "cell_type": "code",
    "execution_count": 22,
-   "id": "867c1e52",
+   "id": "183178de",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.014164Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.013720Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.025673Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.024332Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.856449Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.855466Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.866951Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.865928Z"
     },
     "papermill": {
-     "duration": 0.032275,
-     "end_time": "2024-12-10T00:04:34.027887",
+     "duration": 0.038077,
+     "end_time": "2024-12-10T00:13:56.869804",
      "exception": false,
-     "start_time": "2024-12-10T00:04:33.995612",
+     "start_time": "2024-12-10T00:13:56.831727",
      "status": "completed"
     },
     "tags": []
@@ -1177,13 +1169,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "85ea4988",
+   "id": "12a78606",
    "metadata": {
     "papermill": {
-     "duration": 0.01262,
-     "end_time": "2024-12-10T00:04:34.054184",
+     "duration": 0.011799,
+     "end_time": "2024-12-10T00:13:56.894498",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.041564",
+     "start_time": "2024-12-10T00:13:56.882699",
      "status": "completed"
     },
     "tags": []
@@ -1195,19 +1187,19 @@
   {
    "cell_type": "code",
    "execution_count": 23,
-   "id": "d9ddde68",
+   "id": "d661b453",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.082805Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.082382Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.090395Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.089091Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.921194Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.920376Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.926728Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.925779Z"
     },
     "papermill": {
-     "duration": 0.025275,
-     "end_time": "2024-12-10T00:04:34.092640",
+     "duration": 0.021593,
+     "end_time": "2024-12-10T00:13:56.928646",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.067365",
+     "start_time": "2024-12-10T00:13:56.907053",
      "status": "completed"
     },
     "tags": []
@@ -1233,19 +1225,19 @@
   {
    "cell_type": "code",
    "execution_count": 24,
-   "id": "2a6948c9",
+   "id": "4c61c2c8",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.121588Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.121197Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.126751Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.125382Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.956478Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.955668Z",
+     "iopub.status.idle": "2024-12-10T00:13:56.960016Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.959089Z"
     },
     "papermill": {
-     "duration": 0.023259,
-     "end_time": "2024-12-10T00:04:34.129534",
+     "duration": 0.019745,
+     "end_time": "2024-12-10T00:13:56.961834",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.106275",
+     "start_time": "2024-12-10T00:13:56.942089",
      "status": "completed"
     },
     "tags": []
@@ -1262,19 +1254,19 @@
   {
    "cell_type": "code",
    "execution_count": 25,
-   "id": "c3fde595",
+   "id": "eee7eea1",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.159456Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.159025Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.176366Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.174967Z"
+     "iopub.execute_input": "2024-12-10T00:13:56.987676Z",
+     "iopub.status.busy": "2024-12-10T00:13:56.986960Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.001011Z",
+     "shell.execute_reply": "2024-12-10T00:13:56.999899Z"
     },
     "papermill": {
-     "duration": 0.036532,
-     "end_time": "2024-12-10T00:04:34.179882",
+     "duration": 0.02902,
+     "end_time": "2024-12-10T00:13:57.002968",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.143350",
+     "start_time": "2024-12-10T00:13:56.973948",
      "status": "completed"
     },
     "tags": []
@@ -1451,20 +1443,13 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ad046561",
+   "id": "5e40bbef",
    "metadata": {
-    "execution": {
-     "iopub.execute_input": "2024-12-09T22:17:28.219863Z",
-     "iopub.status.busy": "2024-12-09T22:17:28.219558Z",
-     "iopub.status.idle": "2024-12-09T22:17:28.230363Z",
-     "shell.execute_reply": "2024-12-09T22:17:28.229342Z",
-     "shell.execute_reply.started": "2024-12-09T22:17:28.219833Z"
-    },
     "papermill": {
-     "duration": 0.018746,
-     "end_time": "2024-12-10T00:04:34.217494",
+     "duration": 0.012443,
+     "end_time": "2024-12-10T00:13:57.027932",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.198748",
+     "start_time": "2024-12-10T00:13:57.015489",
      "status": "completed"
     },
     "tags": []
@@ -1475,19 +1460,19 @@
   {
    "cell_type": "code",
    "execution_count": 26,
-   "id": "88ea85d3",
+   "id": "8cd257e5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.257791Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.257388Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.298330Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.296966Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.054186Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.053818Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.089129Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.087881Z"
     },
     "papermill": {
-     "duration": 0.066435,
-     "end_time": "2024-12-10T00:04:34.301135",
+     "duration": 0.05087,
+     "end_time": "2024-12-10T00:13:57.091125",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.234700",
+     "start_time": "2024-12-10T00:13:57.040255",
      "status": "completed"
     },
     "tags": []
@@ -1506,19 +1491,19 @@
   {
    "cell_type": "code",
    "execution_count": 27,
-   "id": "8177ae46",
+   "id": "15483f1a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.331673Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.331283Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.345298Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.343437Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.117909Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.117397Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.129393Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.128522Z"
     },
     "papermill": {
-     "duration": 0.032885,
-     "end_time": "2024-12-10T00:04:34.349408",
+     "duration": 0.027584,
+     "end_time": "2024-12-10T00:13:57.131415",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.316523",
+     "start_time": "2024-12-10T00:13:57.103831",
      "status": "completed"
     },
     "tags": []
@@ -1532,19 +1517,19 @@
   {
    "cell_type": "code",
    "execution_count": 28,
-   "id": "a79e2441",
+   "id": "09bfcb51",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.397136Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.396608Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.423490Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.421775Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.158723Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.157826Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.172031Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.171047Z"
     },
     "papermill": {
-     "duration": 0.055547,
-     "end_time": "2024-12-10T00:04:34.427068",
+     "duration": 0.029772,
+     "end_time": "2024-12-10T00:13:57.173912",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.371521",
+     "start_time": "2024-12-10T00:13:57.144140",
      "status": "completed"
     },
     "tags": []
@@ -1557,19 +1542,19 @@
   {
    "cell_type": "code",
    "execution_count": 29,
-   "id": "6a85634d",
+   "id": "8ec7bf32",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.475586Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.475000Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.486068Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.484924Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.200977Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.200156Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.207499Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.206610Z"
     },
     "papermill": {
-     "duration": 0.0403,
-     "end_time": "2024-12-10T00:04:34.488765",
+     "duration": 0.022872,
+     "end_time": "2024-12-10T00:13:57.209276",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.448465",
+     "start_time": "2024-12-10T00:13:57.186404",
      "status": "completed"
     },
     "tags": []
@@ -1582,19 +1567,19 @@
   {
    "cell_type": "code",
    "execution_count": 30,
-   "id": "22ddb63e",
+   "id": "0c32ee03",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.517634Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.517215Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.534147Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.532938Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.236156Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.235811Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.248811Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.247802Z"
     },
     "papermill": {
-     "duration": 0.034282,
-     "end_time": "2024-12-10T00:04:34.536688",
+     "duration": 0.02859,
+     "end_time": "2024-12-10T00:13:57.250753",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.502406",
+     "start_time": "2024-12-10T00:13:57.222163",
      "status": "completed"
     },
     "tags": []
@@ -1704,19 +1689,19 @@
   {
    "cell_type": "code",
    "execution_count": 31,
-   "id": "e9e82a61",
+   "id": "28322518",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.578774Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.578221Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.613302Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.612007Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.277715Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.277330Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.305726Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.304912Z"
     },
     "papermill": {
-     "duration": 0.054096,
-     "end_time": "2024-12-10T00:04:34.615939",
+     "duration": 0.044568,
+     "end_time": "2024-12-10T00:13:57.307941",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.561843",
+     "start_time": "2024-12-10T00:13:57.263373",
      "status": "completed"
     },
     "tags": []
@@ -1730,19 +1715,19 @@
   {
    "cell_type": "code",
    "execution_count": 32,
-   "id": "686da298",
+   "id": "3d0094a8",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.648326Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.647899Z",
-     "iopub.status.idle": "2024-12-10T00:04:34.668927Z",
-     "shell.execute_reply": "2024-12-10T00:04:34.667706Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.335050Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.334691Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.353438Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.352436Z"
     },
     "papermill": {
-     "duration": 0.039138,
-     "end_time": "2024-12-10T00:04:34.671717",
+     "duration": 0.034567,
+     "end_time": "2024-12-10T00:13:57.355370",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.632579",
+     "start_time": "2024-12-10T00:13:57.320803",
      "status": "completed"
     },
     "tags": []
@@ -1754,13 +1739,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e800d4f6",
+   "id": "3bae3deb",
    "metadata": {
     "papermill": {
-     "duration": 0.01335,
-     "end_time": "2024-12-10T00:04:34.699069",
+     "duration": 0.012358,
+     "end_time": "2024-12-10T00:13:57.380440",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.685719",
+     "start_time": "2024-12-10T00:13:57.368082",
      "status": "completed"
     },
     "tags": []
@@ -1772,19 +1757,19 @@
   {
    "cell_type": "code",
    "execution_count": 33,
-   "id": "9da1b687",
+   "id": "b8cfe863",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:34.727978Z",
-     "iopub.status.busy": "2024-12-10T00:04:34.727596Z",
-     "iopub.status.idle": "2024-12-10T00:04:35.479989Z",
-     "shell.execute_reply": "2024-12-10T00:04:35.478935Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.407770Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.406989Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.949433Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.948609Z"
     },
     "papermill": {
-     "duration": 0.769742,
-     "end_time": "2024-12-10T00:04:35.482603",
+     "duration": 0.558521,
+     "end_time": "2024-12-10T00:13:57.951685",
      "exception": false,
-     "start_time": "2024-12-10T00:04:34.712861",
+     "start_time": "2024-12-10T00:13:57.393164",
      "status": "completed"
     },
     "tags": []
@@ -1798,19 +1783,19 @@
   {
    "cell_type": "code",
    "execution_count": 34,
-   "id": "51c7c07b",
+   "id": "68b838bf",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:35.512323Z",
-     "iopub.status.busy": "2024-12-10T00:04:35.511880Z",
-     "iopub.status.idle": "2024-12-10T00:04:35.517374Z",
-     "shell.execute_reply": "2024-12-10T00:04:35.516048Z"
+     "iopub.execute_input": "2024-12-10T00:13:57.978767Z",
+     "iopub.status.busy": "2024-12-10T00:13:57.978028Z",
+     "iopub.status.idle": "2024-12-10T00:13:57.982802Z",
+     "shell.execute_reply": "2024-12-10T00:13:57.981858Z"
     },
     "papermill": {
-     "duration": 0.023133,
-     "end_time": "2024-12-10T00:04:35.519897",
+     "duration": 0.020268,
+     "end_time": "2024-12-10T00:13:57.984659",
      "exception": false,
-     "start_time": "2024-12-10T00:04:35.496764",
+     "start_time": "2024-12-10T00:13:57.964391",
      "status": "completed"
     },
     "tags": []
@@ -1829,19 +1814,19 @@
   {
    "cell_type": "code",
    "execution_count": 35,
-   "id": "ba1e07b4",
+   "id": "071a6e1e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:35.548770Z",
-     "iopub.status.busy": "2024-12-10T00:04:35.548409Z",
-     "iopub.status.idle": "2024-12-10T00:04:35.555475Z",
-     "shell.execute_reply": "2024-12-10T00:04:35.554355Z"
+     "iopub.execute_input": "2024-12-10T00:13:58.011572Z",
+     "iopub.status.busy": "2024-12-10T00:13:58.011211Z",
+     "iopub.status.idle": "2024-12-10T00:13:58.017311Z",
+     "shell.execute_reply": "2024-12-10T00:13:58.016266Z"
     },
     "papermill": {
-     "duration": 0.024148,
-     "end_time": "2024-12-10T00:04:35.557792",
+     "duration": 0.021798,
+     "end_time": "2024-12-10T00:13:58.019160",
      "exception": false,
-     "start_time": "2024-12-10T00:04:35.533644",
+     "start_time": "2024-12-10T00:13:57.997362",
      "status": "completed"
     },
     "tags": []
@@ -1854,19 +1839,19 @@
   {
    "cell_type": "code",
    "execution_count": 36,
-   "id": "21051c65",
+   "id": "299b2c67",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:35.587250Z",
-     "iopub.status.busy": "2024-12-10T00:04:35.586813Z",
-     "iopub.status.idle": "2024-12-10T00:04:40.633166Z",
-     "shell.execute_reply": "2024-12-10T00:04:40.631909Z"
+     "iopub.execute_input": "2024-12-10T00:13:58.046061Z",
+     "iopub.status.busy": "2024-12-10T00:13:58.045713Z",
+     "iopub.status.idle": "2024-12-10T00:14:02.911254Z",
+     "shell.execute_reply": "2024-12-10T00:14:02.910134Z"
     },
     "papermill": {
-     "duration": 5.063652,
-     "end_time": "2024-12-10T00:04:40.635562",
+     "duration": 4.881407,
+     "end_time": "2024-12-10T00:14:02.913404",
      "exception": false,
-     "start_time": "2024-12-10T00:04:35.571910",
+     "start_time": "2024-12-10T00:13:58.031997",
      "status": "completed"
     },
     "tags": []
@@ -1892,19 +1877,19 @@
   {
    "cell_type": "code",
    "execution_count": 37,
-   "id": "8d2279f6",
+   "id": "197f27dc",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:40.664640Z",
-     "iopub.status.busy": "2024-12-10T00:04:40.664223Z",
-     "iopub.status.idle": "2024-12-10T00:04:40.677430Z",
-     "shell.execute_reply": "2024-12-10T00:04:40.675854Z"
+     "iopub.execute_input": "2024-12-10T00:14:02.940244Z",
+     "iopub.status.busy": "2024-12-10T00:14:02.939501Z",
+     "iopub.status.idle": "2024-12-10T00:14:02.949989Z",
+     "shell.execute_reply": "2024-12-10T00:14:02.948827Z"
     },
     "papermill": {
-     "duration": 0.030851,
-     "end_time": "2024-12-10T00:04:40.680186",
+     "duration": 0.026151,
+     "end_time": "2024-12-10T00:14:02.952132",
      "exception": false,
-     "start_time": "2024-12-10T00:04:40.649335",
+     "start_time": "2024-12-10T00:14:02.925981",
      "status": "completed"
     },
     "tags": []
@@ -1929,19 +1914,19 @@
   {
    "cell_type": "code",
    "execution_count": 38,
-   "id": "966af78f",
+   "id": "7eb34101",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:40.709796Z",
-     "iopub.status.busy": "2024-12-10T00:04:40.709421Z",
-     "iopub.status.idle": "2024-12-10T00:04:40.714911Z",
-     "shell.execute_reply": "2024-12-10T00:04:40.713612Z"
+     "iopub.execute_input": "2024-12-10T00:14:02.978962Z",
+     "iopub.status.busy": "2024-12-10T00:14:02.978588Z",
+     "iopub.status.idle": "2024-12-10T00:14:02.983022Z",
+     "shell.execute_reply": "2024-12-10T00:14:02.982211Z"
     },
     "papermill": {
-     "duration": 0.023344,
-     "end_time": "2024-12-10T00:04:40.717224",
+     "duration": 0.019874,
+     "end_time": "2024-12-10T00:14:02.984881",
      "exception": false,
-     "start_time": "2024-12-10T00:04:40.693880",
+     "start_time": "2024-12-10T00:14:02.965007",
      "status": "completed"
     },
     "tags": []
@@ -1954,19 +1939,19 @@
   {
    "cell_type": "code",
    "execution_count": 39,
-   "id": "b41a8b4e",
+   "id": "c8d09a3a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:40.746767Z",
-     "iopub.status.busy": "2024-12-10T00:04:40.746362Z",
-     "iopub.status.idle": "2024-12-10T00:04:40.752413Z",
-     "shell.execute_reply": "2024-12-10T00:04:40.751031Z"
+     "iopub.execute_input": "2024-12-10T00:14:03.011759Z",
+     "iopub.status.busy": "2024-12-10T00:14:03.011369Z",
+     "iopub.status.idle": "2024-12-10T00:14:03.015810Z",
+     "shell.execute_reply": "2024-12-10T00:14:03.014872Z"
     },
     "papermill": {
-     "duration": 0.023585,
-     "end_time": "2024-12-10T00:04:40.754835",
+     "duration": 0.019956,
+     "end_time": "2024-12-10T00:14:03.017620",
      "exception": false,
-     "start_time": "2024-12-10T00:04:40.731250",
+     "start_time": "2024-12-10T00:14:02.997664",
      "status": "completed"
     },
     "tags": []
@@ -1979,19 +1964,19 @@
   {
    "cell_type": "code",
    "execution_count": 40,
-   "id": "ebc62274",
+   "id": "65221d09",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:40.786456Z",
-     "iopub.status.busy": "2024-12-10T00:04:40.785986Z",
-     "iopub.status.idle": "2024-12-10T00:04:41.642195Z",
-     "shell.execute_reply": "2024-12-10T00:04:41.640935Z"
+     "iopub.execute_input": "2024-12-10T00:14:03.044924Z",
+     "iopub.status.busy": "2024-12-10T00:14:03.043938Z",
+     "iopub.status.idle": "2024-12-10T00:14:03.768030Z",
+     "shell.execute_reply": "2024-12-10T00:14:03.766986Z"
     },
     "papermill": {
-     "duration": 0.874987,
-     "end_time": "2024-12-10T00:04:41.645001",
+     "duration": 0.739982,
+     "end_time": "2024-12-10T00:14:03.770234",
      "exception": false,
-     "start_time": "2024-12-10T00:04:40.770014",
+     "start_time": "2024-12-10T00:14:03.030252",
      "status": "completed"
     },
     "tags": []
@@ -2004,19 +1989,19 @@
   {
    "cell_type": "code",
    "execution_count": 41,
-   "id": "7e7f4e88",
+   "id": "0c2658d0",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:41.674189Z",
-     "iopub.status.busy": "2024-12-10T00:04:41.673723Z",
-     "iopub.status.idle": "2024-12-10T00:04:41.680465Z",
-     "shell.execute_reply": "2024-12-10T00:04:41.679328Z"
+     "iopub.execute_input": "2024-12-10T00:14:03.797409Z",
+     "iopub.status.busy": "2024-12-10T00:14:03.796808Z",
+     "iopub.status.idle": "2024-12-10T00:14:03.802483Z",
+     "shell.execute_reply": "2024-12-10T00:14:03.801612Z"
     },
     "papermill": {
-     "duration": 0.02396,
-     "end_time": "2024-12-10T00:04:41.682662",
+     "duration": 0.021226,
+     "end_time": "2024-12-10T00:14:03.804355",
      "exception": false,
-     "start_time": "2024-12-10T00:04:41.658702",
+     "start_time": "2024-12-10T00:14:03.783129",
      "status": "completed"
     },
     "tags": []
@@ -2040,19 +2025,19 @@
   {
    "cell_type": "code",
    "execution_count": 42,
-   "id": "ac4b6695",
+   "id": "bd490295",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:41.712923Z",
-     "iopub.status.busy": "2024-12-10T00:04:41.712546Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.570412Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.569165Z"
+     "iopub.execute_input": "2024-12-10T00:14:03.831868Z",
+     "iopub.status.busy": "2024-12-10T00:14:03.831031Z",
+     "iopub.status.idle": "2024-12-10T00:14:08.780456Z",
+     "shell.execute_reply": "2024-12-10T00:14:08.779598Z"
     },
     "papermill": {
-     "duration": 5.876691,
-     "end_time": "2024-12-10T00:04:47.573417",
+     "duration": 4.965529,
+     "end_time": "2024-12-10T00:14:08.782721",
      "exception": false,
-     "start_time": "2024-12-10T00:04:41.696726",
+     "start_time": "2024-12-10T00:14:03.817192",
      "status": "completed"
     },
     "tags": []
@@ -2065,19 +2050,19 @@
   {
    "cell_type": "code",
    "execution_count": 43,
-   "id": "84519773",
+   "id": "bc922461",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.603091Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.602717Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.609979Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.608623Z"
+     "iopub.execute_input": "2024-12-10T00:14:08.810486Z",
+     "iopub.status.busy": "2024-12-10T00:14:08.809624Z",
+     "iopub.status.idle": "2024-12-10T00:14:08.815386Z",
+     "shell.execute_reply": "2024-12-10T00:14:08.814483Z"
     },
     "papermill": {
-     "duration": 0.024704,
-     "end_time": "2024-12-10T00:04:47.612265",
+     "duration": 0.021548,
+     "end_time": "2024-12-10T00:14:08.817341",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.587561",
+     "start_time": "2024-12-10T00:14:08.795793",
      "status": "completed"
     },
     "tags": []
@@ -2101,19 +2086,19 @@
   {
    "cell_type": "code",
    "execution_count": 44,
-   "id": "fd424613",
+   "id": "6e4c7bd5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.643319Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.642925Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.654860Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.653634Z"
+     "iopub.execute_input": "2024-12-10T00:14:08.845356Z",
+     "iopub.status.busy": "2024-12-10T00:14:08.844613Z",
+     "iopub.status.idle": "2024-12-10T00:14:08.853930Z",
+     "shell.execute_reply": "2024-12-10T00:14:08.852968Z"
     },
     "papermill": {
-     "duration": 0.030673,
-     "end_time": "2024-12-10T00:04:47.657134",
+     "duration": 0.025426,
+     "end_time": "2024-12-10T00:14:08.855730",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.626461",
+     "start_time": "2024-12-10T00:14:08.830304",
      "status": "completed"
     },
     "tags": []
@@ -2147,21 +2132,21 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>5090</th>\n",
-       "      <td>s5605</td>\n",
-       "      <td>The Fury of a Patient Man</td>\n",
-       "      <td>movi spain  antoniodelatorr luiscallejo ruthdí...</td>\n",
+       "      <th>1270</th>\n",
+       "      <td>s1419</td>\n",
+       "      <td>Chris Rock Total Blackout: The Tamborine Exten...</td>\n",
+       "      <td>movi nan  chrisrock 98 min in thi extend cut o...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "     show_id                      title  \\\n",
-       "5090   s5605  The Fury of a Patient Man   \n",
+       "     show_id                                              title  \\\n",
+       "1270   s1419  Chris Rock Total Blackout: The Tamborine Exten...   \n",
        "\n",
        "                                                   tags  \n",
-       "5090  movi spain  antoniodelatorr luiscallejo ruthdí...  "
+       "1270  movi nan  chrisrock 98 min in thi extend cut o...  "
       ]
      },
      "execution_count": 44,
@@ -2176,19 +2161,19 @@
   {
    "cell_type": "code",
    "execution_count": 45,
-   "id": "359247f2",
+   "id": "3d63126e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.688278Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.687809Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.694494Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.693483Z"
+     "iopub.execute_input": "2024-12-10T00:14:08.883604Z",
+     "iopub.status.busy": "2024-12-10T00:14:08.882714Z",
+     "iopub.status.idle": "2024-12-10T00:14:08.888185Z",
+     "shell.execute_reply": "2024-12-10T00:14:08.887287Z"
     },
     "papermill": {
-     "duration": 0.024294,
-     "end_time": "2024-12-10T00:04:47.696863",
+     "duration": 0.021295,
+     "end_time": "2024-12-10T00:14:08.890050",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.672569",
+     "start_time": "2024-12-10T00:14:08.868755",
      "status": "completed"
     },
     "tags": []
@@ -2210,19 +2195,19 @@
   {
    "cell_type": "code",
    "execution_count": 46,
-   "id": "e793625d",
+   "id": "7f4b784f",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.727049Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.726519Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.745638Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.744482Z"
+     "iopub.execute_input": "2024-12-10T00:14:08.917215Z",
+     "iopub.status.busy": "2024-12-10T00:14:08.916858Z",
+     "iopub.status.idle": "2024-12-10T00:14:08.932399Z",
+     "shell.execute_reply": "2024-12-10T00:14:08.931439Z"
     },
     "papermill": {
-     "duration": 0.037045,
-     "end_time": "2024-12-10T00:04:47.747965",
+     "duration": 0.031566,
+     "end_time": "2024-12-10T00:14:08.934461",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.710920",
+     "start_time": "2024-12-10T00:14:08.902895",
      "status": "completed"
     },
     "tags": []
@@ -2266,87 +2251,87 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>4346</th>\n",
-       "      <td>s4347</td>\n",
+       "      <th>8769</th>\n",
+       "      <td>s8770</td>\n",
        "      <td>Movie</td>\n",
-       "      <td>Power Paandi</td>\n",
-       "      <td>Dhanush</td>\n",
-       "      <td>Rajkiran Dhanush Prasanna ChayaSingh Revathy ...</td>\n",
+       "      <td>Y.M.I.: Yeh Mera India</td>\n",
+       "      <td>N. Chandra</td>\n",
+       "      <td>AnupamKher AtulKulkarni AakashPandey MilindGu...</td>\n",
        "      <td>India</td>\n",
-       "      <td>December 1, 2018</td>\n",
-       "      <td>2017</td>\n",
+       "      <td>March 1, 2018</td>\n",
+       "      <td>2008</td>\n",
        "      <td>TV-MA</td>\n",
-       "      <td>124 min</td>\n",
+       "      <td>137 min</td>\n",
        "      <td>Dramas IndependentMovies InternationalMovies</td>\n",
-       "      <td>Retired, restless and constantly butting heads...</td>\n",
-       "      <td>movie india  rajkiran dhanush prasanna chayasi...</td>\n",
+       "      <td>The lives of a middle-aged soap opera addict, ...</td>\n",
+       "      <td>movie india  anupamkher atulkulkarni aakashpan...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>2715</th>\n",
-       "      <td>s2716</td>\n",
+       "      <th>4577</th>\n",
+       "      <td>s4578</td>\n",
        "      <td>Movie</td>\n",
-       "      <td>Agneepath</td>\n",
-       "      <td>Mukul Anand</td>\n",
-       "      <td>AmitabhBachchan MithunChakraborty DannyDenzon...</td>\n",
+       "      <td>Khoobsurat</td>\n",
+       "      <td>Shashanka Ghosh</td>\n",
+       "      <td>SonamKapoor FawadKhan KironKher RatnaPathakSh...</td>\n",
        "      <td>India</td>\n",
-       "      <td>April 1, 2020</td>\n",
-       "      <td>1990</td>\n",
+       "      <td>October 1, 2018</td>\n",
+       "      <td>2014</td>\n",
        "      <td>TV-14</td>\n",
-       "      <td>174 min</td>\n",
-       "      <td>Dramas InternationalMovies</td>\n",
-       "      <td>A boy grows up to become a gangster in pursuit...</td>\n",
-       "      <td>movie india  amitabhbachchan mithunchakraborty...</td>\n",
+       "      <td>121 min</td>\n",
+       "      <td>Comedies InternationalMovies RomanticMovies</td>\n",
+       "      <td>A free-spirited doctor is hired to assist an i...</td>\n",
+       "      <td>movie india  sonamkapoor fawadkhan kironkher r...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>1429</th>\n",
-       "      <td>s1430</td>\n",
-       "      <td>TVShow</td>\n",
-       "      <td>Mighty Little Bheem: Kite Festival</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>SumruddhiShukla AranyaKaur NishkaRaheja</td>\n",
+       "      <th>1680</th>\n",
+       "      <td>s1681</td>\n",
+       "      <td>Movie</td>\n",
+       "      <td>TE3N</td>\n",
+       "      <td>Ribhu Dasgupta</td>\n",
+       "      <td>AmitabhBachchan NawazuddinSiddiqui VidyaBalan...</td>\n",
        "      <td>India</td>\n",
-       "      <td>January 8, 2021</td>\n",
-       "      <td>2021</td>\n",
-       "      <td>TV-Y</td>\n",
-       "      <td>1 Season</td>\n",
-       "      <td>Kids'TV TVComedies</td>\n",
-       "      <td>With winter behind them, Bheem and his townspe...</td>\n",
-       "      <td>tvshow india  sumruddhishukla aranyakaur nishk...</td>\n",
+       "      <td>November 19, 2020</td>\n",
+       "      <td>2016</td>\n",
+       "      <td>TV-14</td>\n",
+       "      <td>128 min</td>\n",
+       "      <td>Dramas InternationalMovies Thrillers</td>\n",
+       "      <td>Still desperate to find his granddaughter near...</td>\n",
+       "      <td>movie india  amitabhbachchan nawazuddinsiddiqu...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "     show_id    type                               title     director  \\\n",
-       "4346   s4347   Movie                        Power Paandi      Dhanush   \n",
-       "2715   s2716   Movie                           Agneepath  Mukul Anand   \n",
-       "1429   s1430  TVShow  Mighty Little Bheem: Kite Festival          NaN   \n",
+       "     show_id   type                   title         director  \\\n",
+       "8769   s8770  Movie  Y.M.I.: Yeh Mera India       N. Chandra   \n",
+       "4577   s4578  Movie              Khoobsurat  Shashanka Ghosh   \n",
+       "1680   s1681  Movie                    TE3N   Ribhu Dasgupta   \n",
        "\n",
        "                                                   cast country  \\\n",
-       "4346   Rajkiran Dhanush Prasanna ChayaSingh Revathy ...   India   \n",
-       "2715   AmitabhBachchan MithunChakraborty DannyDenzon...   India   \n",
-       "1429            SumruddhiShukla AranyaKaur NishkaRaheja   India   \n",
+       "8769   AnupamKher AtulKulkarni AakashPandey MilindGu...   India   \n",
+       "4577   SonamKapoor FawadKhan KironKher RatnaPathakSh...   India   \n",
+       "1680   AmitabhBachchan NawazuddinSiddiqui VidyaBalan...   India   \n",
        "\n",
-       "            date_added  release_year rating  duration  \\\n",
-       "4346  December 1, 2018          2017  TV-MA   124 min   \n",
-       "2715     April 1, 2020          1990  TV-14   174 min   \n",
-       "1429   January 8, 2021          2021   TV-Y  1 Season   \n",
+       "             date_added  release_year rating duration  \\\n",
+       "8769      March 1, 2018          2008  TV-MA  137 min   \n",
+       "4577    October 1, 2018          2014  TV-14  121 min   \n",
+       "1680  November 19, 2020          2016  TV-14  128 min   \n",
        "\n",
        "                                          listed_in  \\\n",
-       "4346   Dramas IndependentMovies InternationalMovies   \n",
-       "2715                     Dramas InternationalMovies   \n",
-       "1429                             Kids'TV TVComedies   \n",
+       "8769   Dramas IndependentMovies InternationalMovies   \n",
+       "4577    Comedies InternationalMovies RomanticMovies   \n",
+       "1680           Dramas InternationalMovies Thrillers   \n",
        "\n",
        "                                            description  \\\n",
-       "4346  Retired, restless and constantly butting heads...   \n",
-       "2715  A boy grows up to become a gangster in pursuit...   \n",
-       "1429  With winter behind them, Bheem and his townspe...   \n",
+       "8769  The lives of a middle-aged soap opera addict, ...   \n",
+       "4577  A free-spirited doctor is hired to assist an i...   \n",
+       "1680  Still desperate to find his granddaughter near...   \n",
        "\n",
        "                                                   tags  \n",
-       "4346  movie india  rajkiran dhanush prasanna chayasi...  \n",
-       "2715  movie india  amitabhbachchan mithunchakraborty...  \n",
-       "1429  tvshow india  sumruddhishukla aranyakaur nishk...  "
+       "8769  movie india  anupamkher atulkulkarni aakashpan...  \n",
+       "4577  movie india  sonamkapoor fawadkhan kironkher r...  \n",
+       "1680  movie india  amitabhbachchan nawazuddinsiddiqu...  "
       ]
      },
      "execution_count": 46,
@@ -2361,19 +2346,19 @@
   {
    "cell_type": "code",
    "execution_count": 47,
-   "id": "a15fe49b",
+   "id": "74f47724",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.778237Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.777791Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.791998Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.790638Z"
+     "iopub.execute_input": "2024-12-10T00:14:08.962260Z",
+     "iopub.status.busy": "2024-12-10T00:14:08.961898Z",
+     "iopub.status.idle": "2024-12-10T00:14:08.975054Z",
+     "shell.execute_reply": "2024-12-10T00:14:08.973998Z"
     },
     "papermill": {
-     "duration": 0.032118,
-     "end_time": "2024-12-10T00:04:47.794351",
+     "duration": 0.029301,
+     "end_time": "2024-12-10T00:14:08.977053",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.762233",
+     "start_time": "2024-12-10T00:14:08.947752",
      "status": "completed"
     },
     "tags": []
@@ -2398,19 +2383,19 @@
   {
    "cell_type": "code",
    "execution_count": 48,
-   "id": "2ff4d1c6",
+   "id": "98a96015",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.824276Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.823825Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.833462Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.832270Z"
+     "iopub.execute_input": "2024-12-10T00:14:09.005294Z",
+     "iopub.status.busy": "2024-12-10T00:14:09.004673Z",
+     "iopub.status.idle": "2024-12-10T00:14:09.012346Z",
+     "shell.execute_reply": "2024-12-10T00:14:09.011424Z"
     },
     "papermill": {
-     "duration": 0.027352,
-     "end_time": "2024-12-10T00:04:47.836014",
+     "duration": 0.023977,
+     "end_time": "2024-12-10T00:14:09.014257",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.808662",
+     "start_time": "2024-12-10T00:14:08.990280",
      "status": "completed"
     },
     "tags": []
@@ -2434,19 +2419,19 @@
   {
    "cell_type": "code",
    "execution_count": 49,
-   "id": "5a99f409",
+   "id": "0624dc75",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.866815Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.866404Z",
-     "iopub.status.idle": "2024-12-10T00:04:47.877836Z",
-     "shell.execute_reply": "2024-12-10T00:04:47.876580Z"
+     "iopub.execute_input": "2024-12-10T00:14:09.042617Z",
+     "iopub.status.busy": "2024-12-10T00:14:09.041982Z",
+     "iopub.status.idle": "2024-12-10T00:14:09.051649Z",
+     "shell.execute_reply": "2024-12-10T00:14:09.050713Z"
     },
     "papermill": {
-     "duration": 0.029908,
-     "end_time": "2024-12-10T00:04:47.880532",
+     "duration": 0.025946,
+     "end_time": "2024-12-10T00:14:09.053599",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.850624",
+     "start_time": "2024-12-10T00:14:09.027653",
      "status": "completed"
     },
     "tags": []
@@ -2541,19 +2526,19 @@
   {
    "cell_type": "code",
    "execution_count": 50,
-   "id": "99499fae",
+   "id": "f07ae265",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2024-12-10T00:04:47.912117Z",
-     "iopub.status.busy": "2024-12-10T00:04:47.911702Z",
-     "iopub.status.idle": "2024-12-10T00:04:49.020408Z",
-     "shell.execute_reply": "2024-12-10T00:04:49.019007Z"
+     "iopub.execute_input": "2024-12-10T00:14:09.083181Z",
+     "iopub.status.busy": "2024-12-10T00:14:09.082465Z",
+     "iopub.status.idle": "2024-12-10T00:15:54.355966Z",
+     "shell.execute_reply": "2024-12-10T00:15:54.355021Z"
     },
     "papermill": {
-     "duration": 1.127896,
-     "end_time": "2024-12-10T00:04:49.022981",
+     "duration": 105.290942,
+     "end_time": "2024-12-10T00:15:54.358414",
      "exception": false,
-     "start_time": "2024-12-10T00:04:47.895085",
+     "start_time": "2024-12-10T00:14:09.067472",
      "status": "completed"
     },
     "tags": []
@@ -2561,22 +2546,25 @@
    "outputs": [],
    "source": [
     "import pickle \n",
+    "import gzip\n",
     "\n",
     "pickle.dump(data, open('\\\\kaggle\\\\working\\\\data.pkl', 'wb'))\n",
     "pickle.dump(train_data, open('\\\\kaggle\\\\working\\\\train_data.pkl', 'wb'))\n",
-    "pickle.dump(similarity_score, open('\\\\kaggle\\\\working\\\\similarity_score.pkl', 'wb'))"
+    "pickle.dump(similarity_score, open('\\\\kaggle\\\\working\\\\similarity_score.pkl', 'wb'))\n",
+    "with gzip.open(\"\\\\kaggle\\\\working\\\\similarity_score.pkl.gz\", \"wb\") as f:\n",
+    "    pickle.dump(similarity_score, f)"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "af8a4825",
+   "id": "deb90d7f",
    "metadata": {
     "papermill": {
-     "duration": 0.014925,
-     "end_time": "2024-12-10T00:04:49.052658",
+     "duration": 0.013116,
+     "end_time": "2024-12-10T00:15:54.385378",
      "exception": false,
-     "start_time": "2024-12-10T00:04:49.037733",
+     "start_time": "2024-12-10T00:15:54.372262",
      "status": "completed"
     },
     "tags": []
@@ -2587,13 +2575,13 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "959553b6",
+   "id": "8277386d",
    "metadata": {
     "papermill": {
-     "duration": 0.014591,
-     "end_time": "2024-12-10T00:04:49.082160",
+     "duration": 0.013088,
+     "end_time": "2024-12-10T00:15:54.411839",
      "exception": false,
-     "start_time": "2024-12-10T00:04:49.067569",
+     "start_time": "2024-12-10T00:15:54.398751",
      "status": "completed"
     },
     "tags": []
@@ -2604,13 +2592,13 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4b008384",
+   "id": "1e13bc31",
    "metadata": {
     "papermill": {
-     "duration": 0.015488,
-     "end_time": "2024-12-10T00:04:49.112372",
+     "duration": 0.012994,
+     "end_time": "2024-12-10T00:15:54.438100",
      "exception": false,
-     "start_time": "2024-12-10T00:04:49.096884",
+     "start_time": "2024-12-10T00:15:54.425106",
      "status": "completed"
     },
     "tags": []
@@ -2621,13 +2609,13 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "32c2ae00",
+   "id": "f3990f39",
    "metadata": {
     "papermill": {
-     "duration": 0.01432,
-     "end_time": "2024-12-10T00:04:49.142033",
+     "duration": 0.013277,
+     "end_time": "2024-12-10T00:15:54.464623",
      "exception": false,
-     "start_time": "2024-12-10T00:04:49.127713",
+     "start_time": "2024-12-10T00:15:54.451346",
      "status": "completed"
     },
     "tags": []
@@ -2638,13 +2626,13 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6518a6e5",
+   "id": "84182a05",
    "metadata": {
     "papermill": {
-     "duration": 0.014078,
-     "end_time": "2024-12-10T00:04:49.170977",
+     "duration": 0.013095,
+     "end_time": "2024-12-10T00:15:54.491206",
      "exception": false,
-     "start_time": "2024-12-10T00:04:49.156899",
+     "start_time": "2024-12-10T00:15:54.478111",
      "status": "completed"
     },
     "tags": []
@@ -2655,13 +2643,13 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "9a4877d2",
+   "id": "c28cebf4",
    "metadata": {
     "papermill": {
-     "duration": 0.014368,
-     "end_time": "2024-12-10T00:04:49.200120",
+     "duration": 0.012962,
+     "end_time": "2024-12-10T00:15:54.517464",
      "exception": false,
-     "start_time": "2024-12-10T00:04:49.185752",
+     "start_time": "2024-12-10T00:15:54.504502",
      "status": "completed"
     },
     "tags": []
@@ -2705,14 +2693,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 24.170226,
-   "end_time": "2024-12-10T00:04:50.037543",
+   "duration": 124.892436,
+   "end_time": "2024-12-10T00:15:55.251171",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2024-12-10T00:04:25.867317",
+   "start_time": "2024-12-10T00:13:50.358735",
    "version": "2.6.0"
   }
  },
