@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "8a08cd41",
+   "id": "e970bdc3",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:45.896418Z",
-     "iopub.status.busy": "2025-02-20T04:53:45.896032Z",
-     "iopub.status.idle": "2025-02-20T04:53:47.813688Z",
-     "shell.execute_reply": "2025-02-20T04:53:47.812610Z"
+     "iopub.execute_input": "2025-02-20T09:10:16.883249Z",
+     "iopub.status.busy": "2025-02-20T09:10:16.882773Z",
+     "iopub.status.idle": "2025-02-20T09:10:19.598643Z",
+     "shell.execute_reply": "2025-02-20T09:10:19.597236Z"
     },
     "papermill": {
-     "duration": 1.925775,
-     "end_time": "2025-02-20T04:53:47.815215",
+     "duration": 2.726539,
+     "end_time": "2025-02-20T09:10:19.600945",
      "exception": false,
-     "start_time": "2025-02-20T04:53:45.889440",
+     "start_time": "2025-02-20T09:10:16.874406",
      "status": "completed"
     },
     "tags": []
@@ -59,19 +59,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "3e44c409",
+   "id": "ed1c6894",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:47.827537Z",
-     "iopub.status.busy": "2025-02-20T04:53:47.827055Z",
-     "iopub.status.idle": "2025-02-20T04:53:48.606908Z",
-     "shell.execute_reply": "2025-02-20T04:53:48.606092Z"
+     "iopub.execute_input": "2025-02-20T09:10:19.616960Z",
+     "iopub.status.busy": "2025-02-20T09:10:19.616409Z",
+     "iopub.status.idle": "2025-02-20T09:10:20.361831Z",
+     "shell.execute_reply": "2025-02-20T09:10:20.360433Z"
     },
     "papermill": {
-     "duration": 0.787658,
-     "end_time": "2025-02-20T04:53:48.608609",
+     "duration": 0.75517,
+     "end_time": "2025-02-20T09:10:20.364139",
      "exception": false,
-     "start_time": "2025-02-20T04:53:47.820951",
+     "start_time": "2025-02-20T09:10:19.608969",
      "status": "completed"
     },
     "tags": []
@@ -84,19 +84,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "107f354d",
+   "id": "44643aaf",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:48.619990Z",
-     "iopub.status.busy": "2025-02-20T04:53:48.619674Z",
-     "iopub.status.idle": "2025-02-20T04:53:57.947411Z",
-     "shell.execute_reply": "2025-02-20T04:53:57.946568Z"
+     "iopub.execute_input": "2025-02-20T09:10:20.379065Z",
+     "iopub.status.busy": "2025-02-20T09:10:20.378644Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.345518Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.344105Z"
     },
     "papermill": {
-     "duration": 9.33529,
-     "end_time": "2025-02-20T04:53:57.949172",
+     "duration": 8.976556,
+     "end_time": "2025-02-20T09:10:29.348080",
      "exception": false,
-     "start_time": "2025-02-20T04:53:48.613882",
+     "start_time": "2025-02-20T09:10:20.371524",
      "status": "completed"
     },
     "tags": []
@@ -109,19 +109,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "0c5de320",
+   "id": "f169c5bd",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:57.960564Z",
-     "iopub.status.busy": "2025-02-20T04:53:57.960214Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.090947Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.089774Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.362517Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.362155Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.506268Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.504706Z"
     },
     "papermill": {
-     "duration": 0.138074,
-     "end_time": "2025-02-20T04:53:58.092699",
+     "duration": 0.153694,
+     "end_time": "2025-02-20T09:10:29.508455",
      "exception": false,
-     "start_time": "2025-02-20T04:53:57.954625",
+     "start_time": "2025-02-20T09:10:29.354761",
      "status": "completed"
     },
     "tags": []
@@ -159,19 +159,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "e88785ea",
+   "id": "d8b09b63",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.104033Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.103714Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.110021Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.108987Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.522792Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.522424Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.529757Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.528601Z"
     },
     "papermill": {
-     "duration": 0.013769,
-     "end_time": "2025-02-20T04:53:58.111741",
+     "duration": 0.016552,
+     "end_time": "2025-02-20T09:10:29.531726",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.097972",
+     "start_time": "2025-02-20T09:10:29.515174",
      "status": "completed"
     },
     "tags": []
@@ -195,19 +195,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "93e4e94d",
+   "id": "153222d3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.123590Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.123199Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.234729Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.233398Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.545982Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.545538Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.659740Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.658375Z"
     },
     "papermill": {
-     "duration": 0.119321,
-     "end_time": "2025-02-20T04:53:58.236351",
+     "duration": 0.123324,
+     "end_time": "2025-02-20T09:10:29.661678",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.117030",
+     "start_time": "2025-02-20T09:10:29.538354",
      "status": "completed"
     },
     "tags": []
@@ -242,19 +242,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "2e3e01fd",
+   "id": "5dc1073b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.247953Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.247616Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.373701Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.372401Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.677076Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.676644Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.808551Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.807103Z"
     },
     "papermill": {
-     "duration": 0.133922,
-     "end_time": "2025-02-20T04:53:58.375633",
+     "duration": 0.141859,
+     "end_time": "2025-02-20T09:10:29.810979",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.241711",
+     "start_time": "2025-02-20T09:10:29.669120",
      "status": "completed"
     },
     "tags": []
@@ -267,19 +267,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "d8f8813e",
+   "id": "ce35e2cd",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.387295Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.386971Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.479625Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.478671Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.826274Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.825851Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.922148Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.921088Z"
     },
     "papermill": {
-     "duration": 0.100202,
-     "end_time": "2025-02-20T04:53:58.481236",
+     "duration": 0.105804,
+     "end_time": "2025-02-20T09:10:29.924099",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.381034",
+     "start_time": "2025-02-20T09:10:29.818295",
      "status": "completed"
     },
     "tags": []
@@ -303,19 +303,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "5311f02f",
+   "id": "9327bf43",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.493324Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.493006Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.522450Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.521391Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.939712Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.939371Z",
+     "iopub.status.idle": "2025-02-20T09:10:29.973958Z",
+     "shell.execute_reply": "2025-02-20T09:10:29.972644Z"
     },
     "papermill": {
-     "duration": 0.037238,
-     "end_time": "2025-02-20T04:53:58.524060",
+     "duration": 0.045001,
+     "end_time": "2025-02-20T09:10:29.975864",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.486822",
+     "start_time": "2025-02-20T09:10:29.930863",
      "status": "completed"
     },
     "tags": []
@@ -357,61 +357,66 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>98804</th>\n",
-       "      <td>98804</td>\n",
-       "      <td>Adidas</td>\n",
-       "      <td>Polyester</td>\n",
-       "      <td>Large</td>\n",
-       "      <td>2.0</td>\n",
-       "      <td>No</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>Backpack</td>\n",
-       "      <td>Black</td>\n",
-       "      <td>25.275765</td>\n",
-       "      <td>72.90829</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>252775</th>\n",
-       "      <td>252775</td>\n",
-       "      <td>Puma</td>\n",
-       "      <td>Polyester</td>\n",
-       "      <td>Large</td>\n",
-       "      <td>6.0</td>\n",
-       "      <td>No</td>\n",
-       "      <td>No</td>\n",
-       "      <td>Tote</td>\n",
-       "      <td>Black</td>\n",
-       "      <td>20.869359</td>\n",
-       "      <td>121.13569</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>273748</th>\n",
-       "      <td>273748</td>\n",
+       "      <th>226325</th>\n",
+       "      <td>226325</td>\n",
        "      <td>Adidas</td>\n",
        "      <td>Canvas</td>\n",
        "      <td>Medium</td>\n",
-       "      <td>7.0</td>\n",
-       "      <td>No</td>\n",
+       "      <td>6.0</td>\n",
        "      <td>Yes</td>\n",
-       "      <td>Tote</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Pink</td>\n",
+       "      <td>28.754531</td>\n",
+       "      <td>85.40561</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>278944</th>\n",
+       "      <td>278944</td>\n",
+       "      <td>Nike</td>\n",
+       "      <td>Nylon</td>\n",
+       "      <td>Small</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Messenger</td>\n",
        "      <td>Red</td>\n",
-       "      <td>16.081014</td>\n",
-       "      <td>19.40969</td>\n",
+       "      <td>9.269896</td>\n",
+       "      <td>106.87458</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>171530</th>\n",
+       "      <td>171530</td>\n",
+       "      <td>Under Armour</td>\n",
+       "      <td>Nylon</td>\n",
+       "      <td>Small</td>\n",
+       "      <td>8.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Backpack</td>\n",
+       "      <td>Pink</td>\n",
+       "      <td>26.571942</td>\n",
+       "      <td>20.36578</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "            id   Brand   Material    Size  Compartments Laptop Compartment  \\\n",
-       "98804    98804  Adidas  Polyester   Large           2.0                 No   \n",
-       "252775  252775    Puma  Polyester   Large           6.0                 No   \n",
-       "273748  273748  Adidas     Canvas  Medium           7.0                 No   \n",
+       "            id         Brand Material    Size  Compartments  \\\n",
+       "226325  226325        Adidas   Canvas  Medium           6.0   \n",
+       "278944  278944          Nike    Nylon   Small           5.0   \n",
+       "171530  171530  Under Armour    Nylon   Small           8.0   \n",
        "\n",
-       "       Waterproof     Style  Color  Weight Capacity (kg)      Price  \n",
-       "98804         Yes  Backpack  Black             25.275765   72.90829  \n",
-       "252775         No      Tote  Black             20.869359  121.13569  \n",
-       "273748        Yes      Tote    Red             16.081014   19.40969  "
+       "       Laptop Compartment Waterproof      Style Color  Weight Capacity (kg)  \\\n",
+       "226325                Yes        Yes  Messenger  Pink             28.754531   \n",
+       "278944                 No         No  Messenger   Red              9.269896   \n",
+       "171530                Yes         No   Backpack  Pink             26.571942   \n",
+       "\n",
+       "            Price  \n",
+       "226325   85.40561  \n",
+       "278944  106.87458  \n",
+       "171530   20.36578  "
       ]
      },
      "execution_count": 9,
@@ -426,19 +431,19 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "46761df4",
+   "id": "6b7d6c9b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.536411Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.536097Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.664117Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.663165Z"
+     "iopub.execute_input": "2025-02-20T09:10:29.991386Z",
+     "iopub.status.busy": "2025-02-20T09:10:29.991002Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.131939Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.130724Z"
     },
     "papermill": {
-     "duration": 0.135947,
-     "end_time": "2025-02-20T04:53:58.665823",
+     "duration": 0.150705,
+     "end_time": "2025-02-20T09:10:30.133784",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.529876",
+     "start_time": "2025-02-20T09:10:29.983079",
      "status": "completed"
     },
     "tags": []
@@ -473,19 +478,19 @@
   {
    "cell_type": "code",
    "execution_count": 11,
-   "id": "306b3a3b",
+   "id": "cb94d8c5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.678504Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.678154Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.697144Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.696348Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.149164Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.148669Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.169457Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.168395Z"
     },
     "papermill": {
-     "duration": 0.027061,
-     "end_time": "2025-02-20T04:53:58.698653",
+     "duration": 0.030335,
+     "end_time": "2025-02-20T09:10:30.171310",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.671592",
+     "start_time": "2025-02-20T09:10:30.140975",
      "status": "completed"
     },
     "tags": []
@@ -509,19 +514,19 @@
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "016f1252",
+   "id": "25a453eb",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.711061Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.710731Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.715982Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.715023Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.186963Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.186571Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.193162Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.191994Z"
     },
     "papermill": {
-     "duration": 0.013136,
-     "end_time": "2025-02-20T04:53:58.717500",
+     "duration": 0.016732,
+     "end_time": "2025-02-20T09:10:30.195072",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.704364",
+     "start_time": "2025-02-20T09:10:30.178340",
      "status": "completed"
     },
     "tags": []
@@ -545,19 +550,19 @@
   {
    "cell_type": "code",
    "execution_count": 13,
-   "id": "992e8cc9",
+   "id": "49510e9a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.729912Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.729593Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.742112Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.741315Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.210938Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.210544Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.225349Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.224015Z"
     },
     "papermill": {
-     "duration": 0.020631,
-     "end_time": "2025-02-20T04:53:58.743682",
+     "duration": 0.024652,
+     "end_time": "2025-02-20T09:10:30.227142",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.723051",
+     "start_time": "2025-02-20T09:10:30.202490",
      "status": "completed"
     },
     "tags": []
@@ -651,13 +656,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d9fecb84",
+   "id": "0a66e0ef",
    "metadata": {
     "papermill": {
-     "duration": 0.005562,
-     "end_time": "2025-02-20T04:53:58.755391",
+     "duration": 0.00686,
+     "end_time": "2025-02-20T09:10:30.241552",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.749829",
+     "start_time": "2025-02-20T09:10:30.234692",
      "status": "completed"
     },
     "tags": []
@@ -669,19 +674,19 @@
   {
    "cell_type": "code",
    "execution_count": 14,
-   "id": "3155f3f6",
+   "id": "4884a4ee",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.768853Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.768518Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.841866Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.841071Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.257594Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.257062Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.415272Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.413521Z"
     },
     "papermill": {
-     "duration": 0.082383,
-     "end_time": "2025-02-20T04:53:58.843784",
+     "duration": 0.168662,
+     "end_time": "2025-02-20T09:10:30.417351",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.761401",
+     "start_time": "2025-02-20T09:10:30.248689",
      "status": "completed"
     },
     "tags": []
@@ -689,112 +694,28 @@
    "outputs": [],
    "source": [
     "brand_encoder = OneHotEncoder(sparse_output=False, drop=None)\n",
-    "new_brand = brand_encoder.fit_transform(df[['Brand']])"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 15,
-   "id": "8710fda9",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.858763Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.858472Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.862481Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.861638Z"
-    },
-    "papermill": {
-     "duration": 0.014104,
-     "end_time": "2025-02-20T04:53:58.864066",
-     "exception": false,
-     "start_time": "2025-02-20T04:53:58.849962",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
+    "new_brand = brand_encoder.fit_transform(df[['Brand']])\n",
     "new_brand_feature_names = brand_encoder.get_feature_names_out()\n",
-    "temp_df = pd.DataFrame(new_brand, columns=new_brand_feature_names)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 16,
-   "id": "97ae665b",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.876720Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.876448Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.881853Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.880880Z"
-    },
-    "papermill": {
-     "duration": 0.013357,
-     "end_time": "2025-02-20T04:53:58.883378",
-     "exception": false,
-     "start_time": "2025-02-20T04:53:58.870021",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "((246686, 5), (246686, 11))"
-      ]
-     },
-     "execution_count": 16,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "temp_df.shape, df.shape"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "id": "48d61b77",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.896185Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.895905Z",
-     "iopub.status.idle": "2025-02-20T04:53:58.961280Z",
-     "shell.execute_reply": "2025-02-20T04:53:58.960156Z"
-    },
-    "papermill": {
-     "duration": 0.073606,
-     "end_time": "2025-02-20T04:53:58.963148",
-     "exception": false,
-     "start_time": "2025-02-20T04:53:58.889542",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
+    "temp_df = pd.DataFrame(new_brand, columns=new_brand_feature_names)\n",
     "updated_df = pd.concat([temp_df, df], axis=1)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
-   "id": "48ec22f7",
+   "execution_count": 15,
+   "id": "41f587d7",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:58.976508Z",
-     "iopub.status.busy": "2025-02-20T04:53:58.976179Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.115341Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.114291Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.434301Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.433698Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.579442Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.577994Z"
     },
     "papermill": {
-     "duration": 0.147709,
-     "end_time": "2025-02-20T04:53:59.117167",
+     "duration": 0.157209,
+     "end_time": "2025-02-20T09:10:30.581984",
      "exception": false,
-     "start_time": "2025-02-20T04:53:58.969458",
+     "start_time": "2025-02-20T09:10:30.424775",
      "status": "completed"
     },
     "tags": []
@@ -806,20 +727,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
-   "id": "c596b8a2",
+   "execution_count": 16,
+   "id": "c5844cc3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:59.131024Z",
-     "iopub.status.busy": "2025-02-20T04:53:59.130671Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.136134Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.135341Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.608242Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.607597Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.615625Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.614390Z"
     },
     "papermill": {
-     "duration": 0.014099,
-     "end_time": "2025-02-20T04:53:59.137685",
+     "duration": 0.026058,
+     "end_time": "2025-02-20T09:10:30.617816",
      "exception": false,
-     "start_time": "2025-02-20T04:53:59.123586",
+     "start_time": "2025-02-20T09:10:30.591758",
      "status": "completed"
     },
     "tags": []
@@ -831,7 +752,7 @@
        "(202848, 16)"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 16,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -842,20 +763,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
-   "id": "6e37b7e3",
+   "execution_count": 17,
+   "id": "e6c61488",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:59.150992Z",
-     "iopub.status.busy": "2025-02-20T04:53:59.150692Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.165593Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.164797Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.638341Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.637789Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.659988Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.658604Z"
     },
     "papermill": {
-     "duration": 0.023314,
-     "end_time": "2025-02-20T04:53:59.167241",
+     "duration": 0.034934,
+     "end_time": "2025-02-20T09:10:30.661838",
      "exception": false,
-     "start_time": "2025-02-20T04:53:59.143927",
+     "start_time": "2025-02-20T09:10:30.626904",
      "status": "completed"
     },
     "tags": []
@@ -867,20 +788,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
-   "id": "34f86ddc",
+   "execution_count": 18,
+   "id": "c8321c29",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:59.180606Z",
-     "iopub.status.busy": "2025-02-20T04:53:59.180317Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.232004Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.231105Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.679175Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.678775Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.730806Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.729466Z"
     },
     "papermill": {
-     "duration": 0.059949,
-     "end_time": "2025-02-20T04:53:59.233585",
+     "duration": 0.062428,
+     "end_time": "2025-02-20T09:10:30.732729",
      "exception": false,
-     "start_time": "2025-02-20T04:53:59.173636",
+     "start_time": "2025-02-20T09:10:30.670301",
      "status": "completed"
     },
     "tags": []
@@ -902,20 +823,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
-   "id": "fae1d953",
+   "execution_count": 19,
+   "id": "376ebf47",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:59.247008Z",
-     "iopub.status.busy": "2025-02-20T04:53:59.246670Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.262636Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.261647Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.748654Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.748318Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.766415Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.765109Z"
     },
     "papermill": {
-     "duration": 0.02435,
-     "end_time": "2025-02-20T04:53:59.264153",
+     "duration": 0.027946,
+     "end_time": "2025-02-20T09:10:30.768178",
      "exception": false,
-     "start_time": "2025-02-20T04:53:59.239803",
+     "start_time": "2025-02-20T09:10:30.740232",
      "status": "completed"
     },
     "tags": []
@@ -927,7 +848,7 @@
        "array(['Medium', 'Small', 'Large'], dtype=object)"
       ]
      },
-     "execution_count": 22,
+     "execution_count": 19,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -938,20 +859,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
-   "id": "2e4cfb29",
+   "execution_count": 20,
+   "id": "df7a8e4e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:59.277924Z",
-     "iopub.status.busy": "2025-02-20T04:53:59.277583Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.333514Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.332373Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.784655Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.784307Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.845094Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.843933Z"
     },
     "papermill": {
-     "duration": 0.064721,
-     "end_time": "2025-02-20T04:53:59.335327",
+     "duration": 0.071581,
+     "end_time": "2025-02-20T09:10:30.847167",
      "exception": false,
-     "start_time": "2025-02-20T04:53:59.270606",
+     "start_time": "2025-02-20T09:10:30.775586",
      "status": "completed"
     },
     "tags": []
@@ -964,20 +885,126 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
-   "id": "412b31a3",
+   "execution_count": 21,
+   "id": "d86bc9ce",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-02-20T04:53:59.349301Z",
-     "iopub.status.busy": "2025-02-20T04:53:59.348920Z",
-     "iopub.status.idle": "2025-02-20T04:53:59.370430Z",
-     "shell.execute_reply": "2025-02-20T04:53:59.369432Z"
+     "iopub.execute_input": "2025-02-20T09:10:30.864427Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.864056Z",
+     "iopub.status.idle": "2025-02-20T09:10:30.927808Z",
+     "shell.execute_reply": "2025-02-20T09:10:30.926605Z"
     },
     "papermill": {
-     "duration": 0.030209,
-     "end_time": "2025-02-20T04:53:59.372136",
+     "duration": 0.074584,
+     "end_time": "2025-02-20T09:10:30.929926",
      "exception": false,
-     "start_time": "2025-02-20T04:53:59.341927",
+     "start_time": "2025-02-20T09:10:30.855342",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "laptopc_encoder = OrdinalEncoder(categories=[['No','Yes']])\n",
+    "updated_df['Laptop Compartment'] = laptopc_encoder.fit_transform(updated_df[['Laptop Compartment']])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "d6e21f50",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:30.946492Z",
+     "iopub.status.busy": "2025-02-20T09:10:30.946151Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.009442Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.008298Z"
+    },
+    "papermill": {
+     "duration": 0.073986,
+     "end_time": "2025-02-20T09:10:31.011573",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:30.937587",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "waterproof_encoder = OrdinalEncoder(categories=[['No','Yes']])\n",
+    "updated_df['Waterproof'] = waterproof_encoder.fit_transform(updated_df[['Waterproof']])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "eab58821",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.028950Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.028561Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.148237Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.147065Z"
+    },
+    "papermill": {
+     "duration": 0.13067,
+     "end_time": "2025-02-20T09:10:31.150214",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.019544",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "style_encoder = OneHotEncoder(sparse_output=False, drop=None)\n",
+    "new_style = style_encoder.fit_transform(df[['Style']])\n",
+    "new_style_feature_names = style_encoder.get_feature_names_out()\n",
+    "temp_df = pd.DataFrame(new_style, columns=new_style_feature_names)\n",
+    "updated_df = pd.concat([temp_df, updated_df], axis=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "59d1632e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.166738Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.166392Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.228368Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.227189Z"
+    },
+    "papermill": {
+     "duration": 0.072605,
+     "end_time": "2025-02-20T09:10:31.230422",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.157817",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "updated_df.dropna(inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "c1452ef6",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.247091Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.246636Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.274210Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.272983Z"
+    },
+    "papermill": {
+     "duration": 0.03805,
+     "end_time": "2025-02-20T09:10:31.276216",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.238166",
      "status": "completed"
     },
     "tags": []
@@ -1004,6 +1031,9 @@
        "  <thead>\n",
        "    <tr style=\"text-align: right;\">\n",
        "      <th></th>\n",
+       "      <th>Style_Backpack</th>\n",
+       "      <th>Style_Messenger</th>\n",
+       "      <th>Style_Tote</th>\n",
        "      <th>Brand_Adidas</th>\n",
        "      <th>Brand_Jansport</th>\n",
        "      <th>Brand_Nike</th>\n",
@@ -1024,15 +1054,18 @@
        "    <tr>\n",
        "      <th>0</th>\n",
        "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>1</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>7.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>No</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Tote</td>\n",
        "      <td>Black</td>\n",
        "      <td>11.611723</td>\n",
@@ -1044,12 +1077,15 @@
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>10.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>Yes</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Green</td>\n",
        "      <td>27.078537</td>\n",
@@ -1058,15 +1094,18 @@
        "    <tr>\n",
        "      <th>2</th>\n",
        "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
-       "      <td>1</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>2.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>No</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Red</td>\n",
        "      <td>16.643760</td>\n",
@@ -1075,15 +1114,18 @@
        "    <tr>\n",
        "      <th>3</th>\n",
        "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>2</td>\n",
+       "      <td>2.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>8.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>No</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Green</td>\n",
        "      <td>12.937220</td>\n",
@@ -1091,16 +1133,19 @@
        "    </tr>\n",
        "    <tr>\n",
        "      <th>4</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>1.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>Yes</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Green</td>\n",
        "      <td>17.749338</td>\n",
@@ -1122,19 +1167,25 @@
        "      <td>...</td>\n",
        "      <td>...</td>\n",
        "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>246678</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>2.0</td>\n",
        "      <td>8.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>No</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Tote</td>\n",
        "      <td>Black</td>\n",
        "      <td>6.904652</td>\n",
@@ -1147,11 +1198,14 @@
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>3</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>7.0</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>Yes</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Black</td>\n",
        "      <td>27.689961</td>\n",
@@ -1160,15 +1214,18 @@
        "    <tr>\n",
        "      <th>246680</th>\n",
        "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
-       "      <td>3</td>\n",
+       "      <td>3.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>9.0</td>\n",
-       "      <td>No</td>\n",
-       "      <td>No</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Red</td>\n",
        "      <td>28.836596</td>\n",
@@ -1176,16 +1233,19 @@
        "    </tr>\n",
        "    <tr>\n",
        "      <th>246681</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>1</td>\n",
+       "      <td>1.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>6.0</td>\n",
-       "      <td>No</td>\n",
-       "      <td>No</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Messenger</td>\n",
        "      <td>Gray</td>\n",
        "      <td>6.891444</td>\n",
@@ -1194,15 +1254,18 @@
        "    <tr>\n",
        "      <th>246682</th>\n",
        "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
        "      <td>0.0</td>\n",
-       "      <td>2</td>\n",
+       "      <td>2.0</td>\n",
        "      <td>1.0</td>\n",
        "      <td>6.0</td>\n",
-       "      <td>No</td>\n",
-       "      <td>No</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>Backpack</td>\n",
        "      <td>Pink</td>\n",
        "      <td>12.962896</td>\n",
@@ -1210,53 +1273,66 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>202848 rows × 14 columns</p>\n",
+       "<p>202848 rows × 17 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
-       "        Brand_Adidas  Brand_Jansport  Brand_Nike  Brand_Puma  \\\n",
-       "0                0.0             1.0         0.0         0.0   \n",
-       "1                0.0             1.0         0.0         0.0   \n",
-       "2                0.0             0.0         0.0         0.0   \n",
-       "3                0.0             0.0         1.0         0.0   \n",
-       "4                1.0             0.0         0.0         0.0   \n",
-       "...              ...             ...         ...         ...   \n",
-       "246678           1.0             0.0         0.0         0.0   \n",
-       "246679           0.0             0.0         1.0         0.0   \n",
-       "246680           0.0             0.0         0.0         0.0   \n",
-       "246681           1.0             0.0         0.0         0.0   \n",
-       "246682           0.0             1.0         0.0         0.0   \n",
+       "        Style_Backpack  Style_Messenger  Style_Tote  Brand_Adidas  \\\n",
+       "0                  0.0              0.0         1.0           0.0   \n",
+       "1                  0.0              1.0         0.0           0.0   \n",
+       "2                  0.0              1.0         0.0           0.0   \n",
+       "3                  0.0              1.0         0.0           0.0   \n",
+       "4                  0.0              1.0         0.0           1.0   \n",
+       "...                ...              ...         ...           ...   \n",
+       "246678             0.0              1.0         0.0           1.0   \n",
+       "246679             0.0              0.0         1.0           0.0   \n",
+       "246680             0.0              1.0         0.0           0.0   \n",
+       "246681             0.0              0.0         1.0           1.0   \n",
+       "246682             0.0              0.0         1.0           0.0   \n",
        "\n",
-       "        Brand_Under Armour  Material  Size  Compartments Laptop Compartment  \\\n",
-       "0                      0.0         1   1.0           7.0                Yes   \n",
-       "1                      0.0         0   0.0          10.0                Yes   \n",
-       "2                      1.0         1   0.0           2.0                Yes   \n",
-       "3                      0.0         2   0.0           8.0                Yes   \n",
-       "4                      0.0         0   1.0           1.0                Yes   \n",
-       "...                    ...       ...   ...           ...                ...   \n",
-       "246678                 0.0         0   2.0           8.0                Yes   \n",
-       "246679                 0.0         3   1.0           7.0                Yes   \n",
-       "246680                 1.0         3   1.0           9.0                 No   \n",
-       "246681                 0.0         1   1.0           6.0                 No   \n",
-       "246682                 0.0         2   1.0           6.0                 No   \n",
+       "        Brand_Jansport  Brand_Nike  Brand_Puma  Brand_Under Armour  Material  \\\n",
+       "0                  1.0         0.0         0.0                 0.0       1.0   \n",
+       "1                  1.0         0.0         0.0                 0.0       0.0   \n",
+       "2                  0.0         0.0         0.0                 1.0       1.0   \n",
+       "3                  0.0         1.0         0.0                 0.0       2.0   \n",
+       "4                  0.0         0.0         0.0                 0.0       0.0   \n",
+       "...                ...         ...         ...                 ...       ...   \n",
+       "246678             0.0         0.0         0.0                 0.0       0.0   \n",
+       "246679             0.0         1.0         0.0                 0.0       3.0   \n",
+       "246680             0.0         0.0         0.0                 1.0       3.0   \n",
+       "246681             0.0         0.0         0.0                 0.0       1.0   \n",
+       "246682             1.0         0.0         0.0                 0.0       2.0   \n",
        "\n",
-       "       Waterproof      Style  Color  Weight Capacity (kg)      Price  \n",
-       "0              No       Tote  Black             11.611723  112.15875  \n",
-       "1             Yes  Messenger  Green             27.078537   68.88056  \n",
-       "2              No  Messenger    Red             16.643760   39.17320  \n",
-       "3              No  Messenger  Green             12.937220   80.60793  \n",
-       "4             Yes  Messenger  Green             17.749338   86.02312  \n",
-       "...           ...        ...    ...                   ...        ...  \n",
-       "246678         No       Tote  Black              6.904652  136.02612  \n",
-       "246679        Yes  Messenger  Black             27.689961   42.73371  \n",
-       "246680         No  Messenger    Red             28.836596   53.06289  \n",
-       "246681         No  Messenger   Gray              6.891444   57.91286  \n",
-       "246682         No   Backpack   Pink             12.962896   31.46289  \n",
+       "        Size  Compartments  Laptop Compartment  Waterproof      Style  Color  \\\n",
+       "0        1.0           7.0                 1.0         0.0       Tote  Black   \n",
+       "1        0.0          10.0                 1.0         1.0  Messenger  Green   \n",
+       "2        0.0           2.0                 1.0         0.0  Messenger    Red   \n",
+       "3        0.0           8.0                 1.0         0.0  Messenger  Green   \n",
+       "4        1.0           1.0                 1.0         1.0  Messenger  Green   \n",
+       "...      ...           ...                 ...         ...        ...    ...   \n",
+       "246678   2.0           8.0                 1.0         0.0       Tote  Black   \n",
+       "246679   1.0           7.0                 1.0         1.0  Messenger  Black   \n",
+       "246680   1.0           9.0                 0.0         0.0  Messenger    Red   \n",
+       "246681   1.0           6.0                 0.0         0.0  Messenger   Gray   \n",
+       "246682   1.0           6.0                 0.0         0.0   Backpack   Pink   \n",
        "\n",
-       "[202848 rows x 14 columns]"
+       "        Weight Capacity (kg)      Price  \n",
+       "0                  11.611723  112.15875  \n",
+       "1                  27.078537   68.88056  \n",
+       "2                  16.643760   39.17320  \n",
+       "3                  12.937220   80.60793  \n",
+       "4                  17.749338   86.02312  \n",
+       "...                      ...        ...  \n",
+       "246678              6.904652  136.02612  \n",
+       "246679             27.689961   42.73371  \n",
+       "246680             28.836596   53.06289  \n",
+       "246681              6.891444   57.91286  \n",
+       "246682             12.962896   31.46289  \n",
+       "\n",
+       "[202848 rows x 17 columns]"
       ]
      },
-     "execution_count": 24,
+     "execution_count": 25,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1264,6 +1340,435 @@
    "source": [
     "updated_df"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "9da3aa97",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.293948Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.293560Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.307134Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.305907Z"
+    },
+    "papermill": {
+     "duration": 0.025267,
+     "end_time": "2025-02-20T09:10:31.309313",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.284046",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "updated_df.drop(columns=['Color','Style'], inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "937acd9f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.326509Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.326139Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.352200Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.350869Z"
+    },
+    "papermill": {
+     "duration": 0.036935,
+     "end_time": "2025-02-20T09:10:31.354236",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.317301",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Style_Backpack</th>\n",
+       "      <th>Style_Messenger</th>\n",
+       "      <th>Style_Tote</th>\n",
+       "      <th>Brand_Adidas</th>\n",
+       "      <th>Brand_Jansport</th>\n",
+       "      <th>Brand_Nike</th>\n",
+       "      <th>Brand_Puma</th>\n",
+       "      <th>Brand_Under Armour</th>\n",
+       "      <th>Material</th>\n",
+       "      <th>Size</th>\n",
+       "      <th>Compartments</th>\n",
+       "      <th>Laptop Compartment</th>\n",
+       "      <th>Waterproof</th>\n",
+       "      <th>Weight Capacity (kg)</th>\n",
+       "      <th>Price</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>11.611723</td>\n",
+       "      <td>112.15875</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>27.078537</td>\n",
+       "      <td>68.88056</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>16.643760</td>\n",
+       "      <td>39.17320</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>8.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>12.937220</td>\n",
+       "      <td>80.60793</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>17.749338</td>\n",
+       "      <td>86.02312</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246678</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>8.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.904652</td>\n",
+       "      <td>136.02612</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246679</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>27.689961</td>\n",
+       "      <td>42.73371</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246680</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>9.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>28.836596</td>\n",
+       "      <td>53.06289</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246681</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.891444</td>\n",
+       "      <td>57.91286</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246682</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>12.962896</td>\n",
+       "      <td>31.46289</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>202848 rows × 15 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        Style_Backpack  Style_Messenger  Style_Tote  Brand_Adidas  \\\n",
+       "0                  0.0              0.0         1.0           0.0   \n",
+       "1                  0.0              1.0         0.0           0.0   \n",
+       "2                  0.0              1.0         0.0           0.0   \n",
+       "3                  0.0              1.0         0.0           0.0   \n",
+       "4                  0.0              1.0         0.0           1.0   \n",
+       "...                ...              ...         ...           ...   \n",
+       "246678             0.0              1.0         0.0           1.0   \n",
+       "246679             0.0              0.0         1.0           0.0   \n",
+       "246680             0.0              1.0         0.0           0.0   \n",
+       "246681             0.0              0.0         1.0           1.0   \n",
+       "246682             0.0              0.0         1.0           0.0   \n",
+       "\n",
+       "        Brand_Jansport  Brand_Nike  Brand_Puma  Brand_Under Armour  Material  \\\n",
+       "0                  1.0         0.0         0.0                 0.0       1.0   \n",
+       "1                  1.0         0.0         0.0                 0.0       0.0   \n",
+       "2                  0.0         0.0         0.0                 1.0       1.0   \n",
+       "3                  0.0         1.0         0.0                 0.0       2.0   \n",
+       "4                  0.0         0.0         0.0                 0.0       0.0   \n",
+       "...                ...         ...         ...                 ...       ...   \n",
+       "246678             0.0         0.0         0.0                 0.0       0.0   \n",
+       "246679             0.0         1.0         0.0                 0.0       3.0   \n",
+       "246680             0.0         0.0         0.0                 1.0       3.0   \n",
+       "246681             0.0         0.0         0.0                 0.0       1.0   \n",
+       "246682             1.0         0.0         0.0                 0.0       2.0   \n",
+       "\n",
+       "        Size  Compartments  Laptop Compartment  Waterproof  \\\n",
+       "0        1.0           7.0                 1.0         0.0   \n",
+       "1        0.0          10.0                 1.0         1.0   \n",
+       "2        0.0           2.0                 1.0         0.0   \n",
+       "3        0.0           8.0                 1.0         0.0   \n",
+       "4        1.0           1.0                 1.0         1.0   \n",
+       "...      ...           ...                 ...         ...   \n",
+       "246678   2.0           8.0                 1.0         0.0   \n",
+       "246679   1.0           7.0                 1.0         1.0   \n",
+       "246680   1.0           9.0                 0.0         0.0   \n",
+       "246681   1.0           6.0                 0.0         0.0   \n",
+       "246682   1.0           6.0                 0.0         0.0   \n",
+       "\n",
+       "        Weight Capacity (kg)      Price  \n",
+       "0                  11.611723  112.15875  \n",
+       "1                  27.078537   68.88056  \n",
+       "2                  16.643760   39.17320  \n",
+       "3                  12.937220   80.60793  \n",
+       "4                  17.749338   86.02312  \n",
+       "...                      ...        ...  \n",
+       "246678              6.904652  136.02612  \n",
+       "246679             27.689961   42.73371  \n",
+       "246680             28.836596   53.06289  \n",
+       "246681              6.891444   57.91286  \n",
+       "246682             12.962896   31.46289  \n",
+       "\n",
+       "[202848 rows x 15 columns]"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "updated_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "9df0bdfa",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.373452Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.372661Z",
+     "iopub.status.idle": "2025-02-20T09:10:31.377454Z",
+     "shell.execute_reply": "2025-02-20T09:10:31.376363Z"
+    },
+    "papermill": {
+     "duration": 0.015911,
+     "end_time": "2025-02-20T09:10:31.379482",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.363571",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import pickle"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "f6947502",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T09:10:31.398301Z",
+     "iopub.status.busy": "2025-02-20T09:10:31.397926Z",
+     "iopub.status.idle": "2025-02-20T09:10:33.287412Z",
+     "shell.execute_reply": "2025-02-20T09:10:33.286299Z"
+    },
+    "papermill": {
+     "duration": 1.901369,
+     "end_time": "2025-02-20T09:10:33.289428",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:31.388059",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# exporting files\n",
+    "\n",
+    "updated_df.to_csv(\"preprocessed_data.csv\")\n",
+    "\n",
+    "pickle.dump(brand_encoder, open(\"brand_encoder.pkl\", 'wb'))\n",
+    "pickle.dump(material_encoder, open(\"material_encoder.pkl\", 'wb'))\n",
+    "pickle.dump(size_encoder, open(\"size_encoder.pkl\", 'wb'))\n",
+    "pickle.dump(laptopc_encoder, open(\"laptopc_encoder.pkl\", 'wb'))\n",
+    "pickle.dump(waterproof_encoder, open(\"waterproof_encoder.pkl\", 'wb'))\n",
+    "pickle.dump(style_encoder, open(\"style_encoder.pkl\", 'wb'))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6a766835",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011264,
+     "end_time": "2025-02-20T09:10:33.311211",
+     "exception": false,
+     "start_time": "2025-02-20T09:10:33.299947",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
@@ -1301,14 +1806,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 16.83312,
-   "end_time": "2025-02-20T04:54:00.098815",
+   "duration": 20.804664,
+   "end_time": "2025-02-20T09:10:34.145833",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-02-20T04:53:43.265695",
+   "start_time": "2025-02-20T09:10:13.341169",
    "version": "2.6.0"
   }
  },
