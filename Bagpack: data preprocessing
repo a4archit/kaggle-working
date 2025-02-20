@@ -1,0 +1,1317 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "8a08cd41",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:45.896418Z",
+     "iopub.status.busy": "2025-02-20T04:53:45.896032Z",
+     "iopub.status.idle": "2025-02-20T04:53:47.813688Z",
+     "shell.execute_reply": "2025-02-20T04:53:47.812610Z"
+    },
+    "papermill": {
+     "duration": 1.925775,
+     "end_time": "2025-02-20T04:53:47.815215",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:45.889440",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/playground-series-s5e2/sample_submission.csv\n",
+      "/kaggle/input/playground-series-s5e2/train.csv\n",
+      "/kaggle/input/playground-series-s5e2/test.csv\n",
+      "/kaggle/input/playground-series-s5e2/training_extra.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "from sklearn.preprocessing import OrdinalEncoder, LabelEncoder, OneHotEncoder\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "3e44c409",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:47.827537Z",
+     "iopub.status.busy": "2025-02-20T04:53:47.827055Z",
+     "iopub.status.idle": "2025-02-20T04:53:48.606908Z",
+     "shell.execute_reply": "2025-02-20T04:53:48.606092Z"
+    },
+    "papermill": {
+     "duration": 0.787658,
+     "end_time": "2025-02-20T04:53:48.608609",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:47.820951",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = pd.read_csv(r\"/kaggle/input/playground-series-s5e2/train.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "107f354d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:48.619990Z",
+     "iopub.status.busy": "2025-02-20T04:53:48.619674Z",
+     "iopub.status.idle": "2025-02-20T04:53:57.947411Z",
+     "shell.execute_reply": "2025-02-20T04:53:57.946568Z"
+    },
+    "papermill": {
+     "duration": 9.33529,
+     "end_time": "2025-02-20T04:53:57.949172",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:48.613882",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df_extra = pd.read_csv(r\"/kaggle/input/playground-series-s5e2/training_extra.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "0c5de320",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:57.960564Z",
+     "iopub.status.busy": "2025-02-20T04:53:57.960214Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.090947Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.089774Z"
+    },
+    "papermill": {
+     "duration": 0.138074,
+     "end_time": "2025-02-20T04:53:58.092699",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:57.954625",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 300000 entries, 0 to 299999\n",
+      "Data columns (total 11 columns):\n",
+      " #   Column                Non-Null Count   Dtype  \n",
+      "---  ------                --------------   -----  \n",
+      " 0   id                    300000 non-null  int64  \n",
+      " 1   Brand                 290295 non-null  object \n",
+      " 2   Material              291653 non-null  object \n",
+      " 3   Size                  293405 non-null  object \n",
+      " 4   Compartments          300000 non-null  float64\n",
+      " 5   Laptop Compartment    292556 non-null  object \n",
+      " 6   Waterproof            292950 non-null  object \n",
+      " 7   Style                 292030 non-null  object \n",
+      " 8   Color                 290050 non-null  object \n",
+      " 9   Weight Capacity (kg)  299862 non-null  float64\n",
+      " 10  Price                 300000 non-null  float64\n",
+      "dtypes: float64(3), int64(1), object(7)\n",
+      "memory usage: 25.2+ MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "e88785ea",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.104033Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.103714Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.110021Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.108987Z"
+    },
+    "papermill": {
+     "duration": 0.013769,
+     "end_time": "2025-02-20T04:53:58.111741",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.097972",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(300000, 11)"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "93e4e94d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.123590Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.123199Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.234729Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.233398Z"
+    },
+    "papermill": {
+     "duration": 0.119321,
+     "end_time": "2025-02-20T04:53:58.236351",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.117030",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id                         0\n",
+       "Brand                   9705\n",
+       "Material                8347\n",
+       "Size                    6595\n",
+       "Compartments               0\n",
+       "Laptop Compartment      7444\n",
+       "Waterproof              7050\n",
+       "Style                   7970\n",
+       "Color                   9950\n",
+       "Weight Capacity (kg)     138\n",
+       "Price                      0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "2e3e01fd",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.247953Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.247616Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.373701Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.372401Z"
+    },
+    "papermill": {
+     "duration": 0.133922,
+     "end_time": "2025-02-20T04:53:58.375633",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.241711",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = df.dropna()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "d8f8813e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.387295Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.386971Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.479625Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.478671Z"
+    },
+    "papermill": {
+     "duration": 0.100202,
+     "end_time": "2025-02-20T04:53:58.481236",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.381034",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "5311f02f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.493324Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.493006Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.522450Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.521391Z"
+    },
+    "papermill": {
+     "duration": 0.037238,
+     "end_time": "2025-02-20T04:53:58.524060",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.486822",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>Brand</th>\n",
+       "      <th>Material</th>\n",
+       "      <th>Size</th>\n",
+       "      <th>Compartments</th>\n",
+       "      <th>Laptop Compartment</th>\n",
+       "      <th>Waterproof</th>\n",
+       "      <th>Style</th>\n",
+       "      <th>Color</th>\n",
+       "      <th>Weight Capacity (kg)</th>\n",
+       "      <th>Price</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>98804</th>\n",
+       "      <td>98804</td>\n",
+       "      <td>Adidas</td>\n",
+       "      <td>Polyester</td>\n",
+       "      <td>Large</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Backpack</td>\n",
+       "      <td>Black</td>\n",
+       "      <td>25.275765</td>\n",
+       "      <td>72.90829</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>252775</th>\n",
+       "      <td>252775</td>\n",
+       "      <td>Puma</td>\n",
+       "      <td>Polyester</td>\n",
+       "      <td>Large</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Tote</td>\n",
+       "      <td>Black</td>\n",
+       "      <td>20.869359</td>\n",
+       "      <td>121.13569</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>273748</th>\n",
+       "      <td>273748</td>\n",
+       "      <td>Adidas</td>\n",
+       "      <td>Canvas</td>\n",
+       "      <td>Medium</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Tote</td>\n",
+       "      <td>Red</td>\n",
+       "      <td>16.081014</td>\n",
+       "      <td>19.40969</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            id   Brand   Material    Size  Compartments Laptop Compartment  \\\n",
+       "98804    98804  Adidas  Polyester   Large           2.0                 No   \n",
+       "252775  252775    Puma  Polyester   Large           6.0                 No   \n",
+       "273748  273748  Adidas     Canvas  Medium           7.0                 No   \n",
+       "\n",
+       "       Waterproof     Style  Color  Weight Capacity (kg)      Price  \n",
+       "98804         Yes  Backpack  Black             25.275765   72.90829  \n",
+       "252775         No      Tote  Black             20.869359  121.13569  \n",
+       "273748        Yes      Tote    Red             16.081014   19.40969  "
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.sample(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "46761df4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.536411Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.536097Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.664117Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.663165Z"
+    },
+    "papermill": {
+     "duration": 0.135947,
+     "end_time": "2025-02-20T04:53:58.665823",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.529876",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id                      246686\n",
+       "Brand                        5\n",
+       "Material                     4\n",
+       "Size                         3\n",
+       "Compartments                10\n",
+       "Laptop Compartment           2\n",
+       "Waterproof                   2\n",
+       "Style                        3\n",
+       "Color                        6\n",
+       "Weight Capacity (kg)    152691\n",
+       "Price                    47974\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.nunique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "306b3a3b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.678504Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.678154Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.697144Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.696348Z"
+    },
+    "papermill": {
+     "duration": 0.027061,
+     "end_time": "2025-02-20T04:53:58.698653",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.671592",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array(['Tote', 'Messenger', 'Backpack'], dtype=object)"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.Style.unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "016f1252",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.711061Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.710731Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.715982Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.715023Z"
+    },
+    "papermill": {
+     "duration": 0.013136,
+     "end_time": "2025-02-20T04:53:58.717500",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.704364",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(246686, 11)"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "992e8cc9",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.729912Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.729593Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.742112Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.741315Z"
+    },
+    "papermill": {
+     "duration": 0.020631,
+     "end_time": "2025-02-20T04:53:58.743682",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.723051",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>Brand</th>\n",
+       "      <th>Material</th>\n",
+       "      <th>Size</th>\n",
+       "      <th>Compartments</th>\n",
+       "      <th>Laptop Compartment</th>\n",
+       "      <th>Waterproof</th>\n",
+       "      <th>Style</th>\n",
+       "      <th>Color</th>\n",
+       "      <th>Weight Capacity (kg)</th>\n",
+       "      <th>Price</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>Jansport</td>\n",
+       "      <td>Leather</td>\n",
+       "      <td>Medium</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Tote</td>\n",
+       "      <td>Black</td>\n",
+       "      <td>11.611723</td>\n",
+       "      <td>112.15875</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>1</td>\n",
+       "      <td>Jansport</td>\n",
+       "      <td>Canvas</td>\n",
+       "      <td>Small</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Green</td>\n",
+       "      <td>27.078537</td>\n",
+       "      <td>68.88056</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id     Brand Material    Size  Compartments Laptop Compartment Waterproof  \\\n",
+       "0   0  Jansport  Leather  Medium           7.0                Yes         No   \n",
+       "1   1  Jansport   Canvas   Small          10.0                Yes        Yes   \n",
+       "\n",
+       "       Style  Color  Weight Capacity (kg)      Price  \n",
+       "0       Tote  Black             11.611723  112.15875  \n",
+       "1  Messenger  Green             27.078537   68.88056  "
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head(2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d9fecb84",
+   "metadata": {
+    "papermill": {
+     "duration": 0.005562,
+     "end_time": "2025-02-20T04:53:58.755391",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.749829",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Data Preprocessing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "3155f3f6",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.768853Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.768518Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.841866Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.841071Z"
+    },
+    "papermill": {
+     "duration": 0.082383,
+     "end_time": "2025-02-20T04:53:58.843784",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.761401",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "brand_encoder = OneHotEncoder(sparse_output=False, drop=None)\n",
+    "new_brand = brand_encoder.fit_transform(df[['Brand']])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "8710fda9",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.858763Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.858472Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.862481Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.861638Z"
+    },
+    "papermill": {
+     "duration": 0.014104,
+     "end_time": "2025-02-20T04:53:58.864066",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.849962",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "new_brand_feature_names = brand_encoder.get_feature_names_out()\n",
+    "temp_df = pd.DataFrame(new_brand, columns=new_brand_feature_names)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "97ae665b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.876720Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.876448Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.881853Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.880880Z"
+    },
+    "papermill": {
+     "duration": 0.013357,
+     "end_time": "2025-02-20T04:53:58.883378",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.870021",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "((246686, 5), (246686, 11))"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "temp_df.shape, df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "48d61b77",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.896185Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.895905Z",
+     "iopub.status.idle": "2025-02-20T04:53:58.961280Z",
+     "shell.execute_reply": "2025-02-20T04:53:58.960156Z"
+    },
+    "papermill": {
+     "duration": 0.073606,
+     "end_time": "2025-02-20T04:53:58.963148",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.889542",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "updated_df = pd.concat([temp_df, df], axis=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "48ec22f7",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:58.976508Z",
+     "iopub.status.busy": "2025-02-20T04:53:58.976179Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.115341Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.114291Z"
+    },
+    "papermill": {
+     "duration": 0.147709,
+     "end_time": "2025-02-20T04:53:59.117167",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:58.969458",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "updated_df.dropna(inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "c596b8a2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:59.131024Z",
+     "iopub.status.busy": "2025-02-20T04:53:59.130671Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.136134Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.135341Z"
+    },
+    "papermill": {
+     "duration": 0.014099,
+     "end_time": "2025-02-20T04:53:59.137685",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:59.123586",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(202848, 16)"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "updated_df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "6e37b7e3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:59.150992Z",
+     "iopub.status.busy": "2025-02-20T04:53:59.150692Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.165593Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.164797Z"
+    },
+    "papermill": {
+     "duration": 0.023314,
+     "end_time": "2025-02-20T04:53:59.167241",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:59.143927",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "updated_df.drop(columns=['Brand','id'], inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "34f86ddc",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:59.180606Z",
+     "iopub.status.busy": "2025-02-20T04:53:59.180317Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.232004Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.231105Z"
+    },
+    "papermill": {
+     "duration": 0.059949,
+     "end_time": "2025-02-20T04:53:59.233585",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:59.173636",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.10/dist-packages/sklearn/preprocessing/_label.py:116: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().\n",
+      "  y = column_or_1d(y, warn=True)\n"
+     ]
+    }
+   ],
+   "source": [
+    "material_encoder = LabelEncoder()\n",
+    "updated_df.Material = Material = material_encoder.fit_transform(updated_df[['Material']])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "fae1d953",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:59.247008Z",
+     "iopub.status.busy": "2025-02-20T04:53:59.246670Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.262636Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.261647Z"
+    },
+    "papermill": {
+     "duration": 0.02435,
+     "end_time": "2025-02-20T04:53:59.264153",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:59.239803",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array(['Medium', 'Small', 'Large'], dtype=object)"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "updated_df.Size.unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "2e4cfb29",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:59.277924Z",
+     "iopub.status.busy": "2025-02-20T04:53:59.277583Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.333514Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.332373Z"
+    },
+    "papermill": {
+     "duration": 0.064721,
+     "end_time": "2025-02-20T04:53:59.335327",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:59.270606",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "size_encoder = OrdinalEncoder(categories=[['Small','Medium', 'Large']])\n",
+    "updated_df.Size = size_encoder.fit_transform(updated_df[['Size']])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "412b31a3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-02-20T04:53:59.349301Z",
+     "iopub.status.busy": "2025-02-20T04:53:59.348920Z",
+     "iopub.status.idle": "2025-02-20T04:53:59.370430Z",
+     "shell.execute_reply": "2025-02-20T04:53:59.369432Z"
+    },
+    "papermill": {
+     "duration": 0.030209,
+     "end_time": "2025-02-20T04:53:59.372136",
+     "exception": false,
+     "start_time": "2025-02-20T04:53:59.341927",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Brand_Adidas</th>\n",
+       "      <th>Brand_Jansport</th>\n",
+       "      <th>Brand_Nike</th>\n",
+       "      <th>Brand_Puma</th>\n",
+       "      <th>Brand_Under Armour</th>\n",
+       "      <th>Material</th>\n",
+       "      <th>Size</th>\n",
+       "      <th>Compartments</th>\n",
+       "      <th>Laptop Compartment</th>\n",
+       "      <th>Waterproof</th>\n",
+       "      <th>Style</th>\n",
+       "      <th>Color</th>\n",
+       "      <th>Weight Capacity (kg)</th>\n",
+       "      <th>Price</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Tote</td>\n",
+       "      <td>Black</td>\n",
+       "      <td>11.611723</td>\n",
+       "      <td>112.15875</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Green</td>\n",
+       "      <td>27.078537</td>\n",
+       "      <td>68.88056</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Red</td>\n",
+       "      <td>16.643760</td>\n",
+       "      <td>39.17320</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>8.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Green</td>\n",
+       "      <td>12.937220</td>\n",
+       "      <td>80.60793</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Green</td>\n",
+       "      <td>17.749338</td>\n",
+       "      <td>86.02312</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246678</th>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>8.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Tote</td>\n",
+       "      <td>Black</td>\n",
+       "      <td>6.904652</td>\n",
+       "      <td>136.02612</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246679</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Black</td>\n",
+       "      <td>27.689961</td>\n",
+       "      <td>42.73371</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246680</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>9.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Red</td>\n",
+       "      <td>28.836596</td>\n",
+       "      <td>53.06289</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246681</th>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Messenger</td>\n",
+       "      <td>Gray</td>\n",
+       "      <td>6.891444</td>\n",
+       "      <td>57.91286</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>246682</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Backpack</td>\n",
+       "      <td>Pink</td>\n",
+       "      <td>12.962896</td>\n",
+       "      <td>31.46289</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>202848 rows × 14 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        Brand_Adidas  Brand_Jansport  Brand_Nike  Brand_Puma  \\\n",
+       "0                0.0             1.0         0.0         0.0   \n",
+       "1                0.0             1.0         0.0         0.0   \n",
+       "2                0.0             0.0         0.0         0.0   \n",
+       "3                0.0             0.0         1.0         0.0   \n",
+       "4                1.0             0.0         0.0         0.0   \n",
+       "...              ...             ...         ...         ...   \n",
+       "246678           1.0             0.0         0.0         0.0   \n",
+       "246679           0.0             0.0         1.0         0.0   \n",
+       "246680           0.0             0.0         0.0         0.0   \n",
+       "246681           1.0             0.0         0.0         0.0   \n",
+       "246682           0.0             1.0         0.0         0.0   \n",
+       "\n",
+       "        Brand_Under Armour  Material  Size  Compartments Laptop Compartment  \\\n",
+       "0                      0.0         1   1.0           7.0                Yes   \n",
+       "1                      0.0         0   0.0          10.0                Yes   \n",
+       "2                      1.0         1   0.0           2.0                Yes   \n",
+       "3                      0.0         2   0.0           8.0                Yes   \n",
+       "4                      0.0         0   1.0           1.0                Yes   \n",
+       "...                    ...       ...   ...           ...                ...   \n",
+       "246678                 0.0         0   2.0           8.0                Yes   \n",
+       "246679                 0.0         3   1.0           7.0                Yes   \n",
+       "246680                 1.0         3   1.0           9.0                 No   \n",
+       "246681                 0.0         1   1.0           6.0                 No   \n",
+       "246682                 0.0         2   1.0           6.0                 No   \n",
+       "\n",
+       "       Waterproof      Style  Color  Weight Capacity (kg)      Price  \n",
+       "0              No       Tote  Black             11.611723  112.15875  \n",
+       "1             Yes  Messenger  Green             27.078537   68.88056  \n",
+       "2              No  Messenger    Red             16.643760   39.17320  \n",
+       "3              No  Messenger  Green             12.937220   80.60793  \n",
+       "4             Yes  Messenger  Green             17.749338   86.02312  \n",
+       "...           ...        ...    ...                   ...        ...  \n",
+       "246678         No       Tote  Black              6.904652  136.02612  \n",
+       "246679        Yes  Messenger  Black             27.689961   42.73371  \n",
+       "246680         No  Messenger    Red             28.836596   53.06289  \n",
+       "246681         No  Messenger   Gray              6.891444   57.91286  \n",
+       "246682         No   Backpack   Pink             12.962896   31.46289  \n",
+       "\n",
+       "[202848 rows x 14 columns]"
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "updated_df"
+   ]
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "databundleVersionId": 10995111,
+     "sourceId": 90274,
+     "sourceType": "competition"
+    }
+   ],
+   "dockerImageVersionId": 30886,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 16.83312,
+   "end_time": "2025-02-20T04:54:00.098815",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-02-20T04:53:43.265695",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
