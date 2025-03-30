@@ -93,7 +93,7 @@
    },
    "outputs": [],
    "source": [
-    "df = pd.read_csv(r\"/kaggle/input/bagpack-data-prerocessing/preprocessed_data.csv\").head(20000)"
+    "df = pd.read_csv(r\"/kaggle/input/bagpack-data-prerocessing/preprocessed_data.csv\").head(20000 )"
    ]
   },
   {
