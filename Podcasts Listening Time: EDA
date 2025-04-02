@@ -1,1 +1,1136 @@
-{"metadata":{"kernelspec":{"language":"python","display_name":"Python 3","name":"python3"},"language_info":{"name":"python","version":"3.10.12","mimetype":"text/x-python","codemirror_mode":{"name":"ipython","version":3},"pygments_lexer":"ipython3","nbconvert_exporter":"python","file_extension":".py"},"kaggle":{"accelerator":"none","dataSources":[{"sourceId":91715,"databundleVersionId":11351736,"sourceType":"competition"}],"dockerImageVersionId":30918,"isInternetEnabled":true,"language":"python","sourceType":"notebook","isGpuEnabled":false}},"nbformat_minor":4,"nbformat":4,"cells":[{"cell_type":"code","source":"# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\nimport pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\nimport os\nfor dirname, _, filenames in os.walk('/kaggle/input'):\n    for filename in filenames:\n        print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session","metadata":{"_uuid":"8f2839f25d086af736a60e9eeb907d3b93b6e0e5","_cell_guid":"b1076dfc-b9ad-4769-8c92-a6c4dae69d19","trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:43.407073Z","iopub.execute_input":"2025-04-02T09:55:43.407444Z","iopub.status.idle":"2025-04-02T09:55:43.430428Z","shell.execute_reply.started":"2025-04-02T09:55:43.407404Z","shell.execute_reply":"2025-04-02T09:55:43.429242Z"}},"outputs":[{"name":"stdout","text":"/kaggle/input/playground-series-s5e4/sample_submission.csv\n/kaggle/input/playground-series-s5e4/train.csv\n/kaggle/input/playground-series-s5e4/test.csv\n","output_type":"stream"}],"execution_count":15},{"cell_type":"code","source":"from sklearn.preprocessing import OrdinalEncoder","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T10:22:43.618513Z","iopub.execute_input":"2025-04-02T10:22:43.618997Z","iopub.status.idle":"2025-04-02T10:22:43.669408Z","shell.execute_reply.started":"2025-04-02T10:22:43.618954Z","shell.execute_reply":"2025-04-02T10:22:43.668128Z"}},"outputs":[],"execution_count":30},{"cell_type":"code","source":"df = pd.read_csv('/kaggle/input/playground-series-s5e4/train.csv')\nres_df = df.copy()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:43.431941Z","iopub.execute_input":"2025-04-02T09:55:43.432486Z","iopub.status.idle":"2025-04-02T09:55:44.772430Z","shell.execute_reply.started":"2025-04-02T09:55:43.432432Z","shell.execute_reply":"2025-04-02T09:55:44.771074Z"}},"outputs":[],"execution_count":16},{"cell_type":"code","source":"df.sample(3)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:44.773931Z","iopub.execute_input":"2025-04-02T09:55:44.774249Z","iopub.status.idle":"2025-04-02T09:55:44.828224Z","shell.execute_reply.started":"2025-04-02T09:55:44.774222Z","shell.execute_reply":"2025-04-02T09:55:44.826240Z"}},"outputs":[{"name":"stderr","text":"/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1458: RuntimeWarning: invalid value encountered in greater\n  has_large_values = (abs_vals > 1e6).any()\n/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in less\n  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in greater\n  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n","output_type":"stream"},{"execution_count":17,"output_type":"execute_result","data":{"text/plain":"            id     Podcast_Name Episode_Title  Episode_Length_minutes  \\\n585720  585720       Tech Talks    Episode 82                   24.86   \n20605    20605  Fashion Forward    Episode 75                     NaN   \n45973    45973      Sound Waves    Episode 35                   36.82   \n\n             Genre  Host_Popularity_percentage Publication_Day  \\\n585720  Technology                       73.05         Tuesday   \n20605    Lifestyle                       39.99          Sunday   \n45973        Music                       49.94         Tuesday   \n\n       Publication_Time  Guest_Popularity_percentage  Number_of_Ads  \\\n585720          Evening                        62.76            1.0   \n20605             Night                        81.91            0.0   \n45973         Afternoon                        58.09            2.0   \n\n       Episode_Sentiment  Listening_Time_minutes  \n585720          Negative                10.59434  \n20605           Negative                61.66912  \n45973           Negative                28.86129  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>id</th>\n      <th>Podcast_Name</th>\n      <th>Episode_Title</th>\n      <th>Episode_Length_minutes</th>\n      <th>Genre</th>\n      <th>Host_Popularity_percentage</th>\n      <th>Publication_Day</th>\n      <th>Publication_Time</th>\n      <th>Guest_Popularity_percentage</th>\n      <th>Number_of_Ads</th>\n      <th>Episode_Sentiment</th>\n      <th>Listening_Time_minutes</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>585720</th>\n      <td>585720</td>\n      <td>Tech Talks</td>\n      <td>Episode 82</td>\n      <td>24.86</td>\n      <td>Technology</td>\n      <td>73.05</td>\n      <td>Tuesday</td>\n      <td>Evening</td>\n      <td>62.76</td>\n      <td>1.0</td>\n      <td>Negative</td>\n      <td>10.59434</td>\n    </tr>\n    <tr>\n      <th>20605</th>\n      <td>20605</td>\n      <td>Fashion Forward</td>\n      <td>Episode 75</td>\n      <td>NaN</td>\n      <td>Lifestyle</td>\n      <td>39.99</td>\n      <td>Sunday</td>\n      <td>Night</td>\n      <td>81.91</td>\n      <td>0.0</td>\n      <td>Negative</td>\n      <td>61.66912</td>\n    </tr>\n    <tr>\n      <th>45973</th>\n      <td>45973</td>\n      <td>Sound Waves</td>\n      <td>Episode 35</td>\n      <td>36.82</td>\n      <td>Music</td>\n      <td>49.94</td>\n      <td>Tuesday</td>\n      <td>Afternoon</td>\n      <td>58.09</td>\n      <td>2.0</td>\n      <td>Negative</td>\n      <td>28.86129</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":17},{"cell_type":"code","source":"df.info()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:44.829637Z","iopub.execute_input":"2025-04-02T09:55:44.830039Z","iopub.status.idle":"2025-04-02T09:55:45.095094Z","shell.execute_reply.started":"2025-04-02T09:55:44.830005Z","shell.execute_reply":"2025-04-02T09:55:45.093777Z"}},"outputs":[{"name":"stdout","text":"<class 'pandas.core.frame.DataFrame'>\nRangeIndex: 750000 entries, 0 to 749999\nData columns (total 12 columns):\n #   Column                       Non-Null Count   Dtype  \n---  ------                       --------------   -----  \n 0   id                           750000 non-null  int64  \n 1   Podcast_Name                 750000 non-null  object \n 2   Episode_Title                750000 non-null  object \n 3   Episode_Length_minutes       662907 non-null  float64\n 4   Genre                        750000 non-null  object \n 5   Host_Popularity_percentage   750000 non-null  float64\n 6   Publication_Day              750000 non-null  object \n 7   Publication_Time             750000 non-null  object \n 8   Guest_Popularity_percentage  603970 non-null  float64\n 9   Number_of_Ads                749999 non-null  float64\n 10  Episode_Sentiment            750000 non-null  object \n 11  Listening_Time_minutes       750000 non-null  float64\ndtypes: float64(5), int64(1), object(6)\nmemory usage: 68.7+ MB\n","output_type":"stream"}],"execution_count":18},{"cell_type":"code","source":"df.isnull().sum()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.099309Z","iopub.execute_input":"2025-04-02T09:55:45.099667Z","iopub.status.idle":"2025-04-02T09:55:45.345571Z","shell.execute_reply.started":"2025-04-02T09:55:45.099635Z","shell.execute_reply":"2025-04-02T09:55:45.344394Z"}},"outputs":[{"execution_count":19,"output_type":"execute_result","data":{"text/plain":"id                                  0\nPodcast_Name                        0\nEpisode_Title                       0\nEpisode_Length_minutes          87093\nGenre                               0\nHost_Popularity_percentage          0\nPublication_Day                     0\nPublication_Time                    0\nGuest_Popularity_percentage    146030\nNumber_of_Ads                       1\nEpisode_Sentiment                   0\nListening_Time_minutes              0\ndtype: int64"},"metadata":{}}],"execution_count":19},{"cell_type":"code","source":"146030/df.shape[0]","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.346948Z","iopub.execute_input":"2025-04-02T09:55:45.347251Z","iopub.status.idle":"2025-04-02T09:55:45.353670Z","shell.execute_reply.started":"2025-04-02T09:55:45.347226Z","shell.execute_reply":"2025-04-02T09:55:45.352458Z"}},"outputs":[{"execution_count":20,"output_type":"execute_result","data":{"text/plain":"0.19470666666666667"},"metadata":{}}],"execution_count":20},{"cell_type":"code","source":"df.Episode_Length_minutes.describe()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.354946Z","iopub.execute_input":"2025-04-02T09:55:45.355251Z","iopub.status.idle":"2025-04-02T09:55:45.417515Z","shell.execute_reply.started":"2025-04-02T09:55:45.355224Z","shell.execute_reply":"2025-04-02T09:55:45.416317Z"}},"outputs":[{"execution_count":21,"output_type":"execute_result","data":{"text/plain":"count    662907.000000\nmean         64.504738\nstd          32.969603\nmin           0.000000\n25%          35.730000\n50%          63.840000\n75%          94.070000\nmax         325.240000\nName: Episode_Length_minutes, dtype: float64"},"metadata":{}}],"execution_count":21},{"cell_type":"code","source":"df.Episode_Length_minutes = df.Episode_Length_minutes.fillna(df.Episode_Length_minutes.mean()).mean()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.418495Z","iopub.execute_input":"2025-04-02T09:55:45.418799Z","iopub.status.idle":"2025-04-02T09:55:45.444434Z","shell.execute_reply.started":"2025-04-02T09:55:45.418775Z","shell.execute_reply":"2025-04-02T09:55:45.443270Z"}},"outputs":[],"execution_count":22},{"cell_type":"code","source":"df.isnull().sum()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.445270Z","iopub.execute_input":"2025-04-02T09:55:45.445547Z","iopub.status.idle":"2025-04-02T09:55:45.688075Z","shell.execute_reply.started":"2025-04-02T09:55:45.445523Z","shell.execute_reply":"2025-04-02T09:55:45.686825Z"}},"outputs":[{"execution_count":23,"output_type":"execute_result","data":{"text/plain":"id                                  0\nPodcast_Name                        0\nEpisode_Title                       0\nEpisode_Length_minutes              0\nGenre                               0\nHost_Popularity_percentage          0\nPublication_Day                     0\nPublication_Time                    0\nGuest_Popularity_percentage    146030\nNumber_of_Ads                       1\nEpisode_Sentiment                   0\nListening_Time_minutes              0\ndtype: int64"},"metadata":{}}],"execution_count":23},{"cell_type":"code","source":"df.select_dtypes(include=['float']).corr()['Listening_Time_minutes']","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.689191Z","iopub.execute_input":"2025-04-02T09:55:45.689574Z","iopub.status.idle":"2025-04-02T09:55:45.796802Z","shell.execute_reply.started":"2025-04-02T09:55:45.689536Z","shell.execute_reply":"2025-04-02T09:55:45.795549Z"}},"outputs":[{"name":"stderr","text":"/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1458: RuntimeWarning: invalid value encountered in greater\n  has_large_values = (abs_vals > 1e6).any()\n/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in less\n  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in greater\n  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n","output_type":"stream"},{"execution_count":24,"output_type":"execute_result","data":{"text/plain":"Episode_Length_minutes              NaN\nHost_Popularity_percentage     0.050870\nGuest_Popularity_percentage   -0.016014\nNumber_of_Ads                 -0.118337\nListening_Time_minutes         1.000000\nName: Listening_Time_minutes, dtype: float64"},"metadata":{}}],"execution_count":24},{"cell_type":"code","source":"df.Episode_Title = df.Episode_Title.apply(lambda x: int(x.split(' ')[1]))","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:45.798078Z","iopub.execute_input":"2025-04-02T09:55:45.798485Z","iopub.status.idle":"2025-04-02T09:55:46.343533Z","shell.execute_reply.started":"2025-04-02T09:55:45.798445Z","shell.execute_reply":"2025-04-02T09:55:46.342479Z"}},"outputs":[],"execution_count":25},{"cell_type":"code","source":"df.Podcast_Name.value_counts()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:46.344531Z","iopub.execute_input":"2025-04-02T09:55:46.344871Z","iopub.status.idle":"2025-04-02T09:55:46.408407Z","shell.execute_reply.started":"2025-04-02T09:55:46.344834Z","shell.execute_reply":"2025-04-02T09:55:46.406418Z"}},"outputs":[{"execution_count":26,"output_type":"execute_result","data":{"text/plain":"Podcast_Name\nTech Talks             22847\nSports Weekly          20053\nFunny Folks            19635\nTech Trends            19549\nFitness First          19488\nBusiness Insights      19480\nStyle Guide            19364\nGame Day               19272\nMelody Mix             18889\nCriminal Minds         17735\nFinance Focus          17628\nDetective Diaries      17452\nCrime Chronicles       17374\nAthlete's Arena        17327\nFashion Forward        17280\nTune Time              17254\nBusiness Briefs        17012\nLifestyle Lounge       16661\nTrue Crime Stories     16373\nSports Central         16191\nDigital Digest         16171\nHumor Hub              16144\nMystery Matters        16002\nComedy Corner          15927\nJoke Junction          15074\nWellness Wave          15009\nSport Spot             14778\nGadget Geek            14770\nHome & Living          14686\nLaugh Line             14673\nLife Lessons           14464\nWorld Watch            14043\nSound Waves            13928\nGlobal News            13649\nMind & Body            13639\nDaily Digest           13391\nMoney Matters          13380\nCurrent Affairs        13138\nMarket Masters         13092\nStudy Sessions         13053\nInnovators             12913\nMusic Matters          12652\nLearning Lab           12291\nEducational Nuggets    12245\nHealthy Living         12198\nBrain Boost            11543\nHealth Hour            11114\nNews Roundup            9169\nName: count, dtype: int64"},"metadata":{}}],"execution_count":26},{"cell_type":"code","source":"df.Publication_Time.value_counts()","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T09:55:46.409406Z","iopub.execute_input":"2025-04-02T09:55:46.409680Z","iopub.status.idle":"2025-04-02T09:55:46.489561Z","shell.execute_reply.started":"2025-04-02T09:55:46.409658Z","shell.execute_reply":"2025-04-02T09:55:46.488201Z"}},"outputs":[{"execution_count":27,"output_type":"execute_result","data":{"text/plain":"Publication_Time\nNight        196849\nEvening      195778\nAfternoon    179460\nMorning      177913\nName: count, dtype: int64"},"metadata":{}}],"execution_count":27},{"cell_type":"code","source":"target = 'Listening_Time_minutes'\nX = df.drop(columns=[target])\ny = df[target]","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T10:25:36.099028Z","iopub.execute_input":"2025-04-02T10:25:36.099495Z","iopub.status.idle":"2025-04-02T10:25:36.159312Z","shell.execute_reply.started":"2025-04-02T10:25:36.099461Z","shell.execute_reply":"2025-04-02T10:25:36.156697Z"}},"outputs":[],"execution_count":32},{"cell_type":"markdown","source":"### Encoding columns","metadata":{}},{"cell_type":"code","source":"genre_encoder = OrdinalEncoder()\nGenre_encoded = genre_encoder.fit_transform(X[['Genre']])\n\nPublication_Day_encoder = OrdinalEncoder()\nPublication_Day_encoded = Publication_Day_encoder.fit_transform(X[['Publication_Day']])\n\nPublication_Time_encoder = OrdinalEncoder()\nPublication_Time_encoded = Publication_Time_encoder.fit_transform(X[['Publication_Time']])\n\nEpisode_Sentiment_encoder = OrdinalEncoder()\nEpisode_Sentiment_encoded = Episode_Sentiment_encoder.fit_transform(X[['Episode_Sentiment']])","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T10:30:00.739644Z","iopub.execute_input":"2025-04-02T10:30:00.740184Z","iopub.status.idle":"2025-04-02T10:30:01.587493Z","shell.execute_reply.started":"2025-04-02T10:30:00.740132Z","shell.execute_reply":"2025-04-02T10:30:01.585932Z"}},"outputs":[],"execution_count":37},{"cell_type":"code","source":"df.Genre = Genre_encoded\ndf.Publication_Day = Publication_Day_encoded\ndf.Publication_Time = Publication_Time_encoded\ndf.Episode_Sentiment = Episode_Sentiment_encoded\n","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T10:33:45.684151Z","iopub.execute_input":"2025-04-02T10:33:45.684648Z","iopub.status.idle":"2025-04-02T10:33:45.702932Z","shell.execute_reply.started":"2025-04-02T10:33:45.684609Z","shell.execute_reply":"2025-04-02T10:33:45.701659Z"}},"outputs":[],"execution_count":39},{"cell_type":"code","source":"df.sample(3)","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T10:34:15.803785Z","iopub.execute_input":"2025-04-02T10:34:15.804389Z","iopub.status.idle":"2025-04-02T10:34:15.874842Z","shell.execute_reply.started":"2025-04-02T10:34:15.804338Z","shell.execute_reply":"2025-04-02T10:34:15.873363Z"}},"outputs":[{"execution_count":41,"output_type":"execute_result","data":{"text/plain":"            id    Podcast_Name  Episode_Title  Episode_Length_minutes  Genre  \\\n6398      6398  Healthy Living             16               64.504738    3.0   \n232240  232240  Digital Digest             42               64.504738    8.0   \n403539  403539    Learning Lab             96               64.504738    2.0   \n\n        Host_Popularity_percentage  Publication_Day  Publication_Time  \\\n6398                         93.31              5.0               2.0   \n232240                       61.52              3.0               1.0   \n403539                       95.85              6.0               3.0   \n\n        Guest_Popularity_percentage  Number_of_Ads  Episode_Sentiment  \\\n6398                          75.56            3.0                1.0   \n232240                        42.54            1.0                1.0   \n403539                        96.64            0.0                2.0   \n\n        Listening_Time_minutes  \n6398                  39.83178  \n232240                39.20586  \n403539                 7.16492  ","text/html":"<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>id</th>\n      <th>Podcast_Name</th>\n      <th>Episode_Title</th>\n      <th>Episode_Length_minutes</th>\n      <th>Genre</th>\n      <th>Host_Popularity_percentage</th>\n      <th>Publication_Day</th>\n      <th>Publication_Time</th>\n      <th>Guest_Popularity_percentage</th>\n      <th>Number_of_Ads</th>\n      <th>Episode_Sentiment</th>\n      <th>Listening_Time_minutes</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>6398</th>\n      <td>6398</td>\n      <td>Healthy Living</td>\n      <td>16</td>\n      <td>64.504738</td>\n      <td>3.0</td>\n      <td>93.31</td>\n      <td>5.0</td>\n      <td>2.0</td>\n      <td>75.56</td>\n      <td>3.0</td>\n      <td>1.0</td>\n      <td>39.83178</td>\n    </tr>\n    <tr>\n      <th>232240</th>\n      <td>232240</td>\n      <td>Digital Digest</td>\n      <td>42</td>\n      <td>64.504738</td>\n      <td>8.0</td>\n      <td>61.52</td>\n      <td>3.0</td>\n      <td>1.0</td>\n      <td>42.54</td>\n      <td>1.0</td>\n      <td>1.0</td>\n      <td>39.20586</td>\n    </tr>\n    <tr>\n      <th>403539</th>\n      <td>403539</td>\n      <td>Learning Lab</td>\n      <td>96</td>\n      <td>64.504738</td>\n      <td>2.0</td>\n      <td>95.85</td>\n      <td>6.0</td>\n      <td>3.0</td>\n      <td>96.64</td>\n      <td>0.0</td>\n      <td>2.0</td>\n      <td>7.16492</td>\n    </tr>\n  </tbody>\n</table>\n</div>"},"metadata":{}}],"execution_count":41},{"cell_type":"code","source":"df.select_dtypes(include=['float']).corr()['Listening_Time_minutes']","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-04-02T10:34:18.643270Z","iopub.execute_input":"2025-04-02T10:34:18.643784Z","iopub.status.idle":"2025-04-02T10:34:19.241743Z","shell.execute_reply.started":"2025-04-02T10:34:18.643744Z","shell.execute_reply":"2025-04-02T10:34:19.240547Z"}},"outputs":[{"name":"stderr","text":"/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1458: RuntimeWarning: invalid value encountered in greater\n  has_large_values = (abs_vals > 1e6).any()\n/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in less\n  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in greater\n  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n","output_type":"stream"},{"execution_count":42,"output_type":"execute_result","data":{"text/plain":"Episode_Length_minutes              NaN\nGenre                          0.004940\nHost_Popularity_percentage     0.050870\nPublication_Day                0.004030\nPublication_Time               0.013225\nGuest_Popularity_percentage   -0.016014\nNumber_of_Ads                 -0.118337\nEpisode_Sentiment              0.039470\nListening_Time_minutes         1.000000\nName: Listening_Time_minutes, dtype: float64"},"metadata":{}}],"execution_count":42},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null}]}
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "0a63e2de",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:53.930000Z",
+     "iopub.status.busy": "2025-04-02T11:50:53.929669Z",
+     "iopub.status.idle": "2025-04-02T11:50:54.850294Z",
+     "shell.execute_reply": "2025-04-02T11:50:54.849077Z"
+    },
+    "papermill": {
+     "duration": 0.929777,
+     "end_time": "2025-04-02T11:50:54.852196",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:53.922419",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/playground-series-s5e4/sample_submission.csv\n",
+      "/kaggle/input/playground-series-s5e4/train.csv\n",
+      "/kaggle/input/playground-series-s5e4/test.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "8ebd3ebb",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:54.865309Z",
+     "iopub.status.busy": "2025-04-02T11:50:54.864771Z",
+     "iopub.status.idle": "2025-04-02T11:50:56.591025Z",
+     "shell.execute_reply": "2025-04-02T11:50:56.590002Z"
+    },
+    "papermill": {
+     "duration": 1.734622,
+     "end_time": "2025-04-02T11:50:56.592919",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:54.858297",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.preprocessing import OrdinalEncoder, StandardScaler\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.neighbors import KNeighborsRegressor\n",
+    "from sklearn.metrics import accuracy_score, mean_squared_error\n",
+    "from sklearn.tree import DecisionTreeRegressor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "eff478b2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:56.605933Z",
+     "iopub.status.busy": "2025-04-02T11:50:56.605440Z",
+     "iopub.status.idle": "2025-04-02T11:50:58.840574Z",
+     "shell.execute_reply": "2025-04-02T11:50:58.839296Z"
+    },
+    "papermill": {
+     "duration": 2.244257,
+     "end_time": "2025-04-02T11:50:58.843256",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:56.598999",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = pd.read_csv('/kaggle/input/playground-series-s5e4/train.csv')\n",
+    "res_df = df.copy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "8947e4f5",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:58.857031Z",
+     "iopub.status.busy": "2025-04-02T11:50:58.856668Z",
+     "iopub.status.idle": "2025-04-02T11:50:58.918781Z",
+     "shell.execute_reply": "2025-04-02T11:50:58.917749Z"
+    },
+    "papermill": {
+     "duration": 0.070186,
+     "end_time": "2025-04-02T11:50:58.920402",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:58.850216",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>Podcast_Name</th>\n",
+       "      <th>Episode_Title</th>\n",
+       "      <th>Episode_Length_minutes</th>\n",
+       "      <th>Genre</th>\n",
+       "      <th>Host_Popularity_percentage</th>\n",
+       "      <th>Publication_Day</th>\n",
+       "      <th>Publication_Time</th>\n",
+       "      <th>Guest_Popularity_percentage</th>\n",
+       "      <th>Number_of_Ads</th>\n",
+       "      <th>Episode_Sentiment</th>\n",
+       "      <th>Listening_Time_minutes</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>499725</th>\n",
+       "      <td>499725</td>\n",
+       "      <td>Educational Nuggets</td>\n",
+       "      <td>Episode 91</td>\n",
+       "      <td>87.38</td>\n",
+       "      <td>Education</td>\n",
+       "      <td>83.98</td>\n",
+       "      <td>Friday</td>\n",
+       "      <td>Morning</td>\n",
+       "      <td>70.06</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>Positive</td>\n",
+       "      <td>74.94334</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>609503</th>\n",
+       "      <td>609503</td>\n",
+       "      <td>Style Guide</td>\n",
+       "      <td>Episode 27</td>\n",
+       "      <td>110.22</td>\n",
+       "      <td>Lifestyle</td>\n",
+       "      <td>28.11</td>\n",
+       "      <td>Tuesday</td>\n",
+       "      <td>Morning</td>\n",
+       "      <td>10.33</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Positive</td>\n",
+       "      <td>92.14000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>299125</th>\n",
+       "      <td>299125</td>\n",
+       "      <td>Current Affairs</td>\n",
+       "      <td>Episode 47</td>\n",
+       "      <td>41.70</td>\n",
+       "      <td>News</td>\n",
+       "      <td>35.32</td>\n",
+       "      <td>Wednesday</td>\n",
+       "      <td>Night</td>\n",
+       "      <td>86.89</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>Positive</td>\n",
+       "      <td>28.73686</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            id         Podcast_Name Episode_Title  Episode_Length_minutes  \\\n",
+       "499725  499725  Educational Nuggets    Episode 91                   87.38   \n",
+       "609503  609503          Style Guide    Episode 27                  110.22   \n",
+       "299125  299125      Current Affairs    Episode 47                   41.70   \n",
+       "\n",
+       "            Genre  Host_Popularity_percentage Publication_Day  \\\n",
+       "499725  Education                       83.98          Friday   \n",
+       "609503  Lifestyle                       28.11         Tuesday   \n",
+       "299125       News                       35.32       Wednesday   \n",
+       "\n",
+       "       Publication_Time  Guest_Popularity_percentage  Number_of_Ads  \\\n",
+       "499725          Morning                        70.06            3.0   \n",
+       "609503          Morning                        10.33            0.0   \n",
+       "299125            Night                        86.89            3.0   \n",
+       "\n",
+       "       Episode_Sentiment  Listening_Time_minutes  \n",
+       "499725          Positive                74.94334  \n",
+       "609503          Positive                92.14000  \n",
+       "299125          Positive                28.73686  "
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.sample(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "6d418fc7",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:58.937534Z",
+     "iopub.status.busy": "2025-04-02T11:50:58.936951Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.230954Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.229677Z"
+    },
+    "papermill": {
+     "duration": 0.306252,
+     "end_time": "2025-04-02T11:50:59.232653",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:58.926401",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 750000 entries, 0 to 749999\n",
+      "Data columns (total 12 columns):\n",
+      " #   Column                       Non-Null Count   Dtype  \n",
+      "---  ------                       --------------   -----  \n",
+      " 0   id                           750000 non-null  int64  \n",
+      " 1   Podcast_Name                 750000 non-null  object \n",
+      " 2   Episode_Title                750000 non-null  object \n",
+      " 3   Episode_Length_minutes       662907 non-null  float64\n",
+      " 4   Genre                        750000 non-null  object \n",
+      " 5   Host_Popularity_percentage   750000 non-null  float64\n",
+      " 6   Publication_Day              750000 non-null  object \n",
+      " 7   Publication_Time             750000 non-null  object \n",
+      " 8   Guest_Popularity_percentage  603970 non-null  float64\n",
+      " 9   Number_of_Ads                749999 non-null  float64\n",
+      " 10  Episode_Sentiment            750000 non-null  object \n",
+      " 11  Listening_Time_minutes       750000 non-null  float64\n",
+      "dtypes: float64(5), int64(1), object(6)\n",
+      "memory usage: 68.7+ MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "97eac46c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.245879Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.245563Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.472029Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.470987Z"
+    },
+    "papermill": {
+     "duration": 0.234948,
+     "end_time": "2025-04-02T11:50:59.473725",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.238777",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id                                  0\n",
+       "Podcast_Name                        0\n",
+       "Episode_Title                       0\n",
+       "Episode_Length_minutes          87093\n",
+       "Genre                               0\n",
+       "Host_Popularity_percentage          0\n",
+       "Publication_Day                     0\n",
+       "Publication_Time                    0\n",
+       "Guest_Popularity_percentage    146030\n",
+       "Number_of_Ads                       1\n",
+       "Episode_Sentiment                   0\n",
+       "Listening_Time_minutes              0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "8cab951d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.487084Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.486741Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.492427Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.491474Z"
+    },
+    "papermill": {
+     "duration": 0.014209,
+     "end_time": "2025-04-02T11:50:59.494102",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.479893",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.19470666666666667"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "146030/df.shape[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "2ee2324c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.507742Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.507404Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.558071Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.556966Z"
+    },
+    "papermill": {
+     "duration": 0.0595,
+     "end_time": "2025-04-02T11:50:59.560023",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.500523",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "count    662907.000000\n",
+       "mean         64.504738\n",
+       "std          32.969603\n",
+       "min           0.000000\n",
+       "25%          35.730000\n",
+       "50%          63.840000\n",
+       "75%          94.070000\n",
+       "max         325.240000\n",
+       "Name: Episode_Length_minutes, dtype: float64"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.Episode_Length_minutes.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "9bfba45a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.573933Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.573601Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.593232Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.592258Z"
+    },
+    "papermill": {
+     "duration": 0.028479,
+     "end_time": "2025-04-02T11:50:59.595010",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.566531",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df.Episode_Length_minutes = df.Episode_Length_minutes.fillna(df.Episode_Length_minutes.mean())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "a550b340",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.608840Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.608452Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.630831Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.629712Z"
+    },
+    "papermill": {
+     "duration": 0.031289,
+     "end_time": "2025-04-02T11:50:59.632697",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.601408",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df.Guest_Popularity_percentage = df.Guest_Popularity_percentage.fillna(df.Guest_Popularity_percentage.mean())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "ec8f09cb",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.646232Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.645834Z",
+     "iopub.status.idle": "2025-04-02T11:50:59.950516Z",
+     "shell.execute_reply": "2025-04-02T11:50:59.949412Z"
+    },
+    "papermill": {
+     "duration": 0.313482,
+     "end_time": "2025-04-02T11:50:59.952447",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.638965",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df.dropna(inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "0e2202a6",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:50:59.966075Z",
+     "iopub.status.busy": "2025-04-02T11:50:59.965717Z",
+     "iopub.status.idle": "2025-04-02T11:51:00.193454Z",
+     "shell.execute_reply": "2025-04-02T11:51:00.192416Z"
+    },
+    "papermill": {
+     "duration": 0.236311,
+     "end_time": "2025-04-02T11:51:00.195133",
+     "exception": false,
+     "start_time": "2025-04-02T11:50:59.958822",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id                             0\n",
+       "Podcast_Name                   0\n",
+       "Episode_Title                  0\n",
+       "Episode_Length_minutes         0\n",
+       "Genre                          0\n",
+       "Host_Popularity_percentage     0\n",
+       "Publication_Day                0\n",
+       "Publication_Time               0\n",
+       "Guest_Popularity_percentage    0\n",
+       "Number_of_Ads                  0\n",
+       "Episode_Sentiment              0\n",
+       "Listening_Time_minutes         0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "c8185df7",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:00.209506Z",
+     "iopub.status.busy": "2025-04-02T11:51:00.209088Z",
+     "iopub.status.idle": "2025-04-02T11:51:00.320810Z",
+     "shell.execute_reply": "2025-04-02T11:51:00.319772Z"
+    },
+    "papermill": {
+     "duration": 0.120925,
+     "end_time": "2025-04-02T11:51:00.322675",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:00.201750",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Episode_Length_minutes         0.866031\n",
+       "Host_Popularity_percentage     0.050868\n",
+       "Guest_Popularity_percentage   -0.014390\n",
+       "Number_of_Ads                 -0.118337\n",
+       "Listening_Time_minutes         1.000000\n",
+       "Name: Listening_Time_minutes, dtype: float64"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.select_dtypes(include=['float']).corr()['Listening_Time_minutes']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "fe9389e4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:00.336986Z",
+     "iopub.status.busy": "2025-04-02T11:51:00.336651Z",
+     "iopub.status.idle": "2025-04-02T11:51:00.786195Z",
+     "shell.execute_reply": "2025-04-02T11:51:00.785289Z"
+    },
+    "papermill": {
+     "duration": 0.458871,
+     "end_time": "2025-04-02T11:51:00.788020",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:00.329149",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df.Episode_Title = df.Episode_Title.apply(lambda x: int(x.split(' ')[1]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "0e5d4de3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:00.802083Z",
+     "iopub.status.busy": "2025-04-02T11:51:00.801741Z",
+     "iopub.status.idle": "2025-04-02T11:51:00.862291Z",
+     "shell.execute_reply": "2025-04-02T11:51:00.861204Z"
+    },
+    "papermill": {
+     "duration": 0.069316,
+     "end_time": "2025-04-02T11:51:00.863832",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:00.794516",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Podcast_Name\n",
+       "Tech Talks             22847\n",
+       "Sports Weekly          20053\n",
+       "Funny Folks            19635\n",
+       "Tech Trends            19549\n",
+       "Fitness First          19488\n",
+       "Business Insights      19480\n",
+       "Style Guide            19364\n",
+       "Game Day               19271\n",
+       "Melody Mix             18889\n",
+       "Criminal Minds         17735\n",
+       "Finance Focus          17628\n",
+       "Detective Diaries      17452\n",
+       "Crime Chronicles       17374\n",
+       "Athlete's Arena        17327\n",
+       "Fashion Forward        17280\n",
+       "Tune Time              17254\n",
+       "Business Briefs        17012\n",
+       "Lifestyle Lounge       16661\n",
+       "True Crime Stories     16373\n",
+       "Sports Central         16191\n",
+       "Digital Digest         16171\n",
+       "Humor Hub              16144\n",
+       "Mystery Matters        16002\n",
+       "Comedy Corner          15927\n",
+       "Joke Junction          15074\n",
+       "Wellness Wave          15009\n",
+       "Sport Spot             14778\n",
+       "Gadget Geek            14770\n",
+       "Home & Living          14686\n",
+       "Laugh Line             14673\n",
+       "Life Lessons           14464\n",
+       "World Watch            14043\n",
+       "Sound Waves            13928\n",
+       "Global News            13649\n",
+       "Mind & Body            13639\n",
+       "Daily Digest           13391\n",
+       "Money Matters          13380\n",
+       "Current Affairs        13138\n",
+       "Market Masters         13092\n",
+       "Study Sessions         13053\n",
+       "Innovators             12913\n",
+       "Music Matters          12652\n",
+       "Learning Lab           12291\n",
+       "Educational Nuggets    12245\n",
+       "Healthy Living         12198\n",
+       "Brain Boost            11543\n",
+       "Health Hour            11114\n",
+       "News Roundup            9169\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.Podcast_Name.value_counts()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "d35f0f88",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:00.878277Z",
+     "iopub.status.busy": "2025-04-02T11:51:00.877876Z",
+     "iopub.status.idle": "2025-04-02T11:51:00.936326Z",
+     "shell.execute_reply": "2025-04-02T11:51:00.935316Z"
+    },
+    "papermill": {
+     "duration": 0.067727,
+     "end_time": "2025-04-02T11:51:00.938138",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:00.870411",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Publication_Time\n",
+       "Night        196849\n",
+       "Evening      195777\n",
+       "Afternoon    179460\n",
+       "Morning      177913\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.Publication_Time.value_counts()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d43dd5f7",
+   "metadata": {
+    "papermill": {
+     "duration": 0.006347,
+     "end_time": "2025-04-02T11:51:00.951225",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:00.944878",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Data Preprocessing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "5ae1c34d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:00.965415Z",
+     "iopub.status.busy": "2025-04-02T11:51:00.965022Z",
+     "iopub.status.idle": "2025-04-02T11:51:01.021157Z",
+     "shell.execute_reply": "2025-04-02T11:51:01.020119Z"
+    },
+    "papermill": {
+     "duration": 0.065311,
+     "end_time": "2025-04-02T11:51:01.023105",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:00.957794",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "target = 'Listening_Time_minutes'\n",
+    "X = df.drop(columns=[target])\n",
+    "y = df[target]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9b675638",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00645,
+     "end_time": "2025-04-02T11:51:01.036572",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:01.030122",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Encoding columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "6fa69451",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:01.050921Z",
+     "iopub.status.busy": "2025-04-02T11:51:01.050548Z",
+     "iopub.status.idle": "2025-04-02T11:51:01.805057Z",
+     "shell.execute_reply": "2025-04-02T11:51:01.803964Z"
+    },
+    "papermill": {
+     "duration": 0.763964,
+     "end_time": "2025-04-02T11:51:01.807045",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:01.043081",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "genre_encoder = OrdinalEncoder()\n",
+    "Genre_encoded = genre_encoder.fit_transform(X[['Genre']])\n",
+    "\n",
+    "Publication_Day_encoder = OrdinalEncoder()\n",
+    "Publication_Day_encoded = Publication_Day_encoder.fit_transform(X[['Publication_Day']])\n",
+    "\n",
+    "Publication_Time_encoder = OrdinalEncoder()\n",
+    "Publication_Time_encoded = Publication_Time_encoder.fit_transform(X[['Publication_Time']])\n",
+    "\n",
+    "Episode_Sentiment_encoder = OrdinalEncoder()\n",
+    "Episode_Sentiment_encoded = Episode_Sentiment_encoder.fit_transform(X[['Episode_Sentiment']])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "901e7fe4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:01.822625Z",
+     "iopub.status.busy": "2025-04-02T11:51:01.822275Z",
+     "iopub.status.idle": "2025-04-02T11:51:01.838362Z",
+     "shell.execute_reply": "2025-04-02T11:51:01.837330Z"
+    },
+    "papermill": {
+     "duration": 0.026627,
+     "end_time": "2025-04-02T11:51:01.840374",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:01.813747",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X.Genre = Genre_encoded\n",
+    "X.Publication_Day = Publication_Day_encoded\n",
+    "X.Publication_Time = Publication_Time_encoded\n",
+    "X.Episode_Sentiment = Episode_Sentiment_encoded\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "aaa53c78",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:01.855281Z",
+     "iopub.status.busy": "2025-04-02T11:51:01.854869Z",
+     "iopub.status.idle": "2025-04-02T11:51:01.901979Z",
+     "shell.execute_reply": "2025-04-02T11:51:01.900770Z"
+    },
+    "papermill": {
+     "duration": 0.056765,
+     "end_time": "2025-04-02T11:51:01.904074",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:01.847309",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X.drop(columns=['id','Podcast_Name'], inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "30f306b6",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00636,
+     "end_time": "2025-04-02T11:51:01.917416",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:01.911056",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Standardization"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "03d903d4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:01.932129Z",
+     "iopub.status.busy": "2025-04-02T11:51:01.931743Z",
+     "iopub.status.idle": "2025-04-02T11:51:02.112271Z",
+     "shell.execute_reply": "2025-04-02T11:51:02.111153Z"
+    },
+    "papermill": {
+     "duration": 0.189926,
+     "end_time": "2025-04-02T11:51:02.114116",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:01.924190",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "scaler = StandardScaler()\n",
+    "X_scaled = scaler.fit_transform(X)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "60f6d42e",
+   "metadata": {
+    "papermill": {
+     "duration": 0.006218,
+     "end_time": "2025-04-02T11:51:02.127054",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:02.120836",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Train test split"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "38d70bfe",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:02.141145Z",
+     "iopub.status.busy": "2025-04-02T11:51:02.140778Z",
+     "iopub.status.idle": "2025-04-02T11:51:02.289326Z",
+     "shell.execute_reply": "2025-04-02T11:51:02.288268Z"
+    },
+    "papermill": {
+     "duration": 0.157753,
+     "end_time": "2025-04-02T11:51:02.291219",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:02.133466",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "ccfa3663",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:51:02.305820Z",
+     "iopub.status.busy": "2025-04-02T11:51:02.305448Z",
+     "iopub.status.idle": "2025-04-02T11:53:06.236842Z",
+     "shell.execute_reply": "2025-04-02T11:53:06.235675Z"
+    },
+    "papermill": {
+     "duration": 123.94566,
+     "end_time": "2025-04-02T11:53:06.243647",
+     "exception": false,
+     "start_time": "2025-04-02T11:51:02.297987",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Neighbors - 20: 13.75\n"
+     ]
+    }
+   ],
+   "source": [
+    "# for i in range(3,26):\n",
+    "i = 20\n",
+    "knn = KNeighborsRegressor(n_neighbors=i)\n",
+    "knn.fit(X_train, y_train)\n",
+    "knn_pred = knn.predict(X_test)\n",
+    "print(f\"Neighbors - {i}: {mean_squared_error(knn_pred, y_test, squared=False):.2f}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "469e5143",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-02T11:53:06.258285Z",
+     "iopub.status.busy": "2025-04-02T11:53:06.257877Z",
+     "iopub.status.idle": "2025-04-02T11:53:07.339303Z",
+     "shell.execute_reply": "2025-04-02T11:53:07.338151Z"
+    },
+    "papermill": {
+     "duration": 1.090862,
+     "end_time": "2025-04-02T11:53:07.341009",
+     "exception": false,
+     "start_time": "2025-04-02T11:53:06.250147",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "13.788783739258822"
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tree = DecisionTreeRegressor(ccp_alpha=0.0001, max_depth=3)\n",
+    "tree.fit(X_train, y_train)\n",
+    "tree_pred = tree.predict(X_test)\n",
+    "mean_squared_error(tree_pred, y_test, squared=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bae49fe4",
+   "metadata": {
+    "papermill": {
+     "duration": 0.006551,
+     "end_time": "2025-04-02T11:53:07.354355",
+     "exception": false,
+     "start_time": "2025-04-02T11:53:07.347804",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "426ac45d",
+   "metadata": {
+    "papermill": {
+     "duration": 0.006324,
+     "end_time": "2025-04-02T11:53:07.367523",
+     "exception": false,
+     "start_time": "2025-04-02T11:53:07.361199",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "databundleVersionId": 11351736,
+     "sourceId": 91715,
+     "sourceType": "competition"
+    }
+   ],
+   "dockerImageVersionId": 30918,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 136.933438,
+   "end_time": "2025-04-02T11:53:08.094332",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-04-02T11:50:51.160894",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
