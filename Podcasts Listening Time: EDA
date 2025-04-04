@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "e59d20c0",
+   "id": "28c1d1b9",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:30.097212Z",
-     "iopub.status.busy": "2025-04-02T23:49:30.096808Z",
-     "iopub.status.idle": "2025-04-02T23:49:31.145638Z",
-     "shell.execute_reply": "2025-04-02T23:49:31.144524Z"
+     "iopub.execute_input": "2025-04-04T09:04:29.260780Z",
+     "iopub.status.busy": "2025-04-04T09:04:29.260342Z",
+     "iopub.status.idle": "2025-04-04T09:04:30.642837Z",
+     "shell.execute_reply": "2025-04-04T09:04:30.641388Z"
     },
     "papermill": {
-     "duration": 1.059193,
-     "end_time": "2025-04-02T23:49:31.147412",
+     "duration": 1.397084,
+     "end_time": "2025-04-04T09:04:30.644942",
      "exception": false,
-     "start_time": "2025-04-02T23:49:30.088219",
+     "start_time": "2025-04-04T09:04:29.247858",
      "status": "completed"
     },
     "tags": []
@@ -56,19 +56,46 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "5a483996",
+   "id": "e98f14b9",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:31.163045Z",
-     "iopub.status.busy": "2025-04-02T23:49:31.162507Z",
-     "iopub.status.idle": "2025-04-02T23:49:33.121230Z",
-     "shell.execute_reply": "2025-04-02T23:49:33.120216Z"
+     "iopub.execute_input": "2025-04-04T09:04:30.667145Z",
+     "iopub.status.busy": "2025-04-04T09:04:30.666473Z",
+     "iopub.status.idle": "2025-04-04T09:04:34.018124Z",
+     "shell.execute_reply": "2025-04-04T09:04:34.016844Z"
     },
     "papermill": {
-     "duration": 1.968326,
-     "end_time": "2025-04-02T23:49:33.123235",
+     "duration": 3.365657,
+     "end_time": "2025-04-04T09:04:34.020768",
      "exception": false,
-     "start_time": "2025-04-02T23:49:31.154909",
+     "start_time": "2025-04-04T09:04:30.655111",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n",
+    "import xgboost as xgb"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "ce57d187",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:34.049098Z",
+     "iopub.status.busy": "2025-04-04T09:04:34.048291Z",
+     "iopub.status.idle": "2025-04-04T09:04:34.604541Z",
+     "shell.execute_reply": "2025-04-04T09:04:34.602804Z"
+    },
+    "papermill": {
+     "duration": 0.569629,
+     "end_time": "2025-04-04T09:04:34.607120",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:34.037491",
      "status": "completed"
     },
     "tags": []
@@ -79,25 +106,26 @@
     "from sklearn.model_selection import train_test_split\n",
     "from sklearn.neighbors import KNeighborsRegressor\n",
     "from sklearn.metrics import accuracy_score, mean_squared_error\n",
-    "from sklearn.tree import DecisionTreeRegressor"
+    "from sklearn.tree import DecisionTreeRegressor\n",
+    "from sklearn.ensemble import RandomForestRegressor, VotingRegressor"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
-   "id": "9d4fc8fa",
+   "execution_count": 4,
+   "id": "2112d5a1",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:33.138391Z",
-     "iopub.status.busy": "2025-04-02T23:49:33.137907Z",
-     "iopub.status.idle": "2025-04-02T23:49:35.360236Z",
-     "shell.execute_reply": "2025-04-02T23:49:35.359164Z"
+     "iopub.execute_input": "2025-04-04T09:04:34.629460Z",
+     "iopub.status.busy": "2025-04-04T09:04:34.628964Z",
+     "iopub.status.idle": "2025-04-04T09:04:37.170696Z",
+     "shell.execute_reply": "2025-04-04T09:04:37.169136Z"
     },
     "papermill": {
-     "duration": 2.231866,
-     "end_time": "2025-04-02T23:49:35.362158",
+     "duration": 2.555893,
+     "end_time": "2025-04-04T09:04:37.173515",
      "exception": false,
-     "start_time": "2025-04-02T23:49:33.130292",
+     "start_time": "2025-04-04T09:04:34.617622",
      "status": "completed"
     },
     "tags": []
@@ -110,20 +138,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
-   "id": "da79fcc8",
+   "execution_count": 5,
+   "id": "285899fe",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:35.377059Z",
-     "iopub.status.busy": "2025-04-02T23:49:35.376688Z",
-     "iopub.status.idle": "2025-04-02T23:49:35.445158Z",
-     "shell.execute_reply": "2025-04-02T23:49:35.443994Z"
+     "iopub.execute_input": "2025-04-04T09:04:37.196259Z",
+     "iopub.status.busy": "2025-04-04T09:04:37.195664Z",
+     "iopub.status.idle": "2025-04-04T09:04:37.284779Z",
+     "shell.execute_reply": "2025-04-04T09:04:37.283361Z"
     },
     "papermill": {
-     "duration": 0.077778,
-     "end_time": "2025-04-02T23:49:35.446872",
+     "duration": 0.102594,
+     "end_time": "2025-04-04T09:04:37.287139",
      "exception": false,
-     "start_time": "2025-04-02T23:49:35.369094",
+     "start_time": "2025-04-04T09:04:37.184545",
      "status": "completed"
     },
     "tags": []
@@ -166,77 +194,77 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>460361</th>\n",
-       "      <td>460361</td>\n",
-       "      <td>Finance Focus</td>\n",
-       "      <td>Episode 77</td>\n",
-       "      <td>98.29</td>\n",
-       "      <td>Business</td>\n",
-       "      <td>84.46</td>\n",
-       "      <td>Tuesday</td>\n",
-       "      <td>Morning</td>\n",
-       "      <td>95.92</td>\n",
+       "      <th>44066</th>\n",
+       "      <td>44066</td>\n",
+       "      <td>Study Sessions</td>\n",
+       "      <td>Episode 43</td>\n",
+       "      <td>78.66</td>\n",
+       "      <td>Education</td>\n",
+       "      <td>24.72</td>\n",
+       "      <td>Thursday</td>\n",
+       "      <td>Afternoon</td>\n",
+       "      <td>47.98</td>\n",
        "      <td>1.0</td>\n",
-       "      <td>Neutral</td>\n",
-       "      <td>72.35063</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>571061</th>\n",
-       "      <td>571061</td>\n",
-       "      <td>Game Day</td>\n",
-       "      <td>Episode 39</td>\n",
-       "      <td>55.06</td>\n",
-       "      <td>Sports</td>\n",
-       "      <td>56.42</td>\n",
-       "      <td>Friday</td>\n",
-       "      <td>Evening</td>\n",
-       "      <td>34.21</td>\n",
-       "      <td>1.0</td>\n",
-       "      <td>Negative</td>\n",
-       "      <td>34.02437</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>304023</th>\n",
-       "      <td>304023</td>\n",
-       "      <td>Gadget Geek</td>\n",
-       "      <td>Episode 52</td>\n",
-       "      <td>84.78</td>\n",
-       "      <td>Technology</td>\n",
-       "      <td>86.63</td>\n",
-       "      <td>Friday</td>\n",
-       "      <td>Night</td>\n",
-       "      <td>88.66</td>\n",
-       "      <td>2.0</td>\n",
        "      <td>Positive</td>\n",
-       "      <td>50.74076</td>\n",
+       "      <td>75.52000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>473445</th>\n",
+       "      <td>473445</td>\n",
+       "      <td>Money Matters</td>\n",
+       "      <td>Episode 26</td>\n",
+       "      <td>24.87</td>\n",
+       "      <td>Business</td>\n",
+       "      <td>92.79</td>\n",
+       "      <td>Sunday</td>\n",
+       "      <td>Night</td>\n",
+       "      <td>38.13</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Neutral</td>\n",
+       "      <td>21.43372</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>399944</th>\n",
+       "      <td>399944</td>\n",
+       "      <td>Tech Trends</td>\n",
+       "      <td>Episode 10</td>\n",
+       "      <td>72.59</td>\n",
+       "      <td>Technology</td>\n",
+       "      <td>31.95</td>\n",
+       "      <td>Sunday</td>\n",
+       "      <td>Evening</td>\n",
+       "      <td>29.04</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>Neutral</td>\n",
+       "      <td>57.19657</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "            id   Podcast_Name Episode_Title  Episode_Length_minutes  \\\n",
-       "460361  460361  Finance Focus    Episode 77                   98.29   \n",
-       "571061  571061       Game Day    Episode 39                   55.06   \n",
-       "304023  304023    Gadget Geek    Episode 52                   84.78   \n",
+       "            id    Podcast_Name Episode_Title  Episode_Length_minutes  \\\n",
+       "44066    44066  Study Sessions    Episode 43                   78.66   \n",
+       "473445  473445   Money Matters    Episode 26                   24.87   \n",
+       "399944  399944     Tech Trends    Episode 10                   72.59   \n",
        "\n",
        "             Genre  Host_Popularity_percentage Publication_Day  \\\n",
-       "460361    Business                       84.46         Tuesday   \n",
-       "571061      Sports                       56.42          Friday   \n",
-       "304023  Technology                       86.63          Friday   \n",
+       "44066    Education                       24.72        Thursday   \n",
+       "473445    Business                       92.79          Sunday   \n",
+       "399944  Technology                       31.95          Sunday   \n",
        "\n",
        "       Publication_Time  Guest_Popularity_percentage  Number_of_Ads  \\\n",
-       "460361          Morning                        95.92            1.0   \n",
-       "571061          Evening                        34.21            1.0   \n",
-       "304023            Night                        88.66            2.0   \n",
+       "44066         Afternoon                        47.98            1.0   \n",
+       "473445            Night                        38.13            0.0   \n",
+       "399944          Evening                        29.04            3.0   \n",
        "\n",
        "       Episode_Sentiment  Listening_Time_minutes  \n",
-       "460361           Neutral                72.35063  \n",
-       "571061          Negative                34.02437  \n",
-       "304023          Positive                50.74076  "
+       "44066           Positive                75.52000  \n",
+       "473445           Neutral                21.43372  \n",
+       "399944           Neutral                57.19657  "
       ]
      },
-     "execution_count": 4,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -247,20 +275,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
-   "id": "a71c87ec",
+   "execution_count": 6,
+   "id": "224a167d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:35.462311Z",
-     "iopub.status.busy": "2025-04-02T23:49:35.461958Z",
-     "iopub.status.idle": "2025-04-02T23:49:35.724528Z",
-     "shell.execute_reply": "2025-04-02T23:49:35.723230Z"
+     "iopub.execute_input": "2025-04-04T09:04:37.311452Z",
+     "iopub.status.busy": "2025-04-04T09:04:37.310924Z",
+     "iopub.status.idle": "2025-04-04T09:04:37.596908Z",
+     "shell.execute_reply": "2025-04-04T09:04:37.595402Z"
     },
     "papermill": {
-     "duration": 0.272209,
-     "end_time": "2025-04-02T23:49:35.726283",
+     "duration": 0.301666,
+     "end_time": "2025-04-04T09:04:37.599716",
      "exception": false,
-     "start_time": "2025-04-02T23:49:35.454074",
+     "start_time": "2025-04-04T09:04:37.298050",
      "status": "completed"
     },
     "tags": []
@@ -298,20 +326,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
-   "id": "94d93174",
+   "execution_count": 7,
+   "id": "cc6e0214",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:35.741646Z",
-     "iopub.status.busy": "2025-04-02T23:49:35.741303Z",
-     "iopub.status.idle": "2025-04-02T23:49:35.972811Z",
-     "shell.execute_reply": "2025-04-02T23:49:35.971818Z"
+     "iopub.execute_input": "2025-04-04T09:04:37.622824Z",
+     "iopub.status.busy": "2025-04-04T09:04:37.622369Z",
+     "iopub.status.idle": "2025-04-04T09:04:37.866913Z",
+     "shell.execute_reply": "2025-04-04T09:04:37.865676Z"
     },
     "papermill": {
-     "duration": 0.241102,
-     "end_time": "2025-04-02T23:49:35.974594",
+     "duration": 0.257586,
+     "end_time": "2025-04-04T09:04:37.868850",
      "exception": false,
-     "start_time": "2025-04-02T23:49:35.733492",
+     "start_time": "2025-04-04T09:04:37.611264",
      "status": "completed"
     },
     "tags": []
@@ -335,7 +363,7 @@
        "dtype: int64"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -346,20 +374,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
-   "id": "b379cc4c",
+   "execution_count": 8,
+   "id": "e9e3efab",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:35.990238Z",
-     "iopub.status.busy": "2025-04-02T23:49:35.989876Z",
-     "iopub.status.idle": "2025-04-02T23:49:35.995956Z",
-     "shell.execute_reply": "2025-04-02T23:49:35.995004Z"
+     "iopub.execute_input": "2025-04-04T09:04:37.891312Z",
+     "iopub.status.busy": "2025-04-04T09:04:37.890793Z",
+     "iopub.status.idle": "2025-04-04T09:04:37.898287Z",
+     "shell.execute_reply": "2025-04-04T09:04:37.896934Z"
     },
     "papermill": {
-     "duration": 0.015697,
-     "end_time": "2025-04-02T23:49:35.997644",
+     "duration": 0.021409,
+     "end_time": "2025-04-04T09:04:37.900580",
      "exception": false,
-     "start_time": "2025-04-02T23:49:35.981947",
+     "start_time": "2025-04-04T09:04:37.879171",
      "status": "completed"
     },
     "tags": []
@@ -371,7 +399,7 @@
        "0.19470666666666667"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -382,20 +410,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
-   "id": "18e7b6ac",
+   "execution_count": 9,
+   "id": "9eccf330",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.013762Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.013348Z",
-     "iopub.status.idle": "2025-04-02T23:49:36.074816Z",
-     "shell.execute_reply": "2025-04-02T23:49:36.073568Z"
+     "iopub.execute_input": "2025-04-04T09:04:37.923328Z",
+     "iopub.status.busy": "2025-04-04T09:04:37.922833Z",
+     "iopub.status.idle": "2025-04-04T09:04:37.992155Z",
+     "shell.execute_reply": "2025-04-04T09:04:37.990826Z"
     },
     "papermill": {
-     "duration": 0.071531,
-     "end_time": "2025-04-02T23:49:36.076770",
+     "duration": 0.083229,
+     "end_time": "2025-04-04T09:04:37.994436",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.005239",
+     "start_time": "2025-04-04T09:04:37.911207",
      "status": "completed"
     },
     "tags": []
@@ -415,7 +443,7 @@
        "Name: Episode_Length_minutes, dtype: float64"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -426,20 +454,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
-   "id": "9104268d",
+   "execution_count": 10,
+   "id": "1892f883",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.092935Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.092500Z",
-     "iopub.status.idle": "2025-04-02T23:49:36.113146Z",
-     "shell.execute_reply": "2025-04-02T23:49:36.112051Z"
+     "iopub.execute_input": "2025-04-04T09:04:38.017319Z",
+     "iopub.status.busy": "2025-04-04T09:04:38.016842Z",
+     "iopub.status.idle": "2025-04-04T09:04:38.043377Z",
+     "shell.execute_reply": "2025-04-04T09:04:38.042195Z"
     },
     "papermill": {
-     "duration": 0.030925,
-     "end_time": "2025-04-02T23:49:36.115203",
+     "duration": 0.040558,
+     "end_time": "2025-04-04T09:04:38.045815",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.084278",
+     "start_time": "2025-04-04T09:04:38.005257",
      "status": "completed"
     },
     "tags": []
@@ -451,20 +479,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
-   "id": "beda6be2",
+   "execution_count": 11,
+   "id": "2b1cf09d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.131302Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.130898Z",
-     "iopub.status.idle": "2025-04-02T23:49:36.155677Z",
-     "shell.execute_reply": "2025-04-02T23:49:36.154580Z"
+     "iopub.execute_input": "2025-04-04T09:04:38.068251Z",
+     "iopub.status.busy": "2025-04-04T09:04:38.067723Z",
+     "iopub.status.idle": "2025-04-04T09:04:38.097002Z",
+     "shell.execute_reply": "2025-04-04T09:04:38.095694Z"
     },
     "papermill": {
-     "duration": 0.035151,
-     "end_time": "2025-04-02T23:49:36.157784",
+     "duration": 0.043051,
+     "end_time": "2025-04-04T09:04:38.099450",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.122633",
+     "start_time": "2025-04-04T09:04:38.056399",
      "status": "completed"
     },
     "tags": []
@@ -476,20 +504,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
-   "id": "2c413562",
+   "execution_count": 12,
+   "id": "d9f33f33",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.173742Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.173324Z",
-     "iopub.status.idle": "2025-04-02T23:49:36.486851Z",
-     "shell.execute_reply": "2025-04-02T23:49:36.485936Z"
+     "iopub.execute_input": "2025-04-04T09:04:38.121870Z",
+     "iopub.status.busy": "2025-04-04T09:04:38.121415Z",
+     "iopub.status.idle": "2025-04-04T09:04:38.464714Z",
+     "shell.execute_reply": "2025-04-04T09:04:38.463395Z"
     },
     "papermill": {
-     "duration": 0.323515,
-     "end_time": "2025-04-02T23:49:36.488721",
+     "duration": 0.357172,
+     "end_time": "2025-04-04T09:04:38.467092",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.165206",
+     "start_time": "2025-04-04T09:04:38.109920",
      "status": "completed"
     },
     "tags": []
@@ -501,20 +529,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
-   "id": "5346b1a7",
+   "execution_count": 13,
+   "id": "b94c454d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.504712Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.504343Z",
-     "iopub.status.idle": "2025-04-02T23:49:36.732159Z",
-     "shell.execute_reply": "2025-04-02T23:49:36.731088Z"
+     "iopub.execute_input": "2025-04-04T09:04:38.490087Z",
+     "iopub.status.busy": "2025-04-04T09:04:38.489667Z",
+     "iopub.status.idle": "2025-04-04T09:04:38.731753Z",
+     "shell.execute_reply": "2025-04-04T09:04:38.730412Z"
     },
     "papermill": {
-     "duration": 0.2376,
-     "end_time": "2025-04-02T23:49:36.733783",
+     "duration": 0.256506,
+     "end_time": "2025-04-04T09:04:38.734103",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.496183",
+     "start_time": "2025-04-04T09:04:38.477597",
      "status": "completed"
     },
     "tags": []
@@ -538,7 +566,7 @@
        "dtype: int64"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -549,20 +577,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
-   "id": "c83ea0ff",
+   "execution_count": 14,
+   "id": "9388858c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.750224Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.749832Z",
-     "iopub.status.idle": "2025-04-02T23:49:36.879899Z",
-     "shell.execute_reply": "2025-04-02T23:49:36.878839Z"
+     "iopub.execute_input": "2025-04-04T09:04:38.756960Z",
+     "iopub.status.busy": "2025-04-04T09:04:38.756543Z",
+     "iopub.status.idle": "2025-04-04T09:04:38.907575Z",
+     "shell.execute_reply": "2025-04-04T09:04:38.906124Z"
     },
     "papermill": {
-     "duration": 0.140465,
-     "end_time": "2025-04-02T23:49:36.881898",
+     "duration": 0.164771,
+     "end_time": "2025-04-04T09:04:38.909731",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.741433",
+     "start_time": "2025-04-04T09:04:38.744960",
      "status": "completed"
     },
     "tags": []
@@ -579,7 +607,7 @@
        "Name: Listening_Time_minutes, dtype: float64"
       ]
      },
-     "execution_count": 13,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -590,20 +618,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
-   "id": "de9efff6",
+   "execution_count": 15,
+   "id": "8710a137",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:36.898990Z",
-     "iopub.status.busy": "2025-04-02T23:49:36.898577Z",
-     "iopub.status.idle": "2025-04-02T23:49:37.392169Z",
-     "shell.execute_reply": "2025-04-02T23:49:37.390886Z"
+     "iopub.execute_input": "2025-04-04T09:04:38.932622Z",
+     "iopub.status.busy": "2025-04-04T09:04:38.932179Z",
+     "iopub.status.idle": "2025-04-04T09:04:39.440559Z",
+     "shell.execute_reply": "2025-04-04T09:04:39.439400Z"
     },
     "papermill": {
-     "duration": 0.504207,
-     "end_time": "2025-04-02T23:49:37.394188",
+     "duration": 0.52259,
+     "end_time": "2025-04-04T09:04:39.442996",
      "exception": false,
-     "start_time": "2025-04-02T23:49:36.889981",
+     "start_time": "2025-04-04T09:04:38.920406",
      "status": "completed"
     },
     "tags": []
@@ -615,20 +643,368 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
-   "id": "f5fb9ba2",
+   "execution_count": 16,
+   "id": "66af0aae",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:37.410836Z",
-     "iopub.status.busy": "2025-04-02T23:49:37.410395Z",
-     "iopub.status.idle": "2025-04-02T23:49:37.472132Z",
-     "shell.execute_reply": "2025-04-02T23:49:37.470960Z"
+     "iopub.execute_input": "2025-04-04T09:04:39.466186Z",
+     "iopub.status.busy": "2025-04-04T09:04:39.465706Z",
+     "iopub.status.idle": "2025-04-04T09:04:39.493831Z",
+     "shell.execute_reply": "2025-04-04T09:04:39.492223Z"
     },
     "papermill": {
-     "duration": 0.072113,
-     "end_time": "2025-04-02T23:49:37.474059",
+     "duration": 0.042507,
+     "end_time": "2025-04-04T09:04:39.496390",
      "exception": false,
-     "start_time": "2025-04-02T23:49:37.401946",
+     "start_time": "2025-04-04T09:04:39.453883",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1458: RuntimeWarning: invalid value encountered in greater\n",
+      "  has_large_values = (abs_vals > 1e6).any()\n",
+      "/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in less\n",
+      "  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n",
+      "/usr/local/lib/python3.10/dist-packages/pandas/io/formats/format.py:1459: RuntimeWarning: invalid value encountered in greater\n",
+      "  has_small_values = ((abs_vals < 10 ** (-self.digits)) & (abs_vals > 0)).any()\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>Podcast_Name</th>\n",
+       "      <th>Episode_Title</th>\n",
+       "      <th>Episode_Length_minutes</th>\n",
+       "      <th>Genre</th>\n",
+       "      <th>Host_Popularity_percentage</th>\n",
+       "      <th>Publication_Day</th>\n",
+       "      <th>Publication_Time</th>\n",
+       "      <th>Guest_Popularity_percentage</th>\n",
+       "      <th>Number_of_Ads</th>\n",
+       "      <th>Episode_Sentiment</th>\n",
+       "      <th>Listening_Time_minutes</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>Mystery Matters</td>\n",
+       "      <td>Episode 98</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>True Crime</td>\n",
+       "      <td>74.81</td>\n",
+       "      <td>Thursday</td>\n",
+       "      <td>Night</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Positive</td>\n",
+       "      <td>31.41998</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>1</td>\n",
+       "      <td>Joke Junction</td>\n",
+       "      <td>Episode 26</td>\n",
+       "      <td>119.80</td>\n",
+       "      <td>Comedy</td>\n",
+       "      <td>66.95</td>\n",
+       "      <td>Saturday</td>\n",
+       "      <td>Afternoon</td>\n",
+       "      <td>75.95</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>Negative</td>\n",
+       "      <td>88.01241</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>Study Sessions</td>\n",
+       "      <td>Episode 16</td>\n",
+       "      <td>73.90</td>\n",
+       "      <td>Education</td>\n",
+       "      <td>69.97</td>\n",
+       "      <td>Tuesday</td>\n",
+       "      <td>Evening</td>\n",
+       "      <td>8.97</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Negative</td>\n",
+       "      <td>44.92531</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>3</td>\n",
+       "      <td>Digital Digest</td>\n",
+       "      <td>Episode 45</td>\n",
+       "      <td>67.17</td>\n",
+       "      <td>Technology</td>\n",
+       "      <td>57.22</td>\n",
+       "      <td>Monday</td>\n",
+       "      <td>Morning</td>\n",
+       "      <td>78.70</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>Positive</td>\n",
+       "      <td>46.27824</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>4</td>\n",
+       "      <td>Mind &amp; Body</td>\n",
+       "      <td>Episode 86</td>\n",
+       "      <td>110.51</td>\n",
+       "      <td>Health</td>\n",
+       "      <td>80.07</td>\n",
+       "      <td>Monday</td>\n",
+       "      <td>Afternoon</td>\n",
+       "      <td>58.68</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>Neutral</td>\n",
+       "      <td>75.61031</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>749995</th>\n",
+       "      <td>749995</td>\n",
+       "      <td>Learning Lab</td>\n",
+       "      <td>Episode 25</td>\n",
+       "      <td>75.66</td>\n",
+       "      <td>Education</td>\n",
+       "      <td>69.36</td>\n",
+       "      <td>Saturday</td>\n",
+       "      <td>Morning</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Negative</td>\n",
+       "      <td>56.87058</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>749996</th>\n",
+       "      <td>749996</td>\n",
+       "      <td>Business Briefs</td>\n",
+       "      <td>Episode 21</td>\n",
+       "      <td>75.75</td>\n",
+       "      <td>Business</td>\n",
+       "      <td>35.21</td>\n",
+       "      <td>Saturday</td>\n",
+       "      <td>Night</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>Neutral</td>\n",
+       "      <td>45.46242</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>749997</th>\n",
+       "      <td>749997</td>\n",
+       "      <td>Lifestyle Lounge</td>\n",
+       "      <td>Episode 51</td>\n",
+       "      <td>30.98</td>\n",
+       "      <td>Lifestyle</td>\n",
+       "      <td>78.58</td>\n",
+       "      <td>Thursday</td>\n",
+       "      <td>Morning</td>\n",
+       "      <td>84.89</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Negative</td>\n",
+       "      <td>15.26000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>749998</th>\n",
+       "      <td>749998</td>\n",
+       "      <td>Style Guide</td>\n",
+       "      <td>Episode 47</td>\n",
+       "      <td>108.98</td>\n",
+       "      <td>Lifestyle</td>\n",
+       "      <td>45.39</td>\n",
+       "      <td>Thursday</td>\n",
+       "      <td>Morning</td>\n",
+       "      <td>93.27</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Negative</td>\n",
+       "      <td>100.72939</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>749999</th>\n",
+       "      <td>749999</td>\n",
+       "      <td>Sports Central</td>\n",
+       "      <td>Episode 99</td>\n",
+       "      <td>24.10</td>\n",
+       "      <td>Sports</td>\n",
+       "      <td>22.45</td>\n",
+       "      <td>Saturday</td>\n",
+       "      <td>Night</td>\n",
+       "      <td>36.72</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>Neutral</td>\n",
+       "      <td>11.94439</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>750000 rows × 12 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            id      Podcast_Name Episode_Title  Episode_Length_minutes  \\\n",
+       "0            0   Mystery Matters    Episode 98                     NaN   \n",
+       "1            1     Joke Junction    Episode 26                  119.80   \n",
+       "2            2    Study Sessions    Episode 16                   73.90   \n",
+       "3            3    Digital Digest    Episode 45                   67.17   \n",
+       "4            4       Mind & Body    Episode 86                  110.51   \n",
+       "...        ...               ...           ...                     ...   \n",
+       "749995  749995      Learning Lab    Episode 25                   75.66   \n",
+       "749996  749996   Business Briefs    Episode 21                   75.75   \n",
+       "749997  749997  Lifestyle Lounge    Episode 51                   30.98   \n",
+       "749998  749998       Style Guide    Episode 47                  108.98   \n",
+       "749999  749999    Sports Central    Episode 99                   24.10   \n",
+       "\n",
+       "             Genre  Host_Popularity_percentage Publication_Day  \\\n",
+       "0       True Crime                       74.81        Thursday   \n",
+       "1           Comedy                       66.95        Saturday   \n",
+       "2        Education                       69.97         Tuesday   \n",
+       "3       Technology                       57.22          Monday   \n",
+       "4           Health                       80.07          Monday   \n",
+       "...            ...                         ...             ...   \n",
+       "749995   Education                       69.36        Saturday   \n",
+       "749996    Business                       35.21        Saturday   \n",
+       "749997   Lifestyle                       78.58        Thursday   \n",
+       "749998   Lifestyle                       45.39        Thursday   \n",
+       "749999      Sports                       22.45        Saturday   \n",
+       "\n",
+       "       Publication_Time  Guest_Popularity_percentage  Number_of_Ads  \\\n",
+       "0                 Night                          NaN            0.0   \n",
+       "1             Afternoon                        75.95            2.0   \n",
+       "2               Evening                         8.97            0.0   \n",
+       "3               Morning                        78.70            2.0   \n",
+       "4             Afternoon                        58.68            3.0   \n",
+       "...                 ...                          ...            ...   \n",
+       "749995          Morning                          NaN            0.0   \n",
+       "749996            Night                          NaN            2.0   \n",
+       "749997          Morning                        84.89            0.0   \n",
+       "749998          Morning                        93.27            0.0   \n",
+       "749999            Night                        36.72            0.0   \n",
+       "\n",
+       "       Episode_Sentiment  Listening_Time_minutes  \n",
+       "0               Positive                31.41998  \n",
+       "1               Negative                88.01241  \n",
+       "2               Negative                44.92531  \n",
+       "3               Positive                46.27824  \n",
+       "4                Neutral                75.61031  \n",
+       "...                  ...                     ...  \n",
+       "749995          Negative                56.87058  \n",
+       "749996           Neutral                45.46242  \n",
+       "749997          Negative                15.26000  \n",
+       "749998          Negative               100.72939  \n",
+       "749999           Neutral                11.94439  \n",
+       "\n",
+       "[750000 rows x 12 columns]"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "res_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "2ae381be",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:39.520269Z",
+     "iopub.status.busy": "2025-04-04T09:04:39.519746Z",
+     "iopub.status.idle": "2025-04-04T09:04:39.627156Z",
+     "shell.execute_reply": "2025-04-04T09:04:39.625808Z"
+    },
+    "papermill": {
+     "duration": 0.121537,
+     "end_time": "2025-04-04T09:04:39.629230",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:39.507693",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "MultiIndex([(          'Podcast_Name',     ''),\n",
+       "            ('Listening_Time_minutes', 'mean'),\n",
+       "            ('Listening_Time_minutes',  'std')],\n",
+       "           )"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "temp = res_df.groupby(by=['Podcast_Name']).agg({'Listening_Time_minutes':['mean','std']}).reset_index()\n",
+    "# sns.barplot(data=temp, x=\"Podcast_Name\", y=\"('Listening_Time_minutes','mean')\")\n",
+    "# plt.plot(x=temp)\n",
+    "# temp.columns\n",
+    "# sns.plot(temp)\n",
+    "temp.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "08c37eab",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:39.654982Z",
+     "iopub.status.busy": "2025-04-04T09:04:39.654548Z",
+     "iopub.status.idle": "2025-04-04T09:04:39.717481Z",
+     "shell.execute_reply": "2025-04-04T09:04:39.716096Z"
+    },
+    "papermill": {
+     "duration": 0.078581,
+     "end_time": "2025-04-04T09:04:39.719556",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:39.640975",
      "status": "completed"
     },
     "tags": []
@@ -689,7 +1065,7 @@
        "Name: count, dtype: int64"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 18,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -700,20 +1076,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
-   "id": "2d76f048",
+   "execution_count": 19,
+   "id": "0c895593",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:37.490940Z",
-     "iopub.status.busy": "2025-04-02T23:49:37.490528Z",
-     "iopub.status.idle": "2025-04-02T23:49:37.549870Z",
-     "shell.execute_reply": "2025-04-02T23:49:37.548835Z"
+     "iopub.execute_input": "2025-04-04T09:04:39.744160Z",
+     "iopub.status.busy": "2025-04-04T09:04:39.743703Z",
+     "iopub.status.idle": "2025-04-04T09:04:39.805669Z",
+     "shell.execute_reply": "2025-04-04T09:04:39.804230Z"
     },
     "papermill": {
-     "duration": 0.069804,
-     "end_time": "2025-04-02T23:49:37.551728",
+     "duration": 0.076482,
+     "end_time": "2025-04-04T09:04:39.807794",
      "exception": false,
-     "start_time": "2025-04-02T23:49:37.481924",
+     "start_time": "2025-04-04T09:04:39.731312",
      "status": "completed"
     },
     "tags": []
@@ -730,7 +1106,7 @@
        "Name: count, dtype: int64"
       ]
      },
-     "execution_count": 16,
+     "execution_count": 19,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -741,57 +1117,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f868f11b",
+   "id": "38838004",
    "metadata": {
     "papermill": {
-     "duration": 0.007591,
-     "end_time": "2025-04-02T23:49:37.567450",
+     "duration": 0.011139,
+     "end_time": "2025-04-04T09:04:39.830711",
      "exception": false,
-     "start_time": "2025-04-02T23:49:37.559859",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "source": [
-    "## Data Preprocessing"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "id": "a6083463",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:37.584903Z",
-     "iopub.status.busy": "2025-04-02T23:49:37.584493Z",
-     "iopub.status.idle": "2025-04-02T23:49:37.641149Z",
-     "shell.execute_reply": "2025-04-02T23:49:37.640041Z"
-    },
-    "papermill": {
-     "duration": 0.068064,
-     "end_time": "2025-04-02T23:49:37.643254",
-     "exception": false,
-     "start_time": "2025-04-02T23:49:37.575190",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "target = 'Listening_Time_minutes'\n",
-    "X = df.drop(columns=[target])\n",
-    "y = df[target]"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "6e3f5996",
-   "metadata": {
-    "papermill": {
-     "duration": 0.007536,
-     "end_time": "2025-04-02T23:49:37.658840",
-     "exception": false,
-     "start_time": "2025-04-02T23:49:37.651304",
+     "start_time": "2025-04-04T09:04:39.819572",
      "status": "completed"
     },
     "tags": []
@@ -802,20 +1134,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
-   "id": "2b7cf783",
+   "execution_count": 20,
+   "id": "e48953b3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:37.675784Z",
-     "iopub.status.busy": "2025-04-02T23:49:37.675382Z",
-     "iopub.status.idle": "2025-04-02T23:49:38.412150Z",
-     "shell.execute_reply": "2025-04-02T23:49:38.411144Z"
+     "iopub.execute_input": "2025-04-04T09:04:39.855464Z",
+     "iopub.status.busy": "2025-04-04T09:04:39.854932Z",
+     "iopub.status.idle": "2025-04-04T09:04:40.624411Z",
+     "shell.execute_reply": "2025-04-04T09:04:40.623167Z"
     },
     "papermill": {
-     "duration": 0.747253,
-     "end_time": "2025-04-02T23:49:38.414045",
+     "duration": 0.784721,
+     "end_time": "2025-04-04T09:04:40.626917",
      "exception": false,
-     "start_time": "2025-04-02T23:49:37.666792",
+     "start_time": "2025-04-04T09:04:39.842196",
      "status": "completed"
     },
     "tags": []
@@ -823,80 +1155,150 @@
    "outputs": [],
    "source": [
     "genre_encoder = OrdinalEncoder()\n",
-    "Genre_encoded = genre_encoder.fit_transform(X[['Genre']])\n",
+    "Genre_encoded = genre_encoder.fit_transform(df[['Genre']])\n",
     "\n",
     "Publication_Day_encoder = OrdinalEncoder()\n",
-    "Publication_Day_encoded = Publication_Day_encoder.fit_transform(X[['Publication_Day']])\n",
+    "Publication_Day_encoded = Publication_Day_encoder.fit_transform(df[['Publication_Day']])\n",
     "\n",
     "Publication_Time_encoder = OrdinalEncoder()\n",
-    "Publication_Time_encoded = Publication_Time_encoder.fit_transform(X[['Publication_Time']])\n",
+    "Publication_Time_encoded = Publication_Time_encoder.fit_transform(df[['Publication_Time']])\n",
     "\n",
     "Episode_Sentiment_encoder = OrdinalEncoder()\n",
-    "Episode_Sentiment_encoded = Episode_Sentiment_encoder.fit_transform(X[['Episode_Sentiment']])"
+    "Episode_Sentiment_encoded = Episode_Sentiment_encoder.fit_transform(df[['Episode_Sentiment']])"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
-   "id": "ec1ea87e",
+   "execution_count": 21,
+   "id": "d11e54d5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:38.431288Z",
-     "iopub.status.busy": "2025-04-02T23:49:38.430924Z",
-     "iopub.status.idle": "2025-04-02T23:49:38.447290Z",
-     "shell.execute_reply": "2025-04-02T23:49:38.446158Z"
+     "iopub.execute_input": "2025-04-04T09:04:40.652182Z",
+     "iopub.status.busy": "2025-04-04T09:04:40.651705Z",
+     "iopub.status.idle": "2025-04-04T09:04:40.669669Z",
+     "shell.execute_reply": "2025-04-04T09:04:40.668444Z"
     },
     "papermill": {
-     "duration": 0.027266,
-     "end_time": "2025-04-02T23:49:38.449313",
+     "duration": 0.033246,
+     "end_time": "2025-04-04T09:04:40.671971",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.422047",
+     "start_time": "2025-04-04T09:04:40.638725",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "X.Genre = Genre_encoded\n",
-    "X.Publication_Day = Publication_Day_encoded\n",
-    "X.Publication_Time = Publication_Time_encoded\n",
-    "X.Episode_Sentiment = Episode_Sentiment_encoded\n"
+    "df.Genre = Genre_encoded\n",
+    "df.Publication_Day = Publication_Day_encoded\n",
+    "df.Publication_Time = Publication_Time_encoded\n",
+    "df.Episode_Sentiment = Episode_Sentiment_encoded"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
-   "id": "77ee6619",
+   "execution_count": 22,
+   "id": "d4c12060",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:38.466456Z",
-     "iopub.status.busy": "2025-04-02T23:49:38.466076Z",
-     "iopub.status.idle": "2025-04-02T23:49:38.509399Z",
-     "shell.execute_reply": "2025-04-02T23:49:38.508179Z"
+     "iopub.execute_input": "2025-04-04T09:04:40.696861Z",
+     "iopub.status.busy": "2025-04-04T09:04:40.696444Z",
+     "iopub.status.idle": "2025-04-04T09:04:40.748488Z",
+     "shell.execute_reply": "2025-04-04T09:04:40.747368Z"
     },
     "papermill": {
-     "duration": 0.054217,
-     "end_time": "2025-04-02T23:49:38.511488",
+     "duration": 0.067036,
+     "end_time": "2025-04-04T09:04:40.750767",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.457271",
+     "start_time": "2025-04-04T09:04:40.683731",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "X.drop(columns=['id','Podcast_Name'], inplace=True)"
+    "df.drop(columns=['id','Podcast_Name','Guest_Popularity_percentage','Publication_Day','Genre'], inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "295c86f0",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:40.777355Z",
+     "iopub.status.busy": "2025-04-04T09:04:40.776850Z",
+     "iopub.status.idle": "2025-04-04T09:04:40.987029Z",
+     "shell.execute_reply": "2025-04-04T09:04:40.985700Z"
+    },
+    "papermill": {
+     "duration": 0.225118,
+     "end_time": "2025-04-04T09:04:40.989233",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:40.764115",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Episode_Title                -0.017321\n",
+       "Episode_Length_minutes        0.866031\n",
+       "Host_Popularity_percentage    0.050868\n",
+       "Publication_Time              0.013224\n",
+       "Number_of_Ads                -0.118337\n",
+       "Episode_Sentiment             0.039469\n",
+       "Listening_Time_minutes        1.000000\n",
+       "Name: Listening_Time_minutes, dtype: float64"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.corr()['Listening_Time_minutes']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "0555633b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:41.014358Z",
+     "iopub.status.busy": "2025-04-04T09:04:41.013844Z",
+     "iopub.status.idle": "2025-04-04T09:04:41.033598Z",
+     "shell.execute_reply": "2025-04-04T09:04:41.032212Z"
+    },
+    "papermill": {
+     "duration": 0.034775,
+     "end_time": "2025-04-04T09:04:41.035875",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:41.001100",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "target = 'Listening_Time_minutes'\n",
+    "X = df.drop(columns=[target]).head(50000)\n",
+    "y = df[target].head(50000)"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "f18955ed",
+   "id": "f8ec1f69",
    "metadata": {
     "papermill": {
-     "duration": 0.007322,
-     "end_time": "2025-04-02T23:49:38.526740",
+     "duration": 0.011027,
+     "end_time": "2025-04-04T09:04:41.058663",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.519418",
+     "start_time": "2025-04-04T09:04:41.047636",
      "status": "completed"
     },
     "tags": []
@@ -907,20 +1309,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
-   "id": "3ba075a5",
+   "execution_count": 25,
+   "id": "563d4776",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:38.543345Z",
-     "iopub.status.busy": "2025-04-02T23:49:38.542944Z",
-     "iopub.status.idle": "2025-04-02T23:49:38.726401Z",
-     "shell.execute_reply": "2025-04-02T23:49:38.725283Z"
+     "iopub.execute_input": "2025-04-04T09:04:41.083622Z",
+     "iopub.status.busy": "2025-04-04T09:04:41.083182Z",
+     "iopub.status.idle": "2025-04-04T09:04:41.124089Z",
+     "shell.execute_reply": "2025-04-04T09:04:41.122956Z"
     },
     "papermill": {
-     "duration": 0.194365,
-     "end_time": "2025-04-02T23:49:38.728678",
+     "duration": 0.056464,
+     "end_time": "2025-04-04T09:04:41.126683",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.534313",
+     "start_time": "2025-04-04T09:04:41.070219",
      "status": "completed"
     },
     "tags": []
@@ -933,13 +1335,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e2d73f10",
+   "id": "08add159",
    "metadata": {
     "papermill": {
-     "duration": 0.007389,
-     "end_time": "2025-04-02T23:49:38.744167",
+     "duration": 0.010987,
+     "end_time": "2025-04-04T09:04:41.149971",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.736778",
+     "start_time": "2025-04-04T09:04:41.138984",
      "status": "completed"
     },
     "tags": []
@@ -950,20 +1352,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
-   "id": "6c9616b8",
+   "execution_count": 26,
+   "id": "25e7ec9b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:38.761090Z",
-     "iopub.status.busy": "2025-04-02T23:49:38.760644Z",
-     "iopub.status.idle": "2025-04-02T23:49:38.914697Z",
-     "shell.execute_reply": "2025-04-02T23:49:38.913686Z"
+     "iopub.execute_input": "2025-04-04T09:04:41.175251Z",
+     "iopub.status.busy": "2025-04-04T09:04:41.174753Z",
+     "iopub.status.idle": "2025-04-04T09:04:41.188161Z",
+     "shell.execute_reply": "2025-04-04T09:04:41.186784Z"
     },
     "papermill": {
-     "duration": 0.164533,
-     "end_time": "2025-04-02T23:49:38.916559",
+     "duration": 0.02905,
+     "end_time": "2025-04-04T09:04:41.190496",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.752026",
+     "start_time": "2025-04-04T09:04:41.161446",
      "status": "completed"
     },
     "tags": []
@@ -974,21 +1376,38 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "id": "5b5b167f",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011224,
+     "end_time": "2025-04-04T09:04:41.213277",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:41.202053",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### KNN"
+   ]
+  },
+  {
    "cell_type": "code",
-   "execution_count": 23,
-   "id": "1f9ecd12",
+   "execution_count": 27,
+   "id": "53b0a1cf",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:49:38.933545Z",
-     "iopub.status.busy": "2025-04-02T23:49:38.933186Z",
-     "iopub.status.idle": "2025-04-02T23:51:38.821045Z",
-     "shell.execute_reply": "2025-04-02T23:51:38.819941Z"
+     "iopub.execute_input": "2025-04-04T09:04:41.238514Z",
+     "iopub.status.busy": "2025-04-04T09:04:41.237988Z",
+     "iopub.status.idle": "2025-04-04T09:04:41.806466Z",
+     "shell.execute_reply": "2025-04-04T09:04:41.805023Z"
     },
     "papermill": {
-     "duration": 119.90645,
-     "end_time": "2025-04-02T23:51:38.830826",
+     "duration": 0.58385,
+     "end_time": "2025-04-04T09:04:41.808532",
      "exception": false,
-     "start_time": "2025-04-02T23:49:38.924376",
+     "start_time": "2025-04-04T09:04:41.224682",
      "status": "completed"
     },
     "tags": []
@@ -998,7 +1417,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Neighbors - 20: 13.75\n"
+      "Neighbors - 20: 13.99\n"
      ]
     }
    ],
@@ -1012,21 +1431,38 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "id": "73e5ed30",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011357,
+     "end_time": "2025-04-04T09:04:41.831783",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:41.820426",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Decision Tree Regressor"
+   ]
+  },
+  {
    "cell_type": "code",
-   "execution_count": 24,
-   "id": "83ef1ed3",
+   "execution_count": 28,
+   "id": "2828cba2",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:51:38.848346Z",
-     "iopub.status.busy": "2025-04-02T23:51:38.847996Z",
-     "iopub.status.idle": "2025-04-02T23:51:42.852772Z",
-     "shell.execute_reply": "2025-04-02T23:51:42.851603Z"
+     "iopub.execute_input": "2025-04-04T09:04:41.856190Z",
+     "iopub.status.busy": "2025-04-04T09:04:41.855725Z",
+     "iopub.status.idle": "2025-04-04T09:04:42.038237Z",
+     "shell.execute_reply": "2025-04-04T09:04:42.036959Z"
     },
     "papermill": {
-     "duration": 4.015421,
-     "end_time": "2025-04-02T23:51:42.854631",
+     "duration": 0.197295,
+     "end_time": "2025-04-04T09:04:42.040503",
      "exception": false,
-     "start_time": "2025-04-02T23:51:38.839210",
+     "start_time": "2025-04-04T09:04:41.843208",
      "status": "completed"
     },
     "tags": []
@@ -1035,10 +1471,10 @@
     {
      "data": {
       "text/plain": [
-       "13.16122733845626"
+       "14.288955588802251"
       ]
      },
-     "execution_count": 24,
+     "execution_count": 28,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1052,13 +1488,296 @@
   },
   {
    "cell_type": "markdown",
-   "id": "fc0a76d7",
+   "id": "e37fda5d",
    "metadata": {
     "papermill": {
-     "duration": 0.007434,
-     "end_time": "2025-04-02T23:51:42.870291",
+     "duration": 0.011478,
+     "end_time": "2025-04-04T09:04:42.063814",
      "exception": false,
-     "start_time": "2025-04-02T23:51:42.862857",
+     "start_time": "2025-04-04T09:04:42.052336",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Random Forest Regressor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "9b058500",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:42.089507Z",
+     "iopub.status.busy": "2025-04-04T09:04:42.088923Z",
+     "iopub.status.idle": "2025-04-04T09:04:44.342190Z",
+     "shell.execute_reply": "2025-04-04T09:04:44.340670Z"
+    },
+    "papermill": {
+     "duration": 2.268553,
+     "end_time": "2025-04-04T09:04:44.344589",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:42.076036",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "14.288955588802251"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# n_estimators = [50, 150, 200]\n",
+    "# for estimator in n_estimators:\n",
+    "rf = RandomForestRegressor(n_estimators=50, ccp_alpha=0.0001, max_depth=11, n_jobs=-1)\n",
+    "rf.fit(X_train, y_train)\n",
+    "rf_pred = tree.predict(X_test)\n",
+    "mean_squared_error(rf_pred, y_test, squared=False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "16880b8d",
+   "metadata": {
+    "papermill": {
+     "duration": 0.012299,
+     "end_time": "2025-04-04T09:04:44.369687",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:44.357388",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Ensemble model (using voting)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "b3afc355",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:44.395552Z",
+     "iopub.status.busy": "2025-04-04T09:04:44.394967Z",
+     "iopub.status.idle": "2025-04-04T09:04:47.439974Z",
+     "shell.execute_reply": "2025-04-04T09:04:47.438800Z"
+    },
+    "papermill": {
+     "duration": 3.060768,
+     "end_time": "2025-04-04T09:04:47.442562",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:44.381794",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "voting_model = VotingRegressor([\n",
+    "    ('knn', knn),\n",
+    "    ('tree', tree),\n",
+    "    ('rf', rf)\n",
+    "])\n",
+    "\n",
+    "voting_model.fit(X_train, y_train)\n",
+    "voting_model_pred = voting_model.predict(X_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "f9790d88",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:47.468214Z",
+     "iopub.status.busy": "2025-04-04T09:04:47.467725Z",
+     "iopub.status.idle": "2025-04-04T09:04:47.476121Z",
+     "shell.execute_reply": "2025-04-04T09:04:47.474947Z"
+    },
+    "papermill": {
+     "duration": 0.023173,
+     "end_time": "2025-04-04T09:04:47.477898",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:47.454725",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "13.562293257072648"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mean_squared_error(voting_model_pred, y_test, squared=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "f5e38b85",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:47.503708Z",
+     "iopub.status.busy": "2025-04-04T09:04:47.503262Z",
+     "iopub.status.idle": "2025-04-04T09:04:47.526729Z",
+     "shell.execute_reply": "2025-04-04T09:04:47.525197Z"
+    },
+    "papermill": {
+     "duration": 0.038801,
+     "end_time": "2025-04-04T09:04:47.528761",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:47.489960",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-1\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>VotingRegressor(estimators=[(&#x27;knn&#x27;, KNeighborsRegressor(n_neighbors=20)),\n",
+       "                            (&#x27;tree&#x27;,\n",
+       "                             DecisionTreeRegressor(ccp_alpha=0.0001,\n",
+       "                                                   max_depth=11)),\n",
+       "                            (&#x27;rf&#x27;,\n",
+       "                             RandomForestRegressor(ccp_alpha=0.0001,\n",
+       "                                                   max_depth=11,\n",
+       "                                                   n_estimators=50,\n",
+       "                                                   n_jobs=-1))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-1\" type=\"checkbox\" ><label for=\"sk-estimator-id-1\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">VotingRegressor</label><div class=\"sk-toggleable__content\"><pre>VotingRegressor(estimators=[(&#x27;knn&#x27;, KNeighborsRegressor(n_neighbors=20)),\n",
+       "                            (&#x27;tree&#x27;,\n",
+       "                             DecisionTreeRegressor(ccp_alpha=0.0001,\n",
+       "                                                   max_depth=11)),\n",
+       "                            (&#x27;rf&#x27;,\n",
+       "                             RandomForestRegressor(ccp_alpha=0.0001,\n",
+       "                                                   max_depth=11,\n",
+       "                                                   n_estimators=50,\n",
+       "                                                   n_jobs=-1))])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><label>knn</label></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-2\" type=\"checkbox\" ><label for=\"sk-estimator-id-2\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">KNeighborsRegressor</label><div class=\"sk-toggleable__content\"><pre>KNeighborsRegressor(n_neighbors=20)</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><label>tree</label></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-3\" type=\"checkbox\" ><label for=\"sk-estimator-id-3\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">DecisionTreeRegressor</label><div class=\"sk-toggleable__content\"><pre>DecisionTreeRegressor(ccp_alpha=0.0001, max_depth=11)</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><label>rf</label></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-4\" type=\"checkbox\" ><label for=\"sk-estimator-id-4\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">RandomForestRegressor</label><div class=\"sk-toggleable__content\"><pre>RandomForestRegressor(ccp_alpha=0.0001, max_depth=11, n_estimators=50,\n",
+       "                      n_jobs=-1)</pre></div></div></div></div></div></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "VotingRegressor(estimators=[('knn', KNeighborsRegressor(n_neighbors=20)),\n",
+       "                            ('tree',\n",
+       "                             DecisionTreeRegressor(ccp_alpha=0.0001,\n",
+       "                                                   max_depth=11)),\n",
+       "                            ('rf',\n",
+       "                             RandomForestRegressor(ccp_alpha=0.0001,\n",
+       "                                                   max_depth=11,\n",
+       "                                                   n_estimators=50,\n",
+       "                                                   n_jobs=-1))])"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "voting_model"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "023213c5",
+   "metadata": {
+    "papermill": {
+     "duration": 0.012637,
+     "end_time": "2025-04-04T09:04:47.553979",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:47.541342",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## XG-Boost"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "b2a2e92c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-04-04T09:04:47.581310Z",
+     "iopub.status.busy": "2025-04-04T09:04:47.580770Z",
+     "iopub.status.idle": "2025-04-04T09:04:47.900676Z",
+     "shell.execute_reply": "2025-04-04T09:04:47.898713Z"
+    },
+    "papermill": {
+     "duration": 0.336406,
+     "end_time": "2025-04-04T09:04:47.902957",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:47.566551",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.10/dist-packages/xgboost/core.py:160: UserWarning: [09:04:47] WARNING: /workspace/src/learner.cc:742: \n",
+      "Parameters: { \"tol\" } are not used.\n",
+      "\n",
+      "  warnings.warn(smsg, UserWarning)\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.1  ->  13.383067483908299\n"
+     ]
+    }
+   ],
+   "source": [
+    "lrs = [0.1]\n",
+    "\n",
+    "for lr in lrs:\n",
+    "    xg = xgb.XGBRegressor(\n",
+    "        # objective = 'reg:squarederror',\n",
+    "        # n_estimatos = 100,\n",
+    "        learning_rate = lr,\n",
+    "        max_depth = 5,\n",
+    "        random_state = 42,\n",
+    "        # ccp_alpha = 1,\n",
+    "        tol = 3\n",
+    "    )\n",
+    "    \n",
+    "    xg.fit(X_train, y_train)\n",
+    "    xg_pred = xg.predict(X_test)\n",
+    "    \n",
+    "    print(lr, ' -> ', mean_squared_error(xg_pred, y_test, squared=False))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c4e8c2c9",
+   "metadata": {
+    "papermill": {
+     "duration": 0.012349,
+     "end_time": "2025-04-04T09:04:47.928266",
+     "exception": false,
+     "start_time": "2025-04-04T09:04:47.915917",
      "status": "completed"
     },
     "tags": []
@@ -1069,20 +1788,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
-   "id": "5b26befe",
+   "execution_count": 34,
+   "id": "d5579bff",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:51:42.887212Z",
-     "iopub.status.busy": "2025-04-02T23:51:42.886816Z",
-     "iopub.status.idle": "2025-04-02T23:55:35.112559Z",
-     "shell.execute_reply": "2025-04-02T23:55:35.111282Z"
+     "iopub.execute_input": "2025-04-04T09:04:47.955359Z",
+     "iopub.status.busy": "2025-04-04T09:04:47.954883Z",
+     "iopub.status.idle": "2025-04-04T09:05:03.657214Z",
+     "shell.execute_reply": "2025-04-04T09:05:03.655399Z"
     },
     "papermill": {
-     "duration": 232.23646,
-     "end_time": "2025-04-02T23:55:35.114541",
+     "duration": 15.718766,
+     "end_time": "2025-04-04T09:05:03.659506",
      "exception": false,
-     "start_time": "2025-04-02T23:51:42.878081",
+     "start_time": "2025-04-04T09:04:47.940740",
      "status": "completed"
     },
     "tags": []
@@ -1104,7 +1823,7 @@
     "test.Episode_Sentiment = Episode_Sentiment_encoder.fit_transform(test[['Episode_Sentiment']])\n",
     "\n",
     "reserved_ids = test[['id']]\n",
-    "test.drop(columns=['id','Podcast_Name'], inplace=True)\n",
+    "test.drop(columns=['id','Podcast_Name','Guest_Popularity_percentage','Publication_Day','Genre'], inplace=True)\n",
     "\n",
     "scaled = scaler.transform(test)\n",
     "\n",
@@ -1113,20 +1832,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
-   "id": "27bd49d1",
+   "execution_count": 35,
+   "id": "eb7367cc",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:55:35.133002Z",
-     "iopub.status.busy": "2025-04-02T23:55:35.132576Z",
-     "iopub.status.idle": "2025-04-02T23:55:35.138711Z",
-     "shell.execute_reply": "2025-04-02T23:55:35.137460Z"
+     "iopub.execute_input": "2025-04-04T09:05:03.686906Z",
+     "iopub.status.busy": "2025-04-04T09:05:03.686452Z",
+     "iopub.status.idle": "2025-04-04T09:05:03.693953Z",
+     "shell.execute_reply": "2025-04-04T09:05:03.692356Z"
     },
     "papermill": {
-     "duration": 0.017704,
-     "end_time": "2025-04-02T23:55:35.140832",
+     "duration": 0.023488,
+     "end_time": "2025-04-04T09:05:03.696122",
      "exception": false,
-     "start_time": "2025-04-02T23:55:35.123128",
+     "start_time": "2025-04-04T09:05:03.672634",
      "status": "completed"
     },
     "tags": []
@@ -1138,20 +1857,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
-   "id": "b24cebb4",
+   "execution_count": 36,
+   "id": "4bedf651",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-04-02T23:55:35.158371Z",
-     "iopub.status.busy": "2025-04-02T23:55:35.158002Z",
-     "iopub.status.idle": "2025-04-02T23:55:35.603041Z",
-     "shell.execute_reply": "2025-04-02T23:55:35.602042Z"
+     "iopub.execute_input": "2025-04-04T09:05:03.723151Z",
+     "iopub.status.busy": "2025-04-04T09:05:03.722663Z",
+     "iopub.status.idle": "2025-04-04T09:05:04.187545Z",
+     "shell.execute_reply": "2025-04-04T09:05:04.186403Z"
     },
     "papermill": {
-     "duration": 0.455785,
-     "end_time": "2025-04-02T23:55:35.604863",
+     "duration": 0.481104,
+     "end_time": "2025-04-04T09:05:04.189823",
      "exception": false,
-     "start_time": "2025-04-02T23:55:35.149078",
+     "start_time": "2025-04-04T09:05:03.708719",
      "status": "completed"
     },
     "tags": []
@@ -1160,6 +1879,91 @@
    "source": [
     "podcasts_submit_1_data.to_csv('podcasts_submission_1.csv', index=False)"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7c860f6d",
+   "metadata": {
+    "papermill": {
+     "duration": 0.012965,
+     "end_time": "2025-04-04T09:05:04.215578",
+     "exception": false,
+     "start_time": "2025-04-04T09:05:04.202613",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "38c3edf2",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011966,
+     "end_time": "2025-04-04T09:05:04.239880",
+     "exception": false,
+     "start_time": "2025-04-04T09:05:04.227914",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ad1d3f3e",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011793,
+     "end_time": "2025-04-04T09:05:04.264020",
+     "exception": false,
+     "start_time": "2025-04-04T09:05:04.252227",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d140d8b0",
+   "metadata": {
+    "papermill": {
+     "duration": 0.086057,
+     "end_time": "2025-04-04T09:05:04.363406",
+     "exception": false,
+     "start_time": "2025-04-04T09:05:04.277349",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2a6cda90",
+   "metadata": {
+    "papermill": {
+     "duration": 0.011992,
+     "end_time": "2025-04-04T09:05:04.387885",
+     "exception": false,
+     "start_time": "2025-04-04T09:05:04.375893",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
@@ -1197,14 +2001,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 369.279184,
-   "end_time": "2025-04-02T23:55:36.334191",
+   "duration": 39.593257,
+   "end_time": "2025-04-04T09:05:05.426108",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-04-02T23:49:27.055007",
+   "start_time": "2025-04-04T09:04:25.832851",
    "version": "2.6.0"
   }
  },
