@@ -2,39 +2,41 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "eb557a8d",
+   "id": "3f15f683",
    "metadata": {
     "papermill": {
-     "duration": 0.004532,
-     "end_time": "2025-05-02T09:27:42.552335",
+     "duration": 0.005612,
+     "end_time": "2025-05-02T10:05:11.301447",
      "exception": false,
-     "start_time": "2025-05-02T09:27:42.547803",
+     "start_time": "2025-05-02T10:05:11.295835",
      "status": "completed"
     },
     "tags": []
    },
    "source": [
-    "# <center style=\"padding: 30px 0; background-color: blue; color: #fff;\"> Laptop Price Prediction using Neural Networks 2 </center>"
+    "# <center style=\"padding: 30px 0; background-color: blue; color: #fff;\"> Laptop Price Prediction using Neural Networks 2 </center>\n",
+    "\n",
+    "> <p style=\"color: red;\">This model also gone <b>failed</b></p>"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "3eb84734",
+   "id": "781b88a3",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:42.561555Z",
-     "iopub.status.busy": "2025-05-02T09:27:42.561217Z",
-     "iopub.status.idle": "2025-05-02T09:27:44.585821Z",
-     "shell.execute_reply": "2025-05-02T09:27:44.584716Z"
+     "iopub.execute_input": "2025-05-02T10:05:11.312184Z",
+     "iopub.status.busy": "2025-05-02T10:05:11.311749Z",
+     "iopub.status.idle": "2025-05-02T10:05:13.640425Z",
+     "shell.execute_reply": "2025-05-02T10:05:13.639112Z"
     },
     "papermill": {
-     "duration": 2.031183,
-     "end_time": "2025-05-02T09:27:44.587509",
+     "duration": 2.336461,
+     "end_time": "2025-05-02T10:05:13.642496",
      "exception": false,
-     "start_time": "2025-05-02T09:27:42.556326",
+     "start_time": "2025-05-02T10:05:11.306035",
      "status": "completed"
     },
     "tags": []
@@ -71,40 +73,57 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "78caea3c",
+   "id": "a9cf0251",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:44.596865Z",
-     "iopub.status.busy": "2025-05-02T09:27:44.596461Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.033834Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.032814Z"
+     "iopub.execute_input": "2025-05-02T10:05:13.653320Z",
+     "iopub.status.busy": "2025-05-02T10:05:13.652881Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.114053Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.112933Z"
     },
     "papermill": {
-     "duration": 2.443963,
-     "end_time": "2025-05-02T09:27:47.035609",
+     "duration": 22.468401,
+     "end_time": "2025-05-02T10:05:36.115871",
      "exception": false,
-     "start_time": "2025-05-02T09:27:44.591646",
+     "start_time": "2025-05-02T10:05:13.647470",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2025-05-02 10:05:18.567963: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
+      "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n",
+      "E0000 00:00:1746180318.884112      13 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
+      "E0000 00:00:1746180318.977665      13 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
+     ]
+    }
+   ],
    "source": [
     "import seaborn as sns\n",
     "import matplotlib.pyplot as plt\n",
     "\n",
-    "from sklearn.model_selection import train_test_split"
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.preprocessing import StandardScaler\n",
+    "\n",
+    "import tensorflow as tf\n",
+    "from tensorflow import keras\n",
+    "from keras import Sequential\n",
+    "from keras.layers import Dense, Flatten, Dropout"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "23c36d88",
+   "id": "4101e0d9",
    "metadata": {
     "papermill": {
-     "duration": 0.003631,
-     "end_time": "2025-05-02T09:27:47.043123",
+     "duration": 0.004179,
+     "end_time": "2025-05-02T10:05:36.124963",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.039492",
+     "start_time": "2025-05-02T10:05:36.120784",
      "status": "completed"
     },
     "tags": []
@@ -116,19 +135,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "b5a93af3",
+   "id": "bce2b0e0",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.052444Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.051940Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.075672Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.074752Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.135620Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.134916Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.157752Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.156704Z"
     },
     "papermill": {
-     "duration": 0.030333,
-     "end_time": "2025-05-02T09:27:47.077527",
+     "duration": 0.030323,
+     "end_time": "2025-05-02T10:05:36.159754",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.047194",
+     "start_time": "2025-05-02T10:05:36.129431",
      "status": "completed"
     },
     "tags": []
@@ -141,19 +160,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "d4d6fee8",
+   "id": "73c4db7b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.086604Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.086261Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.093235Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.092147Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.170778Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.170406Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.177640Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.176738Z"
     },
     "papermill": {
-     "duration": 0.013287,
-     "end_time": "2025-05-02T09:27:47.094793",
+     "duration": 0.014681,
+     "end_time": "2025-05-02T10:05:36.179158",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.081506",
+     "start_time": "2025-05-02T10:05:36.164477",
      "status": "completed"
     },
     "tags": []
@@ -177,19 +196,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "c0145e0c",
+   "id": "c1799d11",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.104318Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.103943Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.135246Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.134157Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.189523Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.189223Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.224295Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.223181Z"
     },
     "papermill": {
-     "duration": 0.037828,
-     "end_time": "2025-05-02T09:27:47.136913",
+     "duration": 0.041895,
+     "end_time": "2025-05-02T10:05:36.225818",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.099085",
+     "start_time": "2025-05-02T10:05:36.183923",
      "status": "completed"
     },
     "tags": []
@@ -223,19 +242,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "932b0909",
+   "id": "38a684ae",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.146642Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.146286Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.154056Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.153079Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.236366Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.236046Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.244119Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.243114Z"
     },
     "papermill": {
-     "duration": 0.014302,
-     "end_time": "2025-05-02T09:27:47.155577",
+     "duration": 0.015374,
+     "end_time": "2025-05-02T10:05:36.245856",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.141275",
+     "start_time": "2025-05-02T10:05:36.230482",
      "status": "completed"
     },
     "tags": []
@@ -259,19 +278,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "d0ff084e",
+   "id": "f53c3031",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.165735Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.164805Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.192417Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.191312Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.256814Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.256449Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.284024Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.282712Z"
     },
     "papermill": {
-     "duration": 0.034327,
-     "end_time": "2025-05-02T09:27:47.194200",
+     "duration": 0.035402,
+     "end_time": "2025-05-02T10:05:36.286040",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.159873",
+     "start_time": "2025-05-02T10:05:36.250638",
      "status": "completed"
     },
     "tags": []
@@ -309,34 +328,34 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>333</th>\n",
-       "      <td>Acer</td>\n",
-       "      <td>2.149384</td>\n",
-       "      <td>32</td>\n",
+       "      <th>55</th>\n",
+       "      <td>Dell</td>\n",
+       "      <td>3.374901</td>\n",
+       "      <td>4</td>\n",
        "      <td>256</td>\n",
-       "      <td>13.875561</td>\n",
-       "      <td>4.035176</td>\n",
-       "      <td>10428.784836</td>\n",
+       "      <td>13.469933</td>\n",
+       "      <td>2.739560</td>\n",
+       "      <td>9081.898738</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>235</th>\n",
-       "      <td>HP</td>\n",
-       "      <td>2.990675</td>\n",
-       "      <td>16</td>\n",
-       "      <td>512</td>\n",
-       "      <td>14.793300</td>\n",
-       "      <td>2.277501</td>\n",
-       "      <td>17595.709114</td>\n",
+       "      <th>293</th>\n",
+       "      <td>Asus</td>\n",
+       "      <td>2.079179</td>\n",
+       "      <td>8</td>\n",
+       "      <td>1000</td>\n",
+       "      <td>15.179764</td>\n",
+       "      <td>3.400184</td>\n",
+       "      <td>31803.593814</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>378</th>\n",
-       "      <td>HP</td>\n",
-       "      <td>3.085014</td>\n",
-       "      <td>32</td>\n",
-       "      <td>512</td>\n",
-       "      <td>12.549386</td>\n",
-       "      <td>2.567851</td>\n",
-       "      <td>18159.142756</td>\n",
+       "      <th>192</th>\n",
+       "      <td>Asus</td>\n",
+       "      <td>2.116005</td>\n",
+       "      <td>8</td>\n",
+       "      <td>1000</td>\n",
+       "      <td>16.242338</td>\n",
+       "      <td>4.673600</td>\n",
+       "      <td>31428.704783</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -344,14 +363,14 @@
       ],
       "text/plain": [
        "    Brand  Processor_Speed  RAM_Size  Storage_Capacity  Screen_Size    Weight  \\\n",
-       "333  Acer         2.149384        32               256    13.875561  4.035176   \n",
-       "235    HP         2.990675        16               512    14.793300  2.277501   \n",
-       "378    HP         3.085014        32               512    12.549386  2.567851   \n",
+       "55   Dell         3.374901         4               256    13.469933  2.739560   \n",
+       "293  Asus         2.079179         8              1000    15.179764  3.400184   \n",
+       "192  Asus         2.116005         8              1000    16.242338  4.673600   \n",
        "\n",
        "            Price  \n",
-       "333  10428.784836  \n",
-       "235  17595.709114  \n",
-       "378  18159.142756  "
+       "55    9081.898738  \n",
+       "293  31803.593814  \n",
+       "192  31428.704783  "
       ]
      },
      "execution_count": 7,
@@ -365,13 +384,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "94d552af",
+   "id": "00989594",
    "metadata": {
     "papermill": {
-     "duration": 0.004033,
-     "end_time": "2025-05-02T09:27:47.202948",
+     "duration": 0.005257,
+     "end_time": "2025-05-02T10:05:36.297149",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.198915",
+     "start_time": "2025-05-02T10:05:36.291892",
      "status": "completed"
     },
     "tags": []
@@ -385,19 +404,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "068776f4",
+   "id": "e9fd8c0d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.212639Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.212202Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.224628Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.223711Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.308633Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.308288Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.320547Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.319734Z"
     },
     "papermill": {
-     "duration": 0.019199,
-     "end_time": "2025-05-02T09:27:47.226292",
+     "duration": 0.020073,
+     "end_time": "2025-05-02T10:05:36.322113",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.207093",
+     "start_time": "2025-05-02T10:05:36.302040",
      "status": "completed"
     },
     "tags": []
@@ -435,34 +454,34 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>699</th>\n",
-       "      <td>HP</td>\n",
-       "      <td>3.170532</td>\n",
-       "      <td>32</td>\n",
-       "      <td>256</td>\n",
-       "      <td>12.360447</td>\n",
-       "      <td>3.908142</td>\n",
-       "      <td>11019.568174</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>580</th>\n",
+       "      <th>88</th>\n",
        "      <td>Asus</td>\n",
-       "      <td>2.613263</td>\n",
-       "      <td>8</td>\n",
-       "      <td>512</td>\n",
-       "      <td>12.814874</td>\n",
-       "      <td>2.531980</td>\n",
-       "      <td>17124.384007</td>\n",
+       "      <td>3.499790</td>\n",
+       "      <td>4</td>\n",
+       "      <td>256</td>\n",
+       "      <td>12.226643</td>\n",
+       "      <td>3.996096</td>\n",
+       "      <td>9454.453849</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>771</th>\n",
+       "      <th>236</th>\n",
        "      <td>Dell</td>\n",
-       "      <td>1.738838</td>\n",
+       "      <td>2.075022</td>\n",
        "      <td>4</td>\n",
-       "      <td>512</td>\n",
-       "      <td>12.637700</td>\n",
-       "      <td>4.258546</td>\n",
-       "      <td>16440.803744</td>\n",
+       "      <td>256</td>\n",
+       "      <td>13.241121</td>\n",
+       "      <td>4.341044</td>\n",
+       "      <td>9340.218261</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>797</th>\n",
+       "      <td>HP</td>\n",
+       "      <td>1.760274</td>\n",
+       "      <td>8</td>\n",
+       "      <td>256</td>\n",
+       "      <td>15.378271</td>\n",
+       "      <td>4.014763</td>\n",
+       "      <td>9314.484775</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -470,14 +489,14 @@
       ],
       "text/plain": [
        "    Brand  Processor_Speed  RAM_Size  Storage_Capacity  Screen_Size    Weight  \\\n",
-       "699    HP         3.170532        32               256    12.360447  3.908142   \n",
-       "580  Asus         2.613263         8               512    12.814874  2.531980   \n",
-       "771  Dell         1.738838         4               512    12.637700  4.258546   \n",
+       "88   Asus         3.499790         4               256    12.226643  3.996096   \n",
+       "236  Dell         2.075022         4               256    13.241121  4.341044   \n",
+       "797    HP         1.760274         8               256    15.378271  4.014763   \n",
        "\n",
-       "            Price  \n",
-       "699  11019.568174  \n",
-       "580  17124.384007  \n",
-       "771  16440.803744  "
+       "           Price  \n",
+       "88   9454.453849  \n",
+       "236  9340.218261  \n",
+       "797  9314.484775  "
       ]
      },
      "execution_count": 8,
@@ -491,13 +510,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b775f508",
+   "id": "bc2e6a95",
    "metadata": {
     "papermill": {
-     "duration": 0.004227,
-     "end_time": "2025-05-02T09:27:47.235013",
+     "duration": 0.004583,
+     "end_time": "2025-05-02T10:05:36.331868",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.230786",
+     "start_time": "2025-05-02T10:05:36.327285",
      "status": "completed"
     },
     "tags": []
@@ -509,19 +528,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "e95e6a9d",
+   "id": "115add81",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.245655Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.245347Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.254754Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.253904Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.343130Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.342393Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.352671Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.351692Z"
     },
     "papermill": {
-     "duration": 0.016572,
-     "end_time": "2025-05-02T09:27:47.256358",
+     "duration": 0.01829,
+     "end_time": "2025-05-02T10:05:36.354861",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.239786",
+     "start_time": "2025-05-02T10:05:36.336571",
      "status": "completed"
     },
     "tags": []
@@ -551,19 +570,19 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "99749903",
+   "id": "3e90c270",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.266402Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.266118Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.287249Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.286250Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.367319Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.367019Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.390375Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.389043Z"
     },
     "papermill": {
-     "duration": 0.028029,
-     "end_time": "2025-05-02T09:27:47.288917",
+     "duration": 0.031112,
+     "end_time": "2025-05-02T10:05:36.392180",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.260888",
+     "start_time": "2025-05-02T10:05:36.361068",
      "status": "completed"
     },
     "tags": []
@@ -682,19 +701,19 @@
   {
    "cell_type": "code",
    "execution_count": 11,
-   "id": "4e625c18",
+   "id": "b67c309a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.299565Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.299278Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.594001Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.593063Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.405147Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.404785Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.711710Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.710587Z"
     },
     "papermill": {
-     "duration": 0.301908,
-     "end_time": "2025-05-02T09:27:47.595628",
+     "duration": 0.315538,
+     "end_time": "2025-05-02T10:05:36.713543",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.293720",
+     "start_time": "2025-05-02T10:05:36.398005",
      "status": "completed"
     },
     "tags": []
@@ -728,19 +747,19 @@
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "ad5b39af",
+   "id": "0b19b6cd",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.608591Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.608292Z",
-     "iopub.status.idle": "2025-05-02T09:27:47.805491Z",
-     "shell.execute_reply": "2025-05-02T09:27:47.804637Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.726794Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.726422Z",
+     "iopub.status.idle": "2025-05-02T10:05:36.944187Z",
+     "shell.execute_reply": "2025-05-02T10:05:36.943154Z"
     },
     "papermill": {
-     "duration": 0.206162,
-     "end_time": "2025-05-02T09:27:47.807009",
+     "duration": 0.225906,
+     "end_time": "2025-05-02T10:05:36.945773",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.600847",
+     "start_time": "2025-05-02T10:05:36.719867",
      "status": "completed"
     },
     "tags": []
@@ -782,19 +801,19 @@
   {
    "cell_type": "code",
    "execution_count": 13,
-   "id": "020fdf4f",
+   "id": "3b8d82d1",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:47.819875Z",
-     "iopub.status.busy": "2025-05-02T09:27:47.819589Z",
-     "iopub.status.idle": "2025-05-02T09:27:48.033278Z",
-     "shell.execute_reply": "2025-05-02T09:27:48.032408Z"
+     "iopub.execute_input": "2025-05-02T10:05:36.959640Z",
+     "iopub.status.busy": "2025-05-02T10:05:36.959284Z",
+     "iopub.status.idle": "2025-05-02T10:05:37.188597Z",
+     "shell.execute_reply": "2025-05-02T10:05:37.187520Z"
     },
     "papermill": {
-     "duration": 0.221949,
-     "end_time": "2025-05-02T09:27:48.034871",
+     "duration": 0.237807,
+     "end_time": "2025-05-02T10:05:37.190081",
      "exception": false,
-     "start_time": "2025-05-02T09:27:47.812922",
+     "start_time": "2025-05-02T10:05:36.952274",
      "status": "completed"
     },
     "tags": []
@@ -837,19 +856,19 @@
   {
    "cell_type": "code",
    "execution_count": 14,
-   "id": "e1d8c312",
+   "id": "f681ee42",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:48.048184Z",
-     "iopub.status.busy": "2025-05-02T09:27:48.047721Z",
-     "iopub.status.idle": "2025-05-02T09:27:48.148643Z",
-     "shell.execute_reply": "2025-05-02T09:27:48.147448Z"
+     "iopub.execute_input": "2025-05-02T10:05:37.205943Z",
+     "iopub.status.busy": "2025-05-02T10:05:37.205533Z",
+     "iopub.status.idle": "2025-05-02T10:05:37.306420Z",
+     "shell.execute_reply": "2025-05-02T10:05:37.305317Z"
     },
     "papermill": {
-     "duration": 0.10941,
-     "end_time": "2025-05-02T09:27:48.150358",
+     "duration": 0.111079,
+     "end_time": "2025-05-02T10:05:37.308158",
      "exception": false,
-     "start_time": "2025-05-02T09:27:48.040948",
+     "start_time": "2025-05-02T10:05:37.197079",
      "status": "completed"
     },
     "tags": []
@@ -874,19 +893,19 @@
   {
    "cell_type": "code",
    "execution_count": 15,
-   "id": "796b32c2",
+   "id": "c73821f4",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:48.164610Z",
-     "iopub.status.busy": "2025-05-02T09:27:48.164280Z",
-     "iopub.status.idle": "2025-05-02T09:27:48.175913Z",
-     "shell.execute_reply": "2025-05-02T09:27:48.175048Z"
+     "iopub.execute_input": "2025-05-02T10:05:37.332698Z",
+     "iopub.status.busy": "2025-05-02T10:05:37.332275Z",
+     "iopub.status.idle": "2025-05-02T10:05:37.359065Z",
+     "shell.execute_reply": "2025-05-02T10:05:37.356734Z"
     },
     "papermill": {
-     "duration": 0.020642,
-     "end_time": "2025-05-02T09:27:48.177801",
+     "duration": 0.041147,
+     "end_time": "2025-05-02T10:05:37.361665",
      "exception": false,
-     "start_time": "2025-05-02T09:27:48.157159",
+     "start_time": "2025-05-02T10:05:37.320518",
      "status": "completed"
     },
     "tags": []
@@ -1003,13 +1022,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2bc9399a",
+   "id": "4aedbb0c",
    "metadata": {
     "papermill": {
-     "duration": 0.006668,
-     "end_time": "2025-05-02T09:27:48.191163",
+     "duration": 0.01101,
+     "end_time": "2025-05-02T10:05:37.390027",
      "exception": false,
-     "start_time": "2025-05-02T09:27:48.184495",
+     "start_time": "2025-05-02T10:05:37.379017",
      "status": "completed"
     },
     "tags": []
@@ -1021,38 +1040,370 @@
   {
    "cell_type": "code",
    "execution_count": 16,
-   "id": "c8d5301b",
+   "id": "4262a58e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T09:27:48.205703Z",
-     "iopub.status.busy": "2025-05-02T09:27:48.205372Z",
-     "iopub.status.idle": "2025-05-02T09:27:48.209678Z",
-     "shell.execute_reply": "2025-05-02T09:27:48.208443Z"
+     "iopub.execute_input": "2025-05-02T10:05:37.419734Z",
+     "iopub.status.busy": "2025-05-02T10:05:37.419310Z",
+     "iopub.status.idle": "2025-05-02T10:05:37.437891Z",
+     "shell.execute_reply": "2025-05-02T10:05:37.436702Z"
     },
     "papermill": {
-     "duration": 0.013318,
-     "end_time": "2025-05-02T09:27:48.211149",
+     "duration": 0.035515,
+     "end_time": "2025-05-02T10:05:37.439796",
      "exception": false,
-     "start_time": "2025-05-02T09:27:48.197831",
+     "start_time": "2025-05-02T10:05:37.404281",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(850, 5)"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
-    "# "
+    "df = data.copy()\n",
+    "df.drop(columns=['Brand'], inplace=True)\n",
+    "target = \"Price\"\n",
+    "X = df.drop(columns=[target])\n",
+    "y = df[target]\n",
+    "\n",
+    "# apply scaling\n",
+    "scaler = StandardScaler()\n",
+    "X_scaled = scaler.fit_transform(X)\n",
+    "\n",
+    "# data splitting\n",
+    "X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.15, random_state=42)\n",
+    "X_train.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "6a50a4f2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-02T10:05:37.458197Z",
+     "iopub.status.busy": "2025-05-02T10:05:37.457868Z",
+     "iopub.status.idle": "2025-05-02T10:05:37.618514Z",
+     "shell.execute_reply": "2025-05-02T10:05:37.617470Z"
+    },
+    "papermill": {
+     "duration": 0.172146,
+     "end_time": "2025-05-02T10:05:37.620367",
+     "exception": false,
+     "start_time": "2025-05-02T10:05:37.448221",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.11/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n",
+      "  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\n",
+      "2025-05-02 10:05:37.475347: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:152] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"mo_1\"</span>\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1mModel: \"mo_1\"\u001b[0m\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓\n",
+       "┃<span style=\"font-weight: bold\"> Layer (type)                         </span>┃<span style=\"font-weight: bold\"> Output Shape                </span>┃<span style=\"font-weight: bold\">         Param # </span>┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩\n",
+       "│ dense (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                        │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">16</span>)                  │              <span style=\"color: #00af00; text-decoration-color: #00af00\">96</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">512</span>)                 │           <span style=\"color: #00af00; text-decoration-color: #00af00\">8,704</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dropout (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dropout</span>)                    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">512</span>)                 │               <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">16</span>)                  │           <span style=\"color: #00af00; text-decoration-color: #00af00\">8,208</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">8</span>)                   │             <span style=\"color: #00af00; text-decoration-color: #00af00\">136</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_4 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>)                   │               <span style=\"color: #00af00; text-decoration-color: #00af00\">9</span> │\n",
+       "└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓\n",
+       "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)                        \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape               \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m        Param #\u001b[0m\u001b[1m \u001b[0m┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩\n",
+       "│ dense (\u001b[38;5;33mDense\u001b[0m)                        │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m16\u001b[0m)                  │              \u001b[38;5;34m96\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_1 (\u001b[38;5;33mDense\u001b[0m)                      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m512\u001b[0m)                 │           \u001b[38;5;34m8,704\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dropout (\u001b[38;5;33mDropout\u001b[0m)                    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m512\u001b[0m)                 │               \u001b[38;5;34m0\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_2 (\u001b[38;5;33mDense\u001b[0m)                      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m16\u001b[0m)                  │           \u001b[38;5;34m8,208\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_3 (\u001b[38;5;33mDense\u001b[0m)                      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m8\u001b[0m)                   │             \u001b[38;5;34m136\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_4 (\u001b[38;5;33mDense\u001b[0m)                      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m1\u001b[0m)                   │               \u001b[38;5;34m9\u001b[0m │\n",
+       "└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">17,153</span> (67.00 KB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m17,153\u001b[0m (67.00 KB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">17,153</span> (67.00 KB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m17,153\u001b[0m (67.00 KB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "model = Sequential(name=\"mo_1\")\n",
+    "\n",
+    "model.add(Dense(16, activation='relu', input_shape=(5,)))\n",
+    "# model.add(Dense(64, activation='relu'))\n",
+    "\n",
+    "model.add(Dense(512, activation='relu'))\n",
+    "model.add(Dropout(0.2))\n",
+    "\n",
+    "model.add(Dense(16, activation='relu'))\n",
+    "model.add(Dense(8, activation='relu'))\n",
+    "model.add(Dense(1, activation='relu'))\n",
+    "\n",
+    "model.summary()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "53fa0df8",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-02T10:05:37.639165Z",
+     "iopub.status.busy": "2025-05-02T10:05:37.638253Z",
+     "iopub.status.idle": "2025-05-02T10:06:58.244419Z",
+     "shell.execute_reply": "2025-05-02T10:06:58.243177Z"
+    },
+    "papermill": {
+     "duration": 80.617021,
+     "end_time": "2025-05-02T10:06:58.246307",
+     "exception": false,
+     "start_time": "2025-05-02T10:05:37.629286",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Epoch 1/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m5s\u001b[0m 2ms/step - loss: 360388416.0000 - mse: 360388416.0000 - val_loss: 3280105.7500 - val_mse: 3280105.7500\n",
+      "Epoch 2/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 4519381.5000 - mse: 4519381.5000 - val_loss: 2275071.7500 - val_mse: 2275071.7500\n",
+      "Epoch 3/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 2775132.7500 - mse: 2775132.7500 - val_loss: 1904752.2500 - val_mse: 1904752.2500\n",
+      "Epoch 4/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 2401020.7500 - mse: 2401020.7500 - val_loss: 1198872.0000 - val_mse: 1198872.0000\n",
+      "Epoch 5/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 1695346.6250 - mse: 1695346.6250 - val_loss: 858110.5000 - val_mse: 858110.5000\n",
+      "Epoch 6/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 1550193.7500 - mse: 1550193.7500 - val_loss: 587032.5000 - val_mse: 587032.5000\n",
+      "Epoch 7/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 1076040.6250 - mse: 1076040.6250 - val_loss: 391164.3125 - val_mse: 391164.3125\n",
+      "Epoch 8/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 878601.4375 - mse: 878601.4375 - val_loss: 296218.6562 - val_mse: 296218.6562\n",
+      "Epoch 9/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 633836.3750 - mse: 633836.3750 - val_loss: 915898.7500 - val_mse: 915898.7500\n",
+      "Epoch 10/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 644955.2500 - mse: 644955.2500 - val_loss: 215508.2656 - val_mse: 215508.2656\n",
+      "Epoch 11/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 510353.3438 - mse: 510353.3438 - val_loss: 393856.0938 - val_mse: 393856.0938\n",
+      "Epoch 12/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 476569.5000 - mse: 476569.5000 - val_loss: 186953.5469 - val_mse: 186953.5469\n",
+      "Epoch 13/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 457001.3750 - mse: 457001.3750 - val_loss: 181578.4844 - val_mse: 181578.4844\n",
+      "Epoch 14/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 477070.5000 - mse: 477070.5000 - val_loss: 83285.4531 - val_mse: 83285.4531\n",
+      "Epoch 15/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 375912.0938 - mse: 375912.0938 - val_loss: 129837.5781 - val_mse: 129837.5781\n",
+      "Epoch 16/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 456777.6250 - mse: 456777.6250 - val_loss: 402475.7500 - val_mse: 402475.7500\n",
+      "Epoch 17/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 354093.1250 - mse: 354093.1250 - val_loss: 220822.5469 - val_mse: 220822.5469\n",
+      "Epoch 18/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 395523.9375 - mse: 395523.9375 - val_loss: 96058.6953 - val_mse: 96058.6953\n",
+      "Epoch 19/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 381736.4375 - mse: 381736.4375 - val_loss: 155917.8750 - val_mse: 155917.8750\n",
+      "Epoch 20/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 328732.8125 - mse: 328732.8125 - val_loss: 77338.5625 - val_mse: 77338.5625\n",
+      "Epoch 21/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 386445.4375 - mse: 386445.4375 - val_loss: 67687.6562 - val_mse: 67687.6562\n",
+      "Epoch 22/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 429423.7500 - mse: 429423.7500 - val_loss: 343353.0000 - val_mse: 343353.0000\n",
+      "Epoch 23/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 383219.3750 - mse: 383219.3750 - val_loss: 75063.8203 - val_mse: 75063.8203\n",
+      "Epoch 24/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 334865.4375 - mse: 334865.4375 - val_loss: 68392.3750 - val_mse: 68392.3750\n",
+      "Epoch 25/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 383093.1250 - mse: 383093.1250 - val_loss: 80508.5000 - val_mse: 80508.5000\n",
+      "Epoch 26/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 433496.0312 - mse: 433496.0312 - val_loss: 55650.0195 - val_mse: 55650.0195\n",
+      "Epoch 27/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 371237.8438 - mse: 371237.8438 - val_loss: 260115.3906 - val_mse: 260115.3906\n",
+      "Epoch 28/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 345040.3125 - mse: 345040.3125 - val_loss: 98465.0156 - val_mse: 98465.0156\n",
+      "Epoch 29/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 3ms/step - loss: 320493.5625 - mse: 320493.5625 - val_loss: 80095.3203 - val_mse: 80095.3203\n",
+      "Epoch 30/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 405029.0625 - mse: 405029.0625 - val_loss: 418308.5625 - val_mse: 418308.5625\n",
+      "Epoch 31/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 359029.1562 - mse: 359029.1562 - val_loss: 271121.7500 - val_mse: 271121.7500\n",
+      "Epoch 32/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 368660.1875 - mse: 368660.1875 - val_loss: 196645.3594 - val_mse: 196645.3594\n",
+      "Epoch 33/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 352048.3750 - mse: 352048.3750 - val_loss: 123764.4453 - val_mse: 123764.4453\n",
+      "Epoch 34/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 367585.0938 - mse: 367585.0938 - val_loss: 95503.6953 - val_mse: 95503.6953\n",
+      "Epoch 35/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 369733.5625 - mse: 369733.5625 - val_loss: 307356.1875 - val_mse: 307356.1875\n",
+      "Epoch 36/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 365025.2812 - mse: 365025.2812 - val_loss: 100427.0391 - val_mse: 100427.0391\n",
+      "Epoch 37/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 370181.1250 - mse: 370181.1250 - val_loss: 136916.5625 - val_mse: 136916.5625\n",
+      "Epoch 38/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 335446.3750 - mse: 335446.3750 - val_loss: 49005.0391 - val_mse: 49005.0391\n",
+      "Epoch 39/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 353985.7812 - mse: 353985.7812 - val_loss: 187538.1250 - val_mse: 187538.1250\n",
+      "Epoch 40/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 414265.9688 - mse: 414265.9688 - val_loss: 100613.3203 - val_mse: 100613.3203\n",
+      "Epoch 41/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 366497.1875 - mse: 366497.1875 - val_loss: 253341.1094 - val_mse: 253341.1094\n",
+      "Epoch 42/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 393853.0938 - mse: 393853.0938 - val_loss: 61482.8477 - val_mse: 61482.8477\n",
+      "Epoch 43/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 452195.3438 - mse: 452195.3438 - val_loss: 40573.2578 - val_mse: 40573.2578\n",
+      "Epoch 44/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 312636.4688 - mse: 312636.4688 - val_loss: 50292.0430 - val_mse: 50292.0430\n",
+      "Epoch 45/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 415563.9688 - mse: 415563.9688 - val_loss: 131223.4844 - val_mse: 131223.4844\n",
+      "Epoch 46/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 439859.7812 - mse: 439859.7812 - val_loss: 193517.0156 - val_mse: 193517.0156\n",
+      "Epoch 47/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 397665.8750 - mse: 397665.8750 - val_loss: 179343.8750 - val_mse: 179343.8750\n",
+      "Epoch 48/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 384314.6875 - mse: 384314.6875 - val_loss: 36746.0078 - val_mse: 36746.0078\n",
+      "Epoch 49/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2ms/step - loss: 345343.0625 - mse: 345343.0625 - val_loss: 87666.4531 - val_mse: 87666.4531\n",
+      "Epoch 50/50\n",
+      "\u001b[1m765/765\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - loss: 398199.2812 - mse: 398199.2812 - val_loss: 146591.5000 - val_mse: 146591.5000\n"
+     ]
+    }
+   ],
+   "source": [
+    "model.compile('adam', 'mean_squared_error', metrics=['mse'])\n",
+    "history = model.fit(X_train, y_train, batch_size=1, validation_split=0.1, epochs=50)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "25cf320f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-02T10:06:58.500426Z",
+     "iopub.status.busy": "2025-05-02T10:06:58.500064Z",
+     "iopub.status.idle": "2025-05-02T10:06:58.506515Z",
+     "shell.execute_reply": "2025-05-02T10:06:58.505509Z"
+    },
+    "papermill": {
+     "duration": 0.095782,
+     "end_time": "2025-05-02T10:06:58.508123",
+     "exception": false,
+     "start_time": "2025-05-02T10:06:58.412341",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "200.0"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "40000**(1/2)"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4429b68e",
+   "id": "91401c62",
    "metadata": {
     "papermill": {
-     "duration": 0.006121,
-     "end_time": "2025-05-02T09:27:48.224151",
+     "duration": 0.089421,
+     "end_time": "2025-05-02T10:06:58.683794",
      "exception": false,
-     "start_time": "2025-05-02T09:27:48.218030",
+     "start_time": "2025-05-02T10:06:58.594373",
      "status": "completed"
     },
     "tags": []
@@ -1096,14 +1447,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 11.564903,
-   "end_time": "2025-05-02T09:27:48.951236",
+   "duration": 116.339216,
+   "end_time": "2025-05-02T10:07:01.838973",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-05-02T09:27:37.386333",
+   "start_time": "2025-05-02T10:05:05.499757",
    "version": "2.6.0"
   }
  },
