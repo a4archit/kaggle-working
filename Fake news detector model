@@ -2,13 +2,13 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "041bd201",
+   "id": "6da63ea8",
    "metadata": {
     "papermill": {
-     "duration": 0.004133,
-     "end_time": "2025-05-02T15:18:10.052900",
+     "duration": 0.004895,
+     "end_time": "2025-05-04T14:02:15.670576",
      "exception": false,
-     "start_time": "2025-05-02T15:18:10.048767",
+     "start_time": "2025-05-04T14:02:15.665681",
      "status": "completed"
     },
     "tags": []
@@ -22,21 +22,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "b0625789",
+   "id": "79af2a5f",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:10.061355Z",
-     "iopub.status.busy": "2025-05-02T15:18:10.061019Z",
-     "iopub.status.idle": "2025-05-02T15:18:12.234604Z",
-     "shell.execute_reply": "2025-05-02T15:18:12.233437Z"
+     "iopub.execute_input": "2025-05-04T14:02:15.680418Z",
+     "iopub.status.busy": "2025-05-04T14:02:15.679587Z",
+     "iopub.status.idle": "2025-05-04T14:02:17.814806Z",
+     "shell.execute_reply": "2025-05-04T14:02:17.813735Z"
     },
     "papermill": {
-     "duration": 2.179843,
-     "end_time": "2025-05-02T15:18:12.236377",
+     "duration": 2.141972,
+     "end_time": "2025-05-04T14:02:17.816596",
      "exception": false,
-     "start_time": "2025-05-02T15:18:10.056534",
+     "start_time": "2025-05-04T14:02:15.674624",
      "status": "completed"
     },
     "tags": []
@@ -73,19 +73,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "349cef39",
+   "id": "1a85d52c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:12.245758Z",
-     "iopub.status.busy": "2025-05-02T15:18:12.245259Z",
-     "iopub.status.idle": "2025-05-02T15:18:32.446550Z",
-     "shell.execute_reply": "2025-05-02T15:18:32.445657Z"
+     "iopub.execute_input": "2025-05-04T14:02:17.826832Z",
+     "iopub.status.busy": "2025-05-04T14:02:17.826006Z",
+     "iopub.status.idle": "2025-05-04T14:02:37.831163Z",
+     "shell.execute_reply": "2025-05-04T14:02:37.830365Z"
     },
     "papermill": {
-     "duration": 20.207727,
-     "end_time": "2025-05-02T15:18:32.448361",
+     "duration": 20.011717,
+     "end_time": "2025-05-04T14:02:37.832780",
      "exception": false,
-     "start_time": "2025-05-02T15:18:12.240634",
+     "start_time": "2025-05-04T14:02:17.821063",
      "status": "completed"
     },
     "tags": []
@@ -95,10 +95,10 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "2025-05-02 15:18:16.443243: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
+      "2025-05-04 14:02:22.251880: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
       "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n",
-      "E0000 00:00:1746199096.738850      13 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
-      "E0000 00:00:1746199096.821206      13 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
+      "E0000 00:00:1746367342.548132      13 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
+      "E0000 00:00:1746367342.635908      13 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
      ]
     }
    ],
@@ -109,19 +109,19 @@
     "from tensorflow.keras.preprocessing.text import Tokenizer\n",
     "from tensorflow.keras.preprocessing.sequence import pad_sequences\n",
     "from tensorflow import keras \n",
-    "from keras import Sequential\n",
-    "from keras.layers import Dense, LSTM, Flatten"
+    "from keras import Sequential, Model\n",
+    "from keras.layers import Dense, LSTM, Flatten, Embedding, Input"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "42b7a6f8",
+   "id": "904e4ab1",
    "metadata": {
     "papermill": {
-     "duration": 0.003389,
-     "end_time": "2025-05-02T15:18:32.455628",
+     "duration": 0.003692,
+     "end_time": "2025-05-04T14:02:37.840733",
      "exception": false,
-     "start_time": "2025-05-02T15:18:32.452239",
+     "start_time": "2025-05-04T14:02:37.837041",
      "status": "completed"
     },
     "tags": []
@@ -133,19 +133,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "a06f401d",
+   "id": "949ff5ed",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:32.464186Z",
-     "iopub.status.busy": "2025-05-02T15:18:32.463548Z",
-     "iopub.status.idle": "2025-05-02T15:18:33.434938Z",
-     "shell.execute_reply": "2025-05-02T15:18:33.433864Z"
+     "iopub.execute_input": "2025-05-04T14:02:37.849745Z",
+     "iopub.status.busy": "2025-05-04T14:02:37.849148Z",
+     "iopub.status.idle": "2025-05-04T14:02:38.749739Z",
+     "shell.execute_reply": "2025-05-04T14:02:38.748786Z"
     },
     "papermill": {
-     "duration": 0.977546,
-     "end_time": "2025-05-02T15:18:33.436678",
+     "duration": 0.906936,
+     "end_time": "2025-05-04T14:02:38.751465",
      "exception": false,
-     "start_time": "2025-05-02T15:18:32.459132",
+     "start_time": "2025-05-04T14:02:37.844529",
      "status": "completed"
     },
     "tags": []
@@ -158,19 +158,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "09005f4c",
+   "id": "026c7bc3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:33.446315Z",
-     "iopub.status.busy": "2025-05-02T15:18:33.445361Z",
-     "iopub.status.idle": "2025-05-02T15:18:33.452258Z",
-     "shell.execute_reply": "2025-05-02T15:18:33.451480Z"
+     "iopub.execute_input": "2025-05-04T14:02:38.772047Z",
+     "iopub.status.busy": "2025-05-04T14:02:38.771622Z",
+     "iopub.status.idle": "2025-05-04T14:02:38.779034Z",
+     "shell.execute_reply": "2025-05-04T14:02:38.777898Z"
     },
     "papermill": {
-     "duration": 0.013291,
-     "end_time": "2025-05-02T15:18:33.453978",
+     "duration": 0.015166,
+     "end_time": "2025-05-04T14:02:38.780599",
      "exception": false,
-     "start_time": "2025-05-02T15:18:33.440687",
+     "start_time": "2025-05-04T14:02:38.765433",
      "status": "completed"
     },
     "tags": []
@@ -194,19 +194,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "a7e21de5",
+   "id": "c6d215f7",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:33.463155Z",
-     "iopub.status.busy": "2025-05-02T15:18:33.462832Z",
-     "iopub.status.idle": "2025-05-02T15:18:33.476453Z",
-     "shell.execute_reply": "2025-05-02T15:18:33.475548Z"
+     "iopub.execute_input": "2025-05-04T14:02:38.790944Z",
+     "iopub.status.busy": "2025-05-04T14:02:38.790548Z",
+     "iopub.status.idle": "2025-05-04T14:02:38.804805Z",
+     "shell.execute_reply": "2025-05-04T14:02:38.803901Z"
     },
     "papermill": {
-     "duration": 0.019898,
-     "end_time": "2025-05-02T15:18:33.478115",
+     "duration": 0.021007,
+     "end_time": "2025-05-04T14:02:38.806364",
      "exception": false,
-     "start_time": "2025-05-02T15:18:33.458217",
+     "start_time": "2025-05-04T14:02:38.785357",
      "status": "completed"
     },
     "tags": []
@@ -233,13 +233,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a7fc835c",
+   "id": "e0bf6f00",
    "metadata": {
     "papermill": {
-     "duration": 0.003614,
-     "end_time": "2025-05-02T15:18:33.485619",
+     "duration": 0.003918,
+     "end_time": "2025-05-04T14:02:38.814609",
      "exception": false,
-     "start_time": "2025-05-02T15:18:33.482005",
+     "start_time": "2025-05-04T14:02:38.810691",
      "status": "completed"
     },
     "tags": []
@@ -251,19 +251,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "510ed5a4",
+   "id": "6358e09a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:33.495275Z",
-     "iopub.status.busy": "2025-05-02T15:18:33.494606Z",
-     "iopub.status.idle": "2025-05-02T15:18:33.970900Z",
-     "shell.execute_reply": "2025-05-02T15:18:33.969960Z"
+     "iopub.execute_input": "2025-05-04T14:02:38.824390Z",
+     "iopub.status.busy": "2025-05-04T14:02:38.823794Z",
+     "iopub.status.idle": "2025-05-04T14:02:39.282765Z",
+     "shell.execute_reply": "2025-05-04T14:02:39.281752Z"
     },
     "papermill": {
-     "duration": 0.482607,
-     "end_time": "2025-05-02T15:18:33.972548",
+     "duration": 0.465701,
+     "end_time": "2025-05-04T14:02:39.284499",
      "exception": false,
-     "start_time": "2025-05-02T15:18:33.489941",
+     "start_time": "2025-05-04T14:02:38.818798",
      "status": "completed"
     },
     "tags": []
@@ -307,19 +307,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "30291390",
+   "id": "ffa2daf7",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:33.982863Z",
-     "iopub.status.busy": "2025-05-02T15:18:33.982458Z",
-     "iopub.status.idle": "2025-05-02T15:18:34.835883Z",
-     "shell.execute_reply": "2025-05-02T15:18:34.834839Z"
+     "iopub.execute_input": "2025-05-04T14:02:39.296228Z",
+     "iopub.status.busy": "2025-05-04T14:02:39.295573Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.093175Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.092257Z"
     },
     "papermill": {
-     "duration": 0.860449,
-     "end_time": "2025-05-02T15:18:34.837492",
+     "duration": 0.804977,
+     "end_time": "2025-05-04T14:02:40.094669",
      "exception": false,
-     "start_time": "2025-05-02T15:18:33.977043",
+     "start_time": "2025-05-04T14:02:39.289692",
      "status": "completed"
     },
     "tags": []
@@ -364,19 +364,146 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "c5867021",
+   "id": "677f01cb",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:34.848651Z",
-     "iopub.status.busy": "2025-05-02T15:18:34.848292Z",
-     "iopub.status.idle": "2025-05-02T15:18:34.872810Z",
-     "shell.execute_reply": "2025-05-02T15:18:34.871849Z"
+     "iopub.execute_input": "2025-05-04T14:02:40.106627Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.106264Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.118103Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.117306Z"
     },
     "papermill": {
-     "duration": 0.031933,
-     "end_time": "2025-05-02T15:18:34.874428",
+     "duration": 0.019451,
+     "end_time": "2025-05-04T14:02:40.119462",
      "exception": false,
-     "start_time": "2025-05-02T15:18:34.842495",
+     "start_time": "2025-05-04T14:02:40.100011",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "label\n",
+       "REAL    3171\n",
+       "FAKE    3164\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.label.value_counts()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "80336c4b",
+   "metadata": {
+    "papermill": {
+     "duration": 0.005297,
+     "end_time": "2025-05-04T14:02:40.130580",
+     "exception": false,
+     "start_time": "2025-05-04T14:02:40.125283",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Tokeknizing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "f13fae9a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-04T14:02:40.142338Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.142016Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.351451Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.350473Z"
+    },
+    "papermill": {
+     "duration": 0.217397,
+     "end_time": "2025-05-04T14:02:40.353221",
+     "exception": false,
+     "start_time": "2025-05-04T14:02:40.135824",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# Hyperparameters\n",
+    "max_words = 10000      # vocabulary size\n",
+    "max_len_title = 30     # title sequence length\n",
+    "\n",
+    "# Tokenizers\n",
+    "title_tokenizer = Tokenizer(num_words=max_words, oov_token=\"<OOV>\")\n",
+    "\n",
+    "title_tokenizer.fit_on_texts(data['title'])\n",
+    "title_sequences = title_tokenizer.texts_to_sequences(data['title'])\n",
+    "title_padded = pad_sequences(title_sequences, maxlen=max_len_title, padding='post', truncating='post')\n",
+    "total_words = len(title_tokenizer.word_index)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "5db2f8e1",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-04T14:02:40.365233Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.364890Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.370822Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.369897Z"
+    },
+    "papermill": {
+     "duration": 0.013827,
+     "end_time": "2025-05-04T14:02:40.372457",
+     "exception": false,
+     "start_time": "2025-05-04T14:02:40.358630",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "11722"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "total_words"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "b535eb17",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-04T14:02:40.384779Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.384499Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.407872Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.406933Z"
+    },
+    "papermill": {
+     "duration": 0.031382,
+     "end_time": "2025-05-04T14:02:40.409334",
+     "exception": false,
+     "start_time": "2025-05-04T14:02:40.377952",
      "status": "completed"
     },
     "tags": []
@@ -411,220 +538,71 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>0</th>\n",
-       "      <td>8476</td>\n",
-       "      <td>You Can Smell Hillary’s Fear</td>\n",
-       "      <td>Daniel Greenfield, a Shillman Journalism Fello...</td>\n",
-       "      <td>FAKE</td>\n",
+       "      <th>3352</th>\n",
+       "      <td>4083</td>\n",
+       "      <td>Ukraine Withdraws Forces After Fight Over Stra...</td>\n",
+       "      <td>Following heavy shelling in what had been a Uk...</td>\n",
+       "      <td>1</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>1</th>\n",
-       "      <td>10294</td>\n",
-       "      <td>Watch The Exact Moment Paul Ryan Committed Pol...</td>\n",
-       "      <td>Google Pinterest Digg Linkedin Reddit Stumbleu...</td>\n",
-       "      <td>FAKE</td>\n",
+       "      <th>4270</th>\n",
+       "      <td>9797</td>\n",
+       "      <td>Wells Fargo is Rotting from the Top Down</td>\n",
+       "      <td>Wells Fargo is Rotting from the Top Down Wells...</td>\n",
+       "      <td>0</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>2</th>\n",
-       "      <td>3608</td>\n",
-       "      <td>Kerry to go to Paris in gesture of sympathy</td>\n",
-       "      <td>U.S. Secretary of State John F. Kerry said Mon...</td>\n",
-       "      <td>REAL</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>3</th>\n",
-       "      <td>10142</td>\n",
-       "      <td>Bernie supporters on Twitter erupt in anger ag...</td>\n",
-       "      <td>— Kaydee King (@KaydeeKing) November 9, 2016 T...</td>\n",
-       "      <td>FAKE</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>4</th>\n",
-       "      <td>875</td>\n",
-       "      <td>The Battle of New York: Why This Primary Matters</td>\n",
-       "      <td>It's primary day in New York and front-runners...</td>\n",
-       "      <td>REAL</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>...</th>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>6330</th>\n",
-       "      <td>4490</td>\n",
-       "      <td>State Department says it can't find emails fro...</td>\n",
-       "      <td>The State Department told the Republican Natio...</td>\n",
-       "      <td>REAL</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>6331</th>\n",
-       "      <td>8062</td>\n",
-       "      <td>The ‘P’ in PBS Should Stand for ‘Plutocratic’ ...</td>\n",
-       "      <td>The ‘P’ in PBS Should Stand for ‘Plutocratic’ ...</td>\n",
-       "      <td>FAKE</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>6332</th>\n",
-       "      <td>8622</td>\n",
-       "      <td>Anti-Trump Protesters Are Tools of the Oligarc...</td>\n",
-       "      <td>Anti-Trump Protesters Are Tools of the Oligar...</td>\n",
-       "      <td>FAKE</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>6333</th>\n",
-       "      <td>4021</td>\n",
-       "      <td>In Ethiopia, Obama seeks progress on peace, se...</td>\n",
-       "      <td>ADDIS ABABA, Ethiopia —President Obama convene...</td>\n",
-       "      <td>REAL</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>6334</th>\n",
-       "      <td>4330</td>\n",
-       "      <td>Jeb Bush Is Suddenly Attacking Trump. Here's W...</td>\n",
-       "      <td>Jeb Bush Is Suddenly Attacking Trump. Here's W...</td>\n",
-       "      <td>REAL</td>\n",
+       "      <th>1009</th>\n",
+       "      <td>8560</td>\n",
+       "      <td>Politico Tries to Destroy Trump, But It Backfi...</td>\n",
+       "      <td>You are here: Home / US / Politico Tries to De...</td>\n",
+       "      <td>0</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>6335 rows × 4 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
        "      Unnamed: 0                                              title  \\\n",
-       "0           8476                       You Can Smell Hillary’s Fear   \n",
-       "1          10294  Watch The Exact Moment Paul Ryan Committed Pol...   \n",
-       "2           3608        Kerry to go to Paris in gesture of sympathy   \n",
-       "3          10142  Bernie supporters on Twitter erupt in anger ag...   \n",
-       "4            875   The Battle of New York: Why This Primary Matters   \n",
-       "...          ...                                                ...   \n",
-       "6330        4490  State Department says it can't find emails fro...   \n",
-       "6331        8062  The ‘P’ in PBS Should Stand for ‘Plutocratic’ ...   \n",
-       "6332        8622  Anti-Trump Protesters Are Tools of the Oligarc...   \n",
-       "6333        4021  In Ethiopia, Obama seeks progress on peace, se...   \n",
-       "6334        4330  Jeb Bush Is Suddenly Attacking Trump. Here's W...   \n",
+       "3352        4083  Ukraine Withdraws Forces After Fight Over Stra...   \n",
+       "4270        9797           Wells Fargo is Rotting from the Top Down   \n",
+       "1009        8560  Politico Tries to Destroy Trump, But It Backfi...   \n",
        "\n",
-       "                                                   text label  \n",
-       "0     Daniel Greenfield, a Shillman Journalism Fello...  FAKE  \n",
-       "1     Google Pinterest Digg Linkedin Reddit Stumbleu...  FAKE  \n",
-       "2     U.S. Secretary of State John F. Kerry said Mon...  REAL  \n",
-       "3     — Kaydee King (@KaydeeKing) November 9, 2016 T...  FAKE  \n",
-       "4     It's primary day in New York and front-runners...  REAL  \n",
-       "...                                                 ...   ...  \n",
-       "6330  The State Department told the Republican Natio...  REAL  \n",
-       "6331  The ‘P’ in PBS Should Stand for ‘Plutocratic’ ...  FAKE  \n",
-       "6332   Anti-Trump Protesters Are Tools of the Oligar...  FAKE  \n",
-       "6333  ADDIS ABABA, Ethiopia —President Obama convene...  REAL  \n",
-       "6334  Jeb Bush Is Suddenly Attacking Trump. Here's W...  REAL  \n",
-       "\n",
-       "[6335 rows x 4 columns]"
+       "                                                   text  label  \n",
+       "3352  Following heavy shelling in what had been a Uk...      1  \n",
+       "4270  Wells Fargo is Rotting from the Top Down Wells...      0  \n",
+       "1009  You are here: Home / US / Politico Tries to De...      0  "
       ]
      },
-     "execution_count": 8,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "data"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "37fc2312",
-   "metadata": {
-    "papermill": {
-     "duration": 0.004754,
-     "end_time": "2025-05-02T15:18:34.884550",
-     "exception": false,
-     "start_time": "2025-05-02T15:18:34.879796",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "source": [
-    "### Tokeknizing"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 9,
-   "id": "4bdbe5fc",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:34.895801Z",
-     "iopub.status.busy": "2025-05-02T15:18:34.895405Z",
-     "iopub.status.idle": "2025-05-02T15:18:35.115294Z",
-     "shell.execute_reply": "2025-05-02T15:18:35.114320Z"
-    },
-    "papermill": {
-     "duration": 0.227516,
-     "end_time": "2025-05-02T15:18:35.116990",
-     "exception": false,
-     "start_time": "2025-05-02T15:18:34.889474",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "# Hyperparameters\n",
-    "max_words = 10000      # vocabulary size\n",
-    "max_len_title = 20     # title sequence length\n",
-    "\n",
-    "# Tokenizers\n",
-    "title_tokenizer = Tokenizer(num_words=max_words, oov_token=\"<OOV>\")\n",
-    "\n",
-    "title_tokenizer.fit_on_texts(data['title'])\n",
-    "title_sequences = title_tokenizer.texts_to_sequences(data['title'])\n",
-    "title_padded = pad_sequences(title_sequences, maxlen=max_len_title, padding='post', truncating='post')\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 10,
-   "id": "2385f4b6",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:35.129130Z",
-     "iopub.status.busy": "2025-05-02T15:18:35.128827Z",
-     "iopub.status.idle": "2025-05-02T15:18:35.135730Z",
-     "shell.execute_reply": "2025-05-02T15:18:35.134804Z"
-    },
-    "papermill": {
-     "duration": 0.014989,
-     "end_time": "2025-05-02T15:18:35.137313",
-     "exception": false,
-     "start_time": "2025-05-02T15:18:35.122324",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
     "# Convert 'real' → 1, 'fake' → 0\n",
     "data['label'] = data['label'].map({'REAL': 1, 'FAKE': 0})\n",
-    "labels = data['label'].values\n"
+    "labels = data['label'].values\n",
+    "# data['label'].isnull().sum()\n",
+    "data.sample(3)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
-   "id": "e54ed3f8",
+   "execution_count": 12,
+   "id": "e3bd0677",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:35.149397Z",
-     "iopub.status.busy": "2025-05-02T15:18:35.148504Z",
-     "iopub.status.idle": "2025-05-02T15:18:35.154502Z",
-     "shell.execute_reply": "2025-05-02T15:18:35.153685Z"
+     "iopub.execute_input": "2025-05-04T14:02:40.422618Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.421955Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.427312Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.426620Z"
     },
     "papermill": {
-     "duration": 0.013782,
-     "end_time": "2025-05-02T15:18:35.156245",
+     "duration": 0.013553,
+     "end_time": "2025-05-04T14:02:40.428509",
      "exception": false,
-     "start_time": "2025-05-02T15:18:35.142463",
+     "start_time": "2025-05-04T14:02:40.414956",
      "status": "completed"
     },
     "tags": []
@@ -633,10 +611,10 @@
     {
      "data": {
       "text/plain": [
-       "(6335, 20)"
+       "(6335, 30)"
       ]
      },
-     "execution_count": 11,
+     "execution_count": 12,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -647,20 +625,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
-   "id": "4e006867",
+   "execution_count": 13,
+   "id": "ed8bd2a5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:35.168091Z",
-     "iopub.status.busy": "2025-05-02T15:18:35.167750Z",
-     "iopub.status.idle": "2025-05-02T15:18:35.485158Z",
-     "shell.execute_reply": "2025-05-02T15:18:35.484034Z"
+     "iopub.execute_input": "2025-05-04T14:02:40.454730Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.454418Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.788493Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.787413Z"
     },
     "papermill": {
-     "duration": 0.325508,
-     "end_time": "2025-05-02T15:18:35.487190",
+     "duration": 0.356449,
+     "end_time": "2025-05-04T14:02:40.790542",
      "exception": false,
-     "start_time": "2025-05-02T15:18:35.161682",
+     "start_time": "2025-05-04T14:02:40.434093",
      "status": "completed"
     },
     "tags": []
@@ -675,20 +653,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
-   "id": "6d2582e1",
+   "execution_count": 14,
+   "id": "cd5683e5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-02T15:18:35.498706Z",
-     "iopub.status.busy": "2025-05-02T15:18:35.498369Z",
-     "iopub.status.idle": "2025-05-02T15:18:35.635847Z",
-     "shell.execute_reply": "2025-05-02T15:18:35.634985Z"
+     "iopub.execute_input": "2025-05-04T14:02:40.803480Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.803165Z",
+     "iopub.status.idle": "2025-05-04T14:02:40.878279Z",
+     "shell.execute_reply": "2025-05-04T14:02:40.877301Z"
     },
     "papermill": {
-     "duration": 0.144857,
-     "end_time": "2025-05-02T15:18:35.637255",
+     "duration": 0.083511,
+     "end_time": "2025-05-04T14:02:40.879904",
      "exception": false,
-     "start_time": "2025-05-02T15:18:35.492398",
+     "start_time": "2025-05-04T14:02:40.796393",
      "status": "completed"
     },
     "tags": []
@@ -698,9 +676,9 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "2025-05-02 15:18:35.506272: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:152] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)\n",
-      "/usr/local/lib/python3.11/dist-packages/keras/src/layers/rnn/rnn.py:204: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n",
-      "  super().__init__(**kwargs)\n"
+      "/usr/local/lib/python3.11/dist-packages/keras/src/layers/core/embedding.py:90: UserWarning: Argument `input_length` is deprecated. Just remove it.\n",
+      "  warnings.warn(\n",
+      "2025-05-04 14:02:40.814486: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:152] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)\n"
      ]
     },
     {
@@ -722,11 +700,17 @@
        "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓\n",
        "┃<span style=\"font-weight: bold\"> Layer (type)                         </span>┃<span style=\"font-weight: bold\"> Output Shape                </span>┃<span style=\"font-weight: bold\">         Param # </span>┃\n",
        "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩\n",
-       "│ lstm (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)                          │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">16</span>)                  │           <span style=\"color: #00af00; text-decoration-color: #00af00\">2,368</span> │\n",
+       "│ Embedding_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)              │ ?                           │     <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (unbuilt) │\n",
        "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
-       "│ flatten (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Flatten</span>)                    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">16</span>)                  │               <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+       "│ LSTM_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)                        │ ?                           │     <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (unbuilt) │\n",
        "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
-       "│ dense (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                        │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>)                   │              <span style=\"color: #00af00; text-decoration-color: #00af00\">17</span> │\n",
+       "│ LSTM_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)                        │ ?                           │     <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (unbuilt) │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ LSTM_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)                        │ ?                           │     <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (unbuilt) │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                        │ ?                           │     <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (unbuilt) │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                      │ ?                           │     <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (unbuilt) │\n",
        "└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘\n",
        "</pre>\n"
       ],
@@ -734,11 +718,17 @@
        "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓\n",
        "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)                        \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape               \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m        Param #\u001b[0m\u001b[1m \u001b[0m┃\n",
        "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩\n",
-       "│ lstm (\u001b[38;5;33mLSTM\u001b[0m)                          │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m16\u001b[0m)                  │           \u001b[38;5;34m2,368\u001b[0m │\n",
+       "│ Embedding_1 (\u001b[38;5;33mEmbedding\u001b[0m)              │ ?                           │     \u001b[38;5;34m0\u001b[0m (unbuilt) │\n",
        "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
-       "│ flatten (\u001b[38;5;33mFlatten\u001b[0m)                    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m16\u001b[0m)                  │               \u001b[38;5;34m0\u001b[0m │\n",
+       "│ LSTM_1 (\u001b[38;5;33mLSTM\u001b[0m)                        │ ?                           │     \u001b[38;5;34m0\u001b[0m (unbuilt) │\n",
        "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
-       "│ dense (\u001b[38;5;33mDense\u001b[0m)                        │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m1\u001b[0m)                   │              \u001b[38;5;34m17\u001b[0m │\n",
+       "│ LSTM_2 (\u001b[38;5;33mLSTM\u001b[0m)                        │ ?                           │     \u001b[38;5;34m0\u001b[0m (unbuilt) │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ LSTM_3 (\u001b[38;5;33mLSTM\u001b[0m)                        │ ?                           │     \u001b[38;5;34m0\u001b[0m (unbuilt) │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense (\u001b[38;5;33mDense\u001b[0m)                        │ ?                           │     \u001b[38;5;34m0\u001b[0m (unbuilt) │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_1 (\u001b[38;5;33mDense\u001b[0m)                      │ ?                           │     \u001b[38;5;34m0\u001b[0m (unbuilt) │\n",
        "└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘\n"
       ]
      },
@@ -748,11 +738,11 @@
     {
      "data": {
       "text/html": [
-       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">2,385</span> (9.32 KB)\n",
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
        "</pre>\n"
       ],
       "text/plain": [
-       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m2,385\u001b[0m (9.32 KB)\n"
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
       ]
      },
      "metadata": {},
@@ -761,11 +751,11 @@
     {
      "data": {
       "text/html": [
-       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">2,385</span> (9.32 KB)\n",
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
        "</pre>\n"
       ],
       "text/plain": [
-       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m2,385\u001b[0m (9.32 KB)\n"
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
       ]
      },
      "metadata": {},
@@ -788,27 +778,266 @@
    "source": [
     "model = Sequential(name='mo_1')\n",
     "\n",
-    "model.add(LSTM(16, activation='linear', input_shape=(None,20)))\n",
-    "\n",
-    "# model.add(LSTM(16, activation='linear'))\n",
-    "\n",
-    "model.add(Flatten())\n",
-    "\n",
-    "model.add(Dense(1, activation='relu'))\n",
+    "model.add(Embedding(input_dim=max_words, output_dim=128, input_length=max_len_title, name='Embedding_1'))\n",
+    "model.add(LSTM(16, name='LSTM_1', return_sequences=True, dropout=0.5))\n",
+    "model.add(LSTM(32, name='LSTM_2', return_sequences=True, dropout=0.5))\n",
+    "model.add(LSTM(64, name='LSTM_3', dropout=0.5))\n",
+    "model.add(Dense(16, activation='linear'))\n",
+    "model.add(Dense(1, activation='sigmoid'))\n",
     "\n",
     "model.summary()"
    ]
   },
   {
    "cell_type": "code",
+   "execution_count": 15,
+   "id": "c450e88c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-04T14:02:40.893795Z",
+     "iopub.status.busy": "2025-05-04T14:02:40.893503Z",
+     "iopub.status.idle": "2025-05-04T14:03:23.102871Z",
+     "shell.execute_reply": "2025-05-04T14:03:23.102143Z"
+    },
+    "papermill": {
+     "duration": 42.217961,
+     "end_time": "2025-05-04T14:03:23.104373",
+     "exception": false,
+     "start_time": "2025-05-04T14:02:40.886412",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Epoch 1/5\n",
+      "\u001b[1m143/143\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m17s\u001b[0m 49ms/step - accuracy: 0.5125 - loss: 0.6933 - val_accuracy: 0.6667 - val_loss: 0.6044\n",
+      "Epoch 2/5\n",
+      "\u001b[1m143/143\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m6s\u001b[0m 42ms/step - accuracy: 0.7867 - loss: 0.4743 - val_accuracy: 0.7949 - val_loss: 0.4683\n",
+      "Epoch 3/5\n",
+      "\u001b[1m143/143\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m6s\u001b[0m 43ms/step - accuracy: 0.9192 - loss: 0.2384 - val_accuracy: 0.8008 - val_loss: 0.5396\n",
+      "Epoch 4/5\n",
+      "\u001b[1m143/143\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m6s\u001b[0m 42ms/step - accuracy: 0.9577 - loss: 0.1520 - val_accuracy: 0.7949 - val_loss: 0.6392\n",
+      "Epoch 5/5\n",
+      "\u001b[1m143/143\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m6s\u001b[0m 44ms/step - accuracy: 0.9624 - loss: 0.1231 - val_accuracy: 0.7771 - val_loss: 0.6567\n"
+     ]
+    }
+   ],
+   "source": [
+    "model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])\n",
+    "history = model.fit(X_train, y_train, epochs=5, validation_split=0.1, batch_size=32)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "2151a381",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-04T14:03:23.153698Z",
+     "iopub.status.busy": "2025-05-04T14:03:23.153377Z",
+     "iopub.status.idle": "2025-05-04T14:03:23.672825Z",
+     "shell.execute_reply": "2025-05-04T14:03:23.671797Z"
+    },
+    "papermill": {
+     "duration": 0.545435,
+     "end_time": "2025-05-04T14:03:23.674363",
+     "exception": false,
+     "start_time": "2025-05-04T14:03:23.128928",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Test Accuracy: 0.7869\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Evaluate\n",
+    "loss, acc = model.evaluate(X_test, y_test, verbose=False)\n",
+    "print(f\"\\nTest Accuracy: {acc:.4f}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "f3c07a9e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-04T14:03:23.723288Z",
+     "iopub.status.busy": "2025-05-04T14:03:23.722969Z",
+     "iopub.status.idle": "2025-05-04T14:03:23.850447Z",
+     "shell.execute_reply": "2025-05-04T14:03:23.849570Z"
+    },
+    "papermill": {
+     "duration": 0.153798,
+     "end_time": "2025-05-04T14:03:23.852006",
+     "exception": false,
+     "start_time": "2025-05-04T14:03:23.698208",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"functional_1\"</span>\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1mModel: \"functional_1\"\u001b[0m\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓\n",
+       "┃<span style=\"font-weight: bold\"> Layer (type)                         </span>┃<span style=\"font-weight: bold\"> Output Shape                </span>┃<span style=\"font-weight: bold\">         Param # </span>┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩\n",
+       "│ input_layer_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">InputLayer</span>)           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">30</span>)                  │               <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ embedding (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)                │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">30</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">128</span>)             │       <span style=\"color: #00af00; text-decoration-color: #00af00\">1,280,000</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ lstm (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)                          │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">30</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">128</span>)             │         <span style=\"color: #00af00; text-decoration-color: #00af00\">131,584</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ general_self_attention               │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">128</span>)                 │          <span style=\"color: #00af00; text-decoration-color: #00af00\">16,512</span> │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">GeneralSelfAttention</span>)               │                             │                 │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dropout (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dropout</span>)                    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">128</span>)                 │               <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>)                   │             <span style=\"color: #00af00; text-decoration-color: #00af00\">129</span> │\n",
+       "└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓\n",
+       "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)                        \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape               \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m        Param #\u001b[0m\u001b[1m \u001b[0m┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩\n",
+       "│ input_layer_1 (\u001b[38;5;33mInputLayer\u001b[0m)           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m30\u001b[0m)                  │               \u001b[38;5;34m0\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ embedding (\u001b[38;5;33mEmbedding\u001b[0m)                │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m30\u001b[0m, \u001b[38;5;34m128\u001b[0m)             │       \u001b[38;5;34m1,280,000\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ lstm (\u001b[38;5;33mLSTM\u001b[0m)                          │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m30\u001b[0m, \u001b[38;5;34m128\u001b[0m)             │         \u001b[38;5;34m131,584\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ general_self_attention               │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m128\u001b[0m)                 │          \u001b[38;5;34m16,512\u001b[0m │\n",
+       "│ (\u001b[38;5;33mGeneralSelfAttention\u001b[0m)               │                             │                 │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dropout (\u001b[38;5;33mDropout\u001b[0m)                    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m128\u001b[0m)                 │               \u001b[38;5;34m0\u001b[0m │\n",
+       "├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤\n",
+       "│ dense_3 (\u001b[38;5;33mDense\u001b[0m)                      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m1\u001b[0m)                   │             \u001b[38;5;34m129\u001b[0m │\n",
+       "└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">1,428,225</span> (5.45 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m1,428,225\u001b[0m (5.45 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">1,428,225</span> (5.45 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m1,428,225\u001b[0m (5.45 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import tensorflow as tf\n",
+    "from tensorflow.keras.layers import Input, Embedding, LSTM, Dense, Dropout, Layer\n",
+    "from tensorflow.keras.models import Model\n",
+    "\n",
+    "# --- Custom Self-Attention Layer ---\n",
+    "class GeneralSelfAttention(Layer):\n",
+    "    def __init__(self, units):\n",
+    "        super(GeneralSelfAttention, self).__init__()\n",
+    "        self.Wa = Dense(units)  # Learnable matrix W_a\n",
+    "\n",
+    "    def call(self, encoder_output):\n",
+    "        # encoder_output: (batch, time_steps, hidden_dim)\n",
+    "        query = encoder_output  # Q = encoder output\n",
+    "        key = encoder_output    # K = encoder output\n",
+    "        value = encoder_output  # V = encoder output\n",
+    "\n",
+    "        # Score = Q^T W K\n",
+    "        score = tf.matmul(self.Wa(query), key, transpose_b=True)  # (batch, T, T)\n",
+    "        attention_weights = tf.nn.softmax(score, axis=-1)\n",
+    "\n",
+    "        # Weighted sum of values\n",
+    "        context = tf.matmul(attention_weights, value)  # (batch, T, hidden_dim)\n",
+    "        context_vector = tf.reduce_sum(context, axis=1)  # Aggregate over time\n",
+    "        return context_vector\n",
+    "\n",
+    "# --- Model Setup ---\n",
+    "max_words = 10000\n",
+    "max_len = 30\n",
+    "\n",
+    "input_layer = Input(shape=(max_len,))\n",
+    "embedding = Embedding(input_dim=max_words, output_dim=128)(input_layer)\n",
+    "lstm_out = LSTM(128, return_sequences=True)(embedding)  # return full sequence\n",
+    "\n",
+    "attention_out = GeneralSelfAttention(128)(lstm_out)\n",
+    "drop = Dropout(0.5)(attention_out)\n",
+    "output = Dense(1, activation='sigmoid')(drop)\n",
+    "\n",
+    "model = Model(inputs=input_layer, outputs=output)\n",
+    "\n",
+    "model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])\n",
+    "model.summary()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
    "execution_count": null,
-   "id": "4767b177",
+   "id": "3c69e05f",
    "metadata": {
     "papermill": {
-     "duration": 0.005192,
-     "end_time": "2025-05-02T15:18:35.648152",
+     "duration": 0.024131,
+     "end_time": "2025-05-04T14:03:23.900867",
      "exception": false,
-     "start_time": "2025-05-02T15:18:35.642960",
+     "start_time": "2025-05-04T14:03:23.876736",
      "status": "completed"
     },
     "tags": []
@@ -852,14 +1081,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 34.232941,
-   "end_time": "2025-05-02T15:18:38.985168",
+   "duration": 76.267716,
+   "end_time": "2025-05-04T14:03:26.574741",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-05-02T15:18:04.752227",
+   "start_time": "2025-05-04T14:02:10.307025",
    "version": "2.6.0"
   }
  },
