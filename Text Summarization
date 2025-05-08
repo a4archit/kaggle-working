@@ -2,13 +2,13 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "c68843cd",
+   "id": "effeb3fd",
    "metadata": {
     "papermill": {
-     "duration": 0.003348,
-     "end_time": "2025-05-07T11:05:39.740515",
+     "duration": 0.003951,
+     "end_time": "2025-05-08T04:07:04.643569",
      "exception": false,
-     "start_time": "2025-05-07T11:05:39.737167",
+     "start_time": "2025-05-08T04:07:04.639618",
      "status": "completed"
     },
     "tags": []
@@ -28,28 +28,28 @@
     "## Steps to be done\n",
     "- [ ] Clean (CNN, By, etc.)\n",
     "- [ ] Lowercasing\n",
-    "- [ ] Stemming\n",
+    "<!-- - [ ] Stemming -->\n",
     "- [ ] Tokenization"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "fd256f2b",
+   "id": "6e94ecdb",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:05:39.747948Z",
-     "iopub.status.busy": "2025-05-07T11:05:39.747593Z",
-     "iopub.status.idle": "2025-05-07T11:05:41.892102Z",
-     "shell.execute_reply": "2025-05-07T11:05:41.890791Z"
+     "iopub.execute_input": "2025-05-08T04:07:04.652020Z",
+     "iopub.status.busy": "2025-05-08T04:07:04.651298Z",
+     "iopub.status.idle": "2025-05-08T04:07:06.797212Z",
+     "shell.execute_reply": "2025-05-08T04:07:06.795451Z"
     },
     "papermill": {
-     "duration": 2.150462,
-     "end_time": "2025-05-07T11:05:41.893965",
+     "duration": 2.15209,
+     "end_time": "2025-05-08T04:07:06.799198",
      "exception": false,
-     "start_time": "2025-05-07T11:05:39.743503",
+     "start_time": "2025-05-08T04:07:04.647108",
      "status": "completed"
     },
     "tags": []
@@ -88,19 +88,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "651fd6a9",
+   "id": "4336512b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:05:41.902417Z",
-     "iopub.status.busy": "2025-05-07T11:05:41.901955Z",
-     "iopub.status.idle": "2025-05-07T11:05:43.819145Z",
-     "shell.execute_reply": "2025-05-07T11:05:43.818113Z"
+     "iopub.execute_input": "2025-05-08T04:07:06.807274Z",
+     "iopub.status.busy": "2025-05-08T04:07:06.806834Z",
+     "iopub.status.idle": "2025-05-08T04:07:08.846634Z",
+     "shell.execute_reply": "2025-05-08T04:07:08.845173Z"
     },
     "papermill": {
-     "duration": 1.923908,
-     "end_time": "2025-05-07T11:05:43.821263",
+     "duration": 2.045945,
+     "end_time": "2025-05-08T04:07:08.848552",
      "exception": false,
-     "start_time": "2025-05-07T11:05:41.897355",
+     "start_time": "2025-05-08T04:07:06.802607",
      "status": "completed"
     },
     "tags": []
@@ -114,19 +114,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "f2a50df3",
+   "id": "1bea6ee3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:05:43.829450Z",
-     "iopub.status.busy": "2025-05-07T11:05:43.828911Z",
-     "iopub.status.idle": "2025-05-07T11:06:16.727398Z",
-     "shell.execute_reply": "2025-05-07T11:06:16.726424Z"
+     "iopub.execute_input": "2025-05-08T04:07:08.856585Z",
+     "iopub.status.busy": "2025-05-08T04:07:08.856087Z",
+     "iopub.status.idle": "2025-05-08T04:07:43.065380Z",
+     "shell.execute_reply": "2025-05-08T04:07:43.064118Z"
     },
     "papermill": {
-     "duration": 32.904747,
-     "end_time": "2025-05-07T11:06:16.729412",
+     "duration": 34.215267,
+     "end_time": "2025-05-08T04:07:43.067239",
      "exception": false,
-     "start_time": "2025-05-07T11:05:43.824665",
+     "start_time": "2025-05-08T04:07:08.851972",
      "status": "completed"
     },
     "tags": []
@@ -138,13 +138,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8dc74abc",
+   "id": "4fe960e4",
    "metadata": {
     "papermill": {
-     "duration": 0.002898,
-     "end_time": "2025-05-07T11:06:16.736950",
+     "duration": 0.004096,
+     "end_time": "2025-05-08T04:07:43.074595",
      "exception": false,
-     "start_time": "2025-05-07T11:06:16.734052",
+     "start_time": "2025-05-08T04:07:43.070499",
      "status": "completed"
     },
     "tags": []
@@ -156,19 +156,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "1cdea705",
+   "id": "10419171",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:06:16.747183Z",
-     "iopub.status.busy": "2025-05-07T11:06:16.746827Z",
-     "iopub.status.idle": "2025-05-07T11:06:16.785586Z",
-     "shell.execute_reply": "2025-05-07T11:06:16.783874Z"
+     "iopub.execute_input": "2025-05-08T04:07:43.082176Z",
+     "iopub.status.busy": "2025-05-08T04:07:43.081763Z",
+     "iopub.status.idle": "2025-05-08T04:07:43.119767Z",
+     "shell.execute_reply": "2025-05-08T04:07:43.118755Z"
     },
     "papermill": {
-     "duration": 0.046195,
-     "end_time": "2025-05-07T11:06:16.788169",
+     "duration": 0.043751,
+     "end_time": "2025-05-08T04:07:43.121460",
      "exception": false,
-     "start_time": "2025-05-07T11:06:16.741974",
+     "start_time": "2025-05-08T04:07:43.077709",
      "status": "completed"
     },
     "tags": []
@@ -202,10 +202,10 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>149807</th>\n",
-       "      <td>4db1f772a08d8a3ed59d0015593977c392c634d5</td>\n",
-       "      <td>Manchester City manager Manuel Pellegrini has ...</td>\n",
-       "      <td>Pellegrini has backed Caballero to push Hart f...</td>\n",
+       "      <th>138790</th>\n",
+       "      <td>3f7e3b13c576a8730b6f9ed1c72fb4aced4275b7</td>\n",
+       "      <td>Music blared from the purple bus, and Baltimor...</td>\n",
+       "      <td>Ravens fans - men and women - wore the now vac...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -213,13 +213,13 @@
       ],
       "text/plain": [
        "                                              id  \\\n",
-       "149807  4db1f772a08d8a3ed59d0015593977c392c634d5   \n",
+       "138790  3f7e3b13c576a8730b6f9ed1c72fb4aced4275b7   \n",
        "\n",
        "                                                  article  \\\n",
-       "149807  Manchester City manager Manuel Pellegrini has ...   \n",
+       "138790  Music blared from the purple bus, and Baltimor...   \n",
        "\n",
        "                                               highlights  \n",
-       "149807  Pellegrini has backed Caballero to push Hart f...  "
+       "138790  Ravens fans - men and women - wore the now vac...  "
       ]
      },
      "execution_count": 4,
@@ -234,19 +234,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "685c4429",
+   "id": "dc1668eb",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:06:16.797823Z",
-     "iopub.status.busy": "2025-05-07T11:06:16.797402Z",
-     "iopub.status.idle": "2025-05-07T11:06:16.965192Z",
-     "shell.execute_reply": "2025-05-07T11:06:16.963955Z"
+     "iopub.execute_input": "2025-05-08T04:07:43.129231Z",
+     "iopub.status.busy": "2025-05-08T04:07:43.128931Z",
+     "iopub.status.idle": "2025-05-08T04:07:43.256468Z",
+     "shell.execute_reply": "2025-05-08T04:07:43.255425Z"
     },
     "papermill": {
-     "duration": 0.174266,
-     "end_time": "2025-05-07T11:06:16.967014",
+     "duration": 0.133326,
+     "end_time": "2025-05-08T04:07:43.258174",
      "exception": false,
-     "start_time": "2025-05-07T11:06:16.792748",
+     "start_time": "2025-05-08T04:07:43.124848",
      "status": "completed"
     },
     "tags": []
@@ -276,19 +276,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "8f331c61",
+   "id": "679c8deb",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:06:16.974936Z",
-     "iopub.status.busy": "2025-05-07T11:06:16.974519Z",
-     "iopub.status.idle": "2025-05-07T11:06:19.074709Z",
-     "shell.execute_reply": "2025-05-07T11:06:19.073656Z"
+     "iopub.execute_input": "2025-05-08T04:07:43.266555Z",
+     "iopub.status.busy": "2025-05-08T04:07:43.266233Z",
+     "iopub.status.idle": "2025-05-08T04:07:45.214633Z",
+     "shell.execute_reply": "2025-05-08T04:07:45.213853Z"
     },
     "papermill": {
-     "duration": 2.106429,
-     "end_time": "2025-05-07T11:06:19.076708",
+     "duration": 1.954343,
+     "end_time": "2025-05-08T04:07:45.216220",
      "exception": false,
-     "start_time": "2025-05-07T11:06:16.970279",
+     "start_time": "2025-05-08T04:07:43.261877",
      "status": "completed"
     },
     "tags": []
@@ -381,19 +381,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "65908731",
+   "id": "23d5643a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:06:19.085285Z",
-     "iopub.status.busy": "2025-05-07T11:06:19.084927Z",
-     "iopub.status.idle": "2025-05-07T11:06:19.237665Z",
-     "shell.execute_reply": "2025-05-07T11:06:19.236643Z"
+     "iopub.execute_input": "2025-05-08T04:07:45.224888Z",
+     "iopub.status.busy": "2025-05-08T04:07:45.224127Z",
+     "iopub.status.idle": "2025-05-08T04:07:45.336698Z",
+     "shell.execute_reply": "2025-05-08T04:07:45.335685Z"
     },
     "papermill": {
-     "duration": 0.159084,
-     "end_time": "2025-05-07T11:06:19.239424",
+     "duration": 0.118801,
+     "end_time": "2025-05-08T04:07:45.338624",
      "exception": false,
-     "start_time": "2025-05-07T11:06:19.080340",
+     "start_time": "2025-05-08T04:07:45.219823",
      "status": "completed"
     },
     "tags": []
@@ -419,13 +419,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6d9afb21",
+   "id": "f4f8f1cb",
    "metadata": {
     "papermill": {
-     "duration": 0.00317,
-     "end_time": "2025-05-07T11:06:19.246537",
+     "duration": 0.003398,
+     "end_time": "2025-05-08T04:07:45.345887",
      "exception": false,
-     "start_time": "2025-05-07T11:06:19.243367",
+     "start_time": "2025-05-08T04:07:45.342489",
      "status": "completed"
     },
     "tags": []
@@ -437,19 +437,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "21af5006",
+   "id": "de41844f",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:06:19.254687Z",
-     "iopub.status.busy": "2025-05-07T11:06:19.254300Z",
-     "iopub.status.idle": "2025-05-07T11:06:35.579062Z",
-     "shell.execute_reply": "2025-05-07T11:06:35.577973Z"
+     "iopub.execute_input": "2025-05-08T04:07:45.354574Z",
+     "iopub.status.busy": "2025-05-08T04:07:45.354272Z",
+     "iopub.status.idle": "2025-05-08T04:08:01.944290Z",
+     "shell.execute_reply": "2025-05-08T04:08:01.943339Z"
     },
     "papermill": {
-     "duration": 16.330789,
-     "end_time": "2025-05-07T11:06:35.580725",
+     "duration": 16.596983,
+     "end_time": "2025-05-08T04:08:01.946509",
      "exception": false,
-     "start_time": "2025-05-07T11:06:19.249936",
+     "start_time": "2025-05-08T04:07:45.349526",
      "status": "completed"
     },
     "tags": []
@@ -488,19 +488,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "b55447be",
+   "id": "e3c1a1a2",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-07T11:06:35.589977Z",
-     "iopub.status.busy": "2025-05-07T11:06:35.589678Z",
-     "iopub.status.idle": "2025-05-07T11:06:35.600920Z",
-     "shell.execute_reply": "2025-05-07T11:06:35.600034Z"
+     "iopub.execute_input": "2025-05-08T04:08:01.957206Z",
+     "iopub.status.busy": "2025-05-08T04:08:01.956357Z",
+     "iopub.status.idle": "2025-05-08T04:08:01.967901Z",
+     "shell.execute_reply": "2025-05-08T04:08:01.966742Z"
     },
     "papermill": {
-     "duration": 0.017519,
-     "end_time": "2025-05-07T11:06:35.602336",
+     "duration": 0.018247,
+     "end_time": "2025-05-08T04:08:01.969401",
      "exception": false,
-     "start_time": "2025-05-07T11:06:35.584817",
+     "start_time": "2025-05-08T04:08:01.951154",
      "status": "completed"
     },
     "tags": []
@@ -658,20 +658,104 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "e2c50051",
+   "execution_count": 10,
+   "id": "ae100ac8",
    "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-08T04:08:01.980631Z",
+     "iopub.status.busy": "2025-05-08T04:08:01.980311Z",
+     "iopub.status.idle": "2025-05-08T04:09:52.696543Z",
+     "shell.execute_reply": "2025-05-08T04:09:52.695452Z"
+    },
     "papermill": {
-     "duration": 0.003848,
-     "end_time": "2025-05-07T11:06:35.610739",
+     "duration": 110.724419,
+     "end_time": "2025-05-08T04:09:52.698663",
      "exception": false,
-     "start_time": "2025-05-07T11:06:35.606891",
+     "start_time": "2025-05-08T04:08:01.974244",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
-   "source": []
+   "source": [
+    "total_cnn = 0\n",
+    "\n",
+    "for article in train.article:\n",
+    "    for word in article:\n",
+    "        if 'cnn' in word.lower():\n",
+    "            total_cnn += 1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "1a9bfb8d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-08T04:09:52.710660Z",
+     "iopub.status.busy": "2025-05-08T04:09:52.710370Z",
+     "iopub.status.idle": "2025-05-08T04:09:52.715714Z",
+     "shell.execute_reply": "2025-05-08T04:09:52.714897Z"
+    },
+    "papermill": {
+     "duration": 0.01382,
+     "end_time": "2025-05-08T04:09:52.717423",
+     "exception": false,
+     "start_time": "2025-05-08T04:09:52.703603",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "By . Associated Press . PUBLISHED: . 14:11 EST, 25 October 2013 . | . UPDATED: . 15:36 EST, 25 October 2013 . The bishop of the Fargo Catholic Diocese in North Dakota has exposed potentially hundreds of church members in Fargo, Grand Forks and Jamestown to the hepatitis A virus in late September and early October. The state Health Department has issued an advisory of exposure for anyone who attended five churches and took communion. Bishop John Folda (pictured) of the Fargo Catholic Diocese in North Dakota has exposed potentially hundreds of church members in Fargo, Grand Forks and Jamestown to the hepatitis A . State Immunization Program Manager Molly Howell says the risk is low, but officials feel it's important to alert people to the possible exposure. The diocese announced on Monday that Bishop John Folda is taking time off after being diagnosed with hepatitis A. The diocese says he contracted the infection through contaminated food while attending a conference for newly ordained bishops in Italy last month. Symptoms of hepatitis A include fever, tiredness, loss of appetite, nausea and abdominal discomfort. Fargo Catholic Diocese in North Dakota (pictured) is where the bishop is located .\n"
+     ]
+    }
+   ],
+   "source": [
+    "for article in train.article:\n",
+    "    print(article)\n",
+    "    break"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "34cf0c75",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-08T04:09:52.728056Z",
+     "iopub.status.busy": "2025-05-08T04:09:52.727701Z",
+     "iopub.status.idle": "2025-05-08T04:09:52.733526Z",
+     "shell.execute_reply": "2025-05-08T04:09:52.732506Z"
+    },
+    "papermill": {
+     "duration": 0.012852,
+     "end_time": "2025-05-08T04:09:52.735026",
+     "exception": false,
+     "start_time": "2025-05-08T04:09:52.722174",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "total_cnn"
+   ]
   }
  ],
  "metadata": {
@@ -709,14 +793,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 62.436112,
-   "end_time": "2025-05-07T11:06:36.940471",
+   "duration": 174.266128,
+   "end_time": "2025-05-08T04:09:53.863864",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-05-07T11:05:34.504359",
+   "start_time": "2025-05-08T04:06:59.597736",
    "version": "2.6.0"
   }
  },
