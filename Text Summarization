@@ -2,13 +2,13 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "77ba0435",
+   "id": "b9a0b665",
    "metadata": {
     "papermill": {
-     "duration": 0.00383,
-     "end_time": "2025-05-08T04:54:18.686063",
+     "duration": 0.004334,
+     "end_time": "2025-05-08T05:50:00.540030",
      "exception": false,
-     "start_time": "2025-05-08T04:54:18.682233",
+     "start_time": "2025-05-08T05:50:00.535696",
      "status": "completed"
     },
     "tags": []
@@ -35,21 +35,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "6bc29afd",
+   "id": "dbe7d83a",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:18.693631Z",
-     "iopub.status.busy": "2025-05-08T04:54:18.693332Z",
-     "iopub.status.idle": "2025-05-08T04:54:20.500625Z",
-     "shell.execute_reply": "2025-05-08T04:54:20.499606Z"
+     "iopub.execute_input": "2025-05-08T05:50:00.549796Z",
+     "iopub.status.busy": "2025-05-08T05:50:00.549475Z",
+     "iopub.status.idle": "2025-05-08T05:50:02.731330Z",
+     "shell.execute_reply": "2025-05-08T05:50:02.730189Z"
     },
     "papermill": {
-     "duration": 1.812704,
-     "end_time": "2025-05-08T04:54:20.502126",
+     "duration": 2.188317,
+     "end_time": "2025-05-08T05:50:02.733032",
      "exception": false,
-     "start_time": "2025-05-08T04:54:18.689422",
+     "start_time": "2025-05-08T05:50:00.544715",
      "status": "completed"
     },
     "tags": []
@@ -88,19 +88,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "679db7e6",
+   "id": "3ae0f68c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:20.509669Z",
-     "iopub.status.busy": "2025-05-08T04:54:20.509261Z",
-     "iopub.status.idle": "2025-05-08T04:54:22.275721Z",
-     "shell.execute_reply": "2025-05-08T04:54:22.274873Z"
+     "iopub.execute_input": "2025-05-08T05:50:02.742189Z",
+     "iopub.status.busy": "2025-05-08T05:50:02.741332Z",
+     "iopub.status.idle": "2025-05-08T05:50:04.877116Z",
+     "shell.execute_reply": "2025-05-08T05:50:04.875809Z"
     },
     "papermill": {
-     "duration": 1.771906,
-     "end_time": "2025-05-08T04:54:22.277304",
+     "duration": 2.142917,
+     "end_time": "2025-05-08T05:50:04.879764",
      "exception": false,
-     "start_time": "2025-05-08T04:54:20.505398",
+     "start_time": "2025-05-08T05:50:02.736847",
      "status": "completed"
     },
     "tags": []
@@ -114,37 +114,38 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "104f7963",
+   "id": "1cbd1a04",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:22.284976Z",
-     "iopub.status.busy": "2025-05-08T04:54:22.284558Z",
-     "iopub.status.idle": "2025-05-08T04:54:55.465559Z",
-     "shell.execute_reply": "2025-05-08T04:54:55.464767Z"
+     "iopub.execute_input": "2025-05-08T05:50:04.894693Z",
+     "iopub.status.busy": "2025-05-08T05:50:04.894023Z",
+     "iopub.status.idle": "2025-05-08T05:50:35.948474Z",
+     "shell.execute_reply": "2025-05-08T05:50:35.947419Z"
     },
     "papermill": {
-     "duration": 33.18664,
-     "end_time": "2025-05-08T04:54:55.467195",
+     "duration": 31.06427,
+     "end_time": "2025-05-08T05:50:35.950566",
      "exception": false,
-     "start_time": "2025-05-08T04:54:22.280555",
+     "start_time": "2025-05-08T05:50:04.886296",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "train = pd.read_csv(r\"/kaggle/input/newspaper-text-summarization-cnn-dailymail/cnn_dailymail/train.csv\")"
+    "train = pd.read_csv(r\"/kaggle/input/newspaper-text-summarization-cnn-dailymail/cnn_dailymail/train.csv\")\n",
+    "xtrain = train.copy()"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "0d3ace07",
+   "id": "0565cce8",
    "metadata": {
     "papermill": {
-     "duration": 0.002761,
-     "end_time": "2025-05-08T04:54:55.474604",
+     "duration": 0.005293,
+     "end_time": "2025-05-08T05:50:35.961771",
      "exception": false,
-     "start_time": "2025-05-08T04:54:55.471843",
+     "start_time": "2025-05-08T05:50:35.956478",
      "status": "completed"
     },
     "tags": []
@@ -156,19 +157,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "71039d67",
+   "id": "94c0c87d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:55.481550Z",
-     "iopub.status.busy": "2025-05-08T04:54:55.481231Z",
-     "iopub.status.idle": "2025-05-08T04:54:55.514273Z",
-     "shell.execute_reply": "2025-05-08T04:54:55.513433Z"
+     "iopub.execute_input": "2025-05-08T05:50:35.975565Z",
+     "iopub.status.busy": "2025-05-08T05:50:35.975143Z",
+     "iopub.status.idle": "2025-05-08T05:50:36.021132Z",
+     "shell.execute_reply": "2025-05-08T05:50:36.020044Z"
     },
     "papermill": {
-     "duration": 0.038424,
-     "end_time": "2025-05-08T04:54:55.515887",
+     "duration": 0.057051,
+     "end_time": "2025-05-08T05:50:36.024811",
      "exception": false,
-     "start_time": "2025-05-08T04:54:55.477463",
+     "start_time": "2025-05-08T05:50:35.967760",
      "status": "completed"
     },
     "tags": []
@@ -202,10 +203,10 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>139849</th>\n",
-       "      <td>40d218d5c8bf2ea9c19a251e88452f601ea6831b</td>\n",
-       "      <td>By . Hugo Gye and Jill Reilly . PUBLISHED: . 0...</td>\n",
-       "      <td>Dozens of children in hospital in Guizhou prov...</td>\n",
+       "      <th>243483</th>\n",
+       "      <td>c722bdaaa5433d8b19126ee94368c651b43b6aba</td>\n",
+       "      <td>(CNN) -- I'm 45, and my son is 7. Once in a wh...</td>\n",
+       "      <td>Tananarive Due, 45, has been asked if her 7-ye...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -213,13 +214,13 @@
       ],
       "text/plain": [
        "                                              id  \\\n",
-       "139849  40d218d5c8bf2ea9c19a251e88452f601ea6831b   \n",
+       "243483  c722bdaaa5433d8b19126ee94368c651b43b6aba   \n",
        "\n",
        "                                                  article  \\\n",
-       "139849  By . Hugo Gye and Jill Reilly . PUBLISHED: . 0...   \n",
+       "243483  (CNN) -- I'm 45, and my son is 7. Once in a wh...   \n",
        "\n",
        "                                               highlights  \n",
-       "139849  Dozens of children in hospital in Guizhou prov...  "
+       "243483  Tananarive Due, 45, has been asked if her 7-ye...  "
       ]
      },
      "execution_count": 4,
@@ -234,19 +235,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "d0afde85",
+   "id": "c12f3938",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:55.523636Z",
-     "iopub.status.busy": "2025-05-08T04:54:55.523341Z",
-     "iopub.status.idle": "2025-05-08T04:54:55.643859Z",
-     "shell.execute_reply": "2025-05-08T04:54:55.642898Z"
+     "iopub.execute_input": "2025-05-08T05:50:36.035596Z",
+     "iopub.status.busy": "2025-05-08T05:50:36.034819Z",
+     "iopub.status.idle": "2025-05-08T05:50:36.167799Z",
+     "shell.execute_reply": "2025-05-08T05:50:36.163732Z"
     },
     "papermill": {
-     "duration": 0.126093,
-     "end_time": "2025-05-08T04:54:55.645368",
+     "duration": 0.1417,
+     "end_time": "2025-05-08T05:50:36.171473",
      "exception": false,
-     "start_time": "2025-05-08T04:54:55.519275",
+     "start_time": "2025-05-08T05:50:36.029773",
      "status": "completed"
     },
     "tags": []
@@ -276,19 +277,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "568221fd",
+   "id": "4a5efd89",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:55.653466Z",
-     "iopub.status.busy": "2025-05-08T04:54:55.652777Z",
-     "iopub.status.idle": "2025-05-08T04:54:57.464422Z",
-     "shell.execute_reply": "2025-05-08T04:54:57.463406Z"
+     "iopub.execute_input": "2025-05-08T05:50:36.186223Z",
+     "iopub.status.busy": "2025-05-08T05:50:36.185909Z",
+     "iopub.status.idle": "2025-05-08T05:50:38.170814Z",
+     "shell.execute_reply": "2025-05-08T05:50:38.169829Z"
     },
     "papermill": {
-     "duration": 1.817159,
-     "end_time": "2025-05-08T04:54:57.465867",
+     "duration": 1.994089,
+     "end_time": "2025-05-08T05:50:38.172363",
      "exception": false,
-     "start_time": "2025-05-08T04:54:55.648708",
+     "start_time": "2025-05-08T05:50:36.178274",
      "status": "completed"
     },
     "tags": []
@@ -381,19 +382,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "a284931a",
+   "id": "5c094cc8",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:57.474887Z",
-     "iopub.status.busy": "2025-05-08T04:54:57.473863Z",
-     "iopub.status.idle": "2025-05-08T04:54:57.580959Z",
-     "shell.execute_reply": "2025-05-08T04:54:57.580053Z"
+     "iopub.execute_input": "2025-05-08T05:50:38.181897Z",
+     "iopub.status.busy": "2025-05-08T05:50:38.181574Z",
+     "iopub.status.idle": "2025-05-08T05:50:38.297104Z",
+     "shell.execute_reply": "2025-05-08T05:50:38.296053Z"
     },
     "papermill": {
-     "duration": 0.112941,
-     "end_time": "2025-05-08T04:54:57.582587",
+     "duration": 0.122275,
+     "end_time": "2025-05-08T05:50:38.298700",
      "exception": false,
-     "start_time": "2025-05-08T04:54:57.469646",
+     "start_time": "2025-05-08T05:50:38.176425",
      "status": "completed"
     },
     "tags": []
@@ -419,13 +420,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0e178364",
+   "id": "c49b1348",
    "metadata": {
     "papermill": {
-     "duration": 0.003328,
-     "end_time": "2025-05-08T04:54:57.589561",
+     "duration": 0.004155,
+     "end_time": "2025-05-08T05:50:38.306942",
      "exception": false,
-     "start_time": "2025-05-08T04:54:57.586233",
+     "start_time": "2025-05-08T05:50:38.302787",
      "status": "completed"
     },
     "tags": []
@@ -437,19 +438,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "20af8c2a",
+   "id": "946de867",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:54:57.597669Z",
-     "iopub.status.busy": "2025-05-08T04:54:57.597356Z",
-     "iopub.status.idle": "2025-05-08T04:55:13.426146Z",
-     "shell.execute_reply": "2025-05-08T04:55:13.425182Z"
+     "iopub.execute_input": "2025-05-08T05:50:38.316940Z",
+     "iopub.status.busy": "2025-05-08T05:50:38.316629Z",
+     "iopub.status.idle": "2025-05-08T05:50:55.031650Z",
+     "shell.execute_reply": "2025-05-08T05:50:55.030366Z"
     },
     "papermill": {
-     "duration": 15.834627,
-     "end_time": "2025-05-08T04:55:13.427757",
+     "duration": 16.722352,
+     "end_time": "2025-05-08T05:50:55.033400",
      "exception": false,
-     "start_time": "2025-05-08T04:54:57.593130",
+     "start_time": "2025-05-08T05:50:38.311048",
      "status": "completed"
     },
     "tags": []
@@ -488,66 +489,103 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "b83c667c",
+   "id": "d9ef676f",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:55:13.437815Z",
-     "iopub.status.busy": "2025-05-08T04:55:13.437438Z",
-     "iopub.status.idle": "2025-05-08T04:55:14.535015Z",
-     "shell.execute_reply": "2025-05-08T04:55:14.533910Z"
+     "iopub.execute_input": "2025-05-08T05:50:55.044320Z",
+     "iopub.status.busy": "2025-05-08T05:50:55.043976Z",
+     "iopub.status.idle": "2025-05-08T05:50:55.051085Z",
+     "shell.execute_reply": "2025-05-08T05:50:55.049934Z"
     },
     "papermill": {
-     "duration": 1.104676,
-     "end_time": "2025-05-08T04:55:14.536788",
+     "duration": 0.014676,
+     "end_time": "2025-05-08T05:50:55.052969",
      "exception": false,
-     "start_time": "2025-05-08T04:55:13.432112",
+     "start_time": "2025-05-08T05:50:55.038293",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "0         By . Associated Press . PUBLISHED: . 14:11 EST...\n",
-       "1          Ralph Mata was an internal affairs lieutenant...\n",
-       "2         A drunk driver who killed a young woman in a h...\n",
-       "3          With a breezy sweep of his pen President Vlad...\n",
-       "4         Fleetwood are the only team still to have a 10...\n",
-       "                                ...                        \n",
-       "287108    By . James Rush . Former first daughter Chelse...\n",
-       "287109    An apologetic Vanilla Ice has given his first ...\n",
-       "287110    America's most lethal sniper claimed he wished...\n",
-       "287111    By . Sara Malm . PUBLISHED: . 12:19 EST, 8 Mar...\n",
-       "287112    (CNN)Former Florida Gov. Jeb Bush has decided ...\n",
-       "Name: article, Length: 287113, dtype: object"
-      ]
-     },
-     "execution_count": 9,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "train.article.apply(lambda x: x.replace('(CNN) --',''))"
+    "\n",
+    "def basic_clean(article: str) -> str:\n",
+    "    \"\"\" This function will helpful for return the cleaned article \"\"\"\n",
+    "\n",
+    "    article = article.replace('(CNN) --','')\n",
+    "    article = article.replace('(CNN)','')\n",
+    "    \n",
+    "    # if not ('UPDATE' in article and 'PUBLISHED' in article) :         \n",
+    "    if not article.strip().startswith('By'):\n",
+    "        return article\n",
+    "\n",
+    "    for sentence in article.split('.'):\n",
+    "        word_list = sentence.split(' ')\n",
+    "        if len(word_list) > 10:\n",
+    "            updated_article = article[article.index(sentence):]\n",
+    "            break\n",
+    "\n",
+    "    return updated_article"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "24dd2dd6",
+   "id": "54814027",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:55:14.546629Z",
-     "iopub.status.busy": "2025-05-08T04:55:14.546277Z",
-     "iopub.status.idle": "2025-05-08T04:55:15.204352Z",
-     "shell.execute_reply": "2025-05-08T04:55:15.203419Z"
+     "iopub.execute_input": "2025-05-08T05:50:55.063642Z",
+     "iopub.status.busy": "2025-05-08T05:50:55.063278Z",
+     "iopub.status.idle": "2025-05-08T05:50:59.042221Z",
+     "shell.execute_reply": "2025-05-08T05:50:59.041347Z"
     },
     "papermill": {
-     "duration": 0.664986,
-     "end_time": "2025-05-08T04:55:15.206109",
+     "duration": 3.986398,
+     "end_time": "2025-05-08T05:50:59.044049",
      "exception": false,
-     "start_time": "2025-05-08T04:55:14.541123",
+     "start_time": "2025-05-08T05:50:55.057651",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "xtrain.article = train.article.apply(basic_clean)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a6d4e21b",
+   "metadata": {
+    "papermill": {
+     "duration": 0.004809,
+     "end_time": "2025-05-08T05:50:59.054419",
+     "exception": false,
+     "start_time": "2025-05-08T05:50:59.049610",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "e9c4d57c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-08T05:50:59.065505Z",
+     "iopub.status.busy": "2025-05-08T05:50:59.065125Z",
+     "iopub.status.idle": "2025-05-08T05:51:00.323315Z",
+     "shell.execute_reply": "2025-05-08T05:51:00.322454Z"
+    },
+    "papermill": {
+     "duration": 1.265926,
+     "end_time": "2025-05-08T05:51:00.325034",
+     "exception": false,
+     "start_time": "2025-05-08T05:50:59.059108",
      "status": "completed"
     },
     "tags": []
@@ -559,67 +597,29 @@
     "total_PUBLISHED = 0\n",
     "total_cnn___ = 0\n",
     "\n",
-    "for article in train.article:\n",
-    "    if '(CNN) --' in article:\n",
-    "        total_cnn___ += 1\n",
-    "    # for word in article.split(' '):\n",
-    "        \n",
-    "    #     if '(cnn)' in word.lower():\n",
-    "    #         total_cnn += 1\n",
-    "            \n",
-    "    #     if 'UPDATED' in word:\n",
-    "    #         total_UPDATED += 1\n",
-    "            \n",
-    "    #     if 'PUBLISHED' in word:\n",
-    "    #         total_PUBLISHED += 1"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "id": "208f518c",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-05-08T04:55:15.216399Z",
-     "iopub.status.busy": "2025-05-08T04:55:15.215706Z",
-     "iopub.status.idle": "2025-05-08T04:55:15.221244Z",
-     "shell.execute_reply": "2025-05-08T04:55:15.220081Z"
-    },
-    "papermill": {
-     "duration": 0.012532,
-     "end_time": "2025-05-08T04:55:15.223031",
-     "exception": false,
-     "start_time": "2025-05-08T04:55:15.210499",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "for sentence in train.iloc[6,1].split('.'):\n",
-    "    word_list = sentence.split(' ')\n",
-    "    # print(len(word_list))\n",
-    "    # print(word_list)\n",
-    "    # print(sentence, end=\"\\n\\n\")\n",
-    "\n"
+    "for article in xtrain.article:\n",
+    "    total_cnn += article.count('(CNN)')\n",
+    "    total_UPDATED += article.count('UPDATED')\n",
+    "    total_PUBLISHED += article.count('PUBLISHED')\n",
+    "    "
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "c5cad138",
+   "id": "4b8e549d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:55:15.233294Z",
-     "iopub.status.busy": "2025-05-08T04:55:15.232564Z",
-     "iopub.status.idle": "2025-05-08T04:55:15.238390Z",
-     "shell.execute_reply": "2025-05-08T04:55:15.237476Z"
+     "iopub.execute_input": "2025-05-08T05:51:00.336433Z",
+     "iopub.status.busy": "2025-05-08T05:51:00.336065Z",
+     "iopub.status.idle": "2025-05-08T05:51:00.342299Z",
+     "shell.execute_reply": "2025-05-08T05:51:00.341434Z"
     },
     "papermill": {
-     "duration": 0.012398,
-     "end_time": "2025-05-08T04:55:15.239864",
+     "duration": 0.014236,
+     "end_time": "2025-05-08T05:51:00.343960",
      "exception": false,
-     "start_time": "2025-05-08T04:55:15.227466",
+     "start_time": "2025-05-08T05:51:00.329724",
      "status": "completed"
     },
     "tags": []
@@ -628,7 +628,7 @@
     {
      "data": {
       "text/plain": [
-       "(0, 0, 0)"
+       "(0, 1941, 1665)"
       ]
      },
      "execution_count": 12,
@@ -637,19 +637,53 @@
     }
    ],
    "source": [
-    "total_cnn, total_UPDATED, total_PUBLISHED"
+    "total_cnn, total_UPDATED, total_PUBLISHED "
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e9ca94f7",
+   "id": "9a7b2f84",
    "metadata": {
     "papermill": {
-     "duration": 0.004103,
-     "end_time": "2025-05-08T04:55:15.248411",
+     "duration": 0.004382,
+     "end_time": "2025-05-08T05:51:00.353267",
      "exception": false,
-     "start_time": "2025-05-08T04:55:15.244308",
+     "start_time": "2025-05-08T05:51:00.348885",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e280bda8",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00445,
+     "end_time": "2025-05-08T05:51:00.362266",
+     "exception": false,
+     "start_time": "2025-05-08T05:51:00.357816",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a83c20b8",
+   "metadata": {
+    "papermill": {
+     "duration": 0.005412,
+     "end_time": "2025-05-08T05:51:00.372240",
+     "exception": false,
+     "start_time": "2025-05-08T05:51:00.366828",
      "status": "completed"
     },
     "tags": []
@@ -693,14 +727,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 62.192572,
-   "end_time": "2025-05-08T04:55:16.373708",
+   "duration": 66.310519,
+   "end_time": "2025-05-08T05:51:01.701827",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-05-08T04:54:14.181136",
+   "start_time": "2025-05-08T05:49:55.391308",
    "version": "2.6.0"
   }
  },
