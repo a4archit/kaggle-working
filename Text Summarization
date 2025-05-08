@@ -2,13 +2,13 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "effeb3fd",
+   "id": "77ba0435",
    "metadata": {
     "papermill": {
-     "duration": 0.003951,
-     "end_time": "2025-05-08T04:07:04.643569",
+     "duration": 0.00383,
+     "end_time": "2025-05-08T04:54:18.686063",
      "exception": false,
-     "start_time": "2025-05-08T04:07:04.639618",
+     "start_time": "2025-05-08T04:54:18.682233",
      "status": "completed"
     },
     "tags": []
@@ -35,21 +35,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "6e94ecdb",
+   "id": "6bc29afd",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:04.652020Z",
-     "iopub.status.busy": "2025-05-08T04:07:04.651298Z",
-     "iopub.status.idle": "2025-05-08T04:07:06.797212Z",
-     "shell.execute_reply": "2025-05-08T04:07:06.795451Z"
+     "iopub.execute_input": "2025-05-08T04:54:18.693631Z",
+     "iopub.status.busy": "2025-05-08T04:54:18.693332Z",
+     "iopub.status.idle": "2025-05-08T04:54:20.500625Z",
+     "shell.execute_reply": "2025-05-08T04:54:20.499606Z"
     },
     "papermill": {
-     "duration": 2.15209,
-     "end_time": "2025-05-08T04:07:06.799198",
+     "duration": 1.812704,
+     "end_time": "2025-05-08T04:54:20.502126",
      "exception": false,
-     "start_time": "2025-05-08T04:07:04.647108",
+     "start_time": "2025-05-08T04:54:18.689422",
      "status": "completed"
     },
     "tags": []
@@ -88,19 +88,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "4336512b",
+   "id": "679db7e6",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:06.807274Z",
-     "iopub.status.busy": "2025-05-08T04:07:06.806834Z",
-     "iopub.status.idle": "2025-05-08T04:07:08.846634Z",
-     "shell.execute_reply": "2025-05-08T04:07:08.845173Z"
+     "iopub.execute_input": "2025-05-08T04:54:20.509669Z",
+     "iopub.status.busy": "2025-05-08T04:54:20.509261Z",
+     "iopub.status.idle": "2025-05-08T04:54:22.275721Z",
+     "shell.execute_reply": "2025-05-08T04:54:22.274873Z"
     },
     "papermill": {
-     "duration": 2.045945,
-     "end_time": "2025-05-08T04:07:08.848552",
+     "duration": 1.771906,
+     "end_time": "2025-05-08T04:54:22.277304",
      "exception": false,
-     "start_time": "2025-05-08T04:07:06.802607",
+     "start_time": "2025-05-08T04:54:20.505398",
      "status": "completed"
     },
     "tags": []
@@ -114,19 +114,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "1bea6ee3",
+   "id": "104f7963",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:08.856585Z",
-     "iopub.status.busy": "2025-05-08T04:07:08.856087Z",
-     "iopub.status.idle": "2025-05-08T04:07:43.065380Z",
-     "shell.execute_reply": "2025-05-08T04:07:43.064118Z"
+     "iopub.execute_input": "2025-05-08T04:54:22.284976Z",
+     "iopub.status.busy": "2025-05-08T04:54:22.284558Z",
+     "iopub.status.idle": "2025-05-08T04:54:55.465559Z",
+     "shell.execute_reply": "2025-05-08T04:54:55.464767Z"
     },
     "papermill": {
-     "duration": 34.215267,
-     "end_time": "2025-05-08T04:07:43.067239",
+     "duration": 33.18664,
+     "end_time": "2025-05-08T04:54:55.467195",
      "exception": false,
-     "start_time": "2025-05-08T04:07:08.851972",
+     "start_time": "2025-05-08T04:54:22.280555",
      "status": "completed"
     },
     "tags": []
@@ -138,13 +138,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4fe960e4",
+   "id": "0d3ace07",
    "metadata": {
     "papermill": {
-     "duration": 0.004096,
-     "end_time": "2025-05-08T04:07:43.074595",
+     "duration": 0.002761,
+     "end_time": "2025-05-08T04:54:55.474604",
      "exception": false,
-     "start_time": "2025-05-08T04:07:43.070499",
+     "start_time": "2025-05-08T04:54:55.471843",
      "status": "completed"
     },
     "tags": []
@@ -156,19 +156,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "10419171",
+   "id": "71039d67",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:43.082176Z",
-     "iopub.status.busy": "2025-05-08T04:07:43.081763Z",
-     "iopub.status.idle": "2025-05-08T04:07:43.119767Z",
-     "shell.execute_reply": "2025-05-08T04:07:43.118755Z"
+     "iopub.execute_input": "2025-05-08T04:54:55.481550Z",
+     "iopub.status.busy": "2025-05-08T04:54:55.481231Z",
+     "iopub.status.idle": "2025-05-08T04:54:55.514273Z",
+     "shell.execute_reply": "2025-05-08T04:54:55.513433Z"
     },
     "papermill": {
-     "duration": 0.043751,
-     "end_time": "2025-05-08T04:07:43.121460",
+     "duration": 0.038424,
+     "end_time": "2025-05-08T04:54:55.515887",
      "exception": false,
-     "start_time": "2025-05-08T04:07:43.077709",
+     "start_time": "2025-05-08T04:54:55.477463",
      "status": "completed"
     },
     "tags": []
@@ -202,10 +202,10 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>138790</th>\n",
-       "      <td>3f7e3b13c576a8730b6f9ed1c72fb4aced4275b7</td>\n",
-       "      <td>Music blared from the purple bus, and Baltimor...</td>\n",
-       "      <td>Ravens fans - men and women - wore the now vac...</td>\n",
+       "      <th>139849</th>\n",
+       "      <td>40d218d5c8bf2ea9c19a251e88452f601ea6831b</td>\n",
+       "      <td>By . Hugo Gye and Jill Reilly . PUBLISHED: . 0...</td>\n",
+       "      <td>Dozens of children in hospital in Guizhou prov...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -213,13 +213,13 @@
       ],
       "text/plain": [
        "                                              id  \\\n",
-       "138790  3f7e3b13c576a8730b6f9ed1c72fb4aced4275b7   \n",
+       "139849  40d218d5c8bf2ea9c19a251e88452f601ea6831b   \n",
        "\n",
        "                                                  article  \\\n",
-       "138790  Music blared from the purple bus, and Baltimor...   \n",
+       "139849  By . Hugo Gye and Jill Reilly . PUBLISHED: . 0...   \n",
        "\n",
        "                                               highlights  \n",
-       "138790  Ravens fans - men and women - wore the now vac...  "
+       "139849  Dozens of children in hospital in Guizhou prov...  "
       ]
      },
      "execution_count": 4,
@@ -234,19 +234,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "dc1668eb",
+   "id": "d0afde85",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:43.129231Z",
-     "iopub.status.busy": "2025-05-08T04:07:43.128931Z",
-     "iopub.status.idle": "2025-05-08T04:07:43.256468Z",
-     "shell.execute_reply": "2025-05-08T04:07:43.255425Z"
+     "iopub.execute_input": "2025-05-08T04:54:55.523636Z",
+     "iopub.status.busy": "2025-05-08T04:54:55.523341Z",
+     "iopub.status.idle": "2025-05-08T04:54:55.643859Z",
+     "shell.execute_reply": "2025-05-08T04:54:55.642898Z"
     },
     "papermill": {
-     "duration": 0.133326,
-     "end_time": "2025-05-08T04:07:43.258174",
+     "duration": 0.126093,
+     "end_time": "2025-05-08T04:54:55.645368",
      "exception": false,
-     "start_time": "2025-05-08T04:07:43.124848",
+     "start_time": "2025-05-08T04:54:55.519275",
      "status": "completed"
     },
     "tags": []
@@ -276,19 +276,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "679c8deb",
+   "id": "568221fd",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:43.266555Z",
-     "iopub.status.busy": "2025-05-08T04:07:43.266233Z",
-     "iopub.status.idle": "2025-05-08T04:07:45.214633Z",
-     "shell.execute_reply": "2025-05-08T04:07:45.213853Z"
+     "iopub.execute_input": "2025-05-08T04:54:55.653466Z",
+     "iopub.status.busy": "2025-05-08T04:54:55.652777Z",
+     "iopub.status.idle": "2025-05-08T04:54:57.464422Z",
+     "shell.execute_reply": "2025-05-08T04:54:57.463406Z"
     },
     "papermill": {
-     "duration": 1.954343,
-     "end_time": "2025-05-08T04:07:45.216220",
+     "duration": 1.817159,
+     "end_time": "2025-05-08T04:54:57.465867",
      "exception": false,
-     "start_time": "2025-05-08T04:07:43.261877",
+     "start_time": "2025-05-08T04:54:55.648708",
      "status": "completed"
     },
     "tags": []
@@ -381,19 +381,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "23d5643a",
+   "id": "a284931a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:45.224888Z",
-     "iopub.status.busy": "2025-05-08T04:07:45.224127Z",
-     "iopub.status.idle": "2025-05-08T04:07:45.336698Z",
-     "shell.execute_reply": "2025-05-08T04:07:45.335685Z"
+     "iopub.execute_input": "2025-05-08T04:54:57.474887Z",
+     "iopub.status.busy": "2025-05-08T04:54:57.473863Z",
+     "iopub.status.idle": "2025-05-08T04:54:57.580959Z",
+     "shell.execute_reply": "2025-05-08T04:54:57.580053Z"
     },
     "papermill": {
-     "duration": 0.118801,
-     "end_time": "2025-05-08T04:07:45.338624",
+     "duration": 0.112941,
+     "end_time": "2025-05-08T04:54:57.582587",
      "exception": false,
-     "start_time": "2025-05-08T04:07:45.219823",
+     "start_time": "2025-05-08T04:54:57.469646",
      "status": "completed"
     },
     "tags": []
@@ -419,13 +419,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f4f8f1cb",
+   "id": "0e178364",
    "metadata": {
     "papermill": {
-     "duration": 0.003398,
-     "end_time": "2025-05-08T04:07:45.345887",
+     "duration": 0.003328,
+     "end_time": "2025-05-08T04:54:57.589561",
      "exception": false,
-     "start_time": "2025-05-08T04:07:45.342489",
+     "start_time": "2025-05-08T04:54:57.586233",
      "status": "completed"
     },
     "tags": []
@@ -437,19 +437,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "de41844f",
+   "id": "20af8c2a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:07:45.354574Z",
-     "iopub.status.busy": "2025-05-08T04:07:45.354272Z",
-     "iopub.status.idle": "2025-05-08T04:08:01.944290Z",
-     "shell.execute_reply": "2025-05-08T04:08:01.943339Z"
+     "iopub.execute_input": "2025-05-08T04:54:57.597669Z",
+     "iopub.status.busy": "2025-05-08T04:54:57.597356Z",
+     "iopub.status.idle": "2025-05-08T04:55:13.426146Z",
+     "shell.execute_reply": "2025-05-08T04:55:13.425182Z"
     },
     "papermill": {
-     "duration": 16.596983,
-     "end_time": "2025-05-08T04:08:01.946509",
+     "duration": 15.834627,
+     "end_time": "2025-05-08T04:55:13.427757",
      "exception": false,
-     "start_time": "2025-05-08T04:07:45.349526",
+     "start_time": "2025-05-08T04:54:57.593130",
      "status": "completed"
     },
     "tags": []
@@ -488,19 +488,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "e3c1a1a2",
+   "id": "b83c667c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:08:01.957206Z",
-     "iopub.status.busy": "2025-05-08T04:08:01.956357Z",
-     "iopub.status.idle": "2025-05-08T04:08:01.967901Z",
-     "shell.execute_reply": "2025-05-08T04:08:01.966742Z"
+     "iopub.execute_input": "2025-05-08T04:55:13.437815Z",
+     "iopub.status.busy": "2025-05-08T04:55:13.437438Z",
+     "iopub.status.idle": "2025-05-08T04:55:14.535015Z",
+     "shell.execute_reply": "2025-05-08T04:55:14.533910Z"
     },
     "papermill": {
-     "duration": 0.018247,
-     "end_time": "2025-05-08T04:08:01.969401",
+     "duration": 1.104676,
+     "end_time": "2025-05-08T04:55:14.536788",
      "exception": false,
-     "start_time": "2025-05-08T04:08:01.951154",
+     "start_time": "2025-05-08T04:55:13.432112",
      "status": "completed"
     },
     "tags": []
@@ -508,143 +508,19 @@
    "outputs": [
     {
      "data": {
-      "text/html": [
-       "<div>\n",
-       "<style scoped>\n",
-       "    .dataframe tbody tr th:only-of-type {\n",
-       "        vertical-align: middle;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe tbody tr th {\n",
-       "        vertical-align: top;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe thead th {\n",
-       "        text-align: right;\n",
-       "    }\n",
-       "</style>\n",
-       "<table border=\"1\" class=\"dataframe\">\n",
-       "  <thead>\n",
-       "    <tr style=\"text-align: right;\">\n",
-       "      <th></th>\n",
-       "      <th>id</th>\n",
-       "      <th>article</th>\n",
-       "      <th>highlights</th>\n",
-       "    </tr>\n",
-       "  </thead>\n",
-       "  <tbody>\n",
-       "    <tr>\n",
-       "      <th>0</th>\n",
-       "      <td>0001d1afc246a7964130f43ae940af6bc6c57f01</td>\n",
-       "      <td>By . Associated Press . PUBLISHED: . 14:11 EST...</td>\n",
-       "      <td>Bishop John Folda, of North Dakota, is taking ...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>1</th>\n",
-       "      <td>0002095e55fcbd3a2f366d9bf92a95433dc305ef</td>\n",
-       "      <td>(CNN) -- Ralph Mata was an internal affairs li...</td>\n",
-       "      <td>Criminal complaint: Cop used his role to help ...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>2</th>\n",
-       "      <td>00027e965c8264c35cc1bc55556db388da82b07f</td>\n",
-       "      <td>A drunk driver who killed a young woman in a h...</td>\n",
-       "      <td>Craig Eccleston-Todd, 27, had drunk at least t...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>3</th>\n",
-       "      <td>0002c17436637c4fe1837c935c04de47adb18e9a</td>\n",
-       "      <td>(CNN) -- With a breezy sweep of his pen Presid...</td>\n",
-       "      <td>Nina dos Santos says Europe must be ready to a...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>4</th>\n",
-       "      <td>0003ad6ef0c37534f80b55b4235108024b407f0b</td>\n",
-       "      <td>Fleetwood are the only team still to have a 10...</td>\n",
-       "      <td>Fleetwood top of League One after 2-0 win at S...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>...</th>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "      <td>...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>287108</th>\n",
-       "      <td>fffdfb56fdf1a12d364562cc2b9b1d4de7481dee</td>\n",
-       "      <td>By . James Rush . Former first daughter Chelse...</td>\n",
-       "      <td>Chelsea Clinton said question of running for o...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>287109</th>\n",
-       "      <td>fffeecb8690b85de8c3faed80adbc7a978f9ae2a</td>\n",
-       "      <td>An apologetic Vanilla Ice has given his first ...</td>\n",
-       "      <td>Vanilla Ice, 47 - real name Robert Van Winkle ...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>287110</th>\n",
-       "      <td>ffff5231e4c71544bc6c97015cdb16c60e42b3f4</td>\n",
-       "      <td>America's most lethal sniper claimed he wished...</td>\n",
-       "      <td>America's most lethal sniper made comment in i...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>287111</th>\n",
-       "      <td>ffff924b14a8d82058b6c1c5368ff1113c1632af</td>\n",
-       "      <td>By . Sara Malm . PUBLISHED: . 12:19 EST, 8 Mar...</td>\n",
-       "      <td>A swarm of more than one million has crossed b...</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>287112</th>\n",
-       "      <td>ffffd563a96104f5cf4493cfa701a65f31b06abf</td>\n",
-       "      <td>(CNN)Former Florida Gov. Jeb Bush has decided ...</td>\n",
-       "      <td>Other 2016 hopefuls maintain that Bush's annou...</td>\n",
-       "    </tr>\n",
-       "  </tbody>\n",
-       "</table>\n",
-       "<p>287113 rows × 3 columns</p>\n",
-       "</div>"
-      ],
       "text/plain": [
-       "                                              id  \\\n",
-       "0       0001d1afc246a7964130f43ae940af6bc6c57f01   \n",
-       "1       0002095e55fcbd3a2f366d9bf92a95433dc305ef   \n",
-       "2       00027e965c8264c35cc1bc55556db388da82b07f   \n",
-       "3       0002c17436637c4fe1837c935c04de47adb18e9a   \n",
-       "4       0003ad6ef0c37534f80b55b4235108024b407f0b   \n",
-       "...                                          ...   \n",
-       "287108  fffdfb56fdf1a12d364562cc2b9b1d4de7481dee   \n",
-       "287109  fffeecb8690b85de8c3faed80adbc7a978f9ae2a   \n",
-       "287110  ffff5231e4c71544bc6c97015cdb16c60e42b3f4   \n",
-       "287111  ffff924b14a8d82058b6c1c5368ff1113c1632af   \n",
-       "287112  ffffd563a96104f5cf4493cfa701a65f31b06abf   \n",
-       "\n",
-       "                                                  article  \\\n",
-       "0       By . Associated Press . PUBLISHED: . 14:11 EST...   \n",
-       "1       (CNN) -- Ralph Mata was an internal affairs li...   \n",
-       "2       A drunk driver who killed a young woman in a h...   \n",
-       "3       (CNN) -- With a breezy sweep of his pen Presid...   \n",
-       "4       Fleetwood are the only team still to have a 10...   \n",
-       "...                                                   ...   \n",
-       "287108  By . James Rush . Former first daughter Chelse...   \n",
-       "287109  An apologetic Vanilla Ice has given his first ...   \n",
-       "287110  America's most lethal sniper claimed he wished...   \n",
-       "287111  By . Sara Malm . PUBLISHED: . 12:19 EST, 8 Mar...   \n",
-       "287112  (CNN)Former Florida Gov. Jeb Bush has decided ...   \n",
-       "\n",
-       "                                               highlights  \n",
-       "0       Bishop John Folda, of North Dakota, is taking ...  \n",
-       "1       Criminal complaint: Cop used his role to help ...  \n",
-       "2       Craig Eccleston-Todd, 27, had drunk at least t...  \n",
-       "3       Nina dos Santos says Europe must be ready to a...  \n",
-       "4       Fleetwood top of League One after 2-0 win at S...  \n",
-       "...                                                   ...  \n",
-       "287108  Chelsea Clinton said question of running for o...  \n",
-       "287109  Vanilla Ice, 47 - real name Robert Van Winkle ...  \n",
-       "287110  America's most lethal sniper made comment in i...  \n",
-       "287111  A swarm of more than one million has crossed b...  \n",
-       "287112  Other 2016 hopefuls maintain that Bush's annou...  \n",
-       "\n",
-       "[287113 rows x 3 columns]"
+       "0         By . Associated Press . PUBLISHED: . 14:11 EST...\n",
+       "1          Ralph Mata was an internal affairs lieutenant...\n",
+       "2         A drunk driver who killed a young woman in a h...\n",
+       "3          With a breezy sweep of his pen President Vlad...\n",
+       "4         Fleetwood are the only team still to have a 10...\n",
+       "                                ...                        \n",
+       "287108    By . James Rush . Former first daughter Chelse...\n",
+       "287109    An apologetic Vanilla Ice has given his first ...\n",
+       "287110    America's most lethal sniper claimed he wished...\n",
+       "287111    By . Sara Malm . PUBLISHED: . 12:19 EST, 8 Mar...\n",
+       "287112    (CNN)Former Florida Gov. Jeb Bush has decided ...\n",
+       "Name: article, Length: 287113, dtype: object"
       ]
      },
      "execution_count": 9,
@@ -653,25 +529,25 @@
     }
    ],
    "source": [
-    "train"
+    "train.article.apply(lambda x: x.replace('(CNN) --',''))"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "ae100ac8",
+   "id": "24dd2dd6",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:08:01.980631Z",
-     "iopub.status.busy": "2025-05-08T04:08:01.980311Z",
-     "iopub.status.idle": "2025-05-08T04:09:52.696543Z",
-     "shell.execute_reply": "2025-05-08T04:09:52.695452Z"
+     "iopub.execute_input": "2025-05-08T04:55:14.546629Z",
+     "iopub.status.busy": "2025-05-08T04:55:14.546277Z",
+     "iopub.status.idle": "2025-05-08T04:55:15.204352Z",
+     "shell.execute_reply": "2025-05-08T04:55:15.203419Z"
     },
     "papermill": {
-     "duration": 110.724419,
-     "end_time": "2025-05-08T04:09:52.698663",
+     "duration": 0.664986,
+     "end_time": "2025-05-08T04:55:15.206109",
      "exception": false,
-     "start_time": "2025-05-08T04:08:01.974244",
+     "start_time": "2025-05-08T04:55:14.541123",
      "status": "completed"
     },
     "tags": []
@@ -679,64 +555,71 @@
    "outputs": [],
    "source": [
     "total_cnn = 0\n",
+    "total_UPDATED = 0\n",
+    "total_PUBLISHED = 0\n",
+    "total_cnn___ = 0\n",
     "\n",
     "for article in train.article:\n",
-    "    for word in article:\n",
-    "        if 'cnn' in word.lower():\n",
-    "            total_cnn += 1"
+    "    if '(CNN) --' in article:\n",
+    "        total_cnn___ += 1\n",
+    "    # for word in article.split(' '):\n",
+    "        \n",
+    "    #     if '(cnn)' in word.lower():\n",
+    "    #         total_cnn += 1\n",
+    "            \n",
+    "    #     if 'UPDATED' in word:\n",
+    "    #         total_UPDATED += 1\n",
+    "            \n",
+    "    #     if 'PUBLISHED' in word:\n",
+    "    #         total_PUBLISHED += 1"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 11,
-   "id": "1a9bfb8d",
+   "id": "208f518c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:09:52.710660Z",
-     "iopub.status.busy": "2025-05-08T04:09:52.710370Z",
-     "iopub.status.idle": "2025-05-08T04:09:52.715714Z",
-     "shell.execute_reply": "2025-05-08T04:09:52.714897Z"
+     "iopub.execute_input": "2025-05-08T04:55:15.216399Z",
+     "iopub.status.busy": "2025-05-08T04:55:15.215706Z",
+     "iopub.status.idle": "2025-05-08T04:55:15.221244Z",
+     "shell.execute_reply": "2025-05-08T04:55:15.220081Z"
     },
     "papermill": {
-     "duration": 0.01382,
-     "end_time": "2025-05-08T04:09:52.717423",
+     "duration": 0.012532,
+     "end_time": "2025-05-08T04:55:15.223031",
      "exception": false,
-     "start_time": "2025-05-08T04:09:52.703603",
+     "start_time": "2025-05-08T04:55:15.210499",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "By . Associated Press . PUBLISHED: . 14:11 EST, 25 October 2013 . | . UPDATED: . 15:36 EST, 25 October 2013 . The bishop of the Fargo Catholic Diocese in North Dakota has exposed potentially hundreds of church members in Fargo, Grand Forks and Jamestown to the hepatitis A virus in late September and early October. The state Health Department has issued an advisory of exposure for anyone who attended five churches and took communion. Bishop John Folda (pictured) of the Fargo Catholic Diocese in North Dakota has exposed potentially hundreds of church members in Fargo, Grand Forks and Jamestown to the hepatitis A . State Immunization Program Manager Molly Howell says the risk is low, but officials feel it's important to alert people to the possible exposure. The diocese announced on Monday that Bishop John Folda is taking time off after being diagnosed with hepatitis A. The diocese says he contracted the infection through contaminated food while attending a conference for newly ordained bishops in Italy last month. Symptoms of hepatitis A include fever, tiredness, loss of appetite, nausea and abdominal discomfort. Fargo Catholic Diocese in North Dakota (pictured) is where the bishop is located .\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
-    "for article in train.article:\n",
-    "    print(article)\n",
-    "    break"
+    "for sentence in train.iloc[6,1].split('.'):\n",
+    "    word_list = sentence.split(' ')\n",
+    "    # print(len(word_list))\n",
+    "    # print(word_list)\n",
+    "    # print(sentence, end=\"\\n\\n\")\n",
+    "\n"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "34cf0c75",
+   "id": "c5cad138",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-05-08T04:09:52.728056Z",
-     "iopub.status.busy": "2025-05-08T04:09:52.727701Z",
-     "iopub.status.idle": "2025-05-08T04:09:52.733526Z",
-     "shell.execute_reply": "2025-05-08T04:09:52.732506Z"
+     "iopub.execute_input": "2025-05-08T04:55:15.233294Z",
+     "iopub.status.busy": "2025-05-08T04:55:15.232564Z",
+     "iopub.status.idle": "2025-05-08T04:55:15.238390Z",
+     "shell.execute_reply": "2025-05-08T04:55:15.237476Z"
     },
     "papermill": {
-     "duration": 0.012852,
-     "end_time": "2025-05-08T04:09:52.735026",
+     "duration": 0.012398,
+     "end_time": "2025-05-08T04:55:15.239864",
      "exception": false,
-     "start_time": "2025-05-08T04:09:52.722174",
+     "start_time": "2025-05-08T04:55:15.227466",
      "status": "completed"
     },
     "tags": []
@@ -745,7 +628,7 @@
     {
      "data": {
       "text/plain": [
-       "0"
+       "(0, 0, 0)"
       ]
      },
      "execution_count": 12,
@@ -754,8 +637,25 @@
     }
    ],
    "source": [
-    "total_cnn"
+    "total_cnn, total_UPDATED, total_PUBLISHED"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e9ca94f7",
+   "metadata": {
+    "papermill": {
+     "duration": 0.004103,
+     "end_time": "2025-05-08T04:55:15.248411",
+     "exception": false,
+     "start_time": "2025-05-08T04:55:15.244308",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
@@ -793,14 +693,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 174.266128,
-   "end_time": "2025-05-08T04:09:53.863864",
+   "duration": 62.192572,
+   "end_time": "2025-05-08T04:55:16.373708",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-05-08T04:06:59.597736",
+   "start_time": "2025-05-08T04:54:14.181136",
    "version": "2.6.0"
   }
  },
