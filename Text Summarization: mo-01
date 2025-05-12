@@ -1,0 +1,967 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "582cfefb",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003881,
+     "end_time": "2025-05-12T09:49:51.629060",
+     "exception": false,
+     "start_time": "2025-05-12T09:49:51.625179",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## `mo-01`\n",
+    "\n",
+    "***\n",
+    "\n",
+    "\n",
+    "#### Configurations\n",
+    "\n",
+    "\n",
+    "max_words = 50,000 out of 8+ LKH\n",
+    "\n",
+    "total_datapoints = 10,000 out of 1,68,747"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "accfe7fb",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:49:51.636634Z",
+     "iopub.status.busy": "2025-05-12T09:49:51.636335Z",
+     "iopub.status.idle": "2025-05-12T09:49:53.163285Z",
+     "shell.execute_reply": "2025-05-12T09:49:53.162557Z"
+    },
+    "papermill": {
+     "duration": 1.532585,
+     "end_time": "2025-05-12T09:49:53.164981",
+     "exception": false,
+     "start_time": "2025-05-12T09:49:51.632396",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/newspaper-text-summarization-cnn-dailymail/cnn_dailymail/validation.csv\n",
+      "/kaggle/input/newspaper-text-summarization-cnn-dailymail/cnn_dailymail/train.csv\n",
+      "/kaggle/input/newspaper-text-summarization-cnn-dailymail/cnn_dailymail/test.csv\n",
+      "/kaggle/input/text-summarization-preprocessing/tokenizer_50000.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__results__.html\n",
+      "/kaggle/input/text-summarization-preprocessing/target_sequences.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/input_sequences.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__notebook__.ipynb\n",
+      "/kaggle/input/text-summarization-preprocessing/__output__.json\n",
+      "/kaggle/input/text-summarization-preprocessing/custom.css\n",
+      "/kaggle/input/text-summarization-preprocessing/__results___files/__results___10_1.png\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0741a399",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003791,
+     "end_time": "2025-05-12T09:49:53.173305",
+     "exception": false,
+     "start_time": "2025-05-12T09:49:53.169514",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Dependencies"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "8dca6fa5",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:49:53.183812Z",
+     "iopub.status.busy": "2025-05-12T09:49:53.182876Z",
+     "iopub.status.idle": "2025-05-12T09:50:06.535039Z",
+     "shell.execute_reply": "2025-05-12T09:50:06.534477Z"
+    },
+    "papermill": {
+     "duration": 13.358762,
+     "end_time": "2025-05-12T09:50:06.536458",
+     "exception": false,
+     "start_time": "2025-05-12T09:49:53.177696",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2025-05-12 09:49:55.886837: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
+      "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n",
+      "E0000 00:00:1747043396.075034      19 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
+      "E0000 00:00:1747043396.127779      19 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pickle\n",
+    "import numpy as np\n",
+    "\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from tensorflow.keras.models import Model\n",
+    "from tensorflow.keras.layers import Input, Embedding, LSTM, Dense\n",
+    "from tensorflow.keras.optimizers import Adam\n",
+    "from tensorflow.keras.preprocessing.sequence import pad_sequences"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9021ad97",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002968,
+     "end_time": "2025-05-12T09:50:06.542790",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:06.539822",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Importing preprocessed data "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "2827fee1",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:06.549847Z",
+     "iopub.status.busy": "2025-05-12T09:50:06.549381Z",
+     "iopub.status.idle": "2025-05-12T09:50:11.262109Z",
+     "shell.execute_reply": "2025-05-12T09:50:11.261307Z"
+    },
+    "papermill": {
+     "duration": 4.717779,
+     "end_time": "2025-05-12T09:50:11.263584",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:06.545805",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "tokenizer = pickle.load(open('/kaggle/input/text-summarization-preprocessing/tokenizer_50000.pkl', 'rb'))\n",
+    "input_sequences = pickle.load(open('/kaggle/input/text-summarization-preprocessing/input_sequences.pkl', 'rb'))\n",
+    "target_sequences = pickle.load(open('/kaggle/input/text-summarization-preprocessing/target_sequences.pkl', 'rb'))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "402d6836",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003062,
+     "end_time": "2025-05-12T09:50:11.270109",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:11.267047",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## If we apply teacher forcing then we not need to be `-100` values of target set"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "1160d398",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:11.277042Z",
+     "iopub.status.busy": "2025-05-12T09:50:11.276812Z",
+     "iopub.status.idle": "2025-05-12T09:50:18.892148Z",
+     "shell.execute_reply": "2025-05-12T09:50:18.891349Z"
+    },
+    "papermill": {
+     "duration": 7.620493,
+     "end_time": "2025-05-12T09:50:18.893619",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:11.273126",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "target_sequences = [[max(0,element) for element in array] for array in target_sequences]\n",
+    "target_sequences = np.array(target_sequences)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "a95d286d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:18.901158Z",
+     "iopub.status.busy": "2025-05-12T09:50:18.900928Z",
+     "iopub.status.idle": "2025-05-12T09:50:18.904371Z",
+     "shell.execute_reply": "2025-05-12T09:50:18.903718Z"
+    },
+    "papermill": {
+     "duration": 0.008359,
+     "end_time": "2025-05-12T09:50:18.905558",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.897199",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "max_data_points = 100000\n",
+    "input_sequences = input_sequences[:max_data_points]\n",
+    "target_sequences = target_sequences[:max_data_points]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "a79e68d3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:18.912624Z",
+     "iopub.status.busy": "2025-05-12T09:50:18.912229Z",
+     "iopub.status.idle": "2025-05-12T09:50:18.915490Z",
+     "shell.execute_reply": "2025-05-12T09:50:18.914822Z"
+    },
+    "papermill": {
+     "duration": 0.007965,
+     "end_time": "2025-05-12T09:50:18.916610",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.908645",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "enc_input_data = input_sequences \n",
+    "dec_input_data = target_sequences\n",
+    "dec_target_data = np.expand_dims(target_sequences, -1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "9725a5bb",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:18.923658Z",
+     "iopub.status.busy": "2025-05-12T09:50:18.923063Z",
+     "iopub.status.idle": "2025-05-12T09:50:18.927817Z",
+     "shell.execute_reply": "2025-05-12T09:50:18.927315Z"
+    },
+    "papermill": {
+     "duration": 0.009108,
+     "end_time": "2025-05-12T09:50:18.928762",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.919654",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "((100000, 700), (100000, 150), (100000, 150, 1))"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "enc_input_data.shape, dec_input_data.shape, dec_target_data.shape "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fb394077",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003043,
+     "end_time": "2025-05-12T09:50:18.935041",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.931998",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "<!-- ## Data splitting -->"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "4162d121",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:18.941954Z",
+     "iopub.status.busy": "2025-05-12T09:50:18.941752Z",
+     "iopub.status.idle": "2025-05-12T09:50:18.944489Z",
+     "shell.execute_reply": "2025-05-12T09:50:18.943996Z"
+    },
+    "papermill": {
+     "duration": 0.007274,
+     "end_time": "2025-05-12T09:50:18.945469",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.938195",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# X_train, X_test, y_train, y_test = train_test_split(input_sequences, target_sequences, random_state=42, test_size=0.1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7307a790",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003021,
+     "end_time": "2025-05-12T09:50:18.951583",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.948562",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Model Architecture"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "8c200919",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:18.958603Z",
+     "iopub.status.busy": "2025-05-12T09:50:18.958363Z",
+     "iopub.status.idle": "2025-05-12T09:50:21.532793Z",
+     "shell.execute_reply": "2025-05-12T09:50:21.532209Z"
+    },
+    "papermill": {
+     "duration": 2.579438,
+     "end_time": "2025-05-12T09:50:21.534128",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:18.954690",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "I0000 00:00:1747043419.972949      19 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 15513 MB memory:  -> device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:00:04.0, compute capability: 6.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "# Define parameters\n",
+    "vocab_size = 50000\n",
+    "embedding_dim = 256\n",
+    "latent_dim = 512\n",
+    "input_length = 700\n",
+    "target_length = 150\n",
+    "\n",
+    "\n",
+    "# ---------------- Encoder ----------------\n",
+    "\n",
+    "# Input\n",
+    "encoder_inputs = Input(shape=(input_length,), name=\"ENC_input\")\n",
+    "\n",
+    "# Embedding\n",
+    "enc_emb = Embedding(\n",
+    "    name = \"ENC_embeddings\",\n",
+    "    input_dim = vocab_size, \n",
+    "    output_dim = embedding_dim, \n",
+    "    mask_zero = True\n",
+    ")(encoder_inputs)\n",
+    "\n",
+    "# LSTM\n",
+    "encoder_outputs, state_h, state_c = LSTM( latent_dim, name=\"ENC_lstm\", return_state = True)(enc_emb)\n",
+    "\n",
+    "\n",
+    "# ----------------- Decoder ------------------\n",
+    "\n",
+    "# Decoder's Input (Teacher forcing)\n",
+    "decoder_inputs = Input( shape = (target_length,), name=\"DEC_input\")\n",
+    "\n",
+    "# Embedding\n",
+    "dec_emb = Embedding(\n",
+    "    name = \"DEC_embeddings\",\n",
+    "    input_dim = vocab_size, \n",
+    "    output_dim = embedding_dim, \n",
+    "    mask_zero = True\n",
+    ")(decoder_inputs)\n",
+    "\n",
+    "# LSTM (Parsing context vectors)\n",
+    "decoder_lstm = LSTM( latent_dim, name=\"DEC_lstm\", return_sequences=True)(dec_emb, initial_state=[state_h, state_c])\n",
+    "\n",
+    "# Decoder's output\n",
+    "decoder_outputs = Dense( vocab_size,name=\"softmax\", activation='softmax')(decoder_lstm) \n",
+    "\n",
+    "\n",
+    "# ----- Define Model -----\n",
+    "model = Model([encoder_inputs, decoder_inputs], decoder_outputs)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "6dbea12e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:21.544350Z",
+     "iopub.status.busy": "2025-05-12T09:50:21.543878Z",
+     "iopub.status.idle": "2025-05-12T09:50:21.567981Z",
+     "shell.execute_reply": "2025-05-12T09:50:21.567449Z"
+    },
+    "papermill": {
+     "duration": 0.031308,
+     "end_time": "2025-05-12T09:50:21.569019",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:21.537711",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"functional\"</span>\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1mModel: \"functional\"\u001b[0m\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓\n",
+       "┃<span style=\"font-weight: bold\"> Layer (type)              </span>┃<span style=\"font-weight: bold\"> Output Shape           </span>┃<span style=\"font-weight: bold\">        Param # </span>┃<span style=\"font-weight: bold\"> Connected to           </span>┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩\n",
+       "│ ENC_input (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">InputLayer</span>)    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>)            │              <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_input (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">InputLayer</span>)    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>)            │              <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_embeddings            │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">256</span>)       │     <span style=\"color: #00af00; text-decoration-color: #00af00\">12,800,000</span> │ ENC_input[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ not_equal (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">NotEqual</span>)      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>)            │              <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ ENC_input[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_embeddings            │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">256</span>)       │     <span style=\"color: #00af00; text-decoration-color: #00af00\">12,800,000</span> │ DEC_input[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)           │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">512</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,   │      <span style=\"color: #00af00; text-decoration-color: #00af00\">1,574,912</span> │ ENC_embeddings[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],  │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">512</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">512</span>)]     │                │ not_equal[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">512</span>)       │      <span style=\"color: #00af00; text-decoration-color: #00af00\">1,574,912</span> │ DEC_embeddings[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],  │\n",
+       "│                           │                        │                │ ENC_lstm[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>],        │\n",
+       "│                           │                        │                │ ENC_lstm[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">2</span>]         │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ softmax (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">50000</span>)     │     <span style=\"color: #00af00; text-decoration-color: #00af00\">25,650,000</span> │ DEC_lstm[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]         │\n",
+       "└───────────────────────────┴────────────────────────┴────────────────┴────────────────────────┘\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓\n",
+       "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)             \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape          \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m       Param #\u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mConnected to          \u001b[0m\u001b[1m \u001b[0m┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩\n",
+       "│ ENC_input (\u001b[38;5;33mInputLayer\u001b[0m)    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m)            │              \u001b[38;5;34m0\u001b[0m │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_input (\u001b[38;5;33mInputLayer\u001b[0m)    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m)            │              \u001b[38;5;34m0\u001b[0m │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_embeddings            │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m, \u001b[38;5;34m256\u001b[0m)       │     \u001b[38;5;34m12,800,000\u001b[0m │ ENC_input[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "│ (\u001b[38;5;33mEmbedding\u001b[0m)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ not_equal (\u001b[38;5;33mNotEqual\u001b[0m)      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m)            │              \u001b[38;5;34m0\u001b[0m │ ENC_input[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_embeddings            │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m256\u001b[0m)       │     \u001b[38;5;34m12,800,000\u001b[0m │ DEC_input[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "│ (\u001b[38;5;33mEmbedding\u001b[0m)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm (\u001b[38;5;33mLSTM\u001b[0m)           │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m512\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,   │      \u001b[38;5;34m1,574,912\u001b[0m │ ENC_embeddings[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],  │\n",
+       "│                           │ \u001b[38;5;34m512\u001b[0m), (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m512\u001b[0m)]     │                │ not_equal[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm (\u001b[38;5;33mLSTM\u001b[0m)           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m512\u001b[0m)       │      \u001b[38;5;34m1,574,912\u001b[0m │ DEC_embeddings[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],  │\n",
+       "│                           │                        │                │ ENC_lstm[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m1\u001b[0m],        │\n",
+       "│                           │                        │                │ ENC_lstm[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m2\u001b[0m]         │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ softmax (\u001b[38;5;33mDense\u001b[0m)           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m50000\u001b[0m)     │     \u001b[38;5;34m25,650,000\u001b[0m │ DEC_lstm[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]         │\n",
+       "└───────────────────────────┴────────────────────────┴────────────────┴────────────────────────┘\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">54,399,824</span> (207.52 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m54,399,824\u001b[0m (207.52 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">54,399,824</span> (207.52 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m54,399,824\u001b[0m (207.52 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "\n",
+    "\n",
+    "model.compile(optimizer=Adam(learning_rate=0.001), loss='sparse_categorical_crossentropy')\n",
+    "\n",
+    "model.summary()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "e84d054f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T09:50:21.577861Z",
+     "iopub.status.busy": "2025-05-12T09:50:21.577452Z",
+     "iopub.status.idle": "2025-05-12T20:37:51.190190Z",
+     "shell.execute_reply": "2025-05-12T20:37:51.189628Z"
+    },
+    "papermill": {
+     "duration": 38849.618024,
+     "end_time": "2025-05-12T20:37:51.191321",
+     "exception": false,
+     "start_time": "2025-05-12T09:50:21.573297",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Epoch 1/50\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "I0000 00:00:1747043426.995494      58 cuda_dnn.cc:529] Loaded cuDNN version 90300\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m781s\u001b[0m 497ms/step - loss: 5.3129\n",
+      "Epoch 2/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 0.5770\n",
+      "Epoch 3/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 497ms/step - loss: 0.1586\n",
+      "Epoch 4/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 0.0549\n",
+      "Epoch 5/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 0.0212\n",
+      "Epoch 6/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 0.0090\n",
+      "Epoch 7/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 0.0043\n",
+      "Epoch 8/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 0.0020\n",
+      "Epoch 9/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 7.5484e-04\n",
+      "Epoch 10/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 2.9220e-04\n",
+      "Epoch 11/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 1.4072e-04\n",
+      "Epoch 12/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 498ms/step - loss: 8.1592e-05\n",
+      "Epoch 13/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 5.5785e-05\n",
+      "Epoch 14/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 4.0593e-05\n",
+      "Epoch 15/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 3.0714e-05\n",
+      "Epoch 16/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 2.4081e-05\n",
+      "Epoch 17/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 1.9462e-05\n",
+      "Epoch 18/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 1.6292e-05\n",
+      "Epoch 19/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 1.4316e-05\n",
+      "Epoch 20/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 1.2789e-05\n",
+      "Epoch 21/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 1.1651e-05\n",
+      "Epoch 22/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 496ms/step - loss: 1.0579e-05\n",
+      "Epoch 23/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 9.8008e-06\n",
+      "Epoch 24/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 9.0371e-06\n",
+      "Epoch 25/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 496ms/step - loss: 8.5500e-06\n",
+      "Epoch 26/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 8.0154e-06\n",
+      "Epoch 27/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 7.5681e-06\n",
+      "Epoch 28/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 498ms/step - loss: 7.1659e-06\n",
+      "Epoch 29/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 6.8305e-06\n",
+      "Epoch 30/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 6.5020e-06\n",
+      "Epoch 31/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 6.2265e-06\n",
+      "Epoch 32/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 5.9984e-06\n",
+      "Epoch 33/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 5.6965e-06\n",
+      "Epoch 34/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 5.4808e-06\n",
+      "Epoch 35/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 497ms/step - loss: 5.3023e-06\n",
+      "Epoch 36/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 498ms/step - loss: 5.1074e-06\n",
+      "Epoch 37/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 4.9063e-06\n",
+      "Epoch 38/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 498ms/step - loss: 4.7504e-06\n",
+      "Epoch 39/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 4.5881e-06\n",
+      "Epoch 40/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 498ms/step - loss: 4.4443e-06\n",
+      "Epoch 41/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m778s\u001b[0m 498ms/step - loss: 4.3189e-06\n",
+      "Epoch 42/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 4.1754e-06\n",
+      "Epoch 43/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 4.0846e-06\n",
+      "Epoch 44/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 3.9653e-06\n",
+      "Epoch 45/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 3.8528e-06\n",
+      "Epoch 46/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 497ms/step - loss: 3.7418e-06\n",
+      "Epoch 47/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m776s\u001b[0m 496ms/step - loss: 3.6622e-06\n",
+      "Epoch 48/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 3.5693e-06\n",
+      "Epoch 49/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 3.4939e-06\n",
+      "Epoch 50/50\n",
+      "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m777s\u001b[0m 497ms/step - loss: 3.3998e-06\n"
+     ]
+    }
+   ],
+   "source": [
+    "history = model.fit(\n",
+    "    [enc_input_data, dec_input_data], \n",
+    "    dec_target_data,\n",
+    "    epochs=50, batch_size=64)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "72f63363",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T20:37:58.500873Z",
+     "iopub.status.busy": "2025-05-12T20:37:58.500604Z",
+     "iopub.status.idle": "2025-05-12T20:37:58.504737Z",
+     "shell.execute_reply": "2025-05-12T20:37:58.504169Z"
+    },
+    "papermill": {
+     "duration": 3.508919,
+     "end_time": "2025-05-12T20:37:58.505818",
+     "exception": false,
+     "start_time": "2025-05-12T20:37:54.996899",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "article = \"\"\"\n",
+    " \n",
+    "A massive fire that destroyed a large shopping center in Warsaw last year was the result of arson ordered by Russian intelligence services, Polish officials said Sunday on the eve of the one-year anniversary of the blaze.\n",
+    "\n",
+    "The fire broke out May 12, 2024, in the Marywilska 44 shopping that housed some 1,400 shops and service points. Many of the vendors were from Vietnam, and it inflicted tragedy on many in Warsaw’s Vietnamese community.\n",
+    "\n",
+    "“We now know for certain that the massive fire on Marywilska was the result of arson commissioned by Russian services,” Prime Minister Donald Tusk said on X. “The actions were coordinated by a person residing in Russia. Some of the perpetrators are already in custody, while the rest have been identified and are being sought. We will catch them all!”\n",
+    "\n",
+    "In a joint statement, Justice Minister Adam Bodnar and Interior Minister Tomasz Siemoniak said the May 12, 2024, blaze gutted 1,400 shops and service points. Authorities have been investigating the incident for a year, with support from police and the Internal Security Agency.\n",
+    "\"\"\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "b57b7a8d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T20:38:05.521632Z",
+     "iopub.status.busy": "2025-05-12T20:38:05.521332Z",
+     "iopub.status.idle": "2025-05-12T20:38:05.525808Z",
+     "shell.execute_reply": "2025-05-12T20:38:05.525279Z"
+    },
+    "papermill": {
+     "duration": 3.524239,
+     "end_time": "2025-05-12T20:38:05.526894",
+     "exception": false,
+     "start_time": "2025-05-12T20:38:02.002655",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "max_words_in_input_sentence = 700\n",
+    "\n",
+    "article_tokens = tokenizer.texts_to_sequences([article])\n",
+    "article_seq = pad_sequences(article_tokens, maxlen=max_words_in_input_sentence, padding='post', truncating='post')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "f8b2ea76",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T20:38:12.475757Z",
+     "iopub.status.busy": "2025-05-12T20:38:12.475488Z",
+     "iopub.status.idle": "2025-05-12T20:38:12.829015Z",
+     "shell.execute_reply": "2025-05-12T20:38:12.828459Z"
+    },
+    "papermill": {
+     "duration": 3.989562,
+     "end_time": "2025-05-12T20:38:12.830156",
+     "exception": false,
+     "start_time": "2025-05-12T20:38:08.840594",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m1/1\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m0s\u001b[0m 283ms/step\n"
+     ]
+    }
+   ],
+   "source": [
+    "dec_zero_vector = np.zeros((1,150), dtype='int32')\n",
+    "\n",
+    "predictions = model.predict([article_seq,dec_zero_vector])\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "a7ee4efa",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T20:38:19.866494Z",
+     "iopub.status.busy": "2025-05-12T20:38:19.865952Z",
+     "iopub.status.idle": "2025-05-12T20:38:21.734796Z",
+     "shell.execute_reply": "2025-05-12T20:38:21.733944Z"
+    },
+    "papermill": {
+     "duration": 5.355997,
+     "end_time": "2025-05-12T20:38:21.736022",
+     "exception": false,
+     "start_time": "2025-05-12T20:38:16.380025",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "deceitful understaffed understaffed understaffed charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' charlie' "
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(150):\n",
+    "    word_index = np.argmax(predictions[0][i])\n",
+    "    word = list(tokenizer.word_index.keys())[word_index]\n",
+    "    print(word, end=\" \")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "71be0a06",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-12T20:38:28.622722Z",
+     "iopub.status.busy": "2025-05-12T20:38:28.622034Z",
+     "iopub.status.idle": "2025-05-12T20:38:30.195080Z",
+     "shell.execute_reply": "2025-05-12T20:38:30.194313Z"
+    },
+    "papermill": {
+     "duration": 4.933611,
+     "end_time": "2025-05-12T20:38:30.196786",
+     "exception": false,
+     "start_time": "2025-05-12T20:38:25.263175",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "model.save(\"mo-01.h5\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "gpu",
+   "dataSources": [
+    {
+     "datasetId": 1654566,
+     "sourceId": 2734496,
+     "sourceType": "datasetVersion"
+    },
+    {
+     "sourceId": 239197414,
+     "sourceType": "kernelVersion"
+    }
+   ],
+   "dockerImageVersionId": 31011,
+   "isGpuEnabled": true,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.11"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 38929.217381,
+   "end_time": "2025-05-12T20:38:36.793724",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-05-12T09:49:47.576343",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
