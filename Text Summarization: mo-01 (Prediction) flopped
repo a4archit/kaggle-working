@@ -1,0 +1,597 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "f2537400",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-05-13T15:12:45.140695Z",
+     "iopub.status.busy": "2025-05-13T15:12:45.140381Z",
+     "iopub.status.idle": "2025-05-13T15:12:47.041543Z",
+     "shell.execute_reply": "2025-05-13T15:12:47.040360Z"
+    },
+    "papermill": {
+     "duration": 1.906756,
+     "end_time": "2025-05-13T15:12:47.043423",
+     "exception": false,
+     "start_time": "2025-05-13T15:12:45.136667",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/text-summarization-mo-01/__results__.html\n",
+      "/kaggle/input/text-summarization-mo-01/mo-01.h5\n",
+      "/kaggle/input/text-summarization-mo-01/__notebook__.ipynb\n",
+      "/kaggle/input/text-summarization-mo-01/__output__.json\n",
+      "/kaggle/input/text-summarization-mo-01/custom.css\n",
+      "/kaggle/input/text-summarization-preprocessing/tokenizer_50000.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__results__.html\n",
+      "/kaggle/input/text-summarization-preprocessing/target_sequences.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/input_sequences.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__notebook__.ipynb\n",
+      "/kaggle/input/text-summarization-preprocessing/__output__.json\n",
+      "/kaggle/input/text-summarization-preprocessing/custom.css\n",
+      "/kaggle/input/text-summarization-preprocessing/__results___files/__results___10_1.png\n",
+      "/kaggle/input/text-summarization-mo-02/__results__.html\n",
+      "/kaggle/input/text-summarization-mo-02/mo-02.h5\n",
+      "/kaggle/input/text-summarization-mo-02/__notebook__.ipynb\n",
+      "/kaggle/input/text-summarization-mo-02/mo-02.keras\n",
+      "/kaggle/input/text-summarization-mo-02/__output__.json\n",
+      "/kaggle/input/text-summarization-mo-02/mo-02.weights.h5\n",
+      "/kaggle/input/text-summarization-mo-02/custom.css\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    " \n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os \n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "e76c9e0b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-13T15:12:47.049670Z",
+     "iopub.status.busy": "2025-05-13T15:12:47.049235Z",
+     "iopub.status.idle": "2025-05-13T15:13:04.815060Z",
+     "shell.execute_reply": "2025-05-13T15:13:04.814166Z"
+    },
+    "papermill": {
+     "duration": 17.770636,
+     "end_time": "2025-05-13T15:13:04.816806",
+     "exception": false,
+     "start_time": "2025-05-13T15:12:47.046170",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2025-05-13 15:12:49.113372: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
+      "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n",
+      "E0000 00:00:1747149169.340002      13 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
+      "E0000 00:00:1747149169.416155      13 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "import tensorflow as tf\n",
+    "\n",
+    "from tensorflow.keras.preprocessing.sequence import pad_sequences\n",
+    "from tensorflow.keras.models import load_model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "5a06f2b2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-13T15:13:04.822903Z",
+     "iopub.status.busy": "2025-05-13T15:13:04.822321Z",
+     "iopub.status.idle": "2025-05-13T15:13:12.605500Z",
+     "shell.execute_reply": "2025-05-13T15:13:12.604300Z"
+    },
+    "papermill": {
+     "duration": 7.787825,
+     "end_time": "2025-05-13T15:13:12.607026",
+     "exception": false,
+     "start_time": "2025-05-13T15:13:04.819201",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2025-05-13 15:13:06.709704: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:152] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)\n",
+      "/usr/local/lib/python3.11/dist-packages/keras/src/saving/saving_lib.py:757: UserWarning: Skipping variable loading for optimizer 'rmsprop', because it has 24 variables whereas the saved optimizer has 46 variables. \n",
+      "  saveable.load_own_variables(weights_store.get(inner_path))\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pickle\n",
+    "\n",
+    "tokenizer = pickle.load(open('/kaggle/input/text-summarization-preprocessing/tokenizer_50000.pkl','rb'))\n",
+    "\n",
+    "# # Register the 'NotEqual' op manually\n",
+    "# custom_objects = {'NotEqual': tensorflow.keras.layers.Layer}\n",
+    "\n",
+    "# Load the model\n",
+    "model = load_model('/kaggle/input/text-summarization-mo-02/mo-02.keras')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "80600a37",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-13T15:13:12.612955Z",
+     "iopub.status.busy": "2025-05-13T15:13:12.612587Z",
+     "iopub.status.idle": "2025-05-13T15:13:12.643417Z",
+     "shell.execute_reply": "2025-05-13T15:13:12.642556Z"
+    },
+    "papermill": {
+     "duration": 0.035571,
+     "end_time": "2025-05-13T15:13:12.644898",
+     "exception": false,
+     "start_time": "2025-05-13T15:13:12.609327",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"mo-02\"</span>\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1mModel: \"mo-02\"\u001b[0m\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓\n",
+       "┃<span style=\"font-weight: bold\"> Layer (type)              </span>┃<span style=\"font-weight: bold\"> Output Shape           </span>┃<span style=\"font-weight: bold\">        Param # </span>┃<span style=\"font-weight: bold\"> Connected to           </span>┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩\n",
+       "│ ENC_input (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">InputLayer</span>)    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>)            │              <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_input (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">InputLayer</span>)    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>)            │              <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_embeddings            │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">256</span>)       │     <span style=\"color: #00af00; text-decoration-color: #00af00\">12,800,000</span> │ ENC_input[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ not_equal (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">NotEqual</span>)      │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>)            │              <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ ENC_input[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_embeddings            │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">256</span>)       │     <span style=\"color: #00af00; text-decoration-color: #00af00\">12,800,000</span> │ DEC_input[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)         │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>),      │         <span style=\"color: #00af00; text-decoration-color: #00af00\">82,176</span> │ ENC_embeddings[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],  │\n",
+       "│                           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,     │                │ not_equal[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)]                   │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)         │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>),      │         <span style=\"color: #00af00; text-decoration-color: #00af00\">82,176</span> │ DEC_embeddings[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],  │\n",
+       "│                           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,     │                │ ENC_lstm_1[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>],      │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)]                   │                │ ENC_lstm_1[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">2</span>]       │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)         │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">700</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>),      │         <span style=\"color: #00af00; text-decoration-color: #00af00\">33,024</span> │ ENC_lstm_1[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],      │\n",
+       "│                           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,     │                │ not_equal[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)]                   │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)         │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>),      │         <span style=\"color: #00af00; text-decoration-color: #00af00\">33,024</span> │ DEC_lstm_1[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],      │\n",
+       "│                           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,     │                │ ENC_lstm_2[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>],      │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)]                   │                │ ENC_lstm_2[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">2</span>]       │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)         │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,    │         <span style=\"color: #00af00; text-decoration-color: #00af00\">33,024</span> │ ENC_lstm_2[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],      │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)]       │                │ not_equal[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)         │ [(<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>),      │         <span style=\"color: #00af00; text-decoration-color: #00af00\">33,024</span> │ DEC_lstm_2[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>],      │\n",
+       "│                           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>), (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>,     │                │ ENC_lstm_3[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>],      │\n",
+       "│                           │ <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)]                   │                │ ENC_lstm_3[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">2</span>]       │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ softmax (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)           │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">150</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">50000</span>)     │      <span style=\"color: #00af00; text-decoration-color: #00af00\">3,250,000</span> │ DEC_lstm_3[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]       │\n",
+       "└───────────────────────────┴────────────────────────┴────────────────┴────────────────────────┘\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓\n",
+       "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)             \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape          \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m       Param #\u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mConnected to          \u001b[0m\u001b[1m \u001b[0m┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩\n",
+       "│ ENC_input (\u001b[38;5;33mInputLayer\u001b[0m)    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m)            │              \u001b[38;5;34m0\u001b[0m │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_input (\u001b[38;5;33mInputLayer\u001b[0m)    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m)            │              \u001b[38;5;34m0\u001b[0m │ -                      │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_embeddings            │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m, \u001b[38;5;34m256\u001b[0m)       │     \u001b[38;5;34m12,800,000\u001b[0m │ ENC_input[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "│ (\u001b[38;5;33mEmbedding\u001b[0m)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ not_equal (\u001b[38;5;33mNotEqual\u001b[0m)      │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m)            │              \u001b[38;5;34m0\u001b[0m │ ENC_input[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_embeddings            │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m256\u001b[0m)       │     \u001b[38;5;34m12,800,000\u001b[0m │ DEC_input[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "│ (\u001b[38;5;33mEmbedding\u001b[0m)               │                        │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm_1 (\u001b[38;5;33mLSTM\u001b[0m)         │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m, \u001b[38;5;34m64\u001b[0m),      │         \u001b[38;5;34m82,176\u001b[0m │ ENC_embeddings[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],  │\n",
+       "│                           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,     │                │ not_equal[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "│                           │ \u001b[38;5;34m64\u001b[0m)]                   │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm_1 (\u001b[38;5;33mLSTM\u001b[0m)         │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m64\u001b[0m),      │         \u001b[38;5;34m82,176\u001b[0m │ DEC_embeddings[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],  │\n",
+       "│                           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,     │                │ ENC_lstm_1[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m1\u001b[0m],      │\n",
+       "│                           │ \u001b[38;5;34m64\u001b[0m)]                   │                │ ENC_lstm_1[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m2\u001b[0m]       │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm_2 (\u001b[38;5;33mLSTM\u001b[0m)         │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m700\u001b[0m, \u001b[38;5;34m64\u001b[0m),      │         \u001b[38;5;34m33,024\u001b[0m │ ENC_lstm_1[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],      │\n",
+       "│                           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,     │                │ not_equal[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "│                           │ \u001b[38;5;34m64\u001b[0m)]                   │                │                        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm_2 (\u001b[38;5;33mLSTM\u001b[0m)         │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m64\u001b[0m),      │         \u001b[38;5;34m33,024\u001b[0m │ DEC_lstm_1[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],      │\n",
+       "│                           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,     │                │ ENC_lstm_2[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m1\u001b[0m],      │\n",
+       "│                           │ \u001b[38;5;34m64\u001b[0m)]                   │                │ ENC_lstm_2[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m2\u001b[0m]       │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ ENC_lstm_3 (\u001b[38;5;33mLSTM\u001b[0m)         │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,    │         \u001b[38;5;34m33,024\u001b[0m │ ENC_lstm_2[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],      │\n",
+       "│                           │ \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m)]       │                │ not_equal[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]        │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ DEC_lstm_3 (\u001b[38;5;33mLSTM\u001b[0m)         │ [(\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m64\u001b[0m),      │         \u001b[38;5;34m33,024\u001b[0m │ DEC_lstm_2[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m],      │\n",
+       "│                           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m), (\u001b[38;5;45mNone\u001b[0m,     │                │ ENC_lstm_3[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m1\u001b[0m],      │\n",
+       "│                           │ \u001b[38;5;34m64\u001b[0m)]                   │                │ ENC_lstm_3[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m2\u001b[0m]       │\n",
+       "├───────────────────────────┼────────────────────────┼────────────────┼────────────────────────┤\n",
+       "│ softmax (\u001b[38;5;33mDense\u001b[0m)           │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m150\u001b[0m, \u001b[38;5;34m50000\u001b[0m)     │      \u001b[38;5;34m3,250,000\u001b[0m │ DEC_lstm_3[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]       │\n",
+       "└───────────────────────────┴────────────────────────┴────────────────┴────────────────────────┘\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">58,292,898</span> (222.37 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m58,292,898\u001b[0m (222.37 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">29,146,448</span> (111.18 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m29,146,448\u001b[0m (111.18 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Optimizer params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">29,146,450</span> (111.18 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Optimizer params: \u001b[0m\u001b[38;5;34m29,146,450\u001b[0m (111.18 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "model.summary()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "03690473",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-13T15:13:12.653066Z",
+     "iopub.status.busy": "2025-05-13T15:13:12.652685Z",
+     "iopub.status.idle": "2025-05-13T15:13:17.753470Z",
+     "shell.execute_reply": "2025-05-13T15:13:17.752147Z"
+    },
+    "papermill": {
+     "duration": 5.10655,
+     "end_time": "2025-05-13T15:13:17.755097",
+     "exception": false,
+     "start_time": "2025-05-13T15:13:12.648547",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m1/1\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 2s/step\n",
+      "the ---> 0.124685645\n",
+      "the ---> 0.054755844\n",
+      "the ---> 0.059228107\n",
+      "in ---> 0.18123727\n",
+      "in ---> 0.33971155\n",
+      "in ---> 0.3689912\n",
+      "in ---> 0.33897442\n",
+      "in ---> 0.321494\n",
+      "in ---> 0.32113495\n",
+      "in ---> 0.33254966\n",
+      "in ---> 0.35573328\n",
+      "in ---> 0.3835796\n",
+      "in ---> 0.40368807\n",
+      "in ---> 0.41157094\n",
+      "in ---> 0.41224742\n",
+      "in ---> 0.41176155\n",
+      "in ---> 0.41297755\n",
+      "in ---> 0.4162071\n",
+      "in ---> 0.4206467\n",
+      "in ---> 0.42531836\n",
+      "in ---> 0.42951056\n",
+      "in ---> 0.43290025\n",
+      "in ---> 0.43548605\n",
+      "in ---> 0.43745133\n",
+      "in ---> 0.43901327\n",
+      "in ---> 0.44033438\n",
+      "in ---> 0.44150054\n",
+      "in ---> 0.44253486\n",
+      "in ---> 0.44342893\n",
+      "in ---> 0.4441756\n",
+      "in ---> 0.44477338\n",
+      "in ---> 0.4452366\n",
+      "in ---> 0.4455861\n",
+      "in ---> 0.44584385\n",
+      "in ---> 0.4460315\n",
+      "in ---> 0.44616136\n",
+      "in ---> 0.4462449\n",
+      "in ---> 0.44628736\n",
+      "in ---> 0.4462915\n",
+      "in ---> 0.44625965\n",
+      "in ---> 0.4461933\n",
+      "in ---> 0.44609618\n",
+      "in ---> 0.4459702\n",
+      "in ---> 0.44581786\n",
+      "in ---> 0.4456397\n",
+      "in ---> 0.44543877\n",
+      "in ---> 0.4452169\n",
+      "in ---> 0.44497484\n",
+      "in ---> 0.44471434\n",
+      "in ---> 0.44443637\n",
+      "in ---> 0.4441442\n",
+      "in ---> 0.44383693\n",
+      "in ---> 0.44351816\n",
+      "in ---> 0.44318756\n",
+      "in ---> 0.44284797\n",
+      "in ---> 0.442499\n",
+      "in ---> 0.44214422\n",
+      "in ---> 0.44178325\n",
+      "in ---> 0.44141707\n",
+      "in ---> 0.44104713\n",
+      "in ---> 0.4406749\n",
+      "in ---> 0.44030038\n",
+      "in ---> 0.4399258\n",
+      "in ---> 0.4395503\n",
+      "in ---> 0.43917662\n",
+      "in ---> 0.43880337\n",
+      "in ---> 0.43843302\n",
+      "in ---> 0.43806502\n",
+      "in ---> 0.43769953\n",
+      "in ---> 0.4373391\n",
+      "in ---> 0.43698168\n",
+      "in ---> 0.43662995\n",
+      "in ---> 0.436282\n",
+      "in ---> 0.43594176\n",
+      "in ---> 0.4356056\n",
+      "in ---> 0.43527633\n",
+      "in ---> 0.4349529\n",
+      "in ---> 0.4346381\n",
+      "in ---> 0.4343287\n",
+      "in ---> 0.43402743\n",
+      "in ---> 0.43373403\n",
+      "in ---> 0.43344837\n",
+      "in ---> 0.4331702\n",
+      "in ---> 0.4328997\n",
+      "in ---> 0.43263793\n",
+      "in ---> 0.43238416\n",
+      "in ---> 0.4321391\n",
+      "in ---> 0.43190208\n",
+      "in ---> 0.43167377\n",
+      "in ---> 0.43145424\n",
+      "in ---> 0.43124327\n",
+      "in ---> 0.43103957\n",
+      "in ---> 0.43084452\n",
+      "in ---> 0.43065804\n",
+      "in ---> 0.4304798\n",
+      "in ---> 0.43030953\n",
+      "in ---> 0.43014747\n",
+      "in ---> 0.4299919\n",
+      "in ---> 0.42984492\n",
+      "in ---> 0.42970616\n",
+      "in ---> 0.4295735\n",
+      "in ---> 0.429449\n",
+      "in ---> 0.42933184\n",
+      "in ---> 0.42922044\n",
+      "in ---> 0.42911583\n",
+      "in ---> 0.42901725\n",
+      "in ---> 0.42892632\n",
+      "in ---> 0.42884088\n",
+      "in ---> 0.4287604\n",
+      "in ---> 0.42868707\n",
+      "in ---> 0.42861882\n",
+      "in ---> 0.42855573\n",
+      "in ---> 0.42849794\n",
+      "in ---> 0.42844442\n",
+      "in ---> 0.42839578\n",
+      "in ---> 0.42835295\n",
+      "in ---> 0.4283138\n",
+      "in ---> 0.42827794\n",
+      "in ---> 0.42824736\n",
+      "in ---> 0.42822042\n",
+      "in ---> 0.42819637\n",
+      "in ---> 0.42817694\n",
+      "in ---> 0.42816064\n",
+      "in ---> 0.42814744\n",
+      "in ---> 0.42813727\n",
+      "in ---> 0.42813045\n",
+      "in ---> 0.42812687\n",
+      "in ---> 0.42812574\n",
+      "in ---> 0.42812672\n",
+      "in ---> 0.42813063\n",
+      "in ---> 0.42813703\n",
+      "in ---> 0.42814565\n",
+      "in ---> 0.42815673\n",
+      "in ---> 0.42816937\n",
+      "in ---> 0.42818448\n",
+      "in ---> 0.42820144\n",
+      "in ---> 0.4282198\n",
+      "in ---> 0.42824042\n",
+      "in ---> 0.42826217\n",
+      "in ---> 0.42828596\n",
+      "in ---> 0.4283108\n",
+      "in ---> 0.42833793\n",
+      "in ---> 0.42836547\n",
+      "in ---> 0.42839512\n",
+      "in ---> 0.42842546\n",
+      "in ---> 0.42845684\n",
+      "in ---> 0.42849028\n",
+      "in ---> 0.4285242\n",
+      "in ---> 0.42855808\n",
+      "in ---> 0.42859387\n"
+     ]
+    }
+   ],
+   "source": [
+    "article = \"\"\"\n",
+    "\n",
+    "Modern humans arrived on the Indian subcontinent from Africa no later than 55,000 years ago.[28][29][30] Their long occupation, predominantly in isolation as hunter-gatherers, has made the region highly diverse, second only to Africa in human genetic diversity.[31] Settled life emerged on the subcontinent in the western margins of the Indus river basin 9,000 years ago, evolving gradually into the Indus Valley Civilisation of the third millennium BCE.[32] By 1200 BCE, an archaic form of Sanskrit, an Indo-European language, had diffused into India from the northwest.[33][34] Its hymns recorded the dawning of Hinduism in India.[35] India's pre-existing Dravidian languages were supplanted in the northern regions.[36] By 400 BCE, caste had emerged within Hinduism,[37] and Buddhism and Jainism had arisen, proclaiming social orders unlinked to heredity.[38] Early political consolidations gave rise to the loose-knit Maurya and Gupta Empires.[39] Widespread creativity suffused this era,[40] but the status of women declined,[41] and untouchability became an organized belief.[l][42] In South India, the Middle kingdoms exported Dravidian language scripts and religious cultures to the kingdoms of Southeast Asia.\n",
+    "\"\"\"\n",
+    "sos_index, eos_index = 49,50\n",
+    "\n",
+    "max_words_in_input_sentence = 700\n",
+    "\n",
+    "article_tokens = tokenizer.texts_to_sequences([article])\n",
+    "article_seq = pad_sequences(article_tokens, maxlen=max_words_in_input_sentence, padding='post', truncating='post')\n",
+    "\n",
+    "dec_zero_vector = np.zeros((1,150), dtype='int32')\n",
+    "dec_zero_vector[0,0] = sos_index\n",
+    "\n",
+    "predictions = model.predict([article_seq,dec_zero_vector])\n",
+    "\n",
+    "for i in range(150):\n",
+    "    word_index = np.argmax(predictions[0][i])\n",
+    "    # print()\n",
+    "    word = list(tokenizer.word_index.keys())[word_index]\n",
+    "    print(word, np.max(predictions[0][i]), sep=\" ---> \", end=\"\\n\")\n",
+    "    # print(word, end=\" \")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "sourceId": 239237806,
+     "sourceType": "kernelVersion"
+    },
+    {
+     "sourceId": 239452984,
+     "sourceType": "kernelVersion"
+    },
+    {
+     "sourceId": 239441019,
+     "sourceType": "kernelVersion"
+    }
+   ],
+   "dockerImageVersionId": 31040,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.11"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 40.119357,
+   "end_time": "2025-05-13T15:13:20.542982",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-05-13T15:12:40.423625",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
