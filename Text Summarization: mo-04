@@ -1,0 +1,414 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "97505614",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00311,
+     "end_time": "2025-05-19T15:15:17.870281",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:17.867171",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# <center style=\"padding: 30px 0; color:#fff; background-color: #000;\"> Text Summarization: `mo-04` </center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "a7e13a75",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:17.877322Z",
+     "iopub.status.busy": "2025-05-19T15:15:17.876668Z",
+     "iopub.status.idle": "2025-05-19T15:15:19.655618Z",
+     "shell.execute_reply": "2025-05-19T15:15:19.654572Z"
+    },
+    "papermill": {
+     "duration": 1.784036,
+     "end_time": "2025-05-19T15:15:19.657260",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:17.873224",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/text-summarization-preprocessing/tokenizer_50000.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__results__.html\n",
+      "/kaggle/input/text-summarization-preprocessing/target_sequences.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/input_sequences.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__huggingface_repos__.json\n",
+      "/kaggle/input/text-summarization-preprocessing/t5_target_encodings.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__notebook__.ipynb\n",
+      "/kaggle/input/text-summarization-preprocessing/t5_input_encodings.pkl\n",
+      "/kaggle/input/text-summarization-preprocessing/__output__.json\n",
+      "/kaggle/input/text-summarization-preprocessing/custom.css\n",
+      "/kaggle/input/text-summarization-preprocessing/__results___files/__results___11_1.png\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "669216e3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:19.664457Z",
+     "iopub.status.busy": "2025-05-19T15:15:19.664014Z",
+     "iopub.status.idle": "2025-05-19T15:15:19.668004Z",
+     "shell.execute_reply": "2025-05-19T15:15:19.667321Z"
+    },
+    "papermill": {
+     "duration": 0.008883,
+     "end_time": "2025-05-19T15:15:19.669301",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:19.660418",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import pickle "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "bd52e4ed",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:19.675789Z",
+     "iopub.status.busy": "2025-05-19T15:15:19.675520Z",
+     "iopub.status.idle": "2025-05-19T15:15:38.257612Z",
+     "shell.execute_reply": "2025-05-19T15:15:38.256630Z"
+    },
+    "papermill": {
+     "duration": 18.587183,
+     "end_time": "2025-05-19T15:15:38.259366",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:19.672183",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "t5_input_encodings = pickle.load(open('/kaggle/input/text-summarization-preprocessing/t5_input_encodings.pkl', 'rb'))\n",
+    "t5_target_encodings = pickle.load(open('/kaggle/input/text-summarization-preprocessing/t5_target_encodings.pkl', 'rb'))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "632b4385",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:38.266552Z",
+     "iopub.status.busy": "2025-05-19T15:15:38.266125Z",
+     "iopub.status.idle": "2025-05-19T15:15:38.270371Z",
+     "shell.execute_reply": "2025-05-19T15:15:38.269571Z"
+    },
+    "papermill": {
+     "duration": 0.009295,
+     "end_time": "2025-05-19T15:15:38.271722",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.262427",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "input_sequences = t5_input_encodings['input_ids']\n",
+    "target_sequences = t5_target_encodings['input_ids']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "83a59eb2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:38.278546Z",
+     "iopub.status.busy": "2025-05-19T15:15:38.277958Z",
+     "iopub.status.idle": "2025-05-19T15:15:38.296615Z",
+     "shell.execute_reply": "2025-05-19T15:15:38.295864Z"
+    },
+    "papermill": {
+     "duration": 0.023348,
+     "end_time": "2025-05-19T15:15:38.297948",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.274600",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "max_data_points = 10000\n",
+    "input_sequences = input_sequences[:max_data_points]\n",
+    "target_sequences = target_sequences[:max_data_points]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "fe64e863",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:38.304296Z",
+     "iopub.status.busy": "2025-05-19T15:15:38.304038Z",
+     "iopub.status.idle": "2025-05-19T15:15:38.314584Z",
+     "shell.execute_reply": "2025-05-19T15:15:38.313818Z"
+    },
+    "papermill": {
+     "duration": 0.015276,
+     "end_time": "2025-05-19T15:15:38.315973",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.300697",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "enc_input_data = input_sequences \n",
+    "dec_input_data = target_sequences\n",
+    "dec_target_data = target_sequences\n",
+    "\n",
+    "dec_target_data = np.expand_dims(target_sequences, -1)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "4f45e671",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:38.322596Z",
+     "iopub.status.busy": "2025-05-19T15:15:38.322088Z",
+     "iopub.status.idle": "2025-05-19T15:15:38.328241Z",
+     "shell.execute_reply": "2025-05-19T15:15:38.327399Z"
+    },
+    "papermill": {
+     "duration": 0.010735,
+     "end_time": "2025-05-19T15:15:38.329457",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.318722",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(torch.Size([10000, 700]), torch.Size([10000, 150]), (10000, 150, 1))"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "enc_input_data.shape, dec_input_data.shape, dec_target_data.shape \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bc8a9d60",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002405,
+     "end_time": "2025-05-19T15:15:38.334655",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.332250",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Model Architecture"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "73410b34",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-05-19T15:15:38.340869Z",
+     "iopub.status.busy": "2025-05-19T15:15:38.340556Z",
+     "iopub.status.idle": "2025-05-19T15:15:38.345102Z",
+     "shell.execute_reply": "2025-05-19T15:15:38.344195Z"
+    },
+    "papermill": {
+     "duration": 0.009196,
+     "end_time": "2025-05-19T15:15:38.346369",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.337173",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# Define parameters\n",
+    "vocab_size = 50000\n",
+    "embedding_dim = 256\n",
+    "latent_dim = 64\n",
+    "input_length = 700\n",
+    "target_length = 150\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "215fd2ca",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002503,
+     "end_time": "2025-05-19T15:15:38.351786",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.349283",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4cebdf8d",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002434,
+     "end_time": "2025-05-19T15:15:38.356843",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.354409",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3fbb2eb6",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002435,
+     "end_time": "2025-05-19T15:15:38.361938",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.359503",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ab8db2c7",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002464,
+     "end_time": "2025-05-19T15:15:38.366920",
+     "exception": false,
+     "start_time": "2025-05-19T15:15:38.364456",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "sourceId": 240603536,
+     "sourceType": "kernelVersion"
+    }
+   ],
+   "dockerImageVersionId": 31040,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.11"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 28.099203,
+   "end_time": "2025-05-19T15:15:41.371729",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-05-19T15:15:13.272526",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
