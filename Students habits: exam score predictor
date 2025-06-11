@@ -1,0 +1,1129 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "0a87897f",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:02.388853Z",
+     "iopub.status.busy": "2025-06-11T11:11:02.388522Z",
+     "iopub.status.idle": "2025-06-11T11:11:06.776409Z",
+     "shell.execute_reply": "2025-06-11T11:11:06.775245Z"
+    },
+    "papermill": {
+     "duration": 4.396496,
+     "end_time": "2025-06-11T11:11:06.778561",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:02.382065",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/student-habits-vs-academic-performance/student_habits_performance.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "5e0efcdf",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:06.787768Z",
+     "iopub.status.busy": "2025-06-11T11:11:06.787308Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.479575Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.478545Z"
+    },
+    "papermill": {
+     "duration": 0.699121,
+     "end_time": "2025-06-11T11:11:07.481761",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:06.782640",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.preprocessing import OrdinalEncoder, StandardScaler\n",
+    "from sklearn.pipeline import Pipeline\n",
+    "from sklearn.compose import ColumnTransformer\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.tree import DecisionTreeRegressor\n",
+    "from sklearn.metrics import mean_squared_error"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "0e7ae0ab",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.491762Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.491413Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.519434Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.518417Z"
+    },
+    "papermill": {
+     "duration": 0.035444,
+     "end_time": "2025-06-11T11:11:07.521361",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.485917",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = pd.read_csv(r\"/kaggle/input/student-habits-vs-academic-performance/student_habits_performance.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "789b560d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.531656Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.531285Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.569050Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.567963Z"
+    },
+    "papermill": {
+     "duration": 0.045213,
+     "end_time": "2025-06-11T11:11:07.570683",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.525470",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 1000 entries, 0 to 999\n",
+      "Data columns (total 16 columns):\n",
+      " #   Column                         Non-Null Count  Dtype  \n",
+      "---  ------                         --------------  -----  \n",
+      " 0   student_id                     1000 non-null   object \n",
+      " 1   age                            1000 non-null   int64  \n",
+      " 2   gender                         1000 non-null   object \n",
+      " 3   study_hours_per_day            1000 non-null   float64\n",
+      " 4   social_media_hours             1000 non-null   float64\n",
+      " 5   netflix_hours                  1000 non-null   float64\n",
+      " 6   part_time_job                  1000 non-null   object \n",
+      " 7   attendance_percentage          1000 non-null   float64\n",
+      " 8   sleep_hours                    1000 non-null   float64\n",
+      " 9   diet_quality                   1000 non-null   object \n",
+      " 10  exercise_frequency             1000 non-null   int64  \n",
+      " 11  parental_education_level       909 non-null    object \n",
+      " 12  internet_quality               1000 non-null   object \n",
+      " 13  mental_health_rating           1000 non-null   int64  \n",
+      " 14  extracurricular_participation  1000 non-null   object \n",
+      " 15  exam_score                     1000 non-null   float64\n",
+      "dtypes: float64(6), int64(3), object(7)\n",
+      "memory usage: 125.1+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "5f892418",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.580621Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.580174Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.624368Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.623427Z"
+    },
+    "papermill": {
+     "duration": 0.051377,
+     "end_time": "2025-06-11T11:11:07.626503",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.575126",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>student_id</th>\n",
+       "      <th>age</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>study_hours_per_day</th>\n",
+       "      <th>social_media_hours</th>\n",
+       "      <th>netflix_hours</th>\n",
+       "      <th>part_time_job</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>sleep_hours</th>\n",
+       "      <th>diet_quality</th>\n",
+       "      <th>exercise_frequency</th>\n",
+       "      <th>parental_education_level</th>\n",
+       "      <th>internet_quality</th>\n",
+       "      <th>mental_health_rating</th>\n",
+       "      <th>extracurricular_participation</th>\n",
+       "      <th>exam_score</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>133</th>\n",
+       "      <td>S1133</td>\n",
+       "      <td>21</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>4.8</td>\n",
+       "      <td>1.5</td>\n",
+       "      <td>2.2</td>\n",
+       "      <td>No</td>\n",
+       "      <td>87.9</td>\n",
+       "      <td>5.9</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>4</td>\n",
+       "      <td>Bachelor</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>2</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>78.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>465</th>\n",
+       "      <td>S1465</td>\n",
+       "      <td>23</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>5.1</td>\n",
+       "      <td>1.5</td>\n",
+       "      <td>0.8</td>\n",
+       "      <td>No</td>\n",
+       "      <td>81.0</td>\n",
+       "      <td>5.5</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>4</td>\n",
+       "      <td>No</td>\n",
+       "      <td>83.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>426</th>\n",
+       "      <td>S1426</td>\n",
+       "      <td>17</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>3.8</td>\n",
+       "      <td>0.9</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>85.6</td>\n",
+       "      <td>5.9</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>5</td>\n",
+       "      <td>Bachelor</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>8</td>\n",
+       "      <td>No</td>\n",
+       "      <td>80.9</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    student_id  age  gender  study_hours_per_day  social_media_hours  \\\n",
+       "133      S1133   21  Female                  4.8                 1.5   \n",
+       "465      S1465   23    Male                  5.1                 1.5   \n",
+       "426      S1426   17    Male                  3.8                 0.9   \n",
+       "\n",
+       "     netflix_hours part_time_job  attendance_percentage  sleep_hours  \\\n",
+       "133            2.2            No                   87.9          5.9   \n",
+       "465            0.8            No                   81.0          5.5   \n",
+       "426            1.0            No                   85.6          5.9   \n",
+       "\n",
+       "    diet_quality  exercise_frequency parental_education_level  \\\n",
+       "133         Fair                   4                 Bachelor   \n",
+       "465         Fair                   6                      NaN   \n",
+       "426         Good                   5                 Bachelor   \n",
+       "\n",
+       "    internet_quality  mental_health_rating extracurricular_participation  \\\n",
+       "133             Poor                     2                           Yes   \n",
+       "465             Good                     4                            No   \n",
+       "426             Good                     8                            No   \n",
+       "\n",
+       "     exam_score  \n",
+       "133        78.4  \n",
+       "465        83.2  \n",
+       "426        80.9  "
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.sample(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "c48089a2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.642598Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.641583Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.678901Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.677920Z"
+    },
+    "papermill": {
+     "duration": 0.047109,
+     "end_time": "2025-06-11T11:11:07.680955",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.633846",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>age</th>\n",
+       "      <th>study_hours_per_day</th>\n",
+       "      <th>social_media_hours</th>\n",
+       "      <th>netflix_hours</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>sleep_hours</th>\n",
+       "      <th>exercise_frequency</th>\n",
+       "      <th>mental_health_rating</th>\n",
+       "      <th>exam_score</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>1000.0000</td>\n",
+       "      <td>1000.00000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>20.4980</td>\n",
+       "      <td>3.55010</td>\n",
+       "      <td>2.505500</td>\n",
+       "      <td>1.819700</td>\n",
+       "      <td>84.131700</td>\n",
+       "      <td>6.470100</td>\n",
+       "      <td>3.042000</td>\n",
+       "      <td>5.438000</td>\n",
+       "      <td>69.601500</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>2.3081</td>\n",
+       "      <td>1.46889</td>\n",
+       "      <td>1.172422</td>\n",
+       "      <td>1.075118</td>\n",
+       "      <td>9.399246</td>\n",
+       "      <td>1.226377</td>\n",
+       "      <td>2.025423</td>\n",
+       "      <td>2.847501</td>\n",
+       "      <td>16.888564</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>17.0000</td>\n",
+       "      <td>0.00000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>56.000000</td>\n",
+       "      <td>3.200000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>18.400000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>18.7500</td>\n",
+       "      <td>2.60000</td>\n",
+       "      <td>1.700000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>78.000000</td>\n",
+       "      <td>5.600000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>3.000000</td>\n",
+       "      <td>58.475000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>20.0000</td>\n",
+       "      <td>3.50000</td>\n",
+       "      <td>2.500000</td>\n",
+       "      <td>1.800000</td>\n",
+       "      <td>84.400000</td>\n",
+       "      <td>6.500000</td>\n",
+       "      <td>3.000000</td>\n",
+       "      <td>5.000000</td>\n",
+       "      <td>70.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>23.0000</td>\n",
+       "      <td>4.50000</td>\n",
+       "      <td>3.300000</td>\n",
+       "      <td>2.525000</td>\n",
+       "      <td>91.025000</td>\n",
+       "      <td>7.300000</td>\n",
+       "      <td>5.000000</td>\n",
+       "      <td>8.000000</td>\n",
+       "      <td>81.325000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>24.0000</td>\n",
+       "      <td>8.30000</td>\n",
+       "      <td>7.200000</td>\n",
+       "      <td>5.400000</td>\n",
+       "      <td>100.000000</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>6.000000</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>100.000000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "             age  study_hours_per_day  social_media_hours  netflix_hours  \\\n",
+       "count  1000.0000           1000.00000         1000.000000    1000.000000   \n",
+       "mean     20.4980              3.55010            2.505500       1.819700   \n",
+       "std       2.3081              1.46889            1.172422       1.075118   \n",
+       "min      17.0000              0.00000            0.000000       0.000000   \n",
+       "25%      18.7500              2.60000            1.700000       1.000000   \n",
+       "50%      20.0000              3.50000            2.500000       1.800000   \n",
+       "75%      23.0000              4.50000            3.300000       2.525000   \n",
+       "max      24.0000              8.30000            7.200000       5.400000   \n",
+       "\n",
+       "       attendance_percentage  sleep_hours  exercise_frequency  \\\n",
+       "count            1000.000000  1000.000000         1000.000000   \n",
+       "mean               84.131700     6.470100            3.042000   \n",
+       "std                 9.399246     1.226377            2.025423   \n",
+       "min                56.000000     3.200000            0.000000   \n",
+       "25%                78.000000     5.600000            1.000000   \n",
+       "50%                84.400000     6.500000            3.000000   \n",
+       "75%                91.025000     7.300000            5.000000   \n",
+       "max               100.000000    10.000000            6.000000   \n",
+       "\n",
+       "       mental_health_rating   exam_score  \n",
+       "count           1000.000000  1000.000000  \n",
+       "mean               5.438000    69.601500  \n",
+       "std                2.847501    16.888564  \n",
+       "min                1.000000    18.400000  \n",
+       "25%                3.000000    58.475000  \n",
+       "50%                5.000000    70.500000  \n",
+       "75%                8.000000    81.325000  \n",
+       "max               10.000000   100.000000  "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "e64283fd",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.697732Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.697220Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.706207Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.705173Z"
+    },
+    "papermill": {
+     "duration": 0.019513,
+     "end_time": "2025-06-11T11:11:07.707850",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.688337",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "student_id                        0\n",
+       "age                               0\n",
+       "gender                            0\n",
+       "study_hours_per_day               0\n",
+       "social_media_hours                0\n",
+       "netflix_hours                     0\n",
+       "part_time_job                     0\n",
+       "attendance_percentage             0\n",
+       "sleep_hours                       0\n",
+       "diet_quality                      0\n",
+       "exercise_frequency                0\n",
+       "parental_education_level         91\n",
+       "internet_quality                  0\n",
+       "mental_health_rating              0\n",
+       "extracurricular_participation     0\n",
+       "exam_score                        0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "602341ca",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.718435Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.717992Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.729106Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.728066Z"
+    },
+    "papermill": {
+     "duration": 0.018706,
+     "end_time": "2025-06-11T11:11:07.731125",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.712419",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.duplicated().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "9d0229cc",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.742076Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.741580Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.748660Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.747653Z"
+    },
+    "papermill": {
+     "duration": 0.014362,
+     "end_time": "2025-06-11T11:11:07.750402",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.736040",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array(['Master', 'High School', 'Bachelor', nan], dtype=object)"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.parental_education_level.unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "b1dbc215",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.761030Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.760613Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.767959Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.766862Z"
+    },
+    "papermill": {
+     "duration": 0.014644,
+     "end_time": "2025-06-11T11:11:07.769747",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.755103",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_13/943529539.py:1: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+      "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
+      "\n",
+      "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
+      "\n",
+      "\n",
+      "  df.parental_education_level.fillna('not to say', inplace=True)\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.parental_education_level.fillna('not to say', inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "66da9083",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.780666Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.780259Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.798235Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.797042Z"
+    },
+    "papermill": {
+     "duration": 0.025559,
+     "end_time": "2025-06-11T11:11:07.800058",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.774499",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "student_id                       1000\n",
+       "gender                              3\n",
+       "part_time_job                       2\n",
+       "diet_quality                        3\n",
+       "parental_education_level            4\n",
+       "internet_quality                    3\n",
+       "extracurricular_participation       2\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.select_dtypes(include=['object']).nunique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "69845d69",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.816909Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.816580Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.823183Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.822021Z"
+    },
+    "papermill": {
+     "duration": 0.016996,
+     "end_time": "2025-06-11T11:11:07.824843",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.807847",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df.drop(columns=['student_id', 'gender','extracurricular_participation'], inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "68fe0f2e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.835578Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.835156Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.855926Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.854942Z"
+    },
+    "papermill": {
+     "duration": 0.028579,
+     "end_time": "2025-06-11T11:11:07.858097",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.829518",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>age</th>\n",
+       "      <th>study_hours_per_day</th>\n",
+       "      <th>social_media_hours</th>\n",
+       "      <th>netflix_hours</th>\n",
+       "      <th>part_time_job</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>sleep_hours</th>\n",
+       "      <th>diet_quality</th>\n",
+       "      <th>exercise_frequency</th>\n",
+       "      <th>parental_education_level</th>\n",
+       "      <th>internet_quality</th>\n",
+       "      <th>mental_health_rating</th>\n",
+       "      <th>exam_score</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>419</th>\n",
+       "      <td>22</td>\n",
+       "      <td>2.3</td>\n",
+       "      <td>4.6</td>\n",
+       "      <td>0.6</td>\n",
+       "      <td>No</td>\n",
+       "      <td>93.9</td>\n",
+       "      <td>6.2</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>6</td>\n",
+       "      <td>Master</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>5</td>\n",
+       "      <td>58.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>893</th>\n",
+       "      <td>21</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>1.6</td>\n",
+       "      <td>2.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>98.6</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>5</td>\n",
+       "      <td>Bachelor</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>2</td>\n",
+       "      <td>67.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>147</th>\n",
+       "      <td>19</td>\n",
+       "      <td>3.5</td>\n",
+       "      <td>2.3</td>\n",
+       "      <td>2.2</td>\n",
+       "      <td>No</td>\n",
+       "      <td>74.3</td>\n",
+       "      <td>6.7</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Bachelor</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>5</td>\n",
+       "      <td>78.1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     age  study_hours_per_day  social_media_hours  netflix_hours  \\\n",
+       "419   22                  2.3                 4.6            0.6   \n",
+       "893   21                  3.0                 1.6            2.0   \n",
+       "147   19                  3.5                 2.3            2.2   \n",
+       "\n",
+       "    part_time_job  attendance_percentage  sleep_hours diet_quality  \\\n",
+       "419            No                   93.9          6.2         Good   \n",
+       "893            No                   98.6          6.0         Good   \n",
+       "147            No                   74.3          6.7         Fair   \n",
+       "\n",
+       "     exercise_frequency parental_education_level internet_quality  \\\n",
+       "419                   6                   Master             Good   \n",
+       "893                   5                 Bachelor             Good   \n",
+       "147                   3                 Bachelor             Poor   \n",
+       "\n",
+       "     mental_health_rating  exam_score  \n",
+       "419                     5        58.7  \n",
+       "893                     2        67.7  \n",
+       "147                     5        78.1  "
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.sample(3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1c3f2746",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00794,
+     "end_time": "2025-06-11T11:11:07.874459",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.866519",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Model working"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "028f4dc0",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.888488Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.888121Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.901382Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.900314Z"
+    },
+    "papermill": {
+     "duration": 0.021227,
+     "end_time": "2025-06-11T11:11:07.903444",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.882217",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "categorical_cols = ['part_time_job', 'diet_quality','parental_education_level','internet_quality']\n",
+    "\n",
+    "preprocessing = ColumnTransformer(\n",
+    "    transformers = [\n",
+    "        ('encoding', OrdinalEncoder(dtype='int16'), categorical_cols)\n",
+    "    ], remainder='passthrough'\n",
+    ")\n",
+    "\n",
+    "encoded_array = preprocessing.fit_transform(df)\n",
+    "encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "21e002cc",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.922482Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.922128Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.945051Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.944076Z"
+    },
+    "papermill": {
+     "duration": 0.035516,
+     "end_time": "2025-06-11T11:11:07.947371",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.911855",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "target = 'remainder__exam_score'\n",
+    "\n",
+    "X = encoded_df.drop(columns=[target])\n",
+    "y = encoded_df[target]\n",
+    "\n",
+    "scaler = StandardScaler()\n",
+    "X_scaled = scaler.fit_transform(X)\n",
+    "\n",
+    "X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, random_state=42, test_size=0.2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "44202dcd",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.964982Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.964312Z",
+     "iopub.status.idle": "2025-06-11T11:11:07.973290Z",
+     "shell.execute_reply": "2025-06-11T11:11:07.972135Z"
+    },
+    "papermill": {
+     "duration": 0.018417,
+     "end_time": "2025-06-11T11:11:07.975195",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.956778",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "encoding__part_time_job              -0.026608\n",
+       "encoding__diet_quality               -0.050275\n",
+       "encoding__parental_education_level   -0.025821\n",
+       "encoding__internet_quality           -0.032560\n",
+       "remainder__age                       -0.008907\n",
+       "remainder__study_hours_per_day        0.825419\n",
+       "remainder__social_media_hours        -0.166733\n",
+       "remainder__netflix_hours             -0.171779\n",
+       "remainder__attendance_percentage      0.089836\n",
+       "remainder__sleep_hours                0.121683\n",
+       "remainder__exercise_frequency         0.160107\n",
+       "remainder__mental_health_rating       0.321523\n",
+       "remainder__exam_score                 1.000000\n",
+       "Name: remainder__exam_score, dtype: float64"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "encoded_df.corr()['remainder__exam_score']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "fe0d89e4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-11T11:11:07.986813Z",
+     "iopub.status.busy": "2025-06-11T11:11:07.986302Z",
+     "iopub.status.idle": "2025-06-11T11:11:08.054450Z",
+     "shell.execute_reply": "2025-06-11T11:11:08.053612Z"
+    },
+    "papermill": {
+     "duration": 0.076402,
+     "end_time": "2025-06-11T11:11:08.056688",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:07.980286",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "9.966964181735579"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "dtree = DecisionTreeRegressor(ccp_alpha=0.001, criterion='absolute_error' )\n",
+    "dtree.fit(X_train, y_train)\n",
+    "y_pred = dtree.predict(X_test)\n",
+    "mean_squared_error(y_test, y_pred)**(1/2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4e9817fb",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00468,
+     "end_time": "2025-06-11T11:11:08.066404",
+     "exception": false,
+     "start_time": "2025-06-11T11:11:08.061724",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "datasetId": 7122663,
+     "sourceId": 11376681,
+     "sourceType": "datasetVersion"
+    }
+   ],
+   "dockerImageVersionId": 31040,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.11"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 11.783574,
+   "end_time": "2025-06-11T11:11:08.792549",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-06-11T11:10:57.008975",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
