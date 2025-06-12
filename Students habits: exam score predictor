@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "a11c68fe",
+   "id": "4aeb5b70",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:13:56.160972Z",
-     "iopub.status.busy": "2025-06-12T09:13:56.160660Z",
-     "iopub.status.idle": "2025-06-12T09:14:00.123128Z",
-     "shell.execute_reply": "2025-06-12T09:14:00.121785Z"
+     "iopub.execute_input": "2025-06-12T09:59:19.802469Z",
+     "iopub.status.busy": "2025-06-12T09:59:19.802154Z",
+     "iopub.status.idle": "2025-06-12T09:59:23.731732Z",
+     "shell.execute_reply": "2025-06-12T09:59:23.730772Z"
     },
     "papermill": {
-     "duration": 3.969485,
-     "end_time": "2025-06-12T09:14:00.124449",
+     "duration": 3.938485,
+     "end_time": "2025-06-12T09:59:23.733355",
      "exception": false,
-     "start_time": "2025-06-12T09:13:56.154964",
+     "start_time": "2025-06-12T09:59:19.794870",
      "status": "completed"
     },
     "tags": []
@@ -56,19 +56,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "e5650082",
+   "id": "adfb4833",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:00.133368Z",
-     "iopub.status.busy": "2025-06-12T09:14:00.132939Z",
-     "iopub.status.idle": "2025-06-12T09:14:00.861095Z",
-     "shell.execute_reply": "2025-06-12T09:14:00.859932Z"
+     "iopub.execute_input": "2025-06-12T09:59:23.745939Z",
+     "iopub.status.busy": "2025-06-12T09:59:23.744774Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.316416Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.315519Z"
     },
     "papermill": {
-     "duration": 0.734088,
-     "end_time": "2025-06-12T09:14:00.862550",
+     "duration": 0.579516,
+     "end_time": "2025-06-12T09:59:24.318318",
      "exception": false,
-     "start_time": "2025-06-12T09:14:00.128462",
+     "start_time": "2025-06-12T09:59:23.738802",
      "status": "completed"
     },
     "tags": []
@@ -80,25 +80,26 @@
     "from sklearn.compose import ColumnTransformer\n",
     "from sklearn.model_selection import train_test_split\n",
     "from sklearn.tree import DecisionTreeRegressor\n",
+    "from sklearn.neighbors import KNeighborsRegressor\n",
     "from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "f680a047",
+   "id": "d785df0d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:00.871371Z",
-     "iopub.status.busy": "2025-06-12T09:14:00.871094Z",
-     "iopub.status.idle": "2025-06-12T09:14:00.895681Z",
-     "shell.execute_reply": "2025-06-12T09:14:00.894752Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.330686Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.329745Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.352238Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.351363Z"
     },
     "papermill": {
-     "duration": 0.030551,
-     "end_time": "2025-06-12T09:14:00.897083",
+     "duration": 0.030179,
+     "end_time": "2025-06-12T09:59:24.353882",
      "exception": false,
-     "start_time": "2025-06-12T09:14:00.866532",
+     "start_time": "2025-06-12T09:59:24.323703",
      "status": "completed"
     },
     "tags": []
@@ -111,19 +112,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "b66ddefe",
+   "id": "b7852318",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:00.905668Z",
-     "iopub.status.busy": "2025-06-12T09:14:00.905403Z",
-     "iopub.status.idle": "2025-06-12T09:14:00.938963Z",
-     "shell.execute_reply": "2025-06-12T09:14:00.937821Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.365349Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.365035Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.396631Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.395425Z"
     },
     "papermill": {
-     "duration": 0.03947,
-     "end_time": "2025-06-12T09:14:00.940465",
+     "duration": 0.039197,
+     "end_time": "2025-06-12T09:59:24.398281",
      "exception": false,
-     "start_time": "2025-06-12T09:14:00.900995",
+     "start_time": "2025-06-12T09:59:24.359084",
      "status": "completed"
     },
     "tags": []
@@ -166,19 +167,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "bfa1a514",
+   "id": "8ce62e5b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:00.950266Z",
-     "iopub.status.busy": "2025-06-12T09:14:00.949923Z",
-     "iopub.status.idle": "2025-06-12T09:14:00.977358Z",
-     "shell.execute_reply": "2025-06-12T09:14:00.976589Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.409910Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.409586Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.440452Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.439588Z"
     },
     "papermill": {
-     "duration": 0.033587,
-     "end_time": "2025-06-12T09:14:00.978735",
+     "duration": 0.0385,
+     "end_time": "2025-06-12T09:59:24.442101",
      "exception": false,
-     "start_time": "2025-06-12T09:14:00.945148",
+     "start_time": "2025-06-12T09:59:24.403601",
      "status": "completed"
     },
     "tags": []
@@ -225,61 +226,61 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>945</th>\n",
-       "      <td>S1945</td>\n",
-       "      <td>23</td>\n",
-       "      <td>Male</td>\n",
-       "      <td>6.0</td>\n",
-       "      <td>2.9</td>\n",
-       "      <td>2.1</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>98.9</td>\n",
-       "      <td>6.4</td>\n",
-       "      <td>Poor</td>\n",
-       "      <td>0</td>\n",
-       "      <td>NaN</td>\n",
-       "      <td>Average</td>\n",
-       "      <td>7</td>\n",
+       "      <th>298</th>\n",
+       "      <td>S1298</td>\n",
+       "      <td>21</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>5.4</td>\n",
+       "      <td>3.1</td>\n",
+       "      <td>1.8</td>\n",
        "      <td>No</td>\n",
-       "      <td>100.0</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>240</th>\n",
-       "      <td>S1240</td>\n",
-       "      <td>18</td>\n",
-       "      <td>Male</td>\n",
-       "      <td>1.9</td>\n",
-       "      <td>1.6</td>\n",
-       "      <td>2.3</td>\n",
-       "      <td>No</td>\n",
-       "      <td>72.0</td>\n",
-       "      <td>6.3</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>6</td>\n",
-       "      <td>Master</td>\n",
+       "      <td>88.1</td>\n",
+       "      <td>6.2</td>\n",
        "      <td>Poor</td>\n",
        "      <td>3</td>\n",
-       "      <td>No</td>\n",
-       "      <td>51.2</td>\n",
+       "      <td>High School</td>\n",
+       "      <td>Average</td>\n",
+       "      <td>4</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>91.3</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>197</th>\n",
-       "      <td>S1197</td>\n",
-       "      <td>20</td>\n",
-       "      <td>Female</td>\n",
-       "      <td>4.1</td>\n",
-       "      <td>2.7</td>\n",
-       "      <td>0.0</td>\n",
+       "      <th>182</th>\n",
+       "      <td>S1182</td>\n",
+       "      <td>22</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>3.1</td>\n",
+       "      <td>0.7</td>\n",
        "      <td>No</td>\n",
-       "      <td>89.5</td>\n",
-       "      <td>6.5</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>0</td>\n",
+       "      <td>69.2</td>\n",
+       "      <td>7.2</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>1</td>\n",
        "      <td>Master</td>\n",
-       "      <td>Average</td>\n",
-       "      <td>9</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>87.1</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>10</td>\n",
+       "      <td>No</td>\n",
+       "      <td>79.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>154</th>\n",
+       "      <td>S1154</td>\n",
+       "      <td>21</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>3.5</td>\n",
+       "      <td>3.3</td>\n",
+       "      <td>1.4</td>\n",
+       "      <td>No</td>\n",
+       "      <td>66.8</td>\n",
+       "      <td>7.4</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Bachelor</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>3</td>\n",
+       "      <td>No</td>\n",
+       "      <td>65.0</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -287,29 +288,29 @@
       ],
       "text/plain": [
        "    student_id  age  gender  study_hours_per_day  social_media_hours  \\\n",
-       "945      S1945   23    Male                  6.0                 2.9   \n",
-       "240      S1240   18    Male                  1.9                 1.6   \n",
-       "197      S1197   20  Female                  4.1                 2.7   \n",
+       "298      S1298   21  Female                  5.4                 3.1   \n",
+       "182      S1182   22    Male                  4.2                 3.1   \n",
+       "154      S1154   21    Male                  3.5                 3.3   \n",
        "\n",
        "     netflix_hours part_time_job  attendance_percentage  sleep_hours  \\\n",
-       "945            2.1           Yes                   98.9          6.4   \n",
-       "240            2.3            No                   72.0          6.3   \n",
-       "197            0.0            No                   89.5          6.5   \n",
+       "298            1.8            No                   88.1          6.2   \n",
+       "182            0.7            No                   69.2          7.2   \n",
+       "154            1.4            No                   66.8          7.4   \n",
        "\n",
        "    diet_quality  exercise_frequency parental_education_level  \\\n",
-       "945         Poor                   0                      NaN   \n",
-       "240         Fair                   6                   Master   \n",
-       "197         Fair                   0                   Master   \n",
+       "298         Poor                   3              High School   \n",
+       "182         Good                   1                   Master   \n",
+       "154         Fair                   1                 Bachelor   \n",
        "\n",
        "    internet_quality  mental_health_rating extracurricular_participation  \\\n",
-       "945          Average                     7                            No   \n",
-       "240             Poor                     3                            No   \n",
-       "197          Average                     9                           Yes   \n",
+       "298          Average                     4                           Yes   \n",
+       "182             Poor                    10                            No   \n",
+       "154             Good                     3                            No   \n",
        "\n",
        "     exam_score  \n",
-       "945       100.0  \n",
-       "240        51.2  \n",
-       "197        87.1  "
+       "298        91.3  \n",
+       "182        79.9  \n",
+       "154        65.0  "
       ]
      },
      "execution_count": 5,
@@ -324,19 +325,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "8c2069fd",
+   "id": "356c1a5c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:00.988221Z",
-     "iopub.status.busy": "2025-06-12T09:14:00.987916Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.020444Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.019394Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.454224Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.453896Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.491692Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.490779Z"
     },
     "papermill": {
-     "duration": 0.038943,
-     "end_time": "2025-06-12T09:14:01.022255",
+     "duration": 0.045721,
+     "end_time": "2025-06-12T09:59:24.493230",
      "exception": false,
-     "start_time": "2025-06-12T09:14:00.983312",
+     "start_time": "2025-06-12T09:59:24.447509",
      "status": "completed"
     },
     "tags": []
@@ -519,19 +520,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "f5c67d1e",
+   "id": "ef1e7362",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.032549Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.032276Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.040553Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.039257Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.505700Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.505377Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.513817Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.513014Z"
     },
     "papermill": {
-     "duration": 0.01578,
-     "end_time": "2025-06-12T09:14:01.042390",
+     "duration": 0.016156,
+     "end_time": "2025-06-12T09:59:24.515120",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.026610",
+     "start_time": "2025-06-12T09:59:24.498964",
      "status": "completed"
     },
     "tags": []
@@ -571,19 +572,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "b9527a91",
+   "id": "0a4ae1e5",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.052202Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.051829Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.061798Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.060817Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.527643Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.527337Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.536071Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.535231Z"
     },
     "papermill": {
-     "duration": 0.016549,
-     "end_time": "2025-06-12T09:14:01.063367",
+     "duration": 0.01661,
+     "end_time": "2025-06-12T09:59:24.537474",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.046818",
+     "start_time": "2025-06-12T09:59:24.520864",
      "status": "completed"
     },
     "tags": []
@@ -607,19 +608,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "c6aca389",
+   "id": "81bcb933",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.076656Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.076391Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.081248Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.080673Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.550032Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.549738Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.555646Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.554474Z"
     },
     "papermill": {
-     "duration": 0.013574,
-     "end_time": "2025-06-12T09:14:01.083170",
+     "duration": 0.013958,
+     "end_time": "2025-06-12T09:59:24.557084",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.069596",
+     "start_time": "2025-06-12T09:59:24.543126",
      "status": "completed"
     },
     "tags": []
@@ -643,19 +644,19 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "f4be8b55",
+   "id": "d04a85c0",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.098225Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.097787Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.103793Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.102861Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.570222Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.569905Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.575620Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.574775Z"
     },
     "papermill": {
-     "duration": 0.014562,
-     "end_time": "2025-06-12T09:14:01.105471",
+     "duration": 0.013996,
+     "end_time": "2025-06-12T09:59:24.577319",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.090909",
+     "start_time": "2025-06-12T09:59:24.563323",
      "status": "completed"
     },
     "tags": []
@@ -682,19 +683,19 @@
   {
    "cell_type": "code",
    "execution_count": 11,
-   "id": "dad1ece0",
+   "id": "b17fa929",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.116437Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.116142Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.125043Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.123898Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.589968Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.589637Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.598239Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.597555Z"
     },
     "papermill": {
-     "duration": 0.015748,
-     "end_time": "2025-06-12T09:14:01.126722",
+     "duration": 0.01661,
+     "end_time": "2025-06-12T09:59:24.599562",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.110974",
+     "start_time": "2025-06-12T09:59:24.582952",
      "status": "completed"
     },
     "tags": []
@@ -725,44 +726,46 @@
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "efc1bc36",
+   "id": "38f6358b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.137434Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.136731Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.142404Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.141393Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.613208Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.612388Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.618357Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.617558Z"
     },
     "papermill": {
-     "duration": 0.012955,
-     "end_time": "2025-06-12T09:14:01.144494",
+     "duration": 0.014349,
+     "end_time": "2025-06-12T09:59:24.619838",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.131539",
+     "start_time": "2025-06-12T09:59:24.605489",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "df.drop(columns=['student_id', 'gender','extracurricular_participation'], inplace=True)"
+    "df.drop(columns=['student_id', 'gender','extracurricular_participation','attendance_percentage',\n",
+    "                 'age','diet_quality','parental_education_level','internet_quality','part_time_job',\n",
+    "                'social_media_hours','netflix_hours','sleep_hours'], inplace=True)"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 13,
-   "id": "c3255cd9",
+   "id": "53e6c6d0",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.155219Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.154944Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.168559Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.167719Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.632958Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.632621Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.642009Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.641214Z"
     },
     "papermill": {
-     "duration": 0.020999,
-     "end_time": "2025-06-12T09:14:01.170559",
+     "duration": 0.017489,
+     "end_time": "2025-06-12T09:59:24.643325",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.149560",
+     "start_time": "2025-06-12T09:59:24.625836",
      "status": "completed"
     },
     "tags": []
@@ -789,94 +792,43 @@
        "  <thead>\n",
        "    <tr style=\"text-align: right;\">\n",
        "      <th></th>\n",
-       "      <th>age</th>\n",
        "      <th>study_hours_per_day</th>\n",
-       "      <th>social_media_hours</th>\n",
-       "      <th>netflix_hours</th>\n",
-       "      <th>part_time_job</th>\n",
-       "      <th>attendance_percentage</th>\n",
-       "      <th>sleep_hours</th>\n",
-       "      <th>diet_quality</th>\n",
        "      <th>exercise_frequency</th>\n",
-       "      <th>parental_education_level</th>\n",
-       "      <th>internet_quality</th>\n",
        "      <th>mental_health_rating</th>\n",
        "      <th>exam_score</th>\n",
        "    </tr>\n",
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>977</th>\n",
-       "      <td>24</td>\n",
-       "      <td>5.8</td>\n",
-       "      <td>1.3</td>\n",
-       "      <td>2.2</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>89.1</td>\n",
-       "      <td>7.9</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>5</td>\n",
-       "      <td>High School</td>\n",
-       "      <td>Average</td>\n",
-       "      <td>1</td>\n",
-       "      <td>99.0</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>152</th>\n",
-       "      <td>17</td>\n",
-       "      <td>5.6</td>\n",
-       "      <td>2.8</td>\n",
-       "      <td>4.1</td>\n",
-       "      <td>No</td>\n",
-       "      <td>85.8</td>\n",
-       "      <td>6.8</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>4</td>\n",
-       "      <td>High School</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>7</td>\n",
-       "      <td>90.3</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>484</th>\n",
-       "      <td>21</td>\n",
-       "      <td>1.9</td>\n",
-       "      <td>1.2</td>\n",
-       "      <td>0.9</td>\n",
-       "      <td>No</td>\n",
-       "      <td>85.3</td>\n",
-       "      <td>5.1</td>\n",
-       "      <td>Fair</td>\n",
+       "      <th>459</th>\n",
+       "      <td>5.2</td>\n",
        "      <td>2</td>\n",
-       "      <td>Bachelor</td>\n",
-       "      <td>Good</td>\n",
        "      <td>7</td>\n",
-       "      <td>56.9</td>\n",
+       "      <td>77.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>547</th>\n",
+       "      <td>6.3</td>\n",
+       "      <td>6</td>\n",
+       "      <td>5</td>\n",
+       "      <td>95.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>601</th>\n",
+       "      <td>4.6</td>\n",
+       "      <td>0</td>\n",
+       "      <td>5</td>\n",
+       "      <td>80.2</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "     age  study_hours_per_day  social_media_hours  netflix_hours  \\\n",
-       "977   24                  5.8                 1.3            2.2   \n",
-       "152   17                  5.6                 2.8            4.1   \n",
-       "484   21                  1.9                 1.2            0.9   \n",
-       "\n",
-       "    part_time_job  attendance_percentage  sleep_hours diet_quality  \\\n",
-       "977           Yes                   89.1          7.9         Good   \n",
-       "152            No                   85.8          6.8         Good   \n",
-       "484            No                   85.3          5.1         Fair   \n",
-       "\n",
-       "     exercise_frequency parental_education_level internet_quality  \\\n",
-       "977                   5              High School          Average   \n",
-       "152                   4              High School             Good   \n",
-       "484                   2                 Bachelor             Good   \n",
-       "\n",
-       "     mental_health_rating  exam_score  \n",
-       "977                     1        99.0  \n",
-       "152                     7        90.3  \n",
-       "484                     7        56.9  "
+       "     study_hours_per_day  exercise_frequency  mental_health_rating  exam_score\n",
+       "459                  5.2                   2                     7        77.9\n",
+       "547                  6.3                   6                     5        95.6\n",
+       "601                  4.6                   0                     5        80.2"
       ]
      },
      "execution_count": 13,
@@ -891,19 +843,19 @@
   {
    "cell_type": "code",
    "execution_count": 14,
-   "id": "f29dbd52",
+   "id": "4e5f5988",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.181730Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.181442Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.190222Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.188816Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.656515Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.656233Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.661071Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.660202Z"
     },
     "papermill": {
-     "duration": 0.016391,
-     "end_time": "2025-06-12T09:14:01.191899",
+     "duration": 0.013147,
+     "end_time": "2025-06-12T09:59:24.662488",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.175508",
+     "start_time": "2025-06-12T09:59:24.649341",
      "status": "completed"
     },
     "tags": []
@@ -916,13 +868,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a480679a",
+   "id": "1e59cbb8",
    "metadata": {
     "papermill": {
-     "duration": 0.004063,
-     "end_time": "2025-06-12T09:14:01.200787",
+     "duration": 0.005814,
+     "end_time": "2025-06-12T09:59:24.674259",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.196724",
+     "start_time": "2025-06-12T09:59:24.668445",
      "status": "completed"
     },
     "tags": []
@@ -934,81 +886,81 @@
   {
    "cell_type": "code",
    "execution_count": 15,
-   "id": "13360ca4",
+   "id": "c0aa728b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.210710Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.210431Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.216171Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.215391Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.687656Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.686949Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.690703Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.689927Z"
     },
     "papermill": {
-     "duration": 0.012536,
-     "end_time": "2025-06-12T09:14:01.217587",
+     "duration": 0.011931,
+     "end_time": "2025-06-12T09:59:24.692104",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.205051",
+     "start_time": "2025-06-12T09:59:24.680173",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "target = 'exam_score'\n",
+    "# target = 'exam_score'\n",
     "\n",
-    "X = df.drop(columns=[target])\n",
-    "y = df[target]"
+    "# X = df.drop(columns=[target])\n",
+    "# y = df[target]"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 16,
-   "id": "e80376bb",
+   "id": "57b13c1c",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.228195Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.227790Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.240615Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.239454Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.705889Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.705500Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.709896Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.709168Z"
     },
     "papermill": {
-     "duration": 0.019628,
-     "end_time": "2025-06-12T09:14:01.242065",
+     "duration": 0.012997,
+     "end_time": "2025-06-12T09:59:24.711231",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.222437",
+     "start_time": "2025-06-12T09:59:24.698234",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "categorical_cols = ['part_time_job', 'diet_quality','parental_education_level','internet_quality']\n",
+    "# categorical_cols = ['part_time_job'] #, 'diet_quality','parental_education_level','internet_quality']\n",
     "\n",
-    "preprocessing = ColumnTransformer(\n",
-    "    transformers = [\n",
-    "        ('encoding', OrdinalEncoder(dtype='int16'), categorical_cols)\n",
-    "    ], remainder='passthrough'\n",
-    ")\n",
+    "# preprocessing = ColumnTransformer(\n",
+    "#     transformers = [\n",
+    "#         ('encoding', OrdinalEncoder(dtype='int16'), categorical_cols)\n",
+    "#     ], remainder='passthrough'\n",
+    "# )\n",
     "\n",
-    "encoded_array = preprocessing.fit_transform(X)\n",
-    "encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))"
+    "# encoded_array = preprocessing.fit_transform(X)\n",
+    "# encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 17,
-   "id": "3ce54852",
+   "id": "5b786b4a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.252368Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.252046Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.257156Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.256064Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.724721Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.724399Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.728777Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.727806Z"
     },
     "papermill": {
-     "duration": 0.011673,
-     "end_time": "2025-06-12T09:14:01.258492",
+     "duration": 0.013057,
+     "end_time": "2025-06-12T09:59:24.730353",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.246819",
+     "start_time": "2025-06-12T09:59:24.717296",
      "status": "completed"
     },
     "tags": []
@@ -1016,71 +968,257 @@
    "outputs": [],
    "source": [
     "## removing prefix words ('remainder','encoded')\n",
-    "encoded_df.rename(columns={col:col.split('__')[-1] for col in encoded_df}, inplace=True)\n"
+    "# encoded_df.rename(columns={col:col.split('__')[-1] for col in encoded_df}, inplace=True)\n"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 18,
-   "id": "9c99fc8e",
+   "id": "de951283",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.268637Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.268374Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.291055Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.289953Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.743644Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.743308Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.755657Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.754758Z"
     },
     "papermill": {
-     "duration": 0.029457,
-     "end_time": "2025-06-12T09:14:01.292532",
+     "duration": 0.020637,
+     "end_time": "2025-06-12T09:59:24.757052",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.263075",
+     "start_time": "2025-06-12T09:59:24.736415",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>study_hours_per_day</th>\n",
+       "      <th>exercise_frequency</th>\n",
+       "      <th>mental_health_rating</th>\n",
+       "      <th>exam_score</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6</td>\n",
+       "      <td>8</td>\n",
+       "      <td>56.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>6.9</td>\n",
+       "      <td>6</td>\n",
+       "      <td>8</td>\n",
+       "      <td>100.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>1.4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>34.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>1.0</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>26.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>5.0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>66.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>995</th>\n",
+       "      <td>2.6</td>\n",
+       "      <td>2</td>\n",
+       "      <td>6</td>\n",
+       "      <td>76.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>996</th>\n",
+       "      <td>2.9</td>\n",
+       "      <td>1</td>\n",
+       "      <td>6</td>\n",
+       "      <td>65.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>997</th>\n",
+       "      <td>3.0</td>\n",
+       "      <td>5</td>\n",
+       "      <td>9</td>\n",
+       "      <td>64.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>998</th>\n",
+       "      <td>5.4</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>69.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999</th>\n",
+       "      <td>4.3</td>\n",
+       "      <td>2</td>\n",
+       "      <td>8</td>\n",
+       "      <td>74.9</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>1000 rows × 4 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     study_hours_per_day  exercise_frequency  mental_health_rating  exam_score\n",
+       "0                    0.0                   6                     8        56.2\n",
+       "1                    6.9                   6                     8       100.0\n",
+       "2                    1.4                   1                     1        34.3\n",
+       "3                    1.0                   4                     1        26.8\n",
+       "4                    5.0                   3                     1        66.4\n",
+       "..                   ...                 ...                   ...         ...\n",
+       "995                  2.6                   2                     6        76.1\n",
+       "996                  2.9                   1                     6        65.9\n",
+       "997                  3.0                   5                     9        64.4\n",
+       "998                  5.4                   0                     1        69.7\n",
+       "999                  4.3                   2                     8        74.9\n",
+       "\n",
+       "[1000 rows x 4 columns]"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "50be8b41",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:59:24.770956Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.770618Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.781087Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.780231Z"
+    },
+    "papermill": {
+     "duration": 0.019269,
+     "end_time": "2025-06-12T09:59:24.782605",
+     "exception": false,
+     "start_time": "2025-06-12T09:59:24.763336",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
+    "# X = df.select_dtypes(exclude=['object']).drop(columns=[target])\n",
+    "target = 'exam_score'\n",
+    "\n",
+    "X = df.drop(columns=[target])\n",
+    "y = df[target]\n",
     "\n",
     "scaler = StandardScaler()\n",
-    "X_scaled = scaler.fit_transform(encoded_df)\n",
+    "X_scaled = scaler.fit_transform(X)\n",
     "\n",
     "X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, random_state=42, test_size=0.2)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "b931dbfb",
+   "execution_count": 20,
+   "id": "a27d8d34",
    "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:59:24.796267Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.795959Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.803112Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.802240Z"
+    },
     "papermill": {
-     "duration": 0.004068,
-     "end_time": "2025-06-12T09:14:01.301216",
+     "duration": 0.015585,
+     "end_time": "2025-06-12T09:59:24.804524",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.297148",
+     "start_time": "2025-06-12T09:59:24.788939",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [],
-   "source": []
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "study_hours_per_day     0.825419\n",
+       "exercise_frequency      0.160107\n",
+       "mental_health_rating    0.321523\n",
+       "exam_score              1.000000\n",
+       "Name: exam_score, dtype: float64"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# pd.concat([encoded_df, y], axis=1).corr()['exam_score']\n",
+    "df.corr()[target]"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
-   "id": "d6135e87",
+   "execution_count": 21,
+   "id": "b4ab97ca",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.310563Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.310316Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.347858Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.346724Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.818566Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.818251Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.835337Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.834358Z"
     },
     "papermill": {
-     "duration": 0.043988,
-     "end_time": "2025-06-12T09:14:01.349303",
+     "duration": 0.025593,
+     "end_time": "2025-06-12T09:59:24.836792",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.305315",
+     "start_time": "2025-06-12T09:59:24.811199",
      "status": "completed"
     },
     "tags": []
@@ -1090,9 +1228,9 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "MSE: 8.58\n",
-      "MAE: 7.0\n",
-      "R2 Score: 0.7131\n"
+      "MSE: 7.96\n",
+      "MAE: 6.23\n",
+      "R2 Score: 0.7526\n"
      ]
     }
    ],
@@ -1108,48 +1246,89 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
-   "id": "aedacce6",
+   "execution_count": 22,
+   "id": "5986f644",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.359822Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.359533Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.364500Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.363630Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.851167Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.850363Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.862095Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.861305Z"
     },
     "papermill": {
-     "duration": 0.012016,
-     "end_time": "2025-06-12T09:14:01.366178",
+     "duration": 0.020264,
+     "end_time": "2025-06-12T09:59:24.863420",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.354162",
+     "start_time": "2025-06-12T09:59:24.843156",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "MSE: 7.31\n",
+      "MAE: 5.82\n",
+      "R2 Score: 0.7918\n"
+     ]
+    }
+   ],
+   "source": [
+    "knn = KNeighborsRegressor(n_neighbors=8)\n",
+    "\n",
+    "knn.fit(X_train, y_train)\n",
+    "y_pred = knn.predict(X_test)\n",
+    "print(f\"MSE: {round(mean_squared_error(y_test, y_pred)**(1/2),2)}\")\n",
+    "print(f\"MAE: {round(mean_absolute_error(y_test, y_pred),2)}\")\n",
+    "print(f\"R2 Score: {round(r2_score(y_test, y_pred),4)}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "70ff06a4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:59:24.877342Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.877009Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.881062Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.880206Z"
+    },
+    "papermill": {
+     "duration": 0.012898,
+     "end_time": "2025-06-12T09:59:24.882773",
+     "exception": false,
+     "start_time": "2025-06-12T09:59:24.869875",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "model = Pipeline([\n",
-    "    ('preprocessing', preprocessing),\n",
-    "    ('prediction', dtree)\n",
-    "])"
+    "# model = Pipeline([\n",
+    "#     ('preprocessing', preprocessing),\n",
+    "#     ('prediction', dtree)\n",
+    "# ])"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
-   "id": "02717f4f",
+   "execution_count": 24,
+   "id": "028addd7",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.376751Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.376459Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.394714Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.394063Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.897276Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.896842Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.902290Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.901552Z"
     },
     "papermill": {
-     "duration": 0.024944,
-     "end_time": "2025-06-12T09:14:01.395915",
+     "duration": 0.013971,
+     "end_time": "2025-06-12T09:59:24.903481",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.370971",
+     "start_time": "2025-06-12T09:59:24.889510",
      "status": "completed"
     },
     "tags": []
@@ -1157,69 +1336,28 @@
    "outputs": [
     {
      "data": {
-      "text/html": [
-       "<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-1\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>Pipeline(steps=[(&#x27;preprocessing&#x27;,\n",
-       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
-       "                                   transformers=[(&#x27;encoding&#x27;,\n",
-       "                                                  OrdinalEncoder(dtype=&#x27;int16&#x27;),\n",
-       "                                                  [&#x27;part_time_job&#x27;,\n",
-       "                                                   &#x27;diet_quality&#x27;,\n",
-       "                                                   &#x27;parental_education_level&#x27;,\n",
-       "                                                   &#x27;internet_quality&#x27;])])),\n",
-       "                (&#x27;prediction&#x27;,\n",
-       "                 DecisionTreeRegressor(ccp_alpha=0.001,\n",
-       "                                       criterion=&#x27;absolute_error&#x27;, max_depth=6,\n",
-       "                                       min_samples_split=5))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-1\" type=\"checkbox\" ><label for=\"sk-estimator-id-1\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">Pipeline</label><div class=\"sk-toggleable__content\"><pre>Pipeline(steps=[(&#x27;preprocessing&#x27;,\n",
-       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
-       "                                   transformers=[(&#x27;encoding&#x27;,\n",
-       "                                                  OrdinalEncoder(dtype=&#x27;int16&#x27;),\n",
-       "                                                  [&#x27;part_time_job&#x27;,\n",
-       "                                                   &#x27;diet_quality&#x27;,\n",
-       "                                                   &#x27;parental_education_level&#x27;,\n",
-       "                                                   &#x27;internet_quality&#x27;])])),\n",
-       "                (&#x27;prediction&#x27;,\n",
-       "                 DecisionTreeRegressor(ccp_alpha=0.001,\n",
-       "                                       criterion=&#x27;absolute_error&#x27;, max_depth=6,\n",
-       "                                       min_samples_split=5))])</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-2\" type=\"checkbox\" ><label for=\"sk-estimator-id-2\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">preprocessing: ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
-       "                  transformers=[(&#x27;encoding&#x27;, OrdinalEncoder(dtype=&#x27;int16&#x27;),\n",
-       "                                 [&#x27;part_time_job&#x27;, &#x27;diet_quality&#x27;,\n",
-       "                                  &#x27;parental_education_level&#x27;,\n",
-       "                                  &#x27;internet_quality&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-3\" type=\"checkbox\" ><label for=\"sk-estimator-id-3\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">encoding</label><div class=\"sk-toggleable__content\"><pre>[&#x27;part_time_job&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-4\" type=\"checkbox\" ><label for=\"sk-estimator-id-4\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder(dtype=&#x27;int16&#x27;)</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-5\" type=\"checkbox\" ><label for=\"sk-estimator-id-5\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre>[&#x27;age&#x27;, &#x27;study_hours_per_day&#x27;, &#x27;social_media_hours&#x27;, &#x27;netflix_hours&#x27;, &#x27;attendance_percentage&#x27;, &#x27;sleep_hours&#x27;, &#x27;exercise_frequency&#x27;, &#x27;mental_health_rating&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-6\" type=\"checkbox\" ><label for=\"sk-estimator-id-6\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-7\" type=\"checkbox\" ><label for=\"sk-estimator-id-7\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">DecisionTreeRegressor</label><div class=\"sk-toggleable__content\"><pre>DecisionTreeRegressor(ccp_alpha=0.001, criterion=&#x27;absolute_error&#x27;, max_depth=6,\n",
-       "                      min_samples_split=5)</pre></div></div></div></div></div></div></div>"
-      ],
       "text/plain": [
-       "Pipeline(steps=[('preprocessing',\n",
-       "                 ColumnTransformer(remainder='passthrough',\n",
-       "                                   transformers=[('encoding',\n",
-       "                                                  OrdinalEncoder(dtype='int16'),\n",
-       "                                                  ['part_time_job',\n",
-       "                                                   'diet_quality',\n",
-       "                                                   'parental_education_level',\n",
-       "                                                   'internet_quality'])])),\n",
-       "                ('prediction',\n",
-       "                 DecisionTreeRegressor(ccp_alpha=0.001,\n",
-       "                                       criterion='absolute_error', max_depth=6,\n",
-       "                                       min_samples_split=5))])"
+       "(1000, 3)"
       ]
      },
-     "execution_count": 21,
+     "execution_count": 24,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "model"
+    "X.shape"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "598b93c4",
+   "id": "13fd0266",
    "metadata": {
     "papermill": {
-     "duration": 0.004259,
-     "end_time": "2025-06-12T09:14:01.405203",
+     "duration": 0.006112,
+     "end_time": "2025-06-12T09:59:24.916132",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.400944",
+     "start_time": "2025-06-12T09:59:24.910020",
      "status": "completed"
     },
     "tags": []
@@ -1230,20 +1368,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
-   "id": "ad48d2ab",
+   "execution_count": 25,
+   "id": "7ba40527",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.415061Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.414736Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.418748Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.417935Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.929785Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.929466Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.933796Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.932726Z"
     },
     "papermill": {
-     "duration": 0.010973,
-     "end_time": "2025-06-12T09:14:01.420439",
+     "duration": 0.012906,
+     "end_time": "2025-06-12T09:59:24.935238",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.409466",
+     "start_time": "2025-06-12T09:59:24.922332",
      "status": "completed"
     },
     "tags": []
@@ -1255,20 +1393,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
-   "id": "bdc4cdc1",
+   "execution_count": 26,
+   "id": "dc38b52d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.431101Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.430508Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.447298Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.446340Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.949284Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.948979Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.962199Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.961302Z"
     },
     "papermill": {
-     "duration": 0.023826,
-     "end_time": "2025-06-12T09:14:01.449243",
+     "duration": 0.021898,
+     "end_time": "2025-06-12T09:59:24.963602",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.425417",
+     "start_time": "2025-06-12T09:59:24.941704",
      "status": "completed"
     },
     "tags": []
@@ -1277,10 +1415,10 @@
     {
      "data": {
       "text/plain": [
-       "79.9"
+       "77.8125"
       ]
      },
-     "execution_count": 23,
+     "execution_count": 26,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1314,18 +1452,18 @@
     "\n",
     "    ## function (01)\n",
     "    def predict(self,\n",
-    "                age: int,\n",
+    "                # age: int,\n",
     "                exercise_frequency: Annotated[int, '0 to 6'],\n",
     "                mental_health_rating: Annotated[int, '1 to 10'],\n",
-    "                study_hours: float,\n",
-    "                sleep_hours: float,\n",
-    "                netflix_hours: float,\n",
-    "                social_media_hours: float,\n",
-    "                attendance_percentage: float,\n",
-    "                is_part_time_job: Literal['yes','no'],\n",
-    "                diet_quality: Literal['fair','good','poor'],\n",
-    "                internet_quality: Literal['good','average','poor'],\n",
-    "                parental_education_level: Literal['high school', 'bachelor','master','not to say']\n",
+    "                study_hours: float\n",
+    "                # sleep_hours: float,\n",
+    "                # netflix_hours: float,\n",
+    "                # social_media_hours: float,\n",
+    "                # attendance_percentage: float,\n",
+    "                # is_part_time_job: Literal['yes','no'],\n",
+    "                # diet_quality: Literal['fair','good','poor'],\n",
+    "                # internet_quality: Literal['good','average','poor'],\n",
+    "                # parental_education_level: Literal['high school', 'bachelor','master','not to say']\n",
     "                \n",
     "               ) -> float | None :\n",
     "        \n",
@@ -1335,40 +1473,44 @@
     "\n",
     "        ## creating dictionary of input values\n",
     "        user_data: Dict[str, str] = {\n",
-    "            'part_time_job': is_part_time_job,\n",
-    "    \t\t'diet_quality': diet_quality,\n",
-    "    \t\t'parental_education_level': parental_education_level,\n",
-    "    \t\t'internet_quality': internet_quality,\n",
-    "    \t\t'age': age,\n",
+    "            # 'part_time_job': is_part_time_job,\n",
+    "    \t\t# 'diet_quality': diet_quality,\n",
+    "    \t\t# 'parental_education_level': parental_education_level,\n",
+    "    \t\t# 'internet_quality': internet_quality,\n",
+    "    \t\t# 'age': age,\n",
+    "    \t\t# 'social_media_hours': social_media_hours,\n",
+    "    \t\t# 'netflix_hours': netflix_hours,\n",
+    "    \t\t# 'attendance_percentage': attendance_percentage,\n",
+    "    \t\t# 'sleep_hours': sleep_hours,\n",
+    "            # 'exam_score': 0\n",
     "    \t\t'study_hours_per_day': study_hours,\n",
-    "    \t\t'social_media_hours': social_media_hours,\n",
-    "    \t\t'netflix_hours': netflix_hours,\n",
-    "    \t\t'attendance_percentage': attendance_percentage,\n",
-    "    \t\t'sleep_hours': sleep_hours,\n",
     "    \t\t'exercise_frequency': exercise_frequency,\n",
-    "    \t\t'mental_health_rating': mental_health_rating,\n",
-    "            'exam_score': 0\n",
+    "    \t\t'mental_health_rating': mental_health_rating\n",
     "        }\n",
     "        \n",
     "\n",
     "        xdf = pd.DataFrame(user_data, index=[1])\n",
     "\n",
     "        ## preprocessing (applying column transformations)\n",
-    "        encoded_array = preprocessing.transform(xdf)\n",
+    "        # encoded_array = preprocessing.transform(xdf)\n",
     "\n",
     "        ## converting numpy array to pandas dataframe\n",
-    "        encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))\n",
+    "        # encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))\n",
     "\n",
     "        ## removing prefix from columns name\n",
-    "        encoded_df.rename(columns={col:col.split('__')[-1] for col in encoded_df}, inplace=True)\n",
+    "        # encoded_df.rename(columns={col:col.split('__')[-1] for col in encoded_df}, inplace=True)\n",
     "\n",
     "        ## scaling\n",
-    "        scaled_data = scaler.transform(encoded_df)\n",
+    "        scaled_data = scaler.transform(xdf)\n",
     "\n",
     "        ## predicting\n",
-    "        prediction = dtree.predict(scaled_data)\n",
+    "        prediction_dtree = dtree.predict(scaled_data)\n",
+    "        prediction_knn = knn.predict(scaled_data)\n",
     "\n",
-    "        return prediction[0]\n",
+    "        ## average prediction\n",
+    "        exam_score = (prediction_dtree[0] + prediction_knn[0])/2\n",
+    "\n",
+    "        return prediction_knn[0]\n",
     "        \n",
     "\n",
     "        \n",
@@ -1378,18 +1520,18 @@
     "    \n",
     "    esp = ExamScorePredictor()\n",
     "    predicted_exam_score = esp.predict(\n",
-    "                age = 20,\n",
+    "                # age = 20,\n",
     "                exercise_frequency = 1,\n",
     "                mental_health_rating = 7,\n",
-    "                study_hours = 4,\n",
-    "                sleep_hours = 7,\n",
-    "                netflix_hours = 1.2,\n",
-    "                social_media_hours = 3.2,\n",
-    "                attendance_percentage = 65,\n",
-    "                is_part_time_job = 'yes',\n",
-    "                diet_quality = 'fair',\n",
-    "                internet_quality = 'good',\n",
-    "                parental_education_level = 'bachelor'\n",
+    "                study_hours = 4\n",
+    "                # sleep_hours = 7,\n",
+    "                # netflix_hours = 1.2,\n",
+    "                # social_media_hours = 3.2,\n",
+    "                # attendance_percentage = 65,\n",
+    "                # is_part_time_job = 'yes',\n",
+    "                # diet_quality = 'fair',\n",
+    "                # internet_quality = 'good',\n",
+    "                # parental_education_level = 'bachelor'\n",
     "                )\n",
     "\n",
     "\n",
@@ -1398,13 +1540,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "692116b5",
+   "id": "8698967b",
    "metadata": {
     "papermill": {
-     "duration": 0.004326,
-     "end_time": "2025-06-12T09:14:01.459054",
+     "duration": 0.00634,
+     "end_time": "2025-06-12T09:59:24.976382",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.454728",
+     "start_time": "2025-06-12T09:59:24.970042",
      "status": "completed"
     },
     "tags": []
@@ -1415,20 +1557,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
-   "id": "626651ce",
+   "execution_count": 27,
+   "id": "08fb1ca9",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-12T09:14:01.469499Z",
-     "iopub.status.busy": "2025-06-12T09:14:01.469206Z",
-     "iopub.status.idle": "2025-06-12T09:14:01.475907Z",
-     "shell.execute_reply": "2025-06-12T09:14:01.474431Z"
+     "iopub.execute_input": "2025-06-12T09:59:24.990380Z",
+     "iopub.status.busy": "2025-06-12T09:59:24.990076Z",
+     "iopub.status.idle": "2025-06-12T09:59:24.995372Z",
+     "shell.execute_reply": "2025-06-12T09:59:24.994570Z"
     },
     "papermill": {
-     "duration": 0.014142,
-     "end_time": "2025-06-12T09:14:01.477651",
+     "duration": 0.01412,
+     "end_time": "2025-06-12T09:59:24.996829",
      "exception": false,
-     "start_time": "2025-06-12T09:14:01.463509",
+     "start_time": "2025-06-12T09:59:24.982709",
      "status": "completed"
     },
     "tags": []
@@ -1438,13 +1580,14 @@
     "import pickle\n",
     "\n",
     "## saving preprocessor\n",
-    "pickle.dump(preprocessing, open('preprocessor.pkl', 'wb'))\n",
+    "# pickle.dump(preprocessing, open('preprocessor.pkl', 'wb'))\n",
     "\n",
     "## saving scaler\n",
     "pickle.dump(scaler, open('scaler.pkl', 'wb'))\n",
     "\n",
     "## saving model\n",
-    "pickle.dump(dtree, open('model.pkl', 'wb'))"
+    "# pickle.dump(dtree, open('model.pkl', 'wb'))\n",
+    "pickle.dump(knn, open('model.pkl', 'wb'))"
    ]
   }
  ],
@@ -1483,14 +1626,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 10.614472,
-   "end_time": "2025-06-12T09:14:02.205214",
+   "duration": 10.80557,
+   "end_time": "2025-06-12T09:59:25.724084",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-06-12T09:13:51.590742",
+   "start_time": "2025-06-12T09:59:14.918514",
    "version": "2.6.0"
   }
  },
