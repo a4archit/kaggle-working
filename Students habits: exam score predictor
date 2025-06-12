@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "0a87897f",
+   "id": "a11c68fe",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:02.388853Z",
-     "iopub.status.busy": "2025-06-11T11:11:02.388522Z",
-     "iopub.status.idle": "2025-06-11T11:11:06.776409Z",
-     "shell.execute_reply": "2025-06-11T11:11:06.775245Z"
+     "iopub.execute_input": "2025-06-12T09:13:56.160972Z",
+     "iopub.status.busy": "2025-06-12T09:13:56.160660Z",
+     "iopub.status.idle": "2025-06-12T09:14:00.123128Z",
+     "shell.execute_reply": "2025-06-12T09:14:00.121785Z"
     },
     "papermill": {
-     "duration": 4.396496,
-     "end_time": "2025-06-11T11:11:06.778561",
+     "duration": 3.969485,
+     "end_time": "2025-06-12T09:14:00.124449",
      "exception": false,
-     "start_time": "2025-06-11T11:11:02.382065",
+     "start_time": "2025-06-12T09:13:56.154964",
      "status": "completed"
     },
     "tags": []
@@ -56,19 +56,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "5e0efcdf",
+   "id": "e5650082",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:06.787768Z",
-     "iopub.status.busy": "2025-06-11T11:11:06.787308Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.479575Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.478545Z"
+     "iopub.execute_input": "2025-06-12T09:14:00.133368Z",
+     "iopub.status.busy": "2025-06-12T09:14:00.132939Z",
+     "iopub.status.idle": "2025-06-12T09:14:00.861095Z",
+     "shell.execute_reply": "2025-06-12T09:14:00.859932Z"
     },
     "papermill": {
-     "duration": 0.699121,
-     "end_time": "2025-06-11T11:11:07.481761",
+     "duration": 0.734088,
+     "end_time": "2025-06-12T09:14:00.862550",
      "exception": false,
-     "start_time": "2025-06-11T11:11:06.782640",
+     "start_time": "2025-06-12T09:14:00.128462",
      "status": "completed"
     },
     "tags": []
@@ -80,25 +80,25 @@
     "from sklearn.compose import ColumnTransformer\n",
     "from sklearn.model_selection import train_test_split\n",
     "from sklearn.tree import DecisionTreeRegressor\n",
-    "from sklearn.metrics import mean_squared_error"
+    "from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "0e7ae0ab",
+   "id": "f680a047",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.491762Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.491413Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.519434Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.518417Z"
+     "iopub.execute_input": "2025-06-12T09:14:00.871371Z",
+     "iopub.status.busy": "2025-06-12T09:14:00.871094Z",
+     "iopub.status.idle": "2025-06-12T09:14:00.895681Z",
+     "shell.execute_reply": "2025-06-12T09:14:00.894752Z"
     },
     "papermill": {
-     "duration": 0.035444,
-     "end_time": "2025-06-11T11:11:07.521361",
+     "duration": 0.030551,
+     "end_time": "2025-06-12T09:14:00.897083",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.485917",
+     "start_time": "2025-06-12T09:14:00.866532",
      "status": "completed"
     },
     "tags": []
@@ -111,19 +111,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "789b560d",
+   "id": "b66ddefe",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.531656Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.531285Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.569050Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.567963Z"
+     "iopub.execute_input": "2025-06-12T09:14:00.905668Z",
+     "iopub.status.busy": "2025-06-12T09:14:00.905403Z",
+     "iopub.status.idle": "2025-06-12T09:14:00.938963Z",
+     "shell.execute_reply": "2025-06-12T09:14:00.937821Z"
     },
     "papermill": {
-     "duration": 0.045213,
-     "end_time": "2025-06-11T11:11:07.570683",
+     "duration": 0.03947,
+     "end_time": "2025-06-12T09:14:00.940465",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.525470",
+     "start_time": "2025-06-12T09:14:00.900995",
      "status": "completed"
     },
     "tags": []
@@ -166,19 +166,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "5f892418",
+   "id": "bfa1a514",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.580621Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.580174Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.624368Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.623427Z"
+     "iopub.execute_input": "2025-06-12T09:14:00.950266Z",
+     "iopub.status.busy": "2025-06-12T09:14:00.949923Z",
+     "iopub.status.idle": "2025-06-12T09:14:00.977358Z",
+     "shell.execute_reply": "2025-06-12T09:14:00.976589Z"
     },
     "papermill": {
-     "duration": 0.051377,
-     "end_time": "2025-06-11T11:11:07.626503",
+     "duration": 0.033587,
+     "end_time": "2025-06-12T09:14:00.978735",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.575126",
+     "start_time": "2025-06-12T09:14:00.945148",
      "status": "completed"
     },
     "tags": []
@@ -225,61 +225,61 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>133</th>\n",
-       "      <td>S1133</td>\n",
-       "      <td>21</td>\n",
-       "      <td>Female</td>\n",
-       "      <td>4.8</td>\n",
-       "      <td>1.5</td>\n",
-       "      <td>2.2</td>\n",
-       "      <td>No</td>\n",
-       "      <td>87.9</td>\n",
-       "      <td>5.9</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>4</td>\n",
-       "      <td>Bachelor</td>\n",
-       "      <td>Poor</td>\n",
-       "      <td>2</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>78.4</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>465</th>\n",
-       "      <td>S1465</td>\n",
+       "      <th>945</th>\n",
+       "      <td>S1945</td>\n",
        "      <td>23</td>\n",
        "      <td>Male</td>\n",
-       "      <td>5.1</td>\n",
-       "      <td>1.5</td>\n",
-       "      <td>0.8</td>\n",
-       "      <td>No</td>\n",
-       "      <td>81.0</td>\n",
-       "      <td>5.5</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>6</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>2.9</td>\n",
+       "      <td>2.1</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>98.9</td>\n",
+       "      <td>6.4</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>0</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>4</td>\n",
+       "      <td>Average</td>\n",
+       "      <td>7</td>\n",
        "      <td>No</td>\n",
-       "      <td>83.2</td>\n",
+       "      <td>100.0</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>426</th>\n",
-       "      <td>S1426</td>\n",
-       "      <td>17</td>\n",
+       "      <th>240</th>\n",
+       "      <td>S1240</td>\n",
+       "      <td>18</td>\n",
        "      <td>Male</td>\n",
-       "      <td>3.8</td>\n",
-       "      <td>0.9</td>\n",
-       "      <td>1.0</td>\n",
+       "      <td>1.9</td>\n",
+       "      <td>1.6</td>\n",
+       "      <td>2.3</td>\n",
        "      <td>No</td>\n",
-       "      <td>85.6</td>\n",
-       "      <td>5.9</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>5</td>\n",
-       "      <td>Bachelor</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>8</td>\n",
+       "      <td>72.0</td>\n",
+       "      <td>6.3</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>6</td>\n",
+       "      <td>Master</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>3</td>\n",
        "      <td>No</td>\n",
-       "      <td>80.9</td>\n",
+       "      <td>51.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>197</th>\n",
+       "      <td>S1197</td>\n",
+       "      <td>20</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>2.7</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>No</td>\n",
+       "      <td>89.5</td>\n",
+       "      <td>6.5</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Master</td>\n",
+       "      <td>Average</td>\n",
+       "      <td>9</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>87.1</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -287,29 +287,29 @@
       ],
       "text/plain": [
        "    student_id  age  gender  study_hours_per_day  social_media_hours  \\\n",
-       "133      S1133   21  Female                  4.8                 1.5   \n",
-       "465      S1465   23    Male                  5.1                 1.5   \n",
-       "426      S1426   17    Male                  3.8                 0.9   \n",
+       "945      S1945   23    Male                  6.0                 2.9   \n",
+       "240      S1240   18    Male                  1.9                 1.6   \n",
+       "197      S1197   20  Female                  4.1                 2.7   \n",
        "\n",
        "     netflix_hours part_time_job  attendance_percentage  sleep_hours  \\\n",
-       "133            2.2            No                   87.9          5.9   \n",
-       "465            0.8            No                   81.0          5.5   \n",
-       "426            1.0            No                   85.6          5.9   \n",
+       "945            2.1           Yes                   98.9          6.4   \n",
+       "240            2.3            No                   72.0          6.3   \n",
+       "197            0.0            No                   89.5          6.5   \n",
        "\n",
        "    diet_quality  exercise_frequency parental_education_level  \\\n",
-       "133         Fair                   4                 Bachelor   \n",
-       "465         Fair                   6                      NaN   \n",
-       "426         Good                   5                 Bachelor   \n",
+       "945         Poor                   0                      NaN   \n",
+       "240         Fair                   6                   Master   \n",
+       "197         Fair                   0                   Master   \n",
        "\n",
        "    internet_quality  mental_health_rating extracurricular_participation  \\\n",
-       "133             Poor                     2                           Yes   \n",
-       "465             Good                     4                            No   \n",
-       "426             Good                     8                            No   \n",
+       "945          Average                     7                            No   \n",
+       "240             Poor                     3                            No   \n",
+       "197          Average                     9                           Yes   \n",
        "\n",
        "     exam_score  \n",
-       "133        78.4  \n",
-       "465        83.2  \n",
-       "426        80.9  "
+       "945       100.0  \n",
+       "240        51.2  \n",
+       "197        87.1  "
       ]
      },
      "execution_count": 5,
@@ -324,19 +324,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "c48089a2",
+   "id": "8c2069fd",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.642598Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.641583Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.678901Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.677920Z"
+     "iopub.execute_input": "2025-06-12T09:14:00.988221Z",
+     "iopub.status.busy": "2025-06-12T09:14:00.987916Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.020444Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.019394Z"
     },
     "papermill": {
-     "duration": 0.047109,
-     "end_time": "2025-06-11T11:11:07.680955",
+     "duration": 0.038943,
+     "end_time": "2025-06-12T09:14:01.022255",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.633846",
+     "start_time": "2025-06-12T09:14:00.983312",
      "status": "completed"
     },
     "tags": []
@@ -519,19 +519,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "e64283fd",
+   "id": "f5c67d1e",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.697732Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.697220Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.706207Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.705173Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.032549Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.032276Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.040553Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.039257Z"
     },
     "papermill": {
-     "duration": 0.019513,
-     "end_time": "2025-06-11T11:11:07.707850",
+     "duration": 0.01578,
+     "end_time": "2025-06-12T09:14:01.042390",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.688337",
+     "start_time": "2025-06-12T09:14:01.026610",
      "status": "completed"
     },
     "tags": []
@@ -571,19 +571,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "602341ca",
+   "id": "b9527a91",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.718435Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.717992Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.729106Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.728066Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.052202Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.051829Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.061798Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.060817Z"
     },
     "papermill": {
-     "duration": 0.018706,
-     "end_time": "2025-06-11T11:11:07.731125",
+     "duration": 0.016549,
+     "end_time": "2025-06-12T09:14:01.063367",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.712419",
+     "start_time": "2025-06-12T09:14:01.046818",
      "status": "completed"
     },
     "tags": []
@@ -607,19 +607,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "9d0229cc",
+   "id": "c6aca389",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.742076Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.741580Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.748660Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.747653Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.076656Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.076391Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.081248Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.080673Z"
     },
     "papermill": {
-     "duration": 0.014362,
-     "end_time": "2025-06-11T11:11:07.750402",
+     "duration": 0.013574,
+     "end_time": "2025-06-12T09:14:01.083170",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.736040",
+     "start_time": "2025-06-12T09:14:01.069596",
      "status": "completed"
     },
     "tags": []
@@ -643,19 +643,19 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "id": "b1dbc215",
+   "id": "f4be8b55",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.761030Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.760613Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.767959Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.766862Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.098225Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.097787Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.103793Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.102861Z"
     },
     "papermill": {
-     "duration": 0.014644,
-     "end_time": "2025-06-11T11:11:07.769747",
+     "duration": 0.014562,
+     "end_time": "2025-06-12T09:14:01.105471",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.755103",
+     "start_time": "2025-06-12T09:14:01.090909",
      "status": "completed"
     },
     "tags": []
@@ -682,19 +682,19 @@
   {
    "cell_type": "code",
    "execution_count": 11,
-   "id": "66da9083",
+   "id": "dad1ece0",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.780666Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.780259Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.798235Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.797042Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.116437Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.116142Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.125043Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.123898Z"
     },
     "papermill": {
-     "duration": 0.025559,
-     "end_time": "2025-06-11T11:11:07.800058",
+     "duration": 0.015748,
+     "end_time": "2025-06-12T09:14:01.126722",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.774499",
+     "start_time": "2025-06-12T09:14:01.110974",
      "status": "completed"
     },
     "tags": []
@@ -725,19 +725,19 @@
   {
    "cell_type": "code",
    "execution_count": 12,
-   "id": "69845d69",
+   "id": "efc1bc36",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.816909Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.816580Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.823183Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.822021Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.137434Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.136731Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.142404Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.141393Z"
     },
     "papermill": {
-     "duration": 0.016996,
-     "end_time": "2025-06-11T11:11:07.824843",
+     "duration": 0.012955,
+     "end_time": "2025-06-12T09:14:01.144494",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.807847",
+     "start_time": "2025-06-12T09:14:01.131539",
      "status": "completed"
     },
     "tags": []
@@ -750,19 +750,19 @@
   {
    "cell_type": "code",
    "execution_count": 13,
-   "id": "68fe0f2e",
+   "id": "c3255cd9",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.835578Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.835156Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.855926Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.854942Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.155219Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.154944Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.168559Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.167719Z"
     },
     "papermill": {
-     "duration": 0.028579,
-     "end_time": "2025-06-11T11:11:07.858097",
+     "duration": 0.020999,
+     "end_time": "2025-06-12T09:14:01.170559",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.829518",
+     "start_time": "2025-06-12T09:14:01.149560",
      "status": "completed"
     },
     "tags": []
@@ -806,52 +806,52 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>419</th>\n",
-       "      <td>22</td>\n",
-       "      <td>2.3</td>\n",
-       "      <td>4.6</td>\n",
-       "      <td>0.6</td>\n",
-       "      <td>No</td>\n",
-       "      <td>93.9</td>\n",
-       "      <td>6.2</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>6</td>\n",
-       "      <td>Master</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>5</td>\n",
-       "      <td>58.7</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>893</th>\n",
-       "      <td>21</td>\n",
-       "      <td>3.0</td>\n",
-       "      <td>1.6</td>\n",
-       "      <td>2.0</td>\n",
-       "      <td>No</td>\n",
-       "      <td>98.6</td>\n",
-       "      <td>6.0</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>5</td>\n",
-       "      <td>Bachelor</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>2</td>\n",
-       "      <td>67.7</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>147</th>\n",
-       "      <td>19</td>\n",
-       "      <td>3.5</td>\n",
-       "      <td>2.3</td>\n",
+       "      <th>977</th>\n",
+       "      <td>24</td>\n",
+       "      <td>5.8</td>\n",
+       "      <td>1.3</td>\n",
        "      <td>2.2</td>\n",
-       "      <td>No</td>\n",
-       "      <td>74.3</td>\n",
-       "      <td>6.7</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>3</td>\n",
-       "      <td>Bachelor</td>\n",
-       "      <td>Poor</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>89.1</td>\n",
+       "      <td>7.9</td>\n",
+       "      <td>Good</td>\n",
        "      <td>5</td>\n",
-       "      <td>78.1</td>\n",
+       "      <td>High School</td>\n",
+       "      <td>Average</td>\n",
+       "      <td>1</td>\n",
+       "      <td>99.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>152</th>\n",
+       "      <td>17</td>\n",
+       "      <td>5.6</td>\n",
+       "      <td>2.8</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>No</td>\n",
+       "      <td>85.8</td>\n",
+       "      <td>6.8</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>4</td>\n",
+       "      <td>High School</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>7</td>\n",
+       "      <td>90.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>484</th>\n",
+       "      <td>21</td>\n",
+       "      <td>1.9</td>\n",
+       "      <td>1.2</td>\n",
+       "      <td>0.9</td>\n",
+       "      <td>No</td>\n",
+       "      <td>85.3</td>\n",
+       "      <td>5.1</td>\n",
+       "      <td>Fair</td>\n",
+       "      <td>2</td>\n",
+       "      <td>Bachelor</td>\n",
+       "      <td>Good</td>\n",
+       "      <td>7</td>\n",
+       "      <td>56.9</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -859,24 +859,24 @@
       ],
       "text/plain": [
        "     age  study_hours_per_day  social_media_hours  netflix_hours  \\\n",
-       "419   22                  2.3                 4.6            0.6   \n",
-       "893   21                  3.0                 1.6            2.0   \n",
-       "147   19                  3.5                 2.3            2.2   \n",
+       "977   24                  5.8                 1.3            2.2   \n",
+       "152   17                  5.6                 2.8            4.1   \n",
+       "484   21                  1.9                 1.2            0.9   \n",
        "\n",
        "    part_time_job  attendance_percentage  sleep_hours diet_quality  \\\n",
-       "419            No                   93.9          6.2         Good   \n",
-       "893            No                   98.6          6.0         Good   \n",
-       "147            No                   74.3          6.7         Fair   \n",
+       "977           Yes                   89.1          7.9         Good   \n",
+       "152            No                   85.8          6.8         Good   \n",
+       "484            No                   85.3          5.1         Fair   \n",
        "\n",
        "     exercise_frequency parental_education_level internet_quality  \\\n",
-       "419                   6                   Master             Good   \n",
-       "893                   5                 Bachelor             Good   \n",
-       "147                   3                 Bachelor             Poor   \n",
+       "977                   5              High School          Average   \n",
+       "152                   4              High School             Good   \n",
+       "484                   2                 Bachelor             Good   \n",
        "\n",
        "     mental_health_rating  exam_score  \n",
-       "419                     5        58.7  \n",
-       "893                     2        67.7  \n",
-       "147                     5        78.1  "
+       "977                     1        99.0  \n",
+       "152                     7        90.3  \n",
+       "484                     7        56.9  "
       ]
      },
      "execution_count": 13,
@@ -889,14 +889,40 @@
    ]
   },
   {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "f29dbd52",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.181730Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.181442Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.190222Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.188816Z"
+    },
+    "papermill": {
+     "duration": 0.016391,
+     "end_time": "2025-06-12T09:14:01.191899",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.175508",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "for feature in df.select_dtypes(include=['object']):\n",
+    "    df[feature] = df[feature].apply(lambda x: x.lower())"
+   ]
+  },
+  {
    "cell_type": "markdown",
-   "id": "1c3f2746",
+   "id": "a480679a",
    "metadata": {
     "papermill": {
-     "duration": 0.00794,
-     "end_time": "2025-06-11T11:11:07.874459",
+     "duration": 0.004063,
+     "end_time": "2025-06-12T09:14:01.200787",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.866519",
+     "start_time": "2025-06-12T09:14:01.196724",
      "status": "completed"
     },
     "tags": []
@@ -907,20 +933,48 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
-   "id": "028f4dc0",
+   "execution_count": 15,
+   "id": "13360ca4",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.888488Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.888121Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.901382Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.900314Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.210710Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.210431Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.216171Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.215391Z"
     },
     "papermill": {
-     "duration": 0.021227,
-     "end_time": "2025-06-11T11:11:07.903444",
+     "duration": 0.012536,
+     "end_time": "2025-06-12T09:14:01.217587",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.882217",
+     "start_time": "2025-06-12T09:14:01.205051",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "target = 'exam_score'\n",
+    "\n",
+    "X = df.drop(columns=[target])\n",
+    "y = df[target]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "e80376bb",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.228195Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.227790Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.240615Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.239454Z"
+    },
+    "papermill": {
+     "duration": 0.019628,
+     "end_time": "2025-06-12T09:14:01.242065",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.222437",
      "status": "completed"
     },
     "tags": []
@@ -935,147 +989,463 @@
     "    ], remainder='passthrough'\n",
     ")\n",
     "\n",
-    "encoded_array = preprocessing.fit_transform(df)\n",
+    "encoded_array = preprocessing.fit_transform(X)\n",
     "encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
-   "id": "21e002cc",
+   "execution_count": 17,
+   "id": "3ce54852",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.922482Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.922128Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.945051Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.944076Z"
+     "iopub.execute_input": "2025-06-12T09:14:01.252368Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.252046Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.257156Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.256064Z"
     },
     "papermill": {
-     "duration": 0.035516,
-     "end_time": "2025-06-11T11:11:07.947371",
+     "duration": 0.011673,
+     "end_time": "2025-06-12T09:14:01.258492",
      "exception": false,
-     "start_time": "2025-06-11T11:11:07.911855",
+     "start_time": "2025-06-12T09:14:01.246819",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "target = 'remainder__exam_score'\n",
-    "\n",
-    "X = encoded_df.drop(columns=[target])\n",
-    "y = encoded_df[target]\n",
+    "## removing prefix words ('remainder','encoded')\n",
+    "encoded_df.rename(columns={col:col.split('__')[-1] for col in encoded_df}, inplace=True)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "9c99fc8e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.268637Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.268374Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.291055Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.289953Z"
+    },
+    "papermill": {
+     "duration": 0.029457,
+     "end_time": "2025-06-12T09:14:01.292532",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.263075",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
     "\n",
     "scaler = StandardScaler()\n",
-    "X_scaled = scaler.fit_transform(X)\n",
+    "X_scaled = scaler.fit_transform(encoded_df)\n",
     "\n",
     "X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, random_state=42, test_size=0.2)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
-   "id": "44202dcd",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.964982Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.964312Z",
-     "iopub.status.idle": "2025-06-11T11:11:07.973290Z",
-     "shell.execute_reply": "2025-06-11T11:11:07.972135Z"
-    },
-    "papermill": {
-     "duration": 0.018417,
-     "end_time": "2025-06-11T11:11:07.975195",
-     "exception": false,
-     "start_time": "2025-06-11T11:11:07.956778",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "encoding__part_time_job              -0.026608\n",
-       "encoding__diet_quality               -0.050275\n",
-       "encoding__parental_education_level   -0.025821\n",
-       "encoding__internet_quality           -0.032560\n",
-       "remainder__age                       -0.008907\n",
-       "remainder__study_hours_per_day        0.825419\n",
-       "remainder__social_media_hours        -0.166733\n",
-       "remainder__netflix_hours             -0.171779\n",
-       "remainder__attendance_percentage      0.089836\n",
-       "remainder__sleep_hours                0.121683\n",
-       "remainder__exercise_frequency         0.160107\n",
-       "remainder__mental_health_rating       0.321523\n",
-       "remainder__exam_score                 1.000000\n",
-       "Name: remainder__exam_score, dtype: float64"
-      ]
-     },
-     "execution_count": 16,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "encoded_df.corr()['remainder__exam_score']"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "id": "fe0d89e4",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-06-11T11:11:07.986813Z",
-     "iopub.status.busy": "2025-06-11T11:11:07.986302Z",
-     "iopub.status.idle": "2025-06-11T11:11:08.054450Z",
-     "shell.execute_reply": "2025-06-11T11:11:08.053612Z"
-    },
-    "papermill": {
-     "duration": 0.076402,
-     "end_time": "2025-06-11T11:11:08.056688",
-     "exception": false,
-     "start_time": "2025-06-11T11:11:07.980286",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "9.966964181735579"
-      ]
-     },
-     "execution_count": 17,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "dtree = DecisionTreeRegressor(ccp_alpha=0.001, criterion='absolute_error' )\n",
-    "dtree.fit(X_train, y_train)\n",
-    "y_pred = dtree.predict(X_test)\n",
-    "mean_squared_error(y_test, y_pred)**(1/2)"
-   ]
-  },
-  {
-   "cell_type": "code",
    "execution_count": null,
-   "id": "4e9817fb",
+   "id": "b931dbfb",
    "metadata": {
     "papermill": {
-     "duration": 0.00468,
-     "end_time": "2025-06-11T11:11:08.066404",
+     "duration": 0.004068,
+     "end_time": "2025-06-12T09:14:01.301216",
      "exception": false,
-     "start_time": "2025-06-11T11:11:08.061724",
+     "start_time": "2025-06-12T09:14:01.297148",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "d6135e87",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.310563Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.310316Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.347858Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.346724Z"
+    },
+    "papermill": {
+     "duration": 0.043988,
+     "end_time": "2025-06-12T09:14:01.349303",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.305315",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "MSE: 8.58\n",
+      "MAE: 7.0\n",
+      "R2 Score: 0.7131\n"
+     ]
+    }
+   ],
+   "source": [
+    "dtree = DecisionTreeRegressor(ccp_alpha=0.001, criterion='absolute_error', max_depth=6, min_samples_split=5)\n",
+    "\n",
+    "dtree.fit(X_train, y_train)\n",
+    "y_pred = dtree.predict(X_test)\n",
+    "print(f\"MSE: {round(mean_squared_error(y_test, y_pred)**(1/2),2)}\")\n",
+    "print(f\"MAE: {round(mean_absolute_error(y_test, y_pred),2)}\")\n",
+    "print(f\"R2 Score: {round(r2_score(y_test, y_pred),4)}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "aedacce6",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.359822Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.359533Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.364500Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.363630Z"
+    },
+    "papermill": {
+     "duration": 0.012016,
+     "end_time": "2025-06-12T09:14:01.366178",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.354162",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "model = Pipeline([\n",
+    "    ('preprocessing', preprocessing),\n",
+    "    ('prediction', dtree)\n",
+    "])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "02717f4f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.376751Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.376459Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.394714Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.394063Z"
+    },
+    "papermill": {
+     "duration": 0.024944,
+     "end_time": "2025-06-12T09:14:01.395915",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.370971",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-1\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>Pipeline(steps=[(&#x27;preprocessing&#x27;,\n",
+       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                   transformers=[(&#x27;encoding&#x27;,\n",
+       "                                                  OrdinalEncoder(dtype=&#x27;int16&#x27;),\n",
+       "                                                  [&#x27;part_time_job&#x27;,\n",
+       "                                                   &#x27;diet_quality&#x27;,\n",
+       "                                                   &#x27;parental_education_level&#x27;,\n",
+       "                                                   &#x27;internet_quality&#x27;])])),\n",
+       "                (&#x27;prediction&#x27;,\n",
+       "                 DecisionTreeRegressor(ccp_alpha=0.001,\n",
+       "                                       criterion=&#x27;absolute_error&#x27;, max_depth=6,\n",
+       "                                       min_samples_split=5))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-1\" type=\"checkbox\" ><label for=\"sk-estimator-id-1\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">Pipeline</label><div class=\"sk-toggleable__content\"><pre>Pipeline(steps=[(&#x27;preprocessing&#x27;,\n",
+       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                   transformers=[(&#x27;encoding&#x27;,\n",
+       "                                                  OrdinalEncoder(dtype=&#x27;int16&#x27;),\n",
+       "                                                  [&#x27;part_time_job&#x27;,\n",
+       "                                                   &#x27;diet_quality&#x27;,\n",
+       "                                                   &#x27;parental_education_level&#x27;,\n",
+       "                                                   &#x27;internet_quality&#x27;])])),\n",
+       "                (&#x27;prediction&#x27;,\n",
+       "                 DecisionTreeRegressor(ccp_alpha=0.001,\n",
+       "                                       criterion=&#x27;absolute_error&#x27;, max_depth=6,\n",
+       "                                       min_samples_split=5))])</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-2\" type=\"checkbox\" ><label for=\"sk-estimator-id-2\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">preprocessing: ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                  transformers=[(&#x27;encoding&#x27;, OrdinalEncoder(dtype=&#x27;int16&#x27;),\n",
+       "                                 [&#x27;part_time_job&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                  &#x27;parental_education_level&#x27;,\n",
+       "                                  &#x27;internet_quality&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-3\" type=\"checkbox\" ><label for=\"sk-estimator-id-3\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">encoding</label><div class=\"sk-toggleable__content\"><pre>[&#x27;part_time_job&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-4\" type=\"checkbox\" ><label for=\"sk-estimator-id-4\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder(dtype=&#x27;int16&#x27;)</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-5\" type=\"checkbox\" ><label for=\"sk-estimator-id-5\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre>[&#x27;age&#x27;, &#x27;study_hours_per_day&#x27;, &#x27;social_media_hours&#x27;, &#x27;netflix_hours&#x27;, &#x27;attendance_percentage&#x27;, &#x27;sleep_hours&#x27;, &#x27;exercise_frequency&#x27;, &#x27;mental_health_rating&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-6\" type=\"checkbox\" ><label for=\"sk-estimator-id-6\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-7\" type=\"checkbox\" ><label for=\"sk-estimator-id-7\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">DecisionTreeRegressor</label><div class=\"sk-toggleable__content\"><pre>DecisionTreeRegressor(ccp_alpha=0.001, criterion=&#x27;absolute_error&#x27;, max_depth=6,\n",
+       "                      min_samples_split=5)</pre></div></div></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "Pipeline(steps=[('preprocessing',\n",
+       "                 ColumnTransformer(remainder='passthrough',\n",
+       "                                   transformers=[('encoding',\n",
+       "                                                  OrdinalEncoder(dtype='int16'),\n",
+       "                                                  ['part_time_job',\n",
+       "                                                   'diet_quality',\n",
+       "                                                   'parental_education_level',\n",
+       "                                                   'internet_quality'])])),\n",
+       "                ('prediction',\n",
+       "                 DecisionTreeRegressor(ccp_alpha=0.001,\n",
+       "                                       criterion='absolute_error', max_depth=6,\n",
+       "                                       min_samples_split=5))])"
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "598b93c4",
+   "metadata": {
+    "papermill": {
+     "duration": 0.004259,
+     "end_time": "2025-06-12T09:14:01.405203",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.400944",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Prediction"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "ad48d2ab",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.415061Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.414736Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.418748Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.417935Z"
+    },
+    "papermill": {
+     "duration": 0.010973,
+     "end_time": "2025-06-12T09:14:01.420439",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.409466",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "from typing import List, Dict, Literal, Annotated"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "bdc4cdc1",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.431101Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.430508Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.447298Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.446340Z"
+    },
+    "papermill": {
+     "duration": 0.023826,
+     "end_time": "2025-06-12T09:14:01.449243",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.425417",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "79.9"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "class ExamScorePredictor:\n",
+    "    \n",
+    "    \"\"\" \n",
+    "    \n",
+    "    Introduction:\n",
+    "    =============\n",
+    "    \n",
+    "        This is the class that contains the usefull functions for predicting the exam score \n",
+    "        of an college student \n",
+    "\n",
+    "\n",
+    "\n",
+    "    Why this?\n",
+    "    ========\n",
+    "\n",
+    "        I built this project to practice my skills, i.e., API development, Site Integration\n",
+    "        and successful deplyoment to the server.\n",
+    "        \n",
+    "    \"\"\"\n",
+    "\n",
+    "\n",
+    "    ## constructor\n",
+    "    def __init__(self):\n",
+    "        pass\n",
+    "\n",
+    "\n",
+    "    ## function (01)\n",
+    "    def predict(self,\n",
+    "                age: int,\n",
+    "                exercise_frequency: Annotated[int, '0 to 6'],\n",
+    "                mental_health_rating: Annotated[int, '1 to 10'],\n",
+    "                study_hours: float,\n",
+    "                sleep_hours: float,\n",
+    "                netflix_hours: float,\n",
+    "                social_media_hours: float,\n",
+    "                attendance_percentage: float,\n",
+    "                is_part_time_job: Literal['yes','no'],\n",
+    "                diet_quality: Literal['fair','good','poor'],\n",
+    "                internet_quality: Literal['good','average','poor'],\n",
+    "                parental_education_level: Literal['high school', 'bachelor','master','not to say']\n",
+    "                \n",
+    "               ) -> float | None :\n",
+    "        \n",
+    "        \"\"\" This function will predict the Exam Score of student \"\"\"\n",
+    "\n",
+    "        ## Note: we are not checking (validating) the parameters (because our focus on other tech regarding this project)\n",
+    "\n",
+    "        ## creating dictionary of input values\n",
+    "        user_data: Dict[str, str] = {\n",
+    "            'part_time_job': is_part_time_job,\n",
+    "    \t\t'diet_quality': diet_quality,\n",
+    "    \t\t'parental_education_level': parental_education_level,\n",
+    "    \t\t'internet_quality': internet_quality,\n",
+    "    \t\t'age': age,\n",
+    "    \t\t'study_hours_per_day': study_hours,\n",
+    "    \t\t'social_media_hours': social_media_hours,\n",
+    "    \t\t'netflix_hours': netflix_hours,\n",
+    "    \t\t'attendance_percentage': attendance_percentage,\n",
+    "    \t\t'sleep_hours': sleep_hours,\n",
+    "    \t\t'exercise_frequency': exercise_frequency,\n",
+    "    \t\t'mental_health_rating': mental_health_rating,\n",
+    "            'exam_score': 0\n",
+    "        }\n",
+    "        \n",
+    "\n",
+    "        xdf = pd.DataFrame(user_data, index=[1])\n",
+    "\n",
+    "        ## preprocessing (applying column transformations)\n",
+    "        encoded_array = preprocessing.transform(xdf)\n",
+    "\n",
+    "        ## converting numpy array to pandas dataframe\n",
+    "        encoded_df = pd.DataFrame(encoded_array, columns=list(preprocessing.get_feature_names_out()))\n",
+    "\n",
+    "        ## removing prefix from columns name\n",
+    "        encoded_df.rename(columns={col:col.split('__')[-1] for col in encoded_df}, inplace=True)\n",
+    "\n",
+    "        ## scaling\n",
+    "        scaled_data = scaler.transform(encoded_df)\n",
+    "\n",
+    "        ## predicting\n",
+    "        prediction = dtree.predict(scaled_data)\n",
+    "\n",
+    "        return prediction[0]\n",
+    "        \n",
+    "\n",
+    "        \n",
+    "\n",
+    "\n",
+    "if __name__ == \"__main__\": # ------------------------------------------------------------------- Main execution\n",
+    "    \n",
+    "    esp = ExamScorePredictor()\n",
+    "    predicted_exam_score = esp.predict(\n",
+    "                age = 20,\n",
+    "                exercise_frequency = 1,\n",
+    "                mental_health_rating = 7,\n",
+    "                study_hours = 4,\n",
+    "                sleep_hours = 7,\n",
+    "                netflix_hours = 1.2,\n",
+    "                social_media_hours = 3.2,\n",
+    "                attendance_percentage = 65,\n",
+    "                is_part_time_job = 'yes',\n",
+    "                diet_quality = 'fair',\n",
+    "                internet_quality = 'good',\n",
+    "                parental_education_level = 'bachelor'\n",
+    "                )\n",
+    "\n",
+    "\n",
+    "predicted_exam_score"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "692116b5",
+   "metadata": {
+    "papermill": {
+     "duration": 0.004326,
+     "end_time": "2025-06-12T09:14:01.459054",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.454728",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Saving files"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "626651ce",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-06-12T09:14:01.469499Z",
+     "iopub.status.busy": "2025-06-12T09:14:01.469206Z",
+     "iopub.status.idle": "2025-06-12T09:14:01.475907Z",
+     "shell.execute_reply": "2025-06-12T09:14:01.474431Z"
+    },
+    "papermill": {
+     "duration": 0.014142,
+     "end_time": "2025-06-12T09:14:01.477651",
+     "exception": false,
+     "start_time": "2025-06-12T09:14:01.463509",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import pickle\n",
+    "\n",
+    "## saving preprocessor\n",
+    "pickle.dump(preprocessing, open('preprocessor.pkl', 'wb'))\n",
+    "\n",
+    "## saving scaler\n",
+    "pickle.dump(scaler, open('scaler.pkl', 'wb'))\n",
+    "\n",
+    "## saving model\n",
+    "pickle.dump(dtree, open('model.pkl', 'wb'))"
+   ]
   }
  ],
  "metadata": {
@@ -1113,14 +1483,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 11.783574,
-   "end_time": "2025-06-11T11:11:08.792549",
+   "duration": 10.614472,
+   "end_time": "2025-06-12T09:14:02.205214",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-06-11T11:10:57.008975",
+   "start_time": "2025-06-12T09:13:51.590742",
    "version": "2.6.0"
   }
  },
