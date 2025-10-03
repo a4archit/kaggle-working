@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "64051b35",
+   "id": "e894cb61",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:15.794850Z",
-     "iopub.status.busy": "2025-10-03T10:52:15.794581Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.673380Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.672507Z"
+     "iopub.execute_input": "2025-10-03T15:46:24.559828Z",
+     "iopub.status.busy": "2025-10-03T15:46:24.558593Z",
+     "iopub.status.idle": "2025-10-03T15:46:26.786384Z",
+     "shell.execute_reply": "2025-10-03T15:46:26.784663Z"
     },
     "papermill": {
-     "duration": 1.885309,
-     "end_time": "2025-10-03T10:52:17.674943",
+     "duration": 2.235772,
+     "end_time": "2025-10-03T15:46:26.788499",
      "exception": false,
-     "start_time": "2025-10-03T10:52:15.789634",
+     "start_time": "2025-10-03T15:46:24.552727",
      "status": "completed"
     },
     "tags": []
@@ -53,13 +53,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8dfd9033",
+   "id": "45af7dfc",
    "metadata": {
     "papermill": {
-     "duration": 0.00258,
-     "end_time": "2025-10-03T10:52:17.680792",
+     "duration": 0.003215,
+     "end_time": "2025-10-03T15:46:26.795689",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.678212",
+     "start_time": "2025-10-03T15:46:26.792474",
      "status": "completed"
     },
     "tags": []
@@ -71,19 +71,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "aa0b2a7a",
+   "id": "ef295bf4",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.688160Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.687281Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.860707Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.859964Z"
+     "iopub.execute_input": "2025-10-03T15:46:26.812018Z",
+     "iopub.status.busy": "2025-10-03T15:46:26.811581Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.025153Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.023680Z"
     },
     "papermill": {
-     "duration": 0.178811,
-     "end_time": "2025-10-03T10:52:17.862402",
+     "duration": 0.227721,
+     "end_time": "2025-10-03T15:46:27.027187",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.683591",
+     "start_time": "2025-10-03T15:46:26.799466",
      "status": "completed"
     },
     "tags": []
@@ -96,19 +96,19 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "5217ab58",
+   "id": "25cd893d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.869525Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.869231Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.898265Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.897391Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.036118Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.035785Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.068596Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.067571Z"
     },
     "papermill": {
-     "duration": 0.034193,
-     "end_time": "2025-10-03T10:52:17.899629",
+     "duration": 0.039541,
+     "end_time": "2025-10-03T15:46:27.070506",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.865436",
+     "start_time": "2025-10-03T15:46:27.030965",
      "status": "completed"
     },
     "tags": []
@@ -284,19 +284,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "d966447e",
+   "id": "c4adbbf3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.907440Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.907129Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.918271Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.917479Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.079731Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.079428Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.093671Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.092509Z"
     },
     "papermill": {
-     "duration": 0.016882,
-     "end_time": "2025-10-03T10:52:17.919925",
+     "duration": 0.021314,
+     "end_time": "2025-10-03T15:46:27.095888",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.903043",
+     "start_time": "2025-10-03T15:46:27.074574",
      "status": "completed"
     },
     "tags": []
@@ -310,19 +310,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "65fd6053",
+   "id": "302dc0e4",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.927852Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.927535Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.940415Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.939585Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.105149Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.104844Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.118053Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.116947Z"
     },
     "papermill": {
-     "duration": 0.01829,
-     "end_time": "2025-10-03T10:52:17.941700",
+     "duration": 0.019735,
+     "end_time": "2025-10-03T15:46:27.119728",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.923410",
+     "start_time": "2025-10-03T15:46:27.099993",
      "status": "completed"
     },
     "tags": []
@@ -359,31 +359,31 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>447</th>\n",
-       "      <td>Electronics|Mobiles&amp;Accessories|MobileAccessor...</td>\n",
-       "      <td>₹999</td>\n",
-       "      <td>₹2,899</td>\n",
-       "      <td>66%</td>\n",
-       "      <td>4.6</td>\n",
-       "      <td>26,603</td>\n",
+       "      <th>375</th>\n",
+       "      <td>Electronics|WearableTechnology|SmartWatches</td>\n",
+       "      <td>₹3,999</td>\n",
+       "      <td>₹16,999</td>\n",
+       "      <td>76%</td>\n",
+       "      <td>4.3</td>\n",
+       "      <td>17,159</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>1433</th>\n",
-       "      <td>Home&amp;Kitchen|Heating,Cooling&amp;AirQuality|Fans|C...</td>\n",
-       "      <td>₹2,599</td>\n",
-       "      <td>₹4,780</td>\n",
-       "      <td>46%</td>\n",
-       "      <td>3.9</td>\n",
-       "      <td>898</td>\n",
+       "      <th>1080</th>\n",
+       "      <td>Home&amp;Kitchen|Heating,Cooling&amp;AirQuality|RoomHe...</td>\n",
+       "      <td>₹799</td>\n",
+       "      <td>₹1,989</td>\n",
+       "      <td>60%</td>\n",
+       "      <td>4.3</td>\n",
+       "      <td>70</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>742</th>\n",
-       "      <td>Computers&amp;Accessories|Accessories&amp;Peripherals|...</td>\n",
-       "      <td>₹149</td>\n",
-       "      <td>₹399</td>\n",
-       "      <td>63%</td>\n",
-       "      <td>4.0</td>\n",
-       "      <td>1,540</td>\n",
+       "      <th>1457</th>\n",
+       "      <td>Home&amp;Kitchen|Kitchen&amp;HomeAppliances|SmallKitch...</td>\n",
+       "      <td>₹2,695</td>\n",
+       "      <td>₹2,695</td>\n",
+       "      <td>0%</td>\n",
+       "      <td>4.4</td>\n",
+       "      <td>2,518</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -391,14 +391,14 @@
       ],
       "text/plain": [
        "                                               category discounted_price  \\\n",
-       "447   Electronics|Mobiles&Accessories|MobileAccessor...             ₹999   \n",
-       "1433  Home&Kitchen|Heating,Cooling&AirQuality|Fans|C...           ₹2,599   \n",
-       "742   Computers&Accessories|Accessories&Peripherals|...             ₹149   \n",
+       "375         Electronics|WearableTechnology|SmartWatches           ₹3,999   \n",
+       "1080  Home&Kitchen|Heating,Cooling&AirQuality|RoomHe...             ₹799   \n",
+       "1457  Home&Kitchen|Kitchen&HomeAppliances|SmallKitch...           ₹2,695   \n",
        "\n",
        "     actual_price discount_percentage rating rating_count  \n",
-       "447        ₹2,899                 66%    4.6       26,603  \n",
-       "1433       ₹4,780                 46%    3.9          898  \n",
-       "742          ₹399                 63%    4.0        1,540  "
+       "375       ₹16,999                 76%    4.3       17,159  \n",
+       "1080       ₹1,989                 60%    4.3           70  \n",
+       "1457       ₹2,695                  0%    4.4        2,518  "
       ]
      },
      "execution_count": 5,
@@ -413,19 +413,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "4aca5ce0",
+   "id": "0e95853b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.949911Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.949206Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.968340Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.967464Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.129751Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.129434Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.155067Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.153436Z"
     },
     "papermill": {
-     "duration": 0.024452,
-     "end_time": "2025-10-03T10:52:17.969626",
+     "duration": 0.033043,
+     "end_time": "2025-10-03T15:46:27.156979",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.945174",
+     "start_time": "2025-10-03T15:46:27.123936",
      "status": "completed"
     },
     "tags": []
@@ -458,19 +458,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "1f36f3f2",
+   "id": "2943da82",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.977434Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.977143Z",
-     "iopub.status.idle": "2025-10-03T10:52:17.984491Z",
-     "shell.execute_reply": "2025-10-03T10:52:17.983781Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.167435Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.166191Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.175475Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.174390Z"
     },
     "papermill": {
-     "duration": 0.012683,
-     "end_time": "2025-10-03T10:52:17.985785",
+     "duration": 0.015973,
+     "end_time": "2025-10-03T15:46:27.177193",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.973102",
+     "start_time": "2025-10-03T15:46:27.161220",
      "status": "completed"
     },
     "tags": []
@@ -500,19 +500,19 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "5e1709dd",
+   "id": "7c121fbb",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:17.993705Z",
-     "iopub.status.busy": "2025-10-03T10:52:17.993384Z",
-     "iopub.status.idle": "2025-10-03T10:52:18.001094Z",
-     "shell.execute_reply": "2025-10-03T10:52:18.000390Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.187437Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.187027Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.196703Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.195622Z"
     },
     "papermill": {
-     "duration": 0.013046,
-     "end_time": "2025-10-03T10:52:18.002380",
+     "duration": 0.01668,
+     "end_time": "2025-10-03T15:46:27.198420",
      "exception": false,
-     "start_time": "2025-10-03T10:52:17.989334",
+     "start_time": "2025-10-03T15:46:27.181740",
      "status": "completed"
     },
     "tags": []
@@ -536,19 +536,19 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "id": "a5d63200",
+   "id": "ac5a9489",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-03T10:52:18.010442Z",
-     "iopub.status.busy": "2025-10-03T10:52:18.010148Z",
-     "iopub.status.idle": "2025-10-03T10:52:18.015512Z",
-     "shell.execute_reply": "2025-10-03T10:52:18.014674Z"
+     "iopub.execute_input": "2025-10-03T15:46:27.208227Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.207924Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.214472Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.213408Z"
     },
     "papermill": {
-     "duration": 0.010948,
-     "end_time": "2025-10-03T10:52:18.016897",
+     "duration": 0.01349,
+     "end_time": "2025-10-03T15:46:27.216271",
      "exception": false,
-     "start_time": "2025-10-03T10:52:18.005949",
+     "start_time": "2025-10-03T15:46:27.202781",
      "status": "completed"
     },
     "tags": []
@@ -571,82 +571,331 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "54de03f6",
+   "execution_count": 10,
+   "id": "79c2874d",
    "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-03T15:46:27.227686Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.227343Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.235486Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.234392Z"
+    },
     "papermill": {
-     "duration": 0.003322,
-     "end_time": "2025-10-03T10:52:18.023899",
+     "duration": 0.016278,
+     "end_time": "2025-10-03T15:46:27.237146",
      "exception": false,
-     "start_time": "2025-10-03T10:52:18.020577",
+     "start_time": "2025-10-03T15:46:27.220868",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
-   "source": []
+   "source": [
+    "df['category_all'] = df.category.apply(lambda x: x.split('|'))"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "ca6e5fbc",
+   "execution_count": 11,
+   "id": "e56e2a53",
    "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-03T15:46:27.248217Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.247273Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.254097Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.253176Z"
+    },
     "papermill": {
-     "duration": 0.003124,
-     "end_time": "2025-10-03T10:52:18.031360",
+     "duration": 0.014185,
+     "end_time": "2025-10-03T15:46:27.256027",
      "exception": false,
-     "start_time": "2025-10-03T10:52:18.028236",
+     "start_time": "2025-10-03T15:46:27.241842",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
-   "source": []
+   "source": [
+    "df['cat_counts'] = df.category_all.apply(lambda l: len(l))"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "108e39c5",
+   "execution_count": 12,
+   "id": "2637bb31",
    "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-03T15:46:27.266436Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.266003Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.274462Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.273491Z"
+    },
     "papermill": {
-     "duration": 0.003171,
-     "end_time": "2025-10-03T10:52:18.037822",
+     "duration": 0.015377,
+     "end_time": "2025-10-03T15:46:27.276071",
      "exception": false,
-     "start_time": "2025-10-03T10:52:18.034651",
+     "start_time": "2025-10-03T15:46:27.260694",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [],
-   "source": []
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([5, 4, 3, 7, 2, 6])"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.cat_counts.unique()"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "5f66bf2b",
+   "execution_count": 13,
+   "id": "bdbafc76",
    "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-03T15:46:27.286548Z",
+     "iopub.status.busy": "2025-10-03T15:46:27.285988Z",
+     "iopub.status.idle": "2025-10-03T15:46:27.304260Z",
+     "shell.execute_reply": "2025-10-03T15:46:27.303065Z"
+    },
     "papermill": {
-     "duration": 0.003085,
-     "end_time": "2025-10-03T10:52:18.044275",
+     "duration": 0.02522,
+     "end_time": "2025-10-03T15:46:27.305975",
      "exception": false,
-     "start_time": "2025-10-03T10:52:18.041190",
+     "start_time": "2025-10-03T15:46:27.280755",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [],
-   "source": []
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>category</th>\n",
+       "      <th>discounted_price</th>\n",
+       "      <th>actual_price</th>\n",
+       "      <th>discount_percentage</th>\n",
+       "      <th>rating</th>\n",
+       "      <th>rating_count</th>\n",
+       "      <th>category_all</th>\n",
+       "      <th>cat_counts</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Computers&amp;Accessories|Accessories&amp;Peripherals|...</td>\n",
+       "      <td>₹399</td>\n",
+       "      <td>₹1,099</td>\n",
+       "      <td>64%</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>24,269</td>\n",
+       "      <td>[Computers&amp;Accessories, Accessories&amp;Peripheral...</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Computers&amp;Accessories|Accessories&amp;Peripherals|...</td>\n",
+       "      <td>₹199</td>\n",
+       "      <td>₹349</td>\n",
+       "      <td>43%</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>43,994</td>\n",
+       "      <td>[Computers&amp;Accessories, Accessories&amp;Peripheral...</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Computers&amp;Accessories|Accessories&amp;Peripherals|...</td>\n",
+       "      <td>₹199</td>\n",
+       "      <td>₹1,899</td>\n",
+       "      <td>90%</td>\n",
+       "      <td>3.9</td>\n",
+       "      <td>7,928</td>\n",
+       "      <td>[Computers&amp;Accessories, Accessories&amp;Peripheral...</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Computers&amp;Accessories|Accessories&amp;Peripherals|...</td>\n",
+       "      <td>₹329</td>\n",
+       "      <td>₹699</td>\n",
+       "      <td>53%</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>94,363</td>\n",
+       "      <td>[Computers&amp;Accessories, Accessories&amp;Peripheral...</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Computers&amp;Accessories|Accessories&amp;Peripherals|...</td>\n",
+       "      <td>₹154</td>\n",
+       "      <td>₹399</td>\n",
+       "      <td>61%</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>16,905</td>\n",
+       "      <td>[Computers&amp;Accessories, Accessories&amp;Peripheral...</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1460</th>\n",
+       "      <td>Home&amp;Kitchen|Kitchen&amp;HomeAppliances|WaterPurif...</td>\n",
+       "      <td>₹379</td>\n",
+       "      <td>₹919</td>\n",
+       "      <td>59%</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1,090</td>\n",
+       "      <td>[Home&amp;Kitchen, Kitchen&amp;HomeAppliances, WaterPu...</td>\n",
+       "      <td>4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1461</th>\n",
+       "      <td>Home&amp;Kitchen|Kitchen&amp;HomeAppliances|SmallKitch...</td>\n",
+       "      <td>₹2,280</td>\n",
+       "      <td>₹3,045</td>\n",
+       "      <td>25%</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>4,118</td>\n",
+       "      <td>[Home&amp;Kitchen, Kitchen&amp;HomeAppliances, SmallKi...</td>\n",
+       "      <td>4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1462</th>\n",
+       "      <td>Home&amp;Kitchen|Heating,Cooling&amp;AirQuality|RoomHe...</td>\n",
+       "      <td>₹2,219</td>\n",
+       "      <td>₹3,080</td>\n",
+       "      <td>28%</td>\n",
+       "      <td>3.6</td>\n",
+       "      <td>468</td>\n",
+       "      <td>[Home&amp;Kitchen, Heating,Cooling&amp;AirQuality, Roo...</td>\n",
+       "      <td>4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1463</th>\n",
+       "      <td>Home&amp;Kitchen|Heating,Cooling&amp;AirQuality|Fans|E...</td>\n",
+       "      <td>₹1,399</td>\n",
+       "      <td>₹1,890</td>\n",
+       "      <td>26%</td>\n",
+       "      <td>4</td>\n",
+       "      <td>8,031</td>\n",
+       "      <td>[Home&amp;Kitchen, Heating,Cooling&amp;AirQuality, Fan...</td>\n",
+       "      <td>4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1464</th>\n",
+       "      <td>Home&amp;Kitchen|Kitchen&amp;HomeAppliances|SmallKitch...</td>\n",
+       "      <td>₹2,863</td>\n",
+       "      <td>₹3,690</td>\n",
+       "      <td>22%</td>\n",
+       "      <td>4.3</td>\n",
+       "      <td>6,987</td>\n",
+       "      <td>[Home&amp;Kitchen, Kitchen&amp;HomeAppliances, SmallKi...</td>\n",
+       "      <td>4</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>1465 rows × 8 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                               category discounted_price  \\\n",
+       "0     Computers&Accessories|Accessories&Peripherals|...             ₹399   \n",
+       "1     Computers&Accessories|Accessories&Peripherals|...             ₹199   \n",
+       "2     Computers&Accessories|Accessories&Peripherals|...             ₹199   \n",
+       "3     Computers&Accessories|Accessories&Peripherals|...             ₹329   \n",
+       "4     Computers&Accessories|Accessories&Peripherals|...             ₹154   \n",
+       "...                                                 ...              ...   \n",
+       "1460  Home&Kitchen|Kitchen&HomeAppliances|WaterPurif...             ₹379   \n",
+       "1461  Home&Kitchen|Kitchen&HomeAppliances|SmallKitch...           ₹2,280   \n",
+       "1462  Home&Kitchen|Heating,Cooling&AirQuality|RoomHe...           ₹2,219   \n",
+       "1463  Home&Kitchen|Heating,Cooling&AirQuality|Fans|E...           ₹1,399   \n",
+       "1464  Home&Kitchen|Kitchen&HomeAppliances|SmallKitch...           ₹2,863   \n",
+       "\n",
+       "     actual_price discount_percentage rating rating_count  \\\n",
+       "0          ₹1,099                 64%    4.2       24,269   \n",
+       "1            ₹349                 43%    4.0       43,994   \n",
+       "2          ₹1,899                 90%    3.9        7,928   \n",
+       "3            ₹699                 53%    4.2       94,363   \n",
+       "4            ₹399                 61%    4.2       16,905   \n",
+       "...           ...                 ...    ...          ...   \n",
+       "1460         ₹919                 59%      4        1,090   \n",
+       "1461       ₹3,045                 25%    4.1        4,118   \n",
+       "1462       ₹3,080                 28%    3.6          468   \n",
+       "1463       ₹1,890                 26%      4        8,031   \n",
+       "1464       ₹3,690                 22%    4.3        6,987   \n",
+       "\n",
+       "                                           category_all  cat_counts  \n",
+       "0     [Computers&Accessories, Accessories&Peripheral...           5  \n",
+       "1     [Computers&Accessories, Accessories&Peripheral...           5  \n",
+       "2     [Computers&Accessories, Accessories&Peripheral...           5  \n",
+       "3     [Computers&Accessories, Accessories&Peripheral...           5  \n",
+       "4     [Computers&Accessories, Accessories&Peripheral...           5  \n",
+       "...                                                 ...         ...  \n",
+       "1460  [Home&Kitchen, Kitchen&HomeAppliances, WaterPu...           4  \n",
+       "1461  [Home&Kitchen, Kitchen&HomeAppliances, SmallKi...           4  \n",
+       "1462  [Home&Kitchen, Heating,Cooling&AirQuality, Roo...           4  \n",
+       "1463  [Home&Kitchen, Heating,Cooling&AirQuality, Fan...           4  \n",
+       "1464  [Home&Kitchen, Kitchen&HomeAppliances, SmallKi...           4  \n",
+       "\n",
+       "[1465 rows x 8 columns]"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df"
+   ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b8e06872",
+   "id": "5ee8c523",
    "metadata": {
     "papermill": {
-     "duration": 0.003103,
-     "end_time": "2025-10-03T10:52:18.050679",
+     "duration": 0.004555,
+     "end_time": "2025-10-03T15:46:27.315388",
      "exception": false,
-     "start_time": "2025-10-03T10:52:18.047576",
+     "start_time": "2025-10-03T15:46:27.310833",
      "status": "completed"
     },
     "tags": []
@@ -690,14 +939,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 7.87351,
-   "end_time": "2025-10-03T10:52:18.572307",
+   "duration": 9.625584,
+   "end_time": "2025-10-03T15:46:27.841028",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-10-03T10:52:10.698797",
+   "start_time": "2025-10-03T15:46:18.215444",
    "version": "2.6.0"
   }
  },
