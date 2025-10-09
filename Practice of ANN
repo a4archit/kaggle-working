@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "2d18a1f5",
+   "id": "6581bb61",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:52.730605Z",
-     "iopub.status.busy": "2025-10-09T04:25:52.730188Z",
-     "iopub.status.idle": "2025-10-09T04:25:54.660603Z",
-     "shell.execute_reply": "2025-10-09T04:25:54.659650Z"
+     "iopub.execute_input": "2025-10-09T10:51:53.882794Z",
+     "iopub.status.busy": "2025-10-09T10:51:53.882362Z",
+     "iopub.status.idle": "2025-10-09T10:51:56.166304Z",
+     "shell.execute_reply": "2025-10-09T10:51:56.164502Z"
     },
     "papermill": {
-     "duration": 1.936581,
-     "end_time": "2025-10-09T04:25:54.662148",
+     "duration": 2.294916,
+     "end_time": "2025-10-09T10:51:56.168419",
      "exception": false,
-     "start_time": "2025-10-09T04:25:52.725567",
+     "start_time": "2025-10-09T10:51:53.873503",
      "status": "completed"
     },
     "tags": []
@@ -54,46 +54,48 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "cc677076",
+   "id": "d3653759",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:54.668978Z",
-     "iopub.status.busy": "2025-10-09T04:25:54.668586Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.099769Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.098595Z"
+     "iopub.execute_input": "2025-10-09T10:51:56.185098Z",
+     "iopub.status.busy": "2025-10-09T10:51:56.184631Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.576863Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.575816Z"
     },
     "papermill": {
-     "duration": 1.436295,
-     "end_time": "2025-10-09T04:25:56.101442",
+     "duration": 2.403751,
+     "end_time": "2025-10-09T10:51:58.578875",
      "exception": false,
-     "start_time": "2025-10-09T04:25:54.665147",
+     "start_time": "2025-10-09T10:51:56.175124",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, LabelEncoder\n",
+    "from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, LabelEncoder, StandardScaler\n",
     "from sklearn.pipeline import Pipeline\n",
-    "from sklearn.compose import ColumnTransformer"
+    "from sklearn.compose import ColumnTransformer\n",
+    "\n",
+    "from sklearn.model_selection import train_test_split"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "1ce62dea",
+   "id": "5d38b1e2",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.108782Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.108288Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.132184Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.131392Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.593713Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.593207Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.628060Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.627051Z"
     },
     "papermill": {
-     "duration": 0.02923,
-     "end_time": "2025-10-09T04:25:56.133885",
+     "duration": 0.044298,
+     "end_time": "2025-10-09T10:51:58.629943",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.104655",
+     "start_time": "2025-10-09T10:51:58.585645",
      "status": "completed"
     },
     "tags": []
@@ -106,19 +108,19 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "9fd1f7a8",
+   "id": "247f91ac",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.140897Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.140172Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.146926Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.145844Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.644887Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.644506Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.653229Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.651677Z"
     },
     "papermill": {
-     "duration": 0.011713,
-     "end_time": "2025-10-09T04:25:56.148437",
+     "duration": 0.019724,
+     "end_time": "2025-10-09T10:51:58.656321",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.136724",
+     "start_time": "2025-10-09T10:51:58.636597",
      "status": "completed"
     },
     "tags": []
@@ -142,19 +144,19 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "51c1ca8c",
+   "id": "3122b830",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.155160Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.154881Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.186669Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.185505Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.672143Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.671695Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.716205Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.714919Z"
     },
     "papermill": {
-     "duration": 0.036737,
-     "end_time": "2025-10-09T04:25:56.188070",
+     "duration": 0.054318,
+     "end_time": "2025-10-09T10:51:58.718380",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.151333",
+     "start_time": "2025-10-09T10:51:58.664062",
      "status": "completed"
     },
     "tags": []
@@ -197,19 +199,19 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "d7910301",
+   "id": "24fba171",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.195443Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.195152Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.206612Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.205427Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.735410Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.735061Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.747723Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.746640Z"
     },
     "papermill": {
-     "duration": 0.017295,
-     "end_time": "2025-10-09T04:25:56.208202",
+     "duration": 0.024941,
+     "end_time": "2025-10-09T10:51:58.750077",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.190907",
+     "start_time": "2025-10-09T10:51:58.725136",
      "status": "completed"
     },
     "tags": []
@@ -222,19 +224,19 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "id": "545f63fa",
+   "id": "ddf2644b",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.215166Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.214870Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.242831Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.241774Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.764000Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.763643Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.795617Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.793886Z"
     },
     "papermill": {
-     "duration": 0.03331,
-     "end_time": "2025-10-09T04:25:56.244378",
+     "duration": 0.041438,
+     "end_time": "2025-10-09T10:51:58.797989",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.211068",
+     "start_time": "2025-10-09T10:51:58.756551",
      "status": "completed"
     },
     "tags": []
@@ -279,55 +281,55 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>719</th>\n",
-       "      <td>20</td>\n",
-       "      <td>Male</td>\n",
-       "      <td>2.3</td>\n",
-       "      <td>2.3</td>\n",
-       "      <td>1.6</td>\n",
-       "      <td>Yes</td>\n",
-       "      <td>76.9</td>\n",
-       "      <td>8.7</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>0</td>\n",
-       "      <td>High School</td>\n",
-       "      <td>Good</td>\n",
-       "      <td>9</td>\n",
-       "      <td>68.9</td>\n",
+       "      <th>772</th>\n",
+       "      <td>17</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>2.8</td>\n",
+       "      <td>1.4</td>\n",
+       "      <td>2.8</td>\n",
+       "      <td>No</td>\n",
+       "      <td>77.3</td>\n",
+       "      <td>8.3</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>5</td>\n",
+       "      <td>Master</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>7</td>\n",
+       "      <td>73.0</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>781</th>\n",
+       "      <th>824</th>\n",
+       "      <td>24</td>\n",
+       "      <td>Other</td>\n",
+       "      <td>4.9</td>\n",
+       "      <td>0.5</td>\n",
+       "      <td>2.1</td>\n",
+       "      <td>No</td>\n",
+       "      <td>85.3</td>\n",
+       "      <td>7.5</td>\n",
+       "      <td>Poor</td>\n",
+       "      <td>0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Average</td>\n",
+       "      <td>4</td>\n",
+       "      <td>83.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>811</th>\n",
        "      <td>19</td>\n",
        "      <td>Female</td>\n",
-       "      <td>2.9</td>\n",
-       "      <td>1.9</td>\n",
-       "      <td>3.2</td>\n",
-       "      <td>No</td>\n",
-       "      <td>82.4</td>\n",
-       "      <td>6.4</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>4</td>\n",
-       "      <td>Bachelor</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.4</td>\n",
+       "      <td>0.6</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>87.0</td>\n",
+       "      <td>7.1</td>\n",
        "      <td>Good</td>\n",
-       "      <td>6</td>\n",
-       "      <td>66.9</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>600</th>\n",
-       "      <td>21</td>\n",
-       "      <td>Male</td>\n",
-       "      <td>6.0</td>\n",
-       "      <td>3.3</td>\n",
-       "      <td>2.2</td>\n",
-       "      <td>No</td>\n",
-       "      <td>74.4</td>\n",
-       "      <td>5.4</td>\n",
-       "      <td>Fair</td>\n",
-       "      <td>0</td>\n",
+       "      <td>4</td>\n",
        "      <td>High School</td>\n",
        "      <td>Average</td>\n",
-       "      <td>8</td>\n",
-       "      <td>90.2</td>\n",
+       "      <td>5</td>\n",
+       "      <td>53.0</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -335,24 +337,24 @@
       ],
       "text/plain": [
        "     age  gender  study_hours_per_day  social_media_hours  netflix_hours  \\\n",
-       "719   20    Male                  2.3                 2.3            1.6   \n",
-       "781   19  Female                  2.9                 1.9            3.2   \n",
-       "600   21    Male                  6.0                 3.3            2.2   \n",
+       "772   17  Female                  2.8                 1.4            2.8   \n",
+       "824   24   Other                  4.9                 0.5            2.1   \n",
+       "811   19  Female                  0.0                 2.4            0.6   \n",
        "\n",
        "    part_time_job  attendance_percentage  sleep_hours diet_quality  \\\n",
-       "719           Yes                   76.9          8.7         Fair   \n",
-       "781            No                   82.4          6.4         Fair   \n",
-       "600            No                   74.4          5.4         Fair   \n",
+       "772            No                   77.3          8.3         Poor   \n",
+       "824            No                   85.3          7.5         Poor   \n",
+       "811           Yes                   87.0          7.1         Good   \n",
        "\n",
        "     exercise_frequency parental_education_level internet_quality  \\\n",
-       "719                   0              High School             Good   \n",
-       "781                   4                 Bachelor             Good   \n",
-       "600                   0              High School          Average   \n",
+       "772                   5                   Master             Poor   \n",
+       "824                   0                      NaN          Average   \n",
+       "811                   4              High School          Average   \n",
        "\n",
        "     mental_health_rating  exam_score  \n",
-       "719                     9        68.9  \n",
-       "781                     6        66.9  \n",
-       "600                     8        90.2  "
+       "772                     7        73.0  \n",
+       "824                     4        83.9  \n",
+       "811                     5        53.0  "
       ]
      },
      "execution_count": 7,
@@ -367,19 +369,58 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "id": "e20a60da",
+   "id": "53fec63a",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.251689Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.251325Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.260826Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.259842Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.814992Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.814655Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.823640Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.822531Z"
     },
     "papermill": {
-     "duration": 0.014913,
-     "end_time": "2025-10-09T04:25:56.262391",
+     "duration": 0.019287,
+     "end_time": "2025-10-09T10:51:58.825804",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.247478",
+     "start_time": "2025-10-09T10:51:58.806517",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "part_time_job\n",
+       "No     785\n",
+       "Yes    215\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df['part_time_job'].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "97b9a061",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:58.841162Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.840843Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.852237Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.850888Z"
+    },
+    "papermill": {
+     "duration": 0.021815,
+     "end_time": "2025-10-09T10:51:58.854862",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:58.833047",
      "status": "completed"
     },
     "tags": []
@@ -396,7 +437,7 @@
        "dtype: int64"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -407,20 +448,72 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
-   "id": "4baf2f46",
+   "execution_count": 10,
+   "id": "bbd7e147",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.270207Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.269582Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.274751Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.273763Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.871041Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.870656Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.879276Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.877862Z"
     },
     "papermill": {
-     "duration": 0.010641,
-     "end_time": "2025-10-09T04:25:56.276308",
+     "duration": 0.018912,
+     "end_time": "2025-10-09T10:51:58.881473",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.265667",
+     "start_time": "2025-10-09T10:51:58.862561",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df2 = pd.concat([df,df,df,df,df])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "ed8e8822",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:58.898957Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.898579Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.912634Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.910682Z"
+    },
+    "papermill": {
+     "duration": 0.026581,
+     "end_time": "2025-10-09T10:51:58.915203",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:58.888622",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "target = \"exam_score\"\n",
+    "X = df2.drop(columns=[target])\n",
+    "y = df2[[target]]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "f00c45f7",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:58.933700Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.933112Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.940049Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.938663Z"
+    },
+    "papermill": {
+     "duration": 0.018561,
+     "end_time": "2025-10-09T10:51:58.942287",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:58.923726",
      "status": "completed"
     },
     "tags": []
@@ -429,8 +522,7 @@
    "source": [
     "preprocess = ColumnTransformer(\n",
     "    transformers=[\n",
-    "        ('ordinal', OrdinalEncoder(), ['gender','diet_quality', 'parental_education_level','internet_quality']),\n",
-    "        ('label', LabelEncoder(), ['part_time_job'])\n",
+    "        ('ordinal', OrdinalEncoder(), ['gender','diet_quality', 'parental_education_level','internet_quality','part_time_job'])\n",
     "    ],\n",
     "    remainder = \"passthrough\"\n",
     ")"
@@ -438,20 +530,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
-   "id": "499cf4df",
+   "execution_count": 13,
+   "id": "eefe73d3",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-10-09T04:25:56.283420Z",
-     "iopub.status.busy": "2025-10-09T04:25:56.283101Z",
-     "iopub.status.idle": "2025-10-09T04:25:56.300036Z",
-     "shell.execute_reply": "2025-10-09T04:25:56.299032Z"
+     "iopub.execute_input": "2025-10-09T10:51:58.957050Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.956660Z",
+     "iopub.status.idle": "2025-10-09T10:51:58.972970Z",
+     "shell.execute_reply": "2025-10-09T10:51:58.971852Z"
     },
     "papermill": {
-     "duration": 0.022232,
-     "end_time": "2025-10-09T04:25:56.301591",
+     "duration": 0.025826,
+     "end_time": "2025-10-09T10:51:58.974853",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.279359",
+     "start_time": "2025-10-09T10:51:58.949027",
      "status": "completed"
     },
     "tags": []
@@ -464,24 +556,21 @@
        "                  transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
        "                                 [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
        "                                  &#x27;parental_education_level&#x27;,\n",
-       "                                  &#x27;internet_quality&#x27;]),\n",
-       "                                (&#x27;label&#x27;, LabelEncoder(), [&#x27;part_time_job&#x27;])])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-1\" type=\"checkbox\" ><label for=\"sk-estimator-id-1\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                  &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;])])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-1\" type=\"checkbox\" ><label for=\"sk-estimator-id-1\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
        "                  transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
        "                                 [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
        "                                  &#x27;parental_education_level&#x27;,\n",
-       "                                  &#x27;internet_quality&#x27;]),\n",
-       "                                (&#x27;label&#x27;, LabelEncoder(), [&#x27;part_time_job&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-2\" type=\"checkbox\" ><label for=\"sk-estimator-id-2\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ordinal</label><div class=\"sk-toggleable__content\"><pre>[&#x27;gender&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-3\" type=\"checkbox\" ><label for=\"sk-estimator-id-3\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder()</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-4\" type=\"checkbox\" ><label for=\"sk-estimator-id-4\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">label</label><div class=\"sk-toggleable__content\"><pre>[&#x27;part_time_job&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-5\" type=\"checkbox\" ><label for=\"sk-estimator-id-5\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">LabelEncoder</label><div class=\"sk-toggleable__content\"><pre>LabelEncoder()</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-6\" type=\"checkbox\" ><label for=\"sk-estimator-id-6\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre></pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-7\" type=\"checkbox\" ><label for=\"sk-estimator-id-7\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div></div></div>"
+       "                                  &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-2\" type=\"checkbox\" ><label for=\"sk-estimator-id-2\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ordinal</label><div class=\"sk-toggleable__content\"><pre>[&#x27;gender&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-3\" type=\"checkbox\" ><label for=\"sk-estimator-id-3\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder()</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-4\" type=\"checkbox\" ><label for=\"sk-estimator-id-4\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre></pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-5\" type=\"checkbox\" ><label for=\"sk-estimator-id-5\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div></div></div>"
       ],
       "text/plain": [
        "ColumnTransformer(remainder='passthrough',\n",
        "                  transformers=[('ordinal', OrdinalEncoder(),\n",
        "                                 ['gender', 'diet_quality',\n",
        "                                  'parental_education_level',\n",
-       "                                  'internet_quality']),\n",
-       "                                ('label', LabelEncoder(), ['part_time_job'])])"
+       "                                  'internet_quality', 'part_time_job'])])"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -492,14 +581,950 @@
   },
   {
    "cell_type": "code",
+   "execution_count": 14,
+   "id": "4bbf23c8",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:58.991739Z",
+     "iopub.status.busy": "2025-10-09T10:51:58.991243Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.018790Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.017636Z"
+    },
+    "papermill": {
+     "duration": 0.038584,
+     "end_time": "2025-10-09T10:51:59.021184",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:58.982600",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-2\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                  transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                 [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                  &#x27;parental_education_level&#x27;,\n",
+       "                                  &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;])])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-6\" type=\"checkbox\" ><label for=\"sk-estimator-id-6\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                  transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                 [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                  &#x27;parental_education_level&#x27;,\n",
+       "                                  &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-7\" type=\"checkbox\" ><label for=\"sk-estimator-id-7\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ordinal</label><div class=\"sk-toggleable__content\"><pre>[&#x27;gender&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-8\" type=\"checkbox\" ><label for=\"sk-estimator-id-8\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder()</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-9\" type=\"checkbox\" ><label for=\"sk-estimator-id-9\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre>[&#x27;age&#x27;, &#x27;study_hours_per_day&#x27;, &#x27;social_media_hours&#x27;, &#x27;netflix_hours&#x27;, &#x27;attendance_percentage&#x27;, &#x27;sleep_hours&#x27;, &#x27;exercise_frequency&#x27;, &#x27;mental_health_rating&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-10\" type=\"checkbox\" ><label for=\"sk-estimator-id-10\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "ColumnTransformer(remainder='passthrough',\n",
+       "                  transformers=[('ordinal', OrdinalEncoder(),\n",
+       "                                 ['gender', 'diet_quality',\n",
+       "                                  'parental_education_level',\n",
+       "                                  'internet_quality', 'part_time_job'])])"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "preprocess.fit(X) "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "4d4bcc18",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.039907Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.039527Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.058885Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.057407Z"
+    },
+    "papermill": {
+     "duration": 0.03041,
+     "end_time": "2025-10-09T10:51:59.060993",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.030583",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X = preprocess.transform(X)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "9abba261",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.078210Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.077857Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.084732Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.083658Z"
+    },
+    "papermill": {
+     "duration": 0.018684,
+     "end_time": "2025-10-09T10:51:59.087366",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.068682",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(5000, 13)"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "e345eb4b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.103342Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.103003Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.108939Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.107670Z"
+    },
+    "papermill": {
+     "duration": 0.015882,
+     "end_time": "2025-10-09T10:51:59.110744",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.094862",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "pipeline = Pipeline(\n",
+    "    steps = [\n",
+    "        ('preprocess', preprocess),\n",
+    "        ('scaler', StandardScaler())\n",
+    "    ]\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "7827c1cf",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.127729Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.127367Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.142527Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.141331Z"
+    },
+    "papermill": {
+     "duration": 0.025404,
+     "end_time": "2025-10-09T10:51:59.144601",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.119197",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-3 {color: black;background-color: white;}#sk-container-id-3 pre{padding: 0;}#sk-container-id-3 div.sk-toggleable {background-color: white;}#sk-container-id-3 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-3 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-3 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-3 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-3 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-3 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-3 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-3 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-3 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-3 div.sk-item {position: relative;z-index: 1;}#sk-container-id-3 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-3 div.sk-item::before, #sk-container-id-3 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-3 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-3 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-3 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-3 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-3 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-3 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-3 div.sk-label-container {text-align: center;}#sk-container-id-3 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-3 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-3\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>Pipeline(steps=[(&#x27;preprocess&#x27;,\n",
+       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                   transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                                  [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                                   &#x27;parental_education_level&#x27;,\n",
+       "                                                   &#x27;internet_quality&#x27;,\n",
+       "                                                   &#x27;part_time_job&#x27;])])),\n",
+       "                (&#x27;scaler&#x27;, StandardScaler())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-11\" type=\"checkbox\" ><label for=\"sk-estimator-id-11\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">Pipeline</label><div class=\"sk-toggleable__content\"><pre>Pipeline(steps=[(&#x27;preprocess&#x27;,\n",
+       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                   transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                                  [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                                   &#x27;parental_education_level&#x27;,\n",
+       "                                                   &#x27;internet_quality&#x27;,\n",
+       "                                                   &#x27;part_time_job&#x27;])])),\n",
+       "                (&#x27;scaler&#x27;, StandardScaler())])</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-12\" type=\"checkbox\" ><label for=\"sk-estimator-id-12\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">preprocess: ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                  transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                 [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                  &#x27;parental_education_level&#x27;,\n",
+       "                                  &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-13\" type=\"checkbox\" ><label for=\"sk-estimator-id-13\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ordinal</label><div class=\"sk-toggleable__content\"><pre>[&#x27;gender&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-14\" type=\"checkbox\" ><label for=\"sk-estimator-id-14\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder()</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-15\" type=\"checkbox\" ><label for=\"sk-estimator-id-15\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre>[&#x27;age&#x27;, &#x27;study_hours_per_day&#x27;, &#x27;social_media_hours&#x27;, &#x27;netflix_hours&#x27;, &#x27;attendance_percentage&#x27;, &#x27;sleep_hours&#x27;, &#x27;exercise_frequency&#x27;, &#x27;mental_health_rating&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-16\" type=\"checkbox\" ><label for=\"sk-estimator-id-16\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-17\" type=\"checkbox\" ><label for=\"sk-estimator-id-17\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">StandardScaler</label><div class=\"sk-toggleable__content\"><pre>StandardScaler()</pre></div></div></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "Pipeline(steps=[('preprocess',\n",
+       "                 ColumnTransformer(remainder='passthrough',\n",
+       "                                   transformers=[('ordinal', OrdinalEncoder(),\n",
+       "                                                  ['gender', 'diet_quality',\n",
+       "                                                   'parental_education_level',\n",
+       "                                                   'internet_quality',\n",
+       "                                                   'part_time_job'])])),\n",
+       "                ('scaler', StandardScaler())])"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pipeline"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "4387be08",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.163673Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.163299Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.172361Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.171103Z"
+    },
+    "papermill": {
+     "duration": 0.021429,
+     "end_time": "2025-10-09T10:51:59.175159",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.153730",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X2 = df2.drop(columns=[target])\n",
+    "y2 = df2[[target]]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "12fcd95a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.196023Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.195685Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.244280Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.243022Z"
+    },
+    "papermill": {
+     "duration": 0.0612,
+     "end_time": "2025-10-09T10:51:59.246184",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.184984",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-4 {color: black;background-color: white;}#sk-container-id-4 pre{padding: 0;}#sk-container-id-4 div.sk-toggleable {background-color: white;}#sk-container-id-4 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-4 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-4 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-4 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-4 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-4 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-4 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-4 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-4 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-4 div.sk-item {position: relative;z-index: 1;}#sk-container-id-4 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-4 div.sk-item::before, #sk-container-id-4 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-4 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-4 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-4 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-4 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-4 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-4 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-4 div.sk-label-container {text-align: center;}#sk-container-id-4 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-4 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-4\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>Pipeline(steps=[(&#x27;preprocess&#x27;,\n",
+       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                   transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                                  [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                                   &#x27;parental_education_level&#x27;,\n",
+       "                                                   &#x27;internet_quality&#x27;,\n",
+       "                                                   &#x27;part_time_job&#x27;])])),\n",
+       "                (&#x27;scaler&#x27;, StandardScaler())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-18\" type=\"checkbox\" ><label for=\"sk-estimator-id-18\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">Pipeline</label><div class=\"sk-toggleable__content\"><pre>Pipeline(steps=[(&#x27;preprocess&#x27;,\n",
+       "                 ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                                   transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                                  [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                                   &#x27;parental_education_level&#x27;,\n",
+       "                                                   &#x27;internet_quality&#x27;,\n",
+       "                                                   &#x27;part_time_job&#x27;])])),\n",
+       "                (&#x27;scaler&#x27;, StandardScaler())])</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item sk-dashed-wrapped\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-19\" type=\"checkbox\" ><label for=\"sk-estimator-id-19\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">preprocess: ColumnTransformer</label><div class=\"sk-toggleable__content\"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,\n",
+       "                  transformers=[(&#x27;ordinal&#x27;, OrdinalEncoder(),\n",
+       "                                 [&#x27;gender&#x27;, &#x27;diet_quality&#x27;,\n",
+       "                                  &#x27;parental_education_level&#x27;,\n",
+       "                                  &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;])])</pre></div></div></div><div class=\"sk-parallel\"><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-20\" type=\"checkbox\" ><label for=\"sk-estimator-id-20\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">ordinal</label><div class=\"sk-toggleable__content\"><pre>[&#x27;gender&#x27;, &#x27;diet_quality&#x27;, &#x27;parental_education_level&#x27;, &#x27;internet_quality&#x27;, &#x27;part_time_job&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-21\" type=\"checkbox\" ><label for=\"sk-estimator-id-21\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">OrdinalEncoder</label><div class=\"sk-toggleable__content\"><pre>OrdinalEncoder()</pre></div></div></div></div></div></div><div class=\"sk-parallel-item\"><div class=\"sk-item\"><div class=\"sk-label-container\"><div class=\"sk-label sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-22\" type=\"checkbox\" ><label for=\"sk-estimator-id-22\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">remainder</label><div class=\"sk-toggleable__content\"><pre>[&#x27;age&#x27;, &#x27;study_hours_per_day&#x27;, &#x27;social_media_hours&#x27;, &#x27;netflix_hours&#x27;, &#x27;attendance_percentage&#x27;, &#x27;sleep_hours&#x27;, &#x27;exercise_frequency&#x27;, &#x27;mental_health_rating&#x27;]</pre></div></div></div><div class=\"sk-serial\"><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-23\" type=\"checkbox\" ><label for=\"sk-estimator-id-23\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">passthrough</label><div class=\"sk-toggleable__content\"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-24\" type=\"checkbox\" ><label for=\"sk-estimator-id-24\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">StandardScaler</label><div class=\"sk-toggleable__content\"><pre>StandardScaler()</pre></div></div></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "Pipeline(steps=[('preprocess',\n",
+       "                 ColumnTransformer(remainder='passthrough',\n",
+       "                                   transformers=[('ordinal', OrdinalEncoder(),\n",
+       "                                                  ['gender', 'diet_quality',\n",
+       "                                                   'parental_education_level',\n",
+       "                                                   'internet_quality',\n",
+       "                                                   'part_time_job'])])),\n",
+       "                ('scaler', StandardScaler())])"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pipeline.fit(X2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "917f708f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.265943Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.265049Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.291951Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.290670Z"
+    },
+    "papermill": {
+     "duration": 0.039102,
+     "end_time": "2025-10-09T10:51:59.294059",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.254957",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X2 = pipeline.transform(X2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "8c680f43",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.313092Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.312767Z",
+     "iopub.status.idle": "2025-10-09T10:51:59.321006Z",
+     "shell.execute_reply": "2025-10-09T10:51:59.319530Z"
+    },
+    "papermill": {
+     "duration": 0.020095,
+     "end_time": "2025-10-09T10:51:59.322890",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.302795",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[-0.97616309, -1.00090202,  1.65290702, ...,  1.24812012,\n",
+       "         1.46116644,  0.90018637],\n",
+       "       [-0.97616309,  0.33720228,  0.27699815, ..., -1.52566144,\n",
+       "         1.46116644,  0.90018637],\n",
+       "       [ 0.76387807,  1.67530658,  0.27699815, ...,  1.24812012,\n",
+       "        -1.00868893, -1.55933923],\n",
+       "       ...,\n",
+       "       [ 0.76387807,  0.33720228, -1.09891071, ...,  0.02439296,\n",
+       "         0.96719536,  1.25154717],\n",
+       "       [ 0.76387807, -1.00090202, -1.09891071, ...,  0.92179288,\n",
+       "        -1.50266001, -1.55933923],\n",
+       "       [-0.97616309,  0.33720228, -1.09891071, ...,  0.51388382,\n",
+       "        -0.51471786,  0.90018637]])"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X2"
+   ]
+  },
+  {
+   "cell_type": "code",
    "execution_count": null,
-   "id": "ee7e0e01",
+   "id": "06baa6f2",
    "metadata": {
     "papermill": {
-     "duration": 0.003111,
-     "end_time": "2025-10-09T04:25:56.308086",
+     "duration": 0.00843,
+     "end_time": "2025-10-09T10:51:59.339530",
      "exception": false,
-     "start_time": "2025-10-09T04:25:56.304975",
+     "start_time": "2025-10-09T10:51:59.331100",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "11a3732c",
+   "metadata": {
+    "papermill": {
+     "duration": 0.008429,
+     "end_time": "2025-10-09T10:51:59.355942",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.347513",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "77b90074",
+   "metadata": {
+    "papermill": {
+     "duration": 0.008271,
+     "end_time": "2025-10-09T10:51:59.372953",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.364682",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Neural Network Building and Tranining"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "1cf6ee3f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:51:59.394850Z",
+     "iopub.status.busy": "2025-10-09T10:51:59.394155Z",
+     "iopub.status.idle": "2025-10-09T10:52:22.696105Z",
+     "shell.execute_reply": "2025-10-09T10:52:22.695065Z"
+    },
+    "papermill": {
+     "duration": 23.316071,
+     "end_time": "2025-10-09T10:52:22.697934",
+     "exception": false,
+     "start_time": "2025-10-09T10:51:59.381863",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2025-10-09 10:52:02.379985: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
+      "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n",
+      "E0000 00:00:1760007122.715202      14 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
+      "E0000 00:00:1760007122.840071      14 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "from tensorflow.keras import Sequential\n",
+    "from keras.layers import Dense\n",
+    "from tensorflow import keras"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "fe01fb50",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:52:22.715615Z",
+     "iopub.status.busy": "2025-10-09T10:52:22.714960Z",
+     "iopub.status.idle": "2025-10-09T10:52:22.722893Z",
+     "shell.execute_reply": "2025-10-09T10:52:22.722000Z"
+    },
+    "papermill": {
+     "duration": 0.018347,
+     "end_time": "2025-10-09T10:52:22.724510",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:22.706163",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X_train, X_test, y_train, y_test = train_test_split(X2, y2, test_size=0.1, random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5220e78c",
+   "metadata": {
+    "papermill": {
+     "duration": 0.007329,
+     "end_time": "2025-10-09T10:52:22.739833",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:22.732504",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "6490dd7f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:52:22.756297Z",
+     "iopub.status.busy": "2025-10-09T10:52:22.755993Z",
+     "iopub.status.idle": "2025-10-09T10:52:22.885513Z",
+     "shell.execute_reply": "2025-10-09T10:52:22.884511Z"
+    },
+    "papermill": {
+     "duration": 0.139854,
+     "end_time": "2025-10-09T10:52:22.887108",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:22.747254",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.11/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n",
+      "  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\n",
+      "2025-10-09 10:52:22.769085: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:152] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"mo-01\"</span>\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1mModel: \"mo-01\"\u001b[0m\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓\n",
+       "┃<span style=\"font-weight: bold\"> Layer (type)                    </span>┃<span style=\"font-weight: bold\"> Output Shape           </span>┃<span style=\"font-weight: bold\">       Param # </span>┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩\n",
+       "│ dense (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                   │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)             │           <span style=\"color: #00af00; text-decoration-color: #00af00\">896</span> │\n",
+       "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+       "│ dense_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                 │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">32</span>)             │         <span style=\"color: #00af00; text-decoration-color: #00af00\">2,080</span> │\n",
+       "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+       "│ dense_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                 │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>)              │            <span style=\"color: #00af00; text-decoration-color: #00af00\">33</span> │\n",
+       "└─────────────────────────────────┴────────────────────────┴───────────────┘\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓\n",
+       "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)                   \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape          \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m      Param #\u001b[0m\u001b[1m \u001b[0m┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩\n",
+       "│ dense (\u001b[38;5;33mDense\u001b[0m)                   │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m)             │           \u001b[38;5;34m896\u001b[0m │\n",
+       "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+       "│ dense_1 (\u001b[38;5;33mDense\u001b[0m)                 │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m32\u001b[0m)             │         \u001b[38;5;34m2,080\u001b[0m │\n",
+       "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+       "│ dense_2 (\u001b[38;5;33mDense\u001b[0m)                 │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m1\u001b[0m)              │            \u001b[38;5;34m33\u001b[0m │\n",
+       "└─────────────────────────────────┴────────────────────────┴───────────────┘\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">3,009</span> (11.75 KB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m3,009\u001b[0m (11.75 KB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">3,009</span> (11.75 KB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m3,009\u001b[0m (11.75 KB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "model = Sequential(name=\"mo-01\") \n",
+    "\n",
+    "model.add(Dense(64, activation='linear', input_dim=13 ))\n",
+    "model.add(Dense(32, activation='linear'))\n",
+    "model.add(Dense(1, activation='linear'))\n",
+    "\n",
+    "model.compile(optimizer=keras.optimizers.Adam(0.53), loss='mse', metrics=['mae'])\n",
+    "\n",
+    "model.summary()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "3272eebe",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:52:22.904955Z",
+     "iopub.status.busy": "2025-10-09T10:52:22.904650Z",
+     "iopub.status.idle": "2025-10-09T10:52:27.409019Z",
+     "shell.execute_reply": "2025-10-09T10:52:27.404480Z"
+    },
+    "papermill": {
+     "duration": 4.516012,
+     "end_time": "2025-10-09T10:52:27.411387",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:22.895375",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Epoch 1/5\n",
+      "\u001b[1m127/127\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m3s\u001b[0m 5ms/step - loss: nan - mae: nan - val_loss: nan - val_mae: nan\n",
+      "Epoch 2/5\n",
+      "\u001b[1m127/127\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m0s\u001b[0m 3ms/step - loss: nan - mae: nan - val_loss: nan - val_mae: nan\n",
+      "Epoch 3/5\n",
+      "\u001b[1m127/127\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m0s\u001b[0m 3ms/step - loss: nan - mae: nan - val_loss: nan - val_mae: nan\n",
+      "Epoch 4/5\n",
+      "\u001b[1m127/127\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m0s\u001b[0m 3ms/step - loss: nan - mae: nan - val_loss: nan - val_mae: nan\n",
+      "Epoch 5/5\n",
+      "\u001b[1m127/127\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m0s\u001b[0m 3ms/step - loss: nan - mae: nan - val_loss: nan - val_mae: nan\n"
+     ]
+    }
+   ],
+   "source": [
+    "history = model.fit(X_train, y_train, epochs=5, batch_size=32, validation_split=0.1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "98dc2956",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:52:27.436317Z",
+     "iopub.status.busy": "2025-10-09T10:52:27.436009Z",
+     "iopub.status.idle": "2025-10-09T10:52:27.443373Z",
+     "shell.execute_reply": "2025-10-09T10:52:27.442341Z"
+    },
+    "papermill": {
+     "duration": 0.021393,
+     "end_time": "2025-10-09T10:52:27.445172",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.423779",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'loss': [nan, nan, nan, nan, nan],\n",
+       " 'mae': [nan, nan, nan, nan, nan],\n",
+       " 'val_loss': [nan, nan, nan, nan, nan],\n",
+       " 'val_mae': [nan, nan, nan, nan, nan]}"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "history.history"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "93086cf8",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:52:27.467751Z",
+     "iopub.status.busy": "2025-10-09T10:52:27.467397Z",
+     "iopub.status.idle": "2025-10-09T10:52:27.493419Z",
+     "shell.execute_reply": "2025-10-09T10:52:27.492400Z"
+    },
+    "papermill": {
+     "duration": 0.038947,
+     "end_time": "2025-10-09T10:52:27.495086",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.456139",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[<Variable path=mo-01/dense/kernel, shape=(13, 64), dtype=float32, value=[[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]\n",
+       "  [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "   nan nan nan nan nan nan nan nan nan nan]]>,\n",
+       " <Variable path=mo-01/dense/bias, shape=(64,), dtype=float32, value=[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "  nan nan nan nan nan nan nan nan nan nan]>,\n",
+       " <Variable path=mo-01/dense_1/kernel, shape=(64, 32), dtype=float32, value=[[nan nan nan ... nan nan nan]\n",
+       "  [nan nan nan ... nan nan nan]\n",
+       "  [nan nan nan ... nan nan nan]\n",
+       "  ...\n",
+       "  [nan nan nan ... nan nan nan]\n",
+       "  [nan nan nan ... nan nan nan]\n",
+       "  [nan nan nan ... nan nan nan]]>,\n",
+       " <Variable path=mo-01/dense_1/bias, shape=(32,), dtype=float32, value=[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan\n",
+       "  nan nan nan nan nan nan nan nan nan nan nan nan nan nan]>,\n",
+       " <Variable path=mo-01/dense_2/kernel, shape=(32, 1), dtype=float32, value=[[nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]\n",
+       "  [nan]]>,\n",
+       " <Variable path=mo-01/dense_2/bias, shape=(1,), dtype=float32, value=[nan]>]"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model.weights"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "729012de",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010419,
+     "end_time": "2025-10-09T10:52:27.516632",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.506213",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "***\n",
+    "***\n",
+    "***"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7e4a9642",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010312,
+     "end_time": "2025-10-09T10:52:27.537148",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.526836",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "861d89c5",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009974,
+     "end_time": "2025-10-09T10:52:27.557221",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.547247",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "f620f8ab",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-09T10:52:27.578960Z",
+     "iopub.status.busy": "2025-10-09T10:52:27.578614Z",
+     "iopub.status.idle": "2025-10-09T10:52:27.582993Z",
+     "shell.execute_reply": "2025-10-09T10:52:27.581963Z"
+    },
+    "papermill": {
+     "duration": 0.017194,
+     "end_time": "2025-10-09T10:52:27.584770",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.567576",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# from scikeras.wrappers import KerasClassifier\n",
+    "\n",
+    "# keras_clf = KerasClassifier(model=create_keras_model, epochs=30)\n",
+    "# pipeline = Pipeline([('scaler', StandardScaler()), ('clf', keras_clf)])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "213028e6",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010221,
+     "end_time": "2025-10-09T10:52:27.605779",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.595558",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cca7f5c5",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009945,
+     "end_time": "2025-10-09T10:52:27.626116",
+     "exception": false,
+     "start_time": "2025-10-09T10:52:27.616171",
      "status": "completed"
     },
     "tags": []
@@ -543,14 +1568,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 9.187229,
-   "end_time": "2025-10-09T04:25:57.031990",
+   "duration": 42.560818,
+   "end_time": "2025-10-09T10:52:30.880392",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-10-09T04:25:47.844761",
+   "start_time": "2025-10-09T10:51:48.319574",
    "version": "2.6.0"
   }
  },
