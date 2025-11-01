@@ -1,0 +1,2091 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "3692a09e",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:24.576832Z",
+     "iopub.status.busy": "2025-11-01T04:25:24.576614Z",
+     "iopub.status.idle": "2025-11-01T04:25:26.445560Z",
+     "shell.execute_reply": "2025-11-01T04:25:26.444676Z"
+    },
+    "papermill": {
+     "duration": 1.878009,
+     "end_time": "2025-11-01T04:25:26.446739",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:24.568730",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/womens-ecommerce-clothing-reviews/Womens Clothing E-Commerce Reviews.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "b3a637d4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:26.458590Z",
+     "iopub.status.busy": "2025-11-01T04:25:26.458099Z",
+     "iopub.status.idle": "2025-11-01T04:25:48.356694Z",
+     "shell.execute_reply": "2025-11-01T04:25:48.355866Z"
+    },
+    "papermill": {
+     "duration": 21.905756,
+     "end_time": "2025-11-01T04:25:48.358202",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:26.452446",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2025-11-01 04:25:32.552931: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n",
+      "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n",
+      "E0000 00:00:1761971132.995424      19 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n",
+      "E0000 00:00:1761971133.120863      19 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "# dependencies\n",
+    "\n",
+    "import pickle\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.metrics import accuracy_score\n",
+    "from sklearn.base import BaseEstimator, TransformerMixin\n",
+    "from sklearn.pipeline import Pipeline\n",
+    "\n",
+    "from tensorflow.keras.preprocessing.text import Tokenizer\n",
+    "from tensorflow.keras.preprocessing.sequence import pad_sequences\n",
+    "from tensorflow import keras \n",
+    "from keras import optimizers\n",
+    "from keras import Sequential, Model, layers\n",
+    "from keras.layers import Dense, LSTM, Flatten, Embedding, Input, Dropout, BatchNormalization\n",
+    "from keras.regularizers import l1, l2, l1_l2\n",
+    "from keras.constraints import MaxNorm, UnitNorm\n",
+    "from tensorflow.keras.utils import to_categorical"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "66b2b9de",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:48.370316Z",
+     "iopub.status.busy": "2025-11-01T04:25:48.369505Z",
+     "iopub.status.idle": "2025-11-01T04:25:49.682142Z",
+     "shell.execute_reply": "2025-11-01T04:25:49.681352Z"
+    },
+    "papermill": {
+     "duration": 1.319502,
+     "end_time": "2025-11-01T04:25:49.683313",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:48.363811",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[nltk_data] Downloading package punkt to /usr/share/nltk_data...\n",
+      "[nltk_data]   Package punkt is already up-to-date!\n",
+      "[nltk_data] Downloading package stopwords to /usr/share/nltk_data...\n",
+      "[nltk_data]   Package stopwords is already up-to-date!\n",
+      "[nltk_data] Downloading package wordnet to /usr/share/nltk_data...\n",
+      "[nltk_data]   Package wordnet is already up-to-date!\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import nltk\n",
+    "import string\n",
+    "from nltk.corpus import stopwords\n",
+    "from nltk.tokenize import word_tokenize\n",
+    "from nltk.stem import WordNetLemmatizer\n",
+    "\n",
+    "# Download necessary resources (only once)\n",
+    "nltk.download('punkt')\n",
+    "nltk.download('stopwords')\n",
+    "nltk.download('wordnet')\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "b2089b26",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:49.695444Z",
+     "iopub.status.busy": "2025-11-01T04:25:49.694844Z",
+     "iopub.status.idle": "2025-11-01T04:25:49.956981Z",
+     "shell.execute_reply": "2025-11-01T04:25:49.955933Z"
+    },
+    "papermill": {
+     "duration": 0.269812,
+     "end_time": "2025-11-01T04:25:49.958715",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:49.688903",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# importing dataset\n",
+    "\n",
+    "raw_df = pd.read_csv(r\"/kaggle/input/womens-ecommerce-clothing-reviews/Womens Clothing E-Commerce Reviews.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "aad0ea11",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:49.972395Z",
+     "iopub.status.busy": "2025-11-01T04:25:49.972156Z",
+     "iopub.status.idle": "2025-11-01T04:25:49.977136Z",
+     "shell.execute_reply": "2025-11-01T04:25:49.976439Z"
+    },
+    "papermill": {
+     "duration": 0.012937,
+     "end_time": "2025-11-01T04:25:49.978271",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:49.965334",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(23486, 11)"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "5492a1e9",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:49.991409Z",
+     "iopub.status.busy": "2025-11-01T04:25:49.991211Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.030873Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.030117Z"
+    },
+    "papermill": {
+     "duration": 0.047618,
+     "end_time": "2025-11-01T04:25:50.032041",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:49.984423",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 23486 entries, 0 to 23485\n",
+      "Data columns (total 11 columns):\n",
+      " #   Column                   Non-Null Count  Dtype \n",
+      "---  ------                   --------------  ----- \n",
+      " 0   Unnamed: 0               23486 non-null  int64 \n",
+      " 1   Clothing ID              23486 non-null  int64 \n",
+      " 2   Age                      23486 non-null  int64 \n",
+      " 3   Title                    19676 non-null  object\n",
+      " 4   Review Text              22641 non-null  object\n",
+      " 5   Rating                   23486 non-null  int64 \n",
+      " 6   Recommended IND          23486 non-null  int64 \n",
+      " 7   Positive Feedback Count  23486 non-null  int64 \n",
+      " 8   Division Name            23472 non-null  object\n",
+      " 9   Department Name          23472 non-null  object\n",
+      " 10  Class Name               23472 non-null  object\n",
+      "dtypes: int64(6), object(5)\n",
+      "memory usage: 2.0+ MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "raw_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "2d9f64ae",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.043616Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.043415Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.050317Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.049676Z"
+    },
+    "papermill": {
+     "duration": 0.013968,
+     "end_time": "2025-11-01T04:25:50.051341",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.037373",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df = raw_df[['Review Text','Rating','Recommended IND']]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "e9acff31",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.063255Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.062712Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.069162Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.068638Z"
+    },
+    "papermill": {
+     "duration": 0.013395,
+     "end_time": "2025-11-01T04:25:50.070211",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.056816",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Review Text        845\n",
+       "Rating               0\n",
+       "Recommended IND      0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "9fc36cb0",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.081573Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.081384Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.089080Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.088543Z"
+    },
+    "papermill": {
+     "duration": 0.014582,
+     "end_time": "2025-11-01T04:25:50.090078",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.075496",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df.dropna(inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "70dbdb06",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.101184Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.100945Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.122463Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.121710Z"
+    },
+    "papermill": {
+     "duration": 0.028295,
+     "end_time": "2025-11-01T04:25:50.123572",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.095277",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Review Text</th>\n",
+       "      <th>Rating</th>\n",
+       "      <th>Recommended IND</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Absolutely wonderful - silky and sexy and comf...</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Love this dress!  it's sooo pretty.  i happene...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>I had such high hopes for this dress and reall...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>I love, love, love this jumpsuit. it's fun, fl...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>This shirt is very flattering to all due to th...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23481</th>\n",
+       "      <td>I was very happy to snag this dress at such a ...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23482</th>\n",
+       "      <td>It reminds me of maternity clothes. soft, stre...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23483</th>\n",
+       "      <td>This fit well, but the top was very see throug...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23484</th>\n",
+       "      <td>I bought this dress for a wedding i have this ...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23485</th>\n",
+       "      <td>This dress in a lovely platinum is feminine an...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>22641 rows × 3 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                             Review Text  Rating  \\\n",
+       "0      Absolutely wonderful - silky and sexy and comf...       4   \n",
+       "1      Love this dress!  it's sooo pretty.  i happene...       5   \n",
+       "2      I had such high hopes for this dress and reall...       3   \n",
+       "3      I love, love, love this jumpsuit. it's fun, fl...       5   \n",
+       "4      This shirt is very flattering to all due to th...       5   \n",
+       "...                                                  ...     ...   \n",
+       "23481  I was very happy to snag this dress at such a ...       5   \n",
+       "23482  It reminds me of maternity clothes. soft, stre...       3   \n",
+       "23483  This fit well, but the top was very see throug...       3   \n",
+       "23484  I bought this dress for a wedding i have this ...       3   \n",
+       "23485  This dress in a lovely platinum is feminine an...       5   \n",
+       "\n",
+       "       Recommended IND  \n",
+       "0                    1  \n",
+       "1                    1  \n",
+       "2                    0  \n",
+       "3                    1  \n",
+       "4                    1  \n",
+       "...                ...  \n",
+       "23481                1  \n",
+       "23482                1  \n",
+       "23483                0  \n",
+       "23484                1  \n",
+       "23485                1  \n",
+       "\n",
+       "[22641 rows x 3 columns]"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "ab677129",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.135648Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.135461Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.145062Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.144414Z"
+    },
+    "papermill": {
+     "duration": 0.01682,
+     "end_time": "2025-11-01T04:25:50.146068",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.129248",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "7"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df['Review Text'].duplicated().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "13d04302",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.158449Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.158047Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.163678Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.163165Z"
+    },
+    "papermill": {
+     "duration": 0.012891,
+     "end_time": "2025-11-01T04:25:50.164676",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.151785",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df.drop_duplicates(subset='Review Text', inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "9bf488ca",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.176749Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.176581Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.180266Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.179694Z"
+    },
+    "papermill": {
+     "duration": 0.010914,
+     "end_time": "2025-11-01T04:25:50.181272",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.170358",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df = raw_df.reset_index(drop=True)\n",
+    "raw_df.columns = ['review','rating','recommend']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "9a0c8870",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.193428Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.192899Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.201631Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.200869Z"
+    },
+    "papermill": {
+     "duration": 0.015931,
+     "end_time": "2025-11-01T04:25:50.202739",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.186808",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 22634 entries, 0 to 22633\n",
+      "Data columns (total 3 columns):\n",
+      " #   Column     Non-Null Count  Dtype \n",
+      "---  ------     --------------  ----- \n",
+      " 0   review     22634 non-null  object\n",
+      " 1   rating     22634 non-null  int64 \n",
+      " 2   recommend  22634 non-null  int64 \n",
+      "dtypes: int64(2), object(1)\n",
+      "memory usage: 530.6+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "raw_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "9aff6c8b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.216459Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.215773Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.292014Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.291194Z"
+    },
+    "papermill": {
+     "duration": 0.084023,
+     "end_time": "2025-11-01T04:25:50.293474",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.209451",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df['words'] = raw_df.review.apply(lambda x: len(x.split(' ')))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "44846642",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.307760Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.307315Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.671455Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.670863Z"
+    },
+    "papermill": {
+     "duration": 0.371486,
+     "end_time": "2025-11-01T04:25:50.672519",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.301033",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.11/dist-packages/seaborn/_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.\n",
+      "  with pd.option_context('mode.use_inf_as_na', True):\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Axes: xlabel='words', ylabel='Count'>"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "image/png": "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oAUqKipUU3NaSQ88Llt07xaPK92Tp71vrlZDQ0P7FYeLivAEAIAFtujeCovr2+L+ztIj7VcMPIIHxgEAACwgPAEAAFhAeAIAALCA8AQAAGAB4QkAAMACj4an7du367bbblNMTIx8fHy0ceNGs62+vl6zZs3SgAED1K1bN8XExOi+++7T8ePHXfZRWVmp9PR02Ww2hYaGasqUKTp58qRLn927d+vGG29UUFCQYmNjtXjx4otxegAAoBPyaHg6deqUBg4cqJUrV57Vdvr0ae3atUtz587Vrl279Prrr6ukpES33367S7/09HTt27dPOTk52rRpk7Zv366pU6ea7U6nU6NHj1avXr1UWFioZ599VvPnz9fq1avb/fwAAEDn49H3PI0dO1Zjx449Z1tISIhycnJctr344ou67rrrZLfbFRcXp+LiYmVnZ6ugoEBDhw6VJK1YsUK33HKLlixZopiYGK1fv151dXVas2aNAgIC1L9/fxUVFWnp0qUuIeu7amtrVVtba647nU43nDEAAOjoOtQzT9XV1fLx8VFoaKgkKS8vT6GhoWZwkqSUlBT5+voqPz/f7HPTTTcpICDA7JOamqqSkhJ9/fXX5z3WokWLFBISYi6xsbHtc1IAAKBD6TDh6cyZM5o1a5buuece2Ww2SZLD4VBERIRLPz8/P4WFhcnhcJh9IiMjXfo0rzf3OZfZs2erurraXI4ePerO0wEAAB1Uh/g8S319ve6++24ZhqGXXnrpohwzMDBQgYGBF+VYAACg4/D68NQcnL744gtt2bLFvOokSVFRUSovL3fp39DQoMrKSkVFRZl9ysrKXPo0rzf3AQAAaCmvvm3XHJwOHTqk9957Tz179nRpT05OVlVVlQoLC81tW7ZsUVNTk5KSksw+27dvV319vdknJydHffv2VY8ePS7OiQAAgE7Do+Hp5MmTKioqUlFRkSTp8OHDKioqkt1uV319vX7yk59o586dWr9+vRobG+VwOORwOFRXVydJSkxM1JgxY/Tggw/qk08+0UcffaTMzEylpaUpJiZGknTvvfcqICBAU6ZM0b59+/S3v/1NL7zwgrKysjx12gAAoAPz6G27nTt3auTIkeZ6c6CZPHmy5s+frzfffFOSNGjQIJdx77//vkaMGCFJWr9+vTIzMzVq1Cj5+vpqwoQJWr58udk3JCREmzdvVkZGhoYM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FjU1NSkpKemi1+xNmoPToUOH9N5776lnz54u7W6dO4sPuMOCV1991QgMDDTWrl1r7N+/35g6daoRGhpqOBwOT5fmVaZNm2aEhIQYW7duNUpLS83l9OnTZp9f/epXRlxcnLFlyxZj586dRnJyspGcnOzBqr3bt39tZxjM34V88sknhp+fn/HUU08Zhw4dMtavX2907drV+Mtf/mL2efrpp43Q0FDjH//4h7F7927jjjvuMOLj442amhoPVu4dJk+ebHzve98zNm3aZBw+fNh4/fXXjfDwcOPRRx81+zB//3HixAnj008/NT799FNDkrF06VLj008/NX8R1pK5GjNmjDF48GAjPz/f+PDDD40+ffoY99xzj6dO6aK50NzV1dUZt99+u3HFFVcYRUVFLn9LamtrzX24a+4IT+1sxYoVRlxcnBEQEGBcd911xo4dOzxdkteRdM7llVdeMfvU1NQYv/71r40ePXoYXbt2Ne666y6jtLTUc0V7ue+GJ+bvwt566y3jqquuMgIDA42EhARj9erVLu1NTU3G3LlzjcjISCMwMNAYNWqUUVJS4qFqvYvT6TQeeeQRIy4uzggKCjK+//3vG7/73e9c/mAxf//x/vvvn/P/d5MnTzYMo2Vz9dVXXxn33HOPcdlllxk2m824//77jRMnTnjgbC6uC83d4cOHz/u35P333zf34a658zGMb70GFgAAABfEM08AAAAWEJ4AAAAsIDwBAABYQHgCAACwgPAEAABgAeEJAADAAsITAACABYQnAAAACwhPANBCa9euVWhoqKfLAOBhhCcAAAALCE8A8B11dXWeLgGAFyM8AehwNm3apNDQUDU2NkqSioqK5OPjo8cee8zs84tf/EITJ06UJP3f//2f+vfvr8DAQPXu3VvPPfecy/569+6tJ554Qvfdd59sNpumTp0q6ZvbdHFxceratavuuusuffXVVy7jPvvsM40cOVLdu3eXzWbTkCFDtHPnzvY8dQBegPAEoMO58cYbdeLECX366aeSpG3btik8PFxbt241+2zbtk0jRoxQYWGh7r77bqWlpWnPnj2aP3++5s6dq7Vr17rsc8mSJRo4cKA+/fRTzZ07V/n5+ZoyZYoyMzNVVFSkkSNH6sknn3QZk56eriuuuEIFBQUqLCzUY489Jn9///Y+fQAe5mMYhuHpIgDAqiFDhuiee+7Rb3/7W91111269tprtWDBAn311Veqrq7WFVdcoYMHD2r+/Pn68ssvtXnzZnPso48+qrffflv79u2T9M2Vp8GDB+uNN94w+9x7772qrq7W22+/bW5LS0tTdna2qqqqJEk2m00rVqzQ5MmTL85JA/AKXHkC0CHdfPPN2rp1qwzD0AcffKDx48crMTFRH374obZt26aYmBj16dNHxcXFGj58uMvY4cOH69ChQ+ZtP0kaOnSoS5/i4mIlJSW5bEtOTnZZz8rK0i9+8QulpKTo6aef1r/+9S83nyUAb0R4AtAhjRgxQh9++KE+++wz+fv7KyEhQSNGjNDWrVu1bds23XzzzZb2161bN8s1zJ8/X/v27dO4ceO0ZcsW9evXz+XqFYDOifAEoENqfu7p+eefN4NSc3jaunWrRowYIUlKTEzURx995DL2o48+0pVXXqkuXbqcd/+JiYnKz8932bZjx46z+l155ZWaMWOGNm/erPHjx+uVV15p45kB8HaEJwAdUo8ePXT11Vdr/fr1ZlC66aabtGvXLh08eNAMVL/5zW+Um5urJ554QgcPHtS6dev04osv6re//e0F9//www8rOztbS5Ys0aFDh/Tiiy8qOzvbbK+pqVFmZqa2bt2qL774Qh999JEKCgqUmJjYbucMwDsQngB0WDfffLMaGxvN8BQWFqZ+/fopKipKffv2lSRdc801+vvf/65XX31VV111lebNm6eFCxfq5z//+QX3PWzYML388st64YUXNHDgQG3evFlz5swx27t06aKvvvpK9913n6688krdfffdGjt2rBYsWNBepwvAS/BrOwAAAAu48gQAAGAB4QkAAMACwhMAAIAFhCcAAAALCE8AAAAWEJ4AAAAsIDwBAABYQHgCAACwgPAEAABgAeEJAADAAsITAACABf8fUit7Cex/Nh0AAAAASUVORK5CYII=\n",
+      "text/plain": [
+       "<Figure size 640x480 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "sns.histplot(raw_df.words)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c8d406ae",
+   "metadata": {
+    "papermill": {
+     "duration": 0.005929,
+     "end_time": "2025-11-01T04:25:50.684758",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.678829",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "94d3539f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.697469Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.697244Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.701918Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.701398Z"
+    },
+    "papermill": {
+     "duration": 0.012277,
+     "end_time": "2025-11-01T04:25:50.702986",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.690709",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = raw_df[['review','rating','recommend']]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "043715ec",
+   "metadata": {
+    "papermill": {
+     "duration": 0.005799,
+     "end_time": "2025-11-01T04:25:50.714906",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.709107",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### NLP Processing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "2919e71d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.728575Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.727866Z",
+     "iopub.status.idle": "2025-11-01T04:25:50.735021Z",
+     "shell.execute_reply": "2025-11-01T04:25:50.734338Z"
+    },
+    "papermill": {
+     "duration": 0.014761,
+     "end_time": "2025-11-01T04:25:50.736030",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.721269",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# Initialize tools\n",
+    "stop_words = set(stopwords.words('english'))\n",
+    "lemmatizer = WordNetLemmatizer()\n",
+    "\n",
+    "\n",
+    "def perform_nlp_operations(text):\n",
+    "    \n",
+    "    # Lowercasing\n",
+    "    text = text.lower()\n",
+    "    \n",
+    "    # Removing punctuation\n",
+    "    text = text.translate(str.maketrans('', '', string.punctuation))\n",
+    "    \n",
+    "    # Tokenization\n",
+    "    tokens = word_tokenize(text)\n",
+    "    \n",
+    "    # Removing stopwords\n",
+    "    filtered_tokens = [word for word in tokens if word not in stop_words]\n",
+    "    \n",
+    "    # Lemmatization\n",
+    "    lemmatized_tokens = [lemmatizer.lemmatize(word) for word in filtered_tokens]\n",
+    "    \n",
+    "    return \" \".join(lemmatized_tokens)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "bc54277f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:50.748676Z",
+     "iopub.status.busy": "2025-11-01T04:25:50.748484Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.488748Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.487930Z"
+    },
+    "papermill": {
+     "duration": 8.748086,
+     "end_time": "2025-11-01T04:25:59.490145",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:50.742059",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df['review'] = raw_df.review.apply(perform_nlp_operations)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "8562c552",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.504011Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.503517Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.541676Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.541150Z"
+    },
+    "papermill": {
+     "duration": 0.046021,
+     "end_time": "2025-11-01T04:25:59.542734",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.496713",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df['words'] = raw_df['review'].apply(lambda x: len(x.split(' ')))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "3f90b19d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.555744Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.555273Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.745822Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.745151Z"
+    },
+    "papermill": {
+     "duration": 0.198123,
+     "end_time": "2025-11-01T04:25:59.746901",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.548778",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.11/dist-packages/seaborn/_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.\n",
+      "  with pd.option_context('mode.use_inf_as_na', True):\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Axes: xlabel='words', ylabel='Count'>"
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "image/png": "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iDIzM11rEEnSmjVrlJGRoREjRig4OFhjxozRkiVL/HFKAAAgAAV0IGrXrp0WLVqkRYsW/WSfoKAgzZ07V3Pnzv3JPhERESzCCAAAflJAv7oDAADAFwL6ChEAWJmna3tJvFIEaCgCEQD4gKfhxul06qabh+qUUebRcXilCNAwBCIA8LLLWbj05skvqV19l7LglSJAgxGIAMDLLmfh0pB2EbxSBPABAhEA+AgLlwKBi6fMAACA5RGIAACA5XHLDABgWceOHat3X5Y0aN4IRAAAy6ksPyUFBSspKane+7CkQfPWoED0y1/+Ujt27FCHDh3ctjudTl1//fX6+uuvG6U4AAC8obrirGTWasjExbJHdbpkf5Y0aP4aFIj+93//VzU1NRdsr6io0DfffHPZRQEA4Ath9itZ1gCSPAxEb7/9tuu/P/jgA4WHh7u+19TUKDs7W127dm204gAAAHzBo0B0xx13SDr/hvm0tDS3tlatWqlr16564YUXGq04AAAAX/AoENXW1kqS4uPjtWPHDnXs2NErRQEAAPhSg+YQFRUVNXYdAAAAftPgx+6zs7OVnZ2t0tJS15WjOq+88splFwYAAOArDQpEc+bM0dy5czVgwADFxMQoKCiosesCAADwmQYFohUrVmj16tW6//77G7seAAAAn2vQu8wqKyt14403NnYtAAAAftGgQPTQQw9p7dq1jV0LAACAXzToltm5c+e0cuVKffjhh+rTp49atWrl1r5w4cJGKQ4AAMAXGhSIdu/erX79+kmS9uzZ49bGBGsAANDUNCgQffTRR41dBwAAgN80aA4RAABAc9KgK0TDhg372VtjOTk5DS4IAADA1xoUiOrmD9WpqqpSYWGh9uzZc8FLXwEAAAJdgwLRiy++eNHts2fP1unTpy+rIAAAAF9r1DlE9913H+8xAwAATU6jBqK8vDy1bt26MX8SAADA6xp0y+yuu+5y+26apr799lvt3LlTM2fObJTCAAAAfKVBgSg8PNzte3BwsK655hrNnTtXI0eObJTCAAAAfKVBgWjVqlWNXQcAAG6OHTvWqP2An9OgQFSnoKBA+/btkyT16tVL1113XaMUBQCwrsryU1JQsJKSkjzar7q62ksVwQoaFIhKS0s1duxYbd68WXa7XZLkdDo1bNgwrVu3TldeeWVj1ggAsJDqirOSWashExfLHtXpkv1P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CxUBaK4IRAACVnXFWcms1ZCJi2WP6lSvfU4c3qe8lTNUU1Pj5eoANCcEIgABL8x+pdp2jKlX3/KTpV6u5nv1vT3HbTwg8BGIAMBDDb2Vx208IHARiADAQ57eyuM2HhD4CEQA0ED1vZXny9t4ABqGdYgAAIDlEYgAAIDlEYgAAIDlNalA9OyzzyooKEiTJk1ybTt37pzS09PVoUMHXXHFFRozZoxKSkrc9jty5IhGjx6tNm3aKDIyUlOnTuVpDwAA4NJkAtGOHTv017/+VX369HHbPnnyZL3zzjt68803lZubq+PHj+uuu+5ytdfU1Gj06NGqrKzUtm3b9Oqrr2r16tWaNWuWr08BAAAEqCYRiE6fPq3U1FS9/PLLat++vWt7WVmZ/va3v2nhwoUaPny4+vfvr1WrVmnbtm369NNPJUmbNm3Sl19+qb///e/q16+fRo0apSeffFLLli1TZWWlv04JAAAEkCYRiNLT0zV69GglJye7bS8oKFBVVZXb9u7du6tz587Ky8uTJOXl5al3796Kiopy9UlJSZFhGNq7d+9Fj1dRUSHDMNw+AACg+Qr4dYjWrVunXbt2aceOHRe0FRcXKyQkRHa73W17VFSUiouLXX1+GIbq2uvaLmbevHmaM2dOI1QPAACagoC+QnT06FE9+uijWrNmjVq3bu2z406fPl1lZWWuz9GjR312bAAA4HsBfYWooKBApaWluv76613bampqtGXLFr300kv64IMPVFlZKafT6XaVqKSkRNHR0ZKk6Ohobd++3e13655Cq+vzY6GhoQoNDW3kswEA3+Cls4DnAjoQjRgxQl988YXbtgcffFDdu3fX448/rri4OLVq1UrZ2dkaM2aMJGn//v06cuSIEhMTJUmJiYl6+umnVVpaqsjISElSVlaWbDabevbs6dsTAgAv4qWzQMMFdCBq166drr32Wrdtbdu2VYcOHVzbx40bpylTpigiIkI2m02PPPKIEhMTdcMNN0iSRo4cqZ49e+r+++/X/PnzVVxcrBkzZig9PZ2rQACaFV46CzRcQAei+njxxRcVHBysMWPGqKKiQikpKfrLX/7iam/RooU2btyoCRMmKDExUW3btlVaWprmzp3rx6oBwHt46SzguSYXiDZv3uz2vXXr1lq2bJmWLVv2k/t06dJF7733npcrAwAATVVAP2UGAADgCwQiAABg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Uyc9++yzKigo0M6dOzV8+HDdfvvt2rt3ryTG6GJ27Nihv/71r+rTp4/bdsbqvF69eunbb791fT755BNXG2N03smTJzV48GC1atVK77//vr788ku98MILat++vatPs/w73hgvT7WyQYMGmenp6a7vNTU1ZmxsrDlv3jw/VhU4JJnr1693fa+trTWjo6PNBQsWuLY5nU4zNDTU/Mc//uGHCgNDaWmpKcnMzc01TfP8mLRq1cp88803XX327dtnSjLz8vL8VWZAaN++vfmf//mfjNFFnDp1yrzqqqvMrKws8+abbzYfffRR0zT591TniSeeMPv27XvRNsboe48//rg5ZMiQn2xvrn/HuUJ0GSorK1VQUKDk5GTXtuDgYCUnJysvL8+PlQWuoqIiFRcXu41ZeHi4EhISLD1mZWVlkqSIiAhJUkFBgaqqqtzGqXv37urcubNlx6mmpkbr1q3TmTNnlJiYyBhdRHp6ukaPHu02JhL/nn7o4MGDio2N1S9/+UulpqbqyJEjkhijH3r77bc1YMAA/frXv1ZkZKSuu+46vfzyy6725vp3nEB0Gf7v//5PNTU1F6x2HRUVpeLiYj9VFdjqxoUx+15tba0mTZqkwYMH69prr5V0fpxCQkIueKmwFcfpiy++0BVXXKHQ0FD94Q9/0Pr169WzZ0/G6EfWrVunXbt2ad68eRe0MVbnJSQkaPXq1crMzNTy5ctVVFSkpKQknTp1ijH6ga+//lrLly/XVVddpQ8++EATJkzQxIkT9eqrr0pqvn/HLfPqDiBQpaena8+ePW5zGfC9a665RoWFhSorK9N//dd/KS0tTbm5uf4uK6AcPXpUjz76qLKystS6dWt/lxOwRo0a5frvPn36KCEhQV26dNEbb7yhsLAwP1YWWGprazVgwAA988wzkqTrrrtOe/bs0YoVK5SWlubn6ryHK0SXoWPHjmrRosUFTyGUlJQoOjraT1UFtrpxYczOy8jI0MaNG/XRRx+pU6dOru3R0dGqrKyU0+l062/FcQoJCdG//Mu/qH///po3b5769u2rxYsXM0Y/UFBQoNLSUl1//fVq2bKlWrZsqdzcXC1ZskQtW7ZUVFQUY3URdrtdV199tb766iv+Pf1ATEyMevbs6batR48ertuLzfXvOIHoMoSEhKh///7Kzs52bautrVV2drYSExP9WFngio+PV3R0tNuYGYah/Px8S42ZaZrKyMjQ+vXrlZOTo/j4eLf2/v37q1WrVm7jtH//fh05csRS43QxtbW1qqioYIx+YMSIEfriiy9UWFjo+gwYMECpqamu/2asLnT69GkdOnRIMTEx/Hv6gcGDB1+wDMiBAwfUpUsXSc3477i/Z3U3devWrTNDQ0PN1atXm19++aU5fvx40263m8XFxf4uzW9OnTplfvbZZ+Znn31mSjIXLlxofvbZZ+bhw4dN0zTNZ5991rTb7eZbb71l7t6927z99tvN+Ph48+zZs36u3HcmTJhghoeHm5s3bza//fZb16e8vNzV5w9/+IPZuXNnMycnx9y5c6eZmJhoJiYm+rFq35s2bZqZm5trFhUVmbt37zanTZtmBgUFmZs2bTJNkzH6OT98ysw0GSvTNM0//elP5ubNm82ioiJz69atZnJystmxY0eztLTUNE3GqM727dvNli1bmk8//bR58OBBc82aNWabNm3Mv//9764+zfHvOIGoESxdutTs3LmzGRISYg4aNMj89NNP/V2SX3300UempAs+aWlppmmef2Rz5syZZlRUlBkaGmqOGDHC3L9/v3+L9rGLjY8kc9WqVa4+Z8+eNf/4xz+a7du3N9u0aWPeeeed5rfffuu/ov3gd7/7ndmlSxczJCTEvPLKK80RI0a4wpBpMkY/58eBiLEyzXvuuceMiYkxQ0JCzF/84hfmPffcY3711Veudsboe++884557bXXmqGhoWb37t3NlStXurU3x7/jQaZpmv65NgUAABAYmEMEAAAsj0AEAAAsj0AEAAAsj0AEAAAsj0AEAAAsj0AEAAAsj0AEAAAsj0AEAAAsj0AEAPW0evVq2e12f5cBwAsIRAAAwPIIRADwI5WVlf4uAYCPEYgANDkbN26U3W5XTU2NJKmwsFBBQUGaNm2aq89DDz2k++67T5L0z3/+U7169VJoaKi6du2qF154we33unbtqieffFIPPPCAbDabxo8fL+n8LbLOnTurTZs2uvPOO3XixAm3/T7//HMNGzZM7dq1k81mU//+/bVz505vnjoALyEQAWhykpKSdOrUKX322WeSpNzcXHXs2FGbN2929cnNzdXQoUNVUFCgu+++W2PHjtUXX3yh2bNna+bMmVq9erXbbz7//PPq27evPvvsM82cOVP5+fkaN26cMjIyVFhYqGHDhumpp55y2yc1NVWdOnXSjh07VFBQoGnTpqlVq1bePn0AXsDb7gE0Sf3799dvfvMb/fnPf9add96pgQMHas6cOTpx4oTKysrUqVMnHThwQLNnz9Z3332nTZs2ufZ97LHH9O6772rv3r2Szl8huu6667R+/XpXn3vvvVdlZWV69913XdvGjh2rzMxMOZ1OSZLNZtPSpUuVlpbmm5MG4DVcIQLQJN18883avHmzTNPUxx9/rLvuuks9evTQJ598otzcXMXGxuqqq67Svn37NHjwYLd9Bw8erIMHD7puuUnSgAED3Prs27dPCQkJbtsSExPdvk+ZMkUPPfSQkpOT9eyzz+rQoUONfJYAfIVABKBJGjp0qD755BN9/vnnatWqlbp3766hQ4dq8+bNys3N1c033+zR77Vt29bjGmbPnq29e/dq9OjRysnJUc+ePd2uMgFoOghEAJqkunlEL774oiv81AWizZs3a+jQoZKkHj16aOvWrW77bt26VVdffbVatGjxk7/fo0cP5efnu2379NNPL+h39dVXa/Lkydq0aZPuuusurVq16jLPDIA/EIgANEnt27dXnz59tGbNGlf4uemmm7Rr1y4dOHDAFZL+9Kc/KTs7W08++aQOHDigV199VS+99JL+/Oc//+zvT5w4UZmZmXr++ed18OBBvfTSS8rMzHS1nz17VhkZGdq8ebMOHz6srVu3aseOHerRo4fXzhmA9xCIADRZN998s2pqalyBKCIiQj179lR0dLSuueYaSdL111+vN954Q+vWrdO1116rWbNmae7cufrtb3/7s799ww036OWXX9bixYvVt29fbdq0STNmzHC1t2jRQidOnNADDzygq6++WnfffbdGjRqlOXPmeOt0AXgRT5kBAADL4woRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwPAIRAACwvP8PbKoun3pdlBAAAAAASUVORK5CYII=\n",
+      "text/plain": [
+       "<Figure size 640x480 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "sns.histplot(raw_df.words)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "8a45a13a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.760868Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.760471Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.764753Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.764084Z"
+    },
+    "papermill": {
+     "duration": 0.012183,
+     "end_time": "2025-11-01T04:25:59.765758",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.753575",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(22634, 4)"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "9540c19c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.779416Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.779059Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.788612Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.788085Z"
+    },
+    "papermill": {
+     "duration": 0.017445,
+     "end_time": "2025-11-01T04:25:59.789588",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.772143",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>review</th>\n",
+       "      <th>rating</th>\n",
+       "      <th>recommend</th>\n",
+       "      <th>words</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>love dress sooo pretty happened find store im ...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>31</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>high hope dress really wanted work initially o...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "      <td>48</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>love love love jumpsuit fun flirty fabulous ev...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>14</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>shirt flattering due adjustable front tie perf...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>16</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>love tracy reese dress one petite 5 foot tall ...</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0</td>\n",
+       "      <td>41</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22629</th>\n",
+       "      <td>happy snag dress great price easy slip flatter...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>11</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22630</th>\n",
+       "      <td>reminds maternity clothes soft stretchy shiny ...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>24</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22631</th>\n",
+       "      <td>fit well top see never would worked im glad ab...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "      <td>19</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22632</th>\n",
+       "      <td>bought dress wedding summer cute unfortunately...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>38</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22633</th>\n",
+       "      <td>dress lovely platinum feminine fit perfectly e...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>11</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>20078 rows × 4 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                                  review  rating  recommend  \\\n",
+       "1      love dress sooo pretty happened find store im ...       5          1   \n",
+       "2      high hope dress really wanted work initially o...       3          0   \n",
+       "3      love love love jumpsuit fun flirty fabulous ev...       5          1   \n",
+       "4      shirt flattering due adjustable front tie perf...       5          1   \n",
+       "5      love tracy reese dress one petite 5 foot tall ...       2          0   \n",
+       "...                                                  ...     ...        ...   \n",
+       "22629  happy snag dress great price easy slip flatter...       5          1   \n",
+       "22630  reminds maternity clothes soft stretchy shiny ...       3          1   \n",
+       "22631  fit well top see never would worked im glad ab...       3          0   \n",
+       "22632  bought dress wedding summer cute unfortunately...       3          1   \n",
+       "22633  dress lovely platinum feminine fit perfectly e...       5          1   \n",
+       "\n",
+       "       words  \n",
+       "1         31  \n",
+       "2         48  \n",
+       "3         14  \n",
+       "4         16  \n",
+       "5         41  \n",
+       "...      ...  \n",
+       "22629     11  \n",
+       "22630     24  \n",
+       "22631     19  \n",
+       "22632     38  \n",
+       "22633     11  \n",
+       "\n",
+       "[20078 rows x 4 columns]"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.loc[(raw_df.words >= 10) & (raw_df.words <= 50)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "bd64b3a4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.803719Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.803167Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.807904Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.807210Z"
+    },
+    "papermill": {
+     "duration": 0.012875,
+     "end_time": "2025-11-01T04:25:59.809102",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.796227",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = raw_df[['review', 'rating', 'recommend']]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "74cf5296",
+   "metadata": {
+    "papermill": {
+     "duration": 0.006556,
+     "end_time": "2025-11-01T04:25:59.822228",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.815672",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### Tokenizer"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "8db65d28",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.836011Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.835790Z",
+     "iopub.status.idle": "2025-11-01T04:25:59.838873Z",
+     "shell.execute_reply": "2025-11-01T04:25:59.838240Z"
+    },
+    "papermill": {
+     "duration": 0.01116,
+     "end_time": "2025-11-01T04:25:59.839864",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.828704",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "max_len = 40"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "a32449ec",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:25:59.853875Z",
+     "iopub.status.busy": "2025-11-01T04:25:59.853385Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.316206Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.315171Z"
+    },
+    "papermill": {
+     "duration": 0.471335,
+     "end_time": "2025-11-01T04:26:00.317696",
+     "exception": false,
+     "start_time": "2025-11-01T04:25:59.846361",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "tokenizer = Tokenizer()\n",
+    "tokenizer.fit_on_texts(df.review.values)\n",
+    "total_words = len(tokenizer.word_index)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "27c7deb3",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.339631Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.339043Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.342504Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.341980Z"
+    },
+    "papermill": {
+     "duration": 0.014296,
+     "end_time": "2025-11-01T04:26:00.343625",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.329329",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "\n",
+    "def tokenize(input_list):\n",
+    "    sequences = tokenizer.texts_to_sequences(input_list)\n",
+    "    padded = pad_sequences(sequences, maxlen=max_len, padding='post', truncating='post')\n",
+    "    return padded\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "759bab8b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.362762Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.362365Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.366831Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.366319Z"
+    },
+    "papermill": {
+     "duration": 0.015286,
+     "end_time": "2025-11-01T04:26:00.367831",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.352545",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[4812,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,\n",
+       "           0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,\n",
+       "           0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,\n",
+       "           0,    0,    0,    0,    0,    0,    0]], dtype=int32)"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tokenize(['hello ji'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "910262d7",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.382334Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.382160Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.386166Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.385497Z"
+    },
+    "papermill": {
+     "duration": 0.012306,
+     "end_time": "2025-11-01T04:26:00.387251",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.374945",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "17853"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "total_words"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "3f749d80",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.401922Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.401319Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.408898Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.408311Z"
+    },
+    "papermill": {
+     "duration": 0.015874,
+     "end_time": "2025-11-01T04:26:00.409994",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.394120",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>review</th>\n",
+       "      <th>rating</th>\n",
+       "      <th>recommend</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>absolutely wonderful silky sexy comfortable</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>love dress sooo pretty happened find store im ...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>high hope dress really wanted work initially o...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>love love love jumpsuit fun flirty fabulous ev...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>shirt flattering due adjustable front tie perf...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22629</th>\n",
+       "      <td>happy snag dress great price easy slip flatter...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22630</th>\n",
+       "      <td>reminds maternity clothes soft stretchy shiny ...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22631</th>\n",
+       "      <td>fit well top see never would worked im glad ab...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22632</th>\n",
+       "      <td>bought dress wedding summer cute unfortunately...</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22633</th>\n",
+       "      <td>dress lovely platinum feminine fit perfectly e...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>22634 rows × 3 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                                  review  rating  recommend\n",
+       "0            absolutely wonderful silky sexy comfortable       4          1\n",
+       "1      love dress sooo pretty happened find store im ...       5          1\n",
+       "2      high hope dress really wanted work initially o...       3          0\n",
+       "3      love love love jumpsuit fun flirty fabulous ev...       5          1\n",
+       "4      shirt flattering due adjustable front tie perf...       5          1\n",
+       "...                                                  ...     ...        ...\n",
+       "22629  happy snag dress great price easy slip flatter...       5          1\n",
+       "22630  reminds maternity clothes soft stretchy shiny ...       3          1\n",
+       "22631  fit well top see never would worked im glad ab...       3          0\n",
+       "22632  bought dress wedding summer cute unfortunately...       3          1\n",
+       "22633  dress lovely platinum feminine fit perfectly e...       5          1\n",
+       "\n",
+       "[22634 rows x 3 columns]"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fe2c6c5f",
+   "metadata": {
+    "papermill": {
+     "duration": 0.006645,
+     "end_time": "2025-11-01T04:26:00.423615",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.416970",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Model Training"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "e4efe178",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.438169Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.437736Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.790137Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.789524Z"
+    },
+    "papermill": {
+     "duration": 0.360987,
+     "end_time": "2025-11-01T04:26:00.791393",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.430406",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X_tokenized = tokenize(df.review)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "27e49fb5",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.806599Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.806214Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.819799Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.819311Z"
+    },
+    "papermill": {
+     "duration": 0.02228,
+     "end_time": "2025-11-01T04:26:00.820818",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.798538",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "test_size = 0.2 \n",
+    "random_state = 42\n",
+    "\n",
+    "X_train, X_test, y_rating_train, y_rating_test = train_test_split(X_tokenized, df['rating'], test_size=test_size, random_state=random_state)\n",
+    "_,_, y_recommend_train, y_recommend_test = train_test_split(X_tokenized, df['recommend'], test_size=test_size, random_state=random_state)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "85a6431c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.835437Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.835024Z",
+     "iopub.status.idle": "2025-11-01T04:26:00.839247Z",
+     "shell.execute_reply": "2025-11-01T04:26:00.838758Z"
+    },
+    "papermill": {
+     "duration": 0.012706,
+     "end_time": "2025-11-01T04:26:00.840338",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.827632",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "\n",
+    "# If not one-hot encoded ratings, do it now:\n",
+    "y_rating_train = to_categorical(y_rating_train - 1, num_classes=5)\n",
+    "y_rating_test = to_categorical(y_rating_test - 1, num_classes=5)\n",
+    "\n",
+    "# Hyperparameters\n",
+    "vocab_size = 10000      # change to your tokenizer vocab size\n",
+    "embedding_dim = 128\n",
+    "max_length = 40        # same as used in padding\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "eb145925",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:00.854738Z",
+     "iopub.status.busy": "2025-11-01T04:26:00.854348Z",
+     "iopub.status.idle": "2025-11-01T04:26:04.292508Z",
+     "shell.execute_reply": "2025-11-01T04:26:04.291711Z"
+    },
+    "papermill": {
+     "duration": 3.446726,
+     "end_time": "2025-11-01T04:26:04.293856",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:00.847130",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.11/dist-packages/keras/src/layers/core/embedding.py:90: UserWarning: Argument `input_length` is deprecated. Just remove it.\n",
+      "  warnings.warn(\n",
+      "I0000 00:00:1761971162.362665      19 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 13942 MB memory:  -> device: 0, name: Tesla T4, pci bus id: 0000:00:04.0, compute capability: 7.5\n",
+      "I0000 00:00:1761971162.363418      19 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 13942 MB memory:  -> device: 1, name: Tesla T4, pci bus id: 0000:00:05.0, compute capability: 7.5\n"
+     ]
+    }
+   ],
+   "source": [
+    "# -------------------- Input layer\n",
+    "input_layer = Input(shape=(max_length,))\n",
+    "\n",
+    "# -------------------- Embedding layer \n",
+    "embedding_layer_output = layers.Embedding(vocab_size, embedding_dim, input_length=max_length, name=\"embedding_ly\")(input_layer)\n",
+    "\n",
+    "# -------------------- Common layers\n",
+    "# LSTM layer - 1\n",
+    "lstm_1_output = layers.LSTM(8, return_sequences=True, name='lstm_1')(embedding_layer_output)\n",
+    "\n",
+    "# LSTM layer - 2\n",
+    "lstm_2_output = layers.LSTM(8, return_sequences=True, name='lstm_2')(lstm_1_output)\n",
+    "\n",
+    "# LSTM layer - 3\n",
+    "lstm_3_output = layers.LSTM(8, return_sequences=False, name='lstm_3')(lstm_2_output)\n",
+    "\n",
+    "\n",
+    "# Shared base\n",
+    "shared_base = layers.Dense(64, activation='relu', name='shared_base')(lstm_3_output)\n",
+    "\n",
+    "\n",
+    "# ---------------- sub model for multi-classification [rating]\n",
+    "# rating layer 1\n",
+    "rating_layer_1_output = layers.Dense(64, activation='relu', name='rating_sublayer_1')(shared_base)\n",
+    "\n",
+    "# rating layer 2\n",
+    "rating_layer_2_output = layers.Dense(32, activation='relu', name='rating_sublayer_2')(rating_layer_1_output)\n",
+    "\n",
+    "# rating layer output\n",
+    "rating_output = layers.Dense(5, activation='softmax', name='rating_output')(rating_layer_2_output)\n",
+    "\n",
+    "\n",
+    "# --------------- sub model for binary-classification [recommend]\n",
+    "# recommend layer 1\n",
+    "recommend_layer_1_output = layers.Dense(64, activation='relu', name='recommend_layer_1')(shared_base)\n",
+    "\n",
+    "# recommend layer 2\n",
+    "recommend_layer_2_output = layers.Dense(32, activation='relu', name='recommend_layer_2')(recommend_layer_1_output)\n",
+    "\n",
+    "# recommend layer output\n",
+    "recommend_output = layers.Dense(1, activation='sigmoid', name='recommend_output')(recommend_layer_2_output)\n",
+    "\n",
+    "\n",
+    "# -------------- Model\n",
+    "model = Model(inputs=input_layer, outputs=[rating_output, recommend_output])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "cc82051b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:04.309509Z",
+     "iopub.status.busy": "2025-11-01T04:26:04.309118Z",
+     "iopub.status.idle": "2025-11-01T04:26:04.320679Z",
+     "shell.execute_reply": "2025-11-01T04:26:04.319984Z"
+    },
+    "papermill": {
+     "duration": 0.020409,
+     "end_time": "2025-11-01T04:26:04.321727",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:04.301318",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# Compile the model with different losses for each output\n",
+    "model.compile(\n",
+    "    optimizer='adam',\n",
+    "    loss={\n",
+    "        'rating_output': 'categorical_crossentropy',\n",
+    "        'recommend_output': 'binary_crossentropy'\n",
+    "    },\n",
+    "    metrics={\n",
+    "        'rating_output': 'accuracy',\n",
+    "        'recommend_output': 'accuracy'\n",
+    "    }\n",
+    ")\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "id": "12d9ba81",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:04.336512Z",
+     "iopub.status.busy": "2025-11-01T04:26:04.336307Z",
+     "iopub.status.idle": "2025-11-01T04:26:04.355036Z",
+     "shell.execute_reply": "2025-11-01T04:26:04.354334Z"
+    },
+    "papermill": {
+     "duration": 0.027529,
+     "end_time": "2025-11-01T04:26:04.356133",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:04.328604",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"functional\"</span>\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1mModel: \"functional\"\u001b[0m\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓\n",
+       "┃<span style=\"font-weight: bold\"> Layer (type)        </span>┃<span style=\"font-weight: bold\"> Output Shape      </span>┃<span style=\"font-weight: bold\">    Param # </span>┃<span style=\"font-weight: bold\"> Connected to      </span>┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩\n",
+       "│ input_layer         │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">40</span>)        │          <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │ -                 │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">InputLayer</span>)        │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ embedding_ly        │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">40</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">128</span>)   │  <span style=\"color: #00af00; text-decoration-color: #00af00\">1,280,000</span> │ input_layer[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>] │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Embedding</span>)         │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ lstm_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)       │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">40</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">8</span>)     │      <span style=\"color: #00af00; text-decoration-color: #00af00\">4,384</span> │ embedding_ly[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">…</span> │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ lstm_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)       │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">40</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">8</span>)     │        <span style=\"color: #00af00; text-decoration-color: #00af00\">544</span> │ lstm_1[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]      │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ lstm_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)       │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">8</span>)         │        <span style=\"color: #00af00; text-decoration-color: #00af00\">544</span> │ lstm_2[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]      │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ shared_base (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>) │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)        │        <span style=\"color: #00af00; text-decoration-color: #00af00\">576</span> │ lstm_3[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>]      │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ rating_sublayer_1   │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)        │      <span style=\"color: #00af00; text-decoration-color: #00af00\">4,160</span> │ shared_base[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>] │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ recommend_layer_1   │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)        │      <span style=\"color: #00af00; text-decoration-color: #00af00\">4,160</span> │ shared_base[<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>][<span style=\"color: #00af00; text-decoration-color: #00af00\">0</span>] │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ rating_sublayer_2   │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">32</span>)        │      <span style=\"color: #00af00; text-decoration-color: #00af00\">2,080</span> │ rating_sublayer_… │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ recommend_layer_2   │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">32</span>)        │      <span style=\"color: #00af00; text-decoration-color: #00af00\">2,080</span> │ recommend_layer_… │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ rating_output       │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">5</span>)         │        <span style=\"color: #00af00; text-decoration-color: #00af00\">165</span> │ rating_sublayer_… │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ recommend_output    │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">1</span>)         │         <span style=\"color: #00af00; text-decoration-color: #00af00\">33</span> │ recommend_layer_… │\n",
+       "│ (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)             │                   │            │                   │\n",
+       "└─────────────────────┴───────────────────┴────────────┴───────────────────┘\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓\n",
+       "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)       \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape     \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m   Param #\u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mConnected to     \u001b[0m\u001b[1m \u001b[0m┃\n",
+       "┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩\n",
+       "│ input_layer         │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m40\u001b[0m)        │          \u001b[38;5;34m0\u001b[0m │ -                 │\n",
+       "│ (\u001b[38;5;33mInputLayer\u001b[0m)        │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ embedding_ly        │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m40\u001b[0m, \u001b[38;5;34m128\u001b[0m)   │  \u001b[38;5;34m1,280,000\u001b[0m │ input_layer[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m] │\n",
+       "│ (\u001b[38;5;33mEmbedding\u001b[0m)         │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ lstm_1 (\u001b[38;5;33mLSTM\u001b[0m)       │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m40\u001b[0m, \u001b[38;5;34m8\u001b[0m)     │      \u001b[38;5;34m4,384\u001b[0m │ embedding_ly[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m…\u001b[0m │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ lstm_2 (\u001b[38;5;33mLSTM\u001b[0m)       │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m40\u001b[0m, \u001b[38;5;34m8\u001b[0m)     │        \u001b[38;5;34m544\u001b[0m │ lstm_1[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]      │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ lstm_3 (\u001b[38;5;33mLSTM\u001b[0m)       │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m8\u001b[0m)         │        \u001b[38;5;34m544\u001b[0m │ lstm_2[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]      │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ shared_base (\u001b[38;5;33mDense\u001b[0m) │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m)        │        \u001b[38;5;34m576\u001b[0m │ lstm_3[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m]      │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ rating_sublayer_1   │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m)        │      \u001b[38;5;34m4,160\u001b[0m │ shared_base[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m] │\n",
+       "│ (\u001b[38;5;33mDense\u001b[0m)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ recommend_layer_1   │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m64\u001b[0m)        │      \u001b[38;5;34m4,160\u001b[0m │ shared_base[\u001b[38;5;34m0\u001b[0m][\u001b[38;5;34m0\u001b[0m] │\n",
+       "│ (\u001b[38;5;33mDense\u001b[0m)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ rating_sublayer_2   │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m32\u001b[0m)        │      \u001b[38;5;34m2,080\u001b[0m │ rating_sublayer_… │\n",
+       "│ (\u001b[38;5;33mDense\u001b[0m)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ recommend_layer_2   │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m32\u001b[0m)        │      \u001b[38;5;34m2,080\u001b[0m │ recommend_layer_… │\n",
+       "│ (\u001b[38;5;33mDense\u001b[0m)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ rating_output       │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m5\u001b[0m)         │        \u001b[38;5;34m165\u001b[0m │ rating_sublayer_… │\n",
+       "│ (\u001b[38;5;33mDense\u001b[0m)             │                   │            │                   │\n",
+       "├─────────────────────┼───────────────────┼────────────┼───────────────────┤\n",
+       "│ recommend_output    │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m1\u001b[0m)         │         \u001b[38;5;34m33\u001b[0m │ recommend_layer_… │\n",
+       "│ (\u001b[38;5;33mDense\u001b[0m)             │                   │            │                   │\n",
+       "└─────────────────────┴───────────────────┴────────────┴───────────────────┘\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">1,298,726</span> (4.95 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m1,298,726\u001b[0m (4.95 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">1,298,726</span> (4.95 MB)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m1,298,726\u001b[0m (4.95 MB)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+       "</pre>\n"
+      ],
+      "text/plain": [
+       "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "model.summary()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "id": "96b5b740",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-11-01T04:26:04.372192Z",
+     "iopub.status.busy": "2025-11-01T04:26:04.371737Z",
+     "iopub.status.idle": "2025-11-01T04:32:45.687729Z",
+     "shell.execute_reply": "2025-11-01T04:32:45.686995Z"
+    },
+    "papermill": {
+     "duration": 401.32559,
+     "end_time": "2025-11-01T04:32:45.689294",
+     "exception": false,
+     "start_time": "2025-11-01T04:26:04.363704",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Epoch 1/50\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "I0000 00:00:1761971171.341827      61 cuda_dnn.cc:529] Loaded cuDNN version 90300\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m17s\u001b[0m 15ms/step - loss: 1.6161 - rating_output_accuracy: 0.5583 - rating_output_loss: 1.1842 - recommend_output_accuracy: 0.8189 - recommend_output_loss: 0.4319 - val_loss: 1.2388 - val_rating_output_accuracy: 0.6192 - val_rating_output_loss: 0.9437 - val_recommend_output_accuracy: 0.8759 - val_recommend_output_loss: 0.2947\n",
+      "Epoch 2/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 1.1047 - rating_output_accuracy: 0.6345 - rating_output_loss: 0.8719 - recommend_output_accuracy: 0.9042 - recommend_output_loss: 0.2328 - val_loss: 1.1585 - val_rating_output_accuracy: 0.6220 - val_rating_output_loss: 0.9007 - val_recommend_output_accuracy: 0.8891 - val_recommend_output_loss: 0.2581\n",
+      "Epoch 3/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.9577 - rating_output_accuracy: 0.6711 - rating_output_loss: 0.7752 - recommend_output_accuracy: 0.9252 - recommend_output_loss: 0.1825 - val_loss: 1.2267 - val_rating_output_accuracy: 0.6125 - val_rating_output_loss: 0.9411 - val_recommend_output_accuracy: 0.8825 - val_recommend_output_loss: 0.2848\n",
+      "Epoch 4/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.8473 - rating_output_accuracy: 0.7139 - rating_output_loss: 0.6922 - recommend_output_accuracy: 0.9374 - recommend_output_loss: 0.1551 - val_loss: 1.2732 - val_rating_output_accuracy: 0.6057 - val_rating_output_loss: 0.9693 - val_recommend_output_accuracy: 0.8862 - val_recommend_output_loss: 0.3050\n",
+      "Epoch 5/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.7616 - rating_output_accuracy: 0.7410 - rating_output_loss: 0.6323 - recommend_output_accuracy: 0.9489 - recommend_output_loss: 0.1293 - val_loss: 1.4469 - val_rating_output_accuracy: 0.6181 - val_rating_output_loss: 1.0812 - val_recommend_output_accuracy: 0.8818 - val_recommend_output_loss: 0.3654\n",
+      "Epoch 6/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.6742 - rating_output_accuracy: 0.7733 - rating_output_loss: 0.5663 - recommend_output_accuracy: 0.9560 - recommend_output_loss: 0.1079 - val_loss: 1.4730 - val_rating_output_accuracy: 0.5770 - val_rating_output_loss: 1.1074 - val_recommend_output_accuracy: 0.8818 - val_recommend_output_loss: 0.3668\n",
+      "Epoch 7/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.6128 - rating_output_accuracy: 0.8011 - rating_output_loss: 0.5090 - recommend_output_accuracy: 0.9610 - recommend_output_loss: 0.1038 - val_loss: 1.6027 - val_rating_output_accuracy: 0.5834 - val_rating_output_loss: 1.2082 - val_recommend_output_accuracy: 0.8816 - val_recommend_output_loss: 0.3951\n",
+      "Epoch 8/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.5559 - rating_output_accuracy: 0.8268 - rating_output_loss: 0.4647 - recommend_output_accuracy: 0.9643 - recommend_output_loss: 0.0912 - val_loss: 1.5358 - val_rating_output_accuracy: 0.5863 - val_rating_output_loss: 1.1723 - val_recommend_output_accuracy: 0.8794 - val_recommend_output_loss: 0.3636\n",
+      "Epoch 9/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.4998 - rating_output_accuracy: 0.8476 - rating_output_loss: 0.4196 - recommend_output_accuracy: 0.9690 - recommend_output_loss: 0.0802 - val_loss: 1.7983 - val_rating_output_accuracy: 0.5856 - val_rating_output_loss: 1.3352 - val_recommend_output_accuracy: 0.8781 - val_recommend_output_loss: 0.4632\n",
+      "Epoch 10/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.4678 - rating_output_accuracy: 0.8599 - rating_output_loss: 0.3919 - recommend_output_accuracy: 0.9722 - recommend_output_loss: 0.0758 - val_loss: 1.8377 - val_rating_output_accuracy: 0.5617 - val_rating_output_loss: 1.4087 - val_recommend_output_accuracy: 0.8759 - val_recommend_output_loss: 0.4286\n",
+      "Epoch 11/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.4211 - rating_output_accuracy: 0.8814 - rating_output_loss: 0.3462 - recommend_output_accuracy: 0.9722 - recommend_output_loss: 0.0749 - val_loss: 1.9313 - val_rating_output_accuracy: 0.5801 - val_rating_output_loss: 1.4595 - val_recommend_output_accuracy: 0.8743 - val_recommend_output_loss: 0.4722\n",
+      "Epoch 12/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.3833 - rating_output_accuracy: 0.8911 - rating_output_loss: 0.3206 - recommend_output_accuracy: 0.9770 - recommend_output_loss: 0.0628 - val_loss: 2.0310 - val_rating_output_accuracy: 0.5752 - val_rating_output_loss: 1.5404 - val_recommend_output_accuracy: 0.8763 - val_recommend_output_loss: 0.4897\n",
+      "Epoch 13/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.3469 - rating_output_accuracy: 0.9063 - rating_output_loss: 0.2865 - recommend_output_accuracy: 0.9785 - recommend_output_loss: 0.0604 - val_loss: 2.0405 - val_rating_output_accuracy: 0.5697 - val_rating_output_loss: 1.5171 - val_recommend_output_accuracy: 0.8706 - val_recommend_output_loss: 0.5218\n",
+      "Epoch 14/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.3230 - rating_output_accuracy: 0.9178 - rating_output_loss: 0.2677 - recommend_output_accuracy: 0.9795 - recommend_output_loss: 0.0553 - val_loss: 2.2293 - val_rating_output_accuracy: 0.5602 - val_rating_output_loss: 1.6885 - val_recommend_output_accuracy: 0.8719 - val_recommend_output_loss: 0.5385\n",
+      "Epoch 15/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.3136 - rating_output_accuracy: 0.9204 - rating_output_loss: 0.2590 - recommend_output_accuracy: 0.9812 - recommend_output_loss: 0.0546 - val_loss: 2.2255 - val_rating_output_accuracy: 0.5752 - val_rating_output_loss: 1.6477 - val_recommend_output_accuracy: 0.8683 - val_recommend_output_loss: 0.5751\n",
+      "Epoch 16/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2785 - rating_output_accuracy: 0.9292 - rating_output_loss: 0.2320 - recommend_output_accuracy: 0.9842 - recommend_output_loss: 0.0465 - val_loss: 2.3811 - val_rating_output_accuracy: 0.5609 - val_rating_output_loss: 1.7581 - val_recommend_output_accuracy: 0.8699 - val_recommend_output_loss: 0.6213\n",
+      "Epoch 17/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2520 - rating_output_accuracy: 0.9392 - rating_output_loss: 0.2091 - recommend_output_accuracy: 0.9861 - recommend_output_loss: 0.0429 - val_loss: 2.3864 - val_rating_output_accuracy: 0.5743 - val_rating_output_loss: 1.8010 - val_recommend_output_accuracy: 0.8754 - val_recommend_output_loss: 0.5827\n",
+      "Epoch 18/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2390 - rating_output_accuracy: 0.9424 - rating_output_loss: 0.1997 - recommend_output_accuracy: 0.9867 - recommend_output_loss: 0.0393 - val_loss: 2.6787 - val_rating_output_accuracy: 0.5768 - val_rating_output_loss: 1.9379 - val_recommend_output_accuracy: 0.8679 - val_recommend_output_loss: 0.7386\n",
+      "Epoch 19/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2360 - rating_output_accuracy: 0.9430 - rating_output_loss: 0.1978 - recommend_output_accuracy: 0.9882 - recommend_output_loss: 0.0382 - val_loss: 2.5709 - val_rating_output_accuracy: 0.5573 - val_rating_output_loss: 1.9820 - val_recommend_output_accuracy: 0.8657 - val_recommend_output_loss: 0.5858\n",
+      "Epoch 20/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2172 - rating_output_accuracy: 0.9466 - rating_output_loss: 0.1819 - recommend_output_accuracy: 0.9883 - recommend_output_loss: 0.0354 - val_loss: 2.5126 - val_rating_output_accuracy: 0.5701 - val_rating_output_loss: 1.8872 - val_recommend_output_accuracy: 0.8677 - val_recommend_output_loss: 0.6234\n",
+      "Epoch 21/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2111 - rating_output_accuracy: 0.9489 - rating_output_loss: 0.1769 - recommend_output_accuracy: 0.9892 - recommend_output_loss: 0.0343 - val_loss: 2.6976 - val_rating_output_accuracy: 0.5518 - val_rating_output_loss: 2.0162 - val_recommend_output_accuracy: 0.8626 - val_recommend_output_loss: 0.6796\n",
+      "Epoch 22/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.2025 - rating_output_accuracy: 0.9514 - rating_output_loss: 0.1669 - recommend_output_accuracy: 0.9883 - recommend_output_loss: 0.0356 - val_loss: 2.6525 - val_rating_output_accuracy: 0.5662 - val_rating_output_loss: 1.9334 - val_recommend_output_accuracy: 0.8701 - val_recommend_output_loss: 0.7176\n",
+      "Epoch 23/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1939 - rating_output_accuracy: 0.9552 - rating_output_loss: 0.1629 - recommend_output_accuracy: 0.9901 - recommend_output_loss: 0.0309 - val_loss: 2.4860 - val_rating_output_accuracy: 0.5686 - val_rating_output_loss: 1.9141 - val_recommend_output_accuracy: 0.8675 - val_recommend_output_loss: 0.5700\n",
+      "Epoch 24/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1712 - rating_output_accuracy: 0.9602 - rating_output_loss: 0.1464 - recommend_output_accuracy: 0.9927 - recommend_output_loss: 0.0248 - val_loss: 2.7742 - val_rating_output_accuracy: 0.5465 - val_rating_output_loss: 2.0519 - val_recommend_output_accuracy: 0.8657 - val_recommend_output_loss: 0.7213\n",
+      "Epoch 25/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1568 - rating_output_accuracy: 0.9633 - rating_output_loss: 0.1350 - recommend_output_accuracy: 0.9930 - recommend_output_loss: 0.0218 - val_loss: 2.7515 - val_rating_output_accuracy: 0.5511 - val_rating_output_loss: 2.0775 - val_recommend_output_accuracy: 0.8653 - val_recommend_output_loss: 0.6724\n",
+      "Epoch 26/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1573 - rating_output_accuracy: 0.9627 - rating_output_loss: 0.1330 - recommend_output_accuracy: 0.9931 - recommend_output_loss: 0.0243 - val_loss: 2.8502 - val_rating_output_accuracy: 0.5675 - val_rating_output_loss: 2.1117 - val_recommend_output_accuracy: 0.8672 - val_recommend_output_loss: 0.7385\n",
+      "Epoch 27/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1627 - rating_output_accuracy: 0.9586 - rating_output_loss: 0.1405 - recommend_output_accuracy: 0.9926 - recommend_output_loss: 0.0223 - val_loss: 2.7997 - val_rating_output_accuracy: 0.5659 - val_rating_output_loss: 2.0181 - val_recommend_output_accuracy: 0.8637 - val_recommend_output_loss: 0.7793\n",
+      "Epoch 28/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1515 - rating_output_accuracy: 0.9624 - rating_output_loss: 0.1324 - recommend_output_accuracy: 0.9940 - recommend_output_loss: 0.0191 - val_loss: 2.9909 - val_rating_output_accuracy: 0.5600 - val_rating_output_loss: 2.1940 - val_recommend_output_accuracy: 0.8655 - val_recommend_output_loss: 0.7955\n",
+      "Epoch 29/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1378 - rating_output_accuracy: 0.9664 - rating_output_loss: 0.1203 - recommend_output_accuracy: 0.9956 - recommend_output_loss: 0.0176 - val_loss: 3.1630 - val_rating_output_accuracy: 0.5416 - val_rating_output_loss: 2.3416 - val_recommend_output_accuracy: 0.8628 - val_recommend_output_loss: 0.8199\n",
+      "Epoch 30/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1367 - rating_output_accuracy: 0.9648 - rating_output_loss: 0.1183 - recommend_output_accuracy: 0.9942 - recommend_output_loss: 0.0184 - val_loss: 3.3058 - val_rating_output_accuracy: 0.5679 - val_rating_output_loss: 2.3890 - val_recommend_output_accuracy: 0.8661 - val_recommend_output_loss: 0.9165\n",
+      "Epoch 31/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1342 - rating_output_accuracy: 0.9667 - rating_output_loss: 0.1160 - recommend_output_accuracy: 0.9944 - recommend_output_loss: 0.0182 - val_loss: 3.0127 - val_rating_output_accuracy: 0.5445 - val_rating_output_loss: 2.2609 - val_recommend_output_accuracy: 0.8653 - val_recommend_output_loss: 0.7514\n",
+      "Epoch 32/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1320 - rating_output_accuracy: 0.9684 - rating_output_loss: 0.1113 - recommend_output_accuracy: 0.9947 - recommend_output_loss: 0.0207 - val_loss: 3.3266 - val_rating_output_accuracy: 0.5509 - val_rating_output_loss: 2.4053 - val_recommend_output_accuracy: 0.8569 - val_recommend_output_loss: 0.9197\n",
+      "Epoch 33/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1183 - rating_output_accuracy: 0.9716 - rating_output_loss: 0.1028 - recommend_output_accuracy: 0.9960 - recommend_output_loss: 0.0155 - val_loss: 3.1993 - val_rating_output_accuracy: 0.5573 - val_rating_output_loss: 2.3505 - val_recommend_output_accuracy: 0.8637 - val_recommend_output_loss: 0.8485\n",
+      "Epoch 34/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1088 - rating_output_accuracy: 0.9733 - rating_output_loss: 0.0935 - recommend_output_accuracy: 0.9953 - recommend_output_loss: 0.0153 - val_loss: 3.1535 - val_rating_output_accuracy: 0.5399 - val_rating_output_loss: 2.3317 - val_recommend_output_accuracy: 0.8619 - val_recommend_output_loss: 0.8210\n",
+      "Epoch 35/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1063 - rating_output_accuracy: 0.9743 - rating_output_loss: 0.0945 - recommend_output_accuracy: 0.9947 - recommend_output_loss: 0.0119 - val_loss: 3.3887 - val_rating_output_accuracy: 0.5598 - val_rating_output_loss: 2.5687 - val_recommend_output_accuracy: 0.8655 - val_recommend_output_loss: 0.8182\n",
+      "Epoch 36/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1079 - rating_output_accuracy: 0.9736 - rating_output_loss: 0.0966 - recommend_output_accuracy: 0.9962 - recommend_output_loss: 0.0113 - val_loss: 3.3181 - val_rating_output_accuracy: 0.5416 - val_rating_output_loss: 2.4409 - val_recommend_output_accuracy: 0.8626 - val_recommend_output_loss: 0.8770\n",
+      "Epoch 37/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1043 - rating_output_accuracy: 0.9731 - rating_output_loss: 0.0934 - recommend_output_accuracy: 0.9968 - recommend_output_loss: 0.0109 - val_loss: 3.3863 - val_rating_output_accuracy: 0.5525 - val_rating_output_loss: 2.4716 - val_recommend_output_accuracy: 0.8617 - val_recommend_output_loss: 0.9149\n",
+      "Epoch 38/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0897 - rating_output_accuracy: 0.9790 - rating_output_loss: 0.0790 - recommend_output_accuracy: 0.9963 - recommend_output_loss: 0.0107 - val_loss: 3.3381 - val_rating_output_accuracy: 0.5458 - val_rating_output_loss: 2.5016 - val_recommend_output_accuracy: 0.8648 - val_recommend_output_loss: 0.8356\n",
+      "Epoch 39/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.1021 - rating_output_accuracy: 0.9742 - rating_output_loss: 0.0893 - recommend_output_accuracy: 0.9961 - recommend_output_loss: 0.0128 - val_loss: 3.3943 - val_rating_output_accuracy: 0.5589 - val_rating_output_loss: 2.5339 - val_recommend_output_accuracy: 0.8653 - val_recommend_output_loss: 0.8580\n",
+      "Epoch 40/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m9s\u001b[0m 15ms/step - loss: 0.1012 - rating_output_accuracy: 0.9748 - rating_output_loss: 0.0890 - recommend_output_accuracy: 0.9962 - recommend_output_loss: 0.0122 - val_loss: 3.5437 - val_rating_output_accuracy: 0.5467 - val_rating_output_loss: 2.6328 - val_recommend_output_accuracy: 0.8646 - val_recommend_output_loss: 0.9075\n",
+      "Epoch 41/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0894 - rating_output_accuracy: 0.9785 - rating_output_loss: 0.0765 - recommend_output_accuracy: 0.9969 - recommend_output_loss: 0.0129 - val_loss: 3.4438 - val_rating_output_accuracy: 0.5246 - val_rating_output_loss: 2.5892 - val_recommend_output_accuracy: 0.8613 - val_recommend_output_loss: 0.8536\n",
+      "Epoch 42/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0834 - rating_output_accuracy: 0.9785 - rating_output_loss: 0.0735 - recommend_output_accuracy: 0.9974 - recommend_output_loss: 0.0099 - val_loss: 3.2875 - val_rating_output_accuracy: 0.5412 - val_rating_output_loss: 2.4245 - val_recommend_output_accuracy: 0.8677 - val_recommend_output_loss: 0.8603\n",
+      "Epoch 43/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0780 - rating_output_accuracy: 0.9816 - rating_output_loss: 0.0692 - recommend_output_accuracy: 0.9975 - recommend_output_loss: 0.0087 - val_loss: 3.6399 - val_rating_output_accuracy: 0.5483 - val_rating_output_loss: 2.7316 - val_recommend_output_accuracy: 0.8588 - val_recommend_output_loss: 0.9083\n",
+      "Epoch 44/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0852 - rating_output_accuracy: 0.9791 - rating_output_loss: 0.0757 - recommend_output_accuracy: 0.9977 - recommend_output_loss: 0.0095 - val_loss: 3.8307 - val_rating_output_accuracy: 0.5438 - val_rating_output_loss: 2.8186 - val_recommend_output_accuracy: 0.8619 - val_recommend_output_loss: 1.0113\n",
+      "Epoch 45/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0801 - rating_output_accuracy: 0.9809 - rating_output_loss: 0.0710 - recommend_output_accuracy: 0.9973 - recommend_output_loss: 0.0091 - val_loss: 3.5113 - val_rating_output_accuracy: 0.5480 - val_rating_output_loss: 2.5960 - val_recommend_output_accuracy: 0.8624 - val_recommend_output_loss: 0.9139\n",
+      "Epoch 46/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0767 - rating_output_accuracy: 0.9803 - rating_output_loss: 0.0666 - recommend_output_accuracy: 0.9970 - recommend_output_loss: 0.0101 - val_loss: 3.4643 - val_rating_output_accuracy: 0.5432 - val_rating_output_loss: 2.5810 - val_recommend_output_accuracy: 0.8635 - val_recommend_output_loss: 0.8832\n",
+      "Epoch 47/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0861 - rating_output_accuracy: 0.9785 - rating_output_loss: 0.0763 - recommend_output_accuracy: 0.9973 - recommend_output_loss: 0.0098 - val_loss: 3.8073 - val_rating_output_accuracy: 0.5498 - val_rating_output_loss: 2.8183 - val_recommend_output_accuracy: 0.8637 - val_recommend_output_loss: 0.9860\n",
+      "Epoch 48/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0717 - rating_output_accuracy: 0.9821 - rating_output_loss: 0.0614 - recommend_output_accuracy: 0.9974 - recommend_output_loss: 0.0103 - val_loss: 3.4723 - val_rating_output_accuracy: 0.5527 - val_rating_output_loss: 2.5120 - val_recommend_output_accuracy: 0.8602 - val_recommend_output_loss: 0.9601\n",
+      "Epoch 49/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0724 - rating_output_accuracy: 0.9822 - rating_output_loss: 0.0630 - recommend_output_accuracy: 0.9975 - recommend_output_loss: 0.0094 - val_loss: 3.5889 - val_rating_output_accuracy: 0.5469 - val_rating_output_loss: 2.6724 - val_recommend_output_accuracy: 0.8619 - val_recommend_output_loss: 0.9200\n",
+      "Epoch 50/50\n",
+      "\u001b[1m566/566\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m8s\u001b[0m 14ms/step - loss: 0.0748 - rating_output_accuracy: 0.9828 - rating_output_loss: 0.0647 - recommend_output_accuracy: 0.9976 - recommend_output_loss: 0.0100 - val_loss: 3.6261 - val_rating_output_accuracy: 0.5496 - val_rating_output_loss: 2.7996 - val_recommend_output_accuracy: 0.8602 - val_recommend_output_loss: 0.8262\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "# ----- TRAIN -----\n",
+    "history = model.fit(\n",
+    "    X_train,\n",
+    "    {'rating_output': y_rating_train, 'recommend_output': y_recommend_train},\n",
+    "    epochs=50,\n",
+    "    batch_size=32,\n",
+    "    validation_data=(X_test, {'rating_output': y_rating_test, 'recommend_output': y_recommend_test})\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aa0a3d7e",
+   "metadata": {
+    "papermill": {
+     "duration": 0.30368,
+     "end_time": "2025-11-01T04:32:46.300917",
+     "exception": false,
+     "start_time": "2025-11-01T04:32:45.997237",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "nvidiaTeslaT4",
+   "dataSources": [
+    {
+     "datasetId": 11827,
+     "sourceId": 16290,
+     "sourceType": "datasetVersion"
+    }
+   ],
+   "dockerImageVersionId": 31154,
+   "isGpuEnabled": true,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.13"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 450.695167,
+   "end_time": "2025-11-01T04:32:50.192594",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-11-01T04:25:19.497427",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
