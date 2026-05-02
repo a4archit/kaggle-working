@@ -1,0 +1,622 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "a48b36cb",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:24.841906Z",
+     "iopub.status.busy": "2026-05-02T11:55:24.841543Z",
+     "iopub.status.idle": "2026-05-02T11:55:25.867171Z",
+     "shell.execute_reply": "2026-05-02T11:55:25.865702Z"
+    },
+    "papermill": {
+     "duration": 1.032571,
+     "end_time": "2026-05-02T11:55:25.869470+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:24.836899+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/kaggle/input/competitions/playground-series-s6e5/sample_submission.csv\n",
+      "/kaggle/input/competitions/playground-series-s6e5/train.csv\n",
+      "/kaggle/input/competitions/playground-series-s6e5/test.csv\n"
+     ]
+    }
+   ],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "f308f16d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:25.876181Z",
+     "iopub.status.busy": "2026-05-02T11:55:25.875665Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.123601Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.122455Z"
+    },
+    "papermill": {
+     "duration": 1.253852,
+     "end_time": "2026-05-02T11:55:27.125804+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:25.871952+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "raw_df = pd.read_csv(\"/kaggle/input/competitions/playground-series-s6e5/train.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "4683395a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:27.132978Z",
+     "iopub.status.busy": "2026-05-02T11:55:27.131957Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.231900Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.230604Z"
+    },
+    "papermill": {
+     "duration": 0.10593,
+     "end_time": "2026-05-02T11:55:27.234103+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.128173+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 439140 entries, 0 to 439139\n",
+      "Data columns (total 16 columns):\n",
+      " #   Column                  Non-Null Count   Dtype  \n",
+      "---  ------                  --------------   -----  \n",
+      " 0   id                      439140 non-null  int64  \n",
+      " 1   Driver                  439140 non-null  object \n",
+      " 2   Compound                439140 non-null  object \n",
+      " 3   Race                    439140 non-null  object \n",
+      " 4   Year                    439140 non-null  int64  \n",
+      " 5   PitStop                 439140 non-null  int64  \n",
+      " 6   LapNumber               439140 non-null  int64  \n",
+      " 7   Stint                   439140 non-null  int64  \n",
+      " 8   TyreLife                439140 non-null  float64\n",
+      " 9   Position                439140 non-null  int64  \n",
+      " 10  LapTime (s)             439140 non-null  float64\n",
+      " 11  LapTime_Delta           439140 non-null  float64\n",
+      " 12  Cumulative_Degradation  439140 non-null  float64\n",
+      " 13  RaceProgress            439140 non-null  float64\n",
+      " 14  Position_Change         439140 non-null  float64\n",
+      " 15  PitNextLap              439140 non-null  float64\n",
+      "dtypes: float64(7), int64(6), object(3)\n",
+      "memory usage: 53.6+ MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "raw_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "757426e1",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:27.240795Z",
+     "iopub.status.busy": "2026-05-02T11:55:27.240022Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.487603Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.486654Z"
+    },
+    "papermill": {
+     "duration": 0.253045,
+     "end_time": "2026-05-02T11:55:27.489575+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.236530+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.int64(0)"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.duplicated().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "262f238d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:27.496246Z",
+     "iopub.status.busy": "2026-05-02T11:55:27.495828Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.575267Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.574305Z"
+    },
+    "papermill": {
+     "duration": 0.085118,
+     "end_time": "2026-05-02T11:55:27.577265+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.492147+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id                        0\n",
+       "Driver                    0\n",
+       "Compound                  0\n",
+       "Race                      0\n",
+       "Year                      0\n",
+       "PitStop                   0\n",
+       "LapNumber                 0\n",
+       "Stint                     0\n",
+       "TyreLife                  0\n",
+       "Position                  0\n",
+       "LapTime (s)               0\n",
+       "LapTime_Delta             0\n",
+       "Cumulative_Degradation    0\n",
+       "RaceProgress              0\n",
+       "Position_Change           0\n",
+       "PitNextLap                0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "cd8cc0b9",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:27.584609Z",
+     "iopub.status.busy": "2026-05-02T11:55:27.583946Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.628311Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.627002Z"
+    },
+    "papermill": {
+     "duration": 0.050565,
+     "end_time": "2026-05-02T11:55:27.630462+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.579897+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>Driver</th>\n",
+       "      <th>Compound</th>\n",
+       "      <th>Race</th>\n",
+       "      <th>Year</th>\n",
+       "      <th>PitStop</th>\n",
+       "      <th>LapNumber</th>\n",
+       "      <th>Stint</th>\n",
+       "      <th>TyreLife</th>\n",
+       "      <th>Position</th>\n",
+       "      <th>LapTime (s)</th>\n",
+       "      <th>LapTime_Delta</th>\n",
+       "      <th>Cumulative_Degradation</th>\n",
+       "      <th>RaceProgress</th>\n",
+       "      <th>Position_Change</th>\n",
+       "      <th>PitNextLap</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>278119</th>\n",
+       "      <td>278119</td>\n",
+       "      <td>BEL</td>\n",
+       "      <td>MEDIUM</td>\n",
+       "      <td>Austrian Grand Prix</td>\n",
+       "      <td>2022</td>\n",
+       "      <td>0</td>\n",
+       "      <td>15</td>\n",
+       "      <td>1</td>\n",
+       "      <td>15.0</td>\n",
+       "      <td>7</td>\n",
+       "      <td>71.991</td>\n",
+       "      <td>-7.631</td>\n",
+       "      <td>-75.760</td>\n",
+       "      <td>0.208333</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>417619</th>\n",
+       "      <td>417619</td>\n",
+       "      <td>D159</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Abu Dhabi Grand Prix</td>\n",
+       "      <td>2025</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>16</td>\n",
+       "      <td>94.715</td>\n",
+       "      <td>0.520</td>\n",
+       "      <td>-17.146</td>\n",
+       "      <td>0.013158</td>\n",
+       "      <td>-2.0</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>347342</th>\n",
+       "      <td>347342</td>\n",
+       "      <td>SEN</td>\n",
+       "      <td>MEDIUM</td>\n",
+       "      <td>Qatar Grand Prix</td>\n",
+       "      <td>2025</td>\n",
+       "      <td>0</td>\n",
+       "      <td>5</td>\n",
+       "      <td>1</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>6</td>\n",
+       "      <td>88.447</td>\n",
+       "      <td>-9.009</td>\n",
+       "      <td>137.086</td>\n",
+       "      <td>0.069444</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            id Driver Compound                  Race  Year  PitStop  \\\n",
+       "278119  278119    BEL   MEDIUM   Austrian Grand Prix  2022        0   \n",
+       "417619  417619   D159     HARD  Abu Dhabi Grand Prix  2025        0   \n",
+       "347342  347342    SEN   MEDIUM      Qatar Grand Prix  2025        0   \n",
+       "\n",
+       "        LapNumber  Stint  TyreLife  Position  LapTime (s)  LapTime_Delta  \\\n",
+       "278119         15      1      15.0         7       71.991         -7.631   \n",
+       "417619          1      1       1.0        16       94.715          0.520   \n",
+       "347342          5      1       6.0         6       88.447         -9.009   \n",
+       "\n",
+       "        Cumulative_Degradation  RaceProgress  Position_Change  PitNextLap  \n",
+       "278119                 -75.760      0.208333              3.0         0.0  \n",
+       "417619                 -17.146      0.013158             -2.0         0.0  \n",
+       "347342                 137.086      0.069444              0.0         0.0  "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.sample(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "ebc964fe",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:27.637886Z",
+     "iopub.status.busy": "2026-05-02T11:55:27.637203Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.740402Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.739393Z"
+    },
+    "papermill": {
+     "duration": 0.109482,
+     "end_time": "2026-05-02T11:55:27.742732+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.633250+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Driver      887\n",
+       "Compound      5\n",
+       "Race         26\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.select_dtypes(include=['object']).nunique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "dbf5a1eb",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-05-02T11:55:27.750102Z",
+     "iopub.status.busy": "2026-05-02T11:55:27.749722Z",
+     "iopub.status.idle": "2026-05-02T11:55:27.767102Z",
+     "shell.execute_reply": "2026-05-02T11:55:27.765871Z"
+    },
+    "papermill": {
+     "duration": 0.023458,
+     "end_time": "2026-05-02T11:55:27.769118+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.745660+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Driver</th>\n",
+       "      <th>Compound</th>\n",
+       "      <th>Race</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>D109</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Canadian Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>D086</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Dutch Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>ZON</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Austrian Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>SPE</td>\n",
+       "      <td>MEDIUM</td>\n",
+       "      <td>Pre-Season Testing</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>D019</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Azerbaijan Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>439135</th>\n",
+       "      <td>D755</td>\n",
+       "      <td>MEDIUM</td>\n",
+       "      <td>Miami Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>439136</th>\n",
+       "      <td>D731</td>\n",
+       "      <td>MEDIUM</td>\n",
+       "      <td>Miami Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>439137</th>\n",
+       "      <td>D716</td>\n",
+       "      <td>MEDIUM</td>\n",
+       "      <td>Miami Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>439138</th>\n",
+       "      <td>D665</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Abu Dhabi Grand Prix</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>439139</th>\n",
+       "      <td>D714</td>\n",
+       "      <td>HARD</td>\n",
+       "      <td>Miami Grand Prix</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>439140 rows × 3 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       Driver Compound                   Race\n",
+       "0        D109     HARD    Canadian Grand Prix\n",
+       "1        D086     HARD       Dutch Grand Prix\n",
+       "2         ZON     HARD    Austrian Grand Prix\n",
+       "3         SPE   MEDIUM     Pre-Season Testing\n",
+       "4        D019     HARD  Azerbaijan Grand Prix\n",
+       "...       ...      ...                    ...\n",
+       "439135   D755   MEDIUM       Miami Grand Prix\n",
+       "439136   D731   MEDIUM       Miami Grand Prix\n",
+       "439137   D716   MEDIUM       Miami Grand Prix\n",
+       "439138   D665     HARD   Abu Dhabi Grand Prix\n",
+       "439139   D714     HARD       Miami Grand Prix\n",
+       "\n",
+       "[439140 rows x 3 columns]"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "raw_df.select_dtypes(include=['object'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dce56110",
+   "metadata": {
+    "papermill": {
+     "duration": 0.002972,
+     "end_time": "2026-05-02T11:55:27.775189+00:00",
+     "exception": false,
+     "start_time": "2026-05-02T11:55:27.772217+00:00",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "databundleVersionId": 16856040,
+     "sourceId": 125221,
+     "sourceType": "competition"
+    }
+   ],
+   "dockerImageVersionId": 31328,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.12"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 6.748151,
+   "end_time": "2026-05-02T11:55:28.298003+00:00",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2026-05-02T11:55:21.549852+00:00",
+   "version": "2.7.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
